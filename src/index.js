@@ -10,6 +10,7 @@ import './index.css';
 import Home from './containers/HomePage/Home';
 import Menu from './containers/MenuPage/Menu';
 import Login from './containers/LoginPage/Login';
+import Signup from './containers/SignupPage/Signup';
 import Cart from './containers/CartPage/Cart';
 import Chat from './containers/ChatPage/Chat';
 import Course from './containers/CoursePage/Course';
@@ -29,6 +30,7 @@ root.render(
       <Route path="/" element={<Home/>} />
       <Route path="Menu" element={<Menu />} />
       <Route path="Login" element={<Login />} />
+      <Route path="Signup" element={<Signup />} />
       <Route path="Cart" element={<Cart />} />
       <Route path="Chat" element={<Chat />} />
       <Route path="Course" element={<Course />} />
