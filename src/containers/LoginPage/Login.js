@@ -1,127 +1,120 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Style.scss';
+import './Login.scss';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import Authentication from 'lib/api/Authentication';
-//import logo from 'assets/<파일명>';
-//import SubmitBtn from "components/<컴포넌트명>";
+import axios from "axios";
 
-class Login extends Component {
+//
+const Login = () => {
+    const [userEmail, setUserEmail] = useState('');
+    const [userPassword, setUserPassword] = useState('');
+    const [token, setToken] = useState(localStorage.getItem("token") || '');
+    const [hasLoginFailed, setHasLoginFailed] = useState(false);
+    const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
-  constructor(props) {
-      super(props)
+    const EmailHandleChange = (e) => setUserEmail(e.target.value);
+    const passwordHandleChange = (e) => setUserPassword(e.target.value);
 
-      this.state = {
-          userEmail: localStorage.getItem("authenticatedUser") || '',
-          userPassword: '',
-          token: localStorage.getItem("token") || '',
-          hasLoginFailed: false,
-          showSuccessMessage: false
-      }
-      this.handleChange = this.handleChange.bind(this)
-      this.loginClicked = this.loginClicked.bind(this)
-  }
-  handleChange(event) {
-      this.setState(
-          {
-              [event.target.name] : event.target.value
-          }
-      )
-  }
+    const loginClicked = () => {
+        console.log('loginClicked')
+        console.log(userEmail)
+        Authentication
+            .login(userEmail, userPassword)
+            .then((response) => {
+                console.log(response)
+                // setToken();
+                document.location.href = "/";
+                setShowSuccessMessage(true);
+                setHasLoginFailed(false);
+            }).catch(() => {
+                // console.log(error.response)
+                setShowSuccessMessage(false);
+                setHasLoginFailed(true);
+                alert('Login Failed');
+            });
+    }
+    // 페이지 렌더링 후 가장 처음 호출되는 함수
+   {/* useEffect(() => {
+        axios.get('/login')
+            .then(res => console.log(res))
+            .catch()
+    },
+        // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
+        [])
+*/}
+    const socialLoginGoogle = () => {
+        console.log("google login clicked")
+        //Authentication.loginSocialGoogle();
+    }
 
-  loginClicked() {
-    console.log('loginClicked')
-    console.log(this.state.userEmail)
-      Authentication
-          .login(this.state.userEmail, this.state.userPassword)
-          .then((response) => {
-              console.log(response)
-              this.setState({
-                  //token: response.data.data
-              });
-              document.location.href = "/";    
-              this.setState({ showSuccessMessage: true })
-              this.setState({ hasLoginFailed: false })
-          }).catch(() => {
-              // console.log(error.response)
-              this.setState({ showSuccessMessage: false })
-              this.setState({ hasLoginFailed: true })
-              alert('Login Failed');
-          });
-  }
+    const socialLoginKakao = () => {
+        console.log("kakao login clicked")
+        //Authentication.loginSocialKakao();
+    }
 
-  socialLoginGoogle() {
-      console.log("google login clicked")
-      //Authentication.loginSocialGoogle();
-  }
-  socialLoginKakao() {
-      console.log("kakao login clicked")
-      //Authentication.loginSocialKakao();
-  }
-
-  
-  render() {
-      return (
+    return (
         <div className="login-page">
-          <Header />
-          <div className="login-content">
-              <div className="login-content-body">
-                  <div className="login-content-body-main">
-                      <div className="login-content-body-title">
-                          <h1 id='login-content-body-title'>로그인</h1>
-                      </div>
-                      <form >
-                      <div className="login-content-body-main-info">
-                          {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
-                          {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-                          <div className="login-content-body-main-info-id">
-                                  <input id="userEmail" name="userEmail" placeholder="이메일" type="email" onChange={this.handleChange}/>
-                          </div>
-                          <div className="login-content-body-main-info-pw">
-                                  <input id="userPassword" name="userPassword" placeholder="비밀번호" type="password" autoComplete="on" onChange={this.handleChange} />
-                          </div>
-                          </div>
-                      </form>
+            <Header />``
+            <div className="login-content">
+                <div className="login-content-body">
+                    <div className="login-content-body-title">
+                        <h1 id='login-content-body-title'>로그인</h1>
+                    </div>
+                    <div className="login-content-body-main">
+                        <form >
+                            <div className="login-content-body-main-info">
+                                {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
+                                {showSuccessMessage && <div>Login Sucessful</div>}
+                                <div className="login-content-body-main-info-id">
+                                    <input id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" type="email" onChange={EmailHandleChange} />
+                                </div>
+                                <div className="login-content-body-main-info-pw">
+                                    <input id="userPassword" name="userPassword" placeholder="비밀번호" type="password" autoComplete="on" onChange={passwordHandleChange} />
+                                </div>
+                            </div>
+                        </form>
 
-                      <div className="login-content-body-main-btn">
-                        <div className="login-content-body-main-btn-login">
-                            <button id="login" onClick={this.loginClicked}>로그인</button>
+                        <div className="login-content-body-main-btn">
+                            <div className="login-content-body-main-btn-login">
+                                <button id="login" onClick={loginClicked}>로그인</button>
+                            </div>
                         </div>
-                      </div>
-                      
 
-                      <div className="login-content-body-main-social">
-                          <div>소셜로그인</div>
-                          <hr></hr>
-                          <div className='login-content-body-main-social-btn'>
-                              <img className='social-login-btn' src={require('assets/btn/btn_google_signin.png')} onClick={this.socialLoginGoogle} />
-                          </div>
-                          <div className='login-content-body-main-social-btn'>
-                              <img className='social-login-btn' src={require('assets/btn/btn_kakao_signin.png')} onClick={this.socialLoginKakao} />
-                          </div>
-                      </div>
 
-                      <div className="login-content-body-main-user">
-                          <div className='login-content-body-main-signup-btn'>
-                              <Link to='/signup'>회원가입</Link>
-                          </div>
-                          <div className='login-content-body-main-signup-btn'>
-                              <Link to='/signup'>아이디 찾기</Link>
-                          </div>
-                          <div className='login-content-body-main-signup-btn'>
-                              <Link to='/signup'>비밀번호 찾기</Link>
-                          </div>
-                      </div>
-                  
-                  </div>
-              </div>
-          </div>
-          <Footer />
+                        <div className="login-content-body-main-social">
+                            <div>소셜로그인</div>
+                            <hr></hr>
+                            <div className="login-content-body-main-social-btn-carrier">
+                                <div className='login-content-body-main-social-btn'>
+                                    <img className='social-login-btn' src={require('assets/btn/btn_google_signin.png')} onClick={socialLoginGoogle} />
+                                </div>
+                                <div className='login-content-body-main-social-btn'>
+                                    <img className='social-login-btn' src={require('assets/btn/btn_kakao_signin.png')} onClick={socialLoginKakao} />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="login-content-body-main-user">
+                            <div className='login-content-body-main-signup-btn'>
+                                <Link to='/signup'>회원가입</Link>
+                            </div>
+                            <div className='login-content-body-main-signup-btn'>
+                                <Link to='/signup'>아이디 찾기</Link>
+                            </div>
+                            <div className='login-content-body-main-signup-btn'>
+                                <Link to='/signup'>비밀번호 찾기</Link>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <Footer />
         </div>
-      );
-  }
+    );
 };
 
 export default Login;

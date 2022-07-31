@@ -6,10 +6,11 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
-import './index.css';
+import './index.scss';
 import Home from './containers/HomePage/Home';
 import Menu from './containers/MenuPage/Menu';
 import Login from './containers/LoginPage/Login';
+import Login2 from './containers/LoginPage/Login2';
 import Signup from './containers/SignupPage/Signup';
 import Cart from './containers/CartPage/Cart';
 import Chat from './containers/ChatPage/Chat';
@@ -22,6 +23,7 @@ import Review from './containers/ReviewPage/Review';
 import SingleMenu from './containers/SingleMenuPage/SingleMenu';
 import UserInfo from './containers/UserInfoPage/UserInfo';
 import reportWebVitals from './reportWebVitals';
+import 'bootstrap/dist/css/bootstrap.css';//부트스트랩 : 삭제 금지
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -30,6 +32,7 @@ root.render(
       <Route path="/" element={<Home/>} />
       <Route path="Menu" element={<Menu />} />
       <Route path="Login" element={<Login />} />
+      <Route path="Login2" element={<Login2 />} />
       <Route path="Signup" element={<Signup />} />
       <Route path="Cart" element={<Cart />} />
       <Route path="Chat" element={<Chat />} />
