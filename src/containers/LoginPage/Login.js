@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Login.scss';
+import styles from './Login.module.scss';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import Authentication from 'lib/api/Authentication';
@@ -37,7 +37,7 @@ const Login = () => {
             });
     }
     // 페이지 렌더링 후 가장 처음 호출되는 함수
-   {/* useEffect(() => {
+    {/* useEffect(() => {
         axios.get('/login')
             .then(res => console.log(res))
             .catch()
@@ -56,62 +56,62 @@ const Login = () => {
     }
 
     return (
-        <div className="login-page">
+        <div className="loginPage">
             <Header />``
-            <div className="login-content">
-                <div className="login-content-body">
-                    <div className="login-content-body-title">
-                        <h1 id='login-content-body-title'>로그인</h1>
-                    </div>
-                    <div className="login-content-body-main">
+            <main>
+                <div className={styles.content}>
+                    <header className={styles.title}>
+                        <h1 id='title'>로그인</h1>
+                    </header>
+                    <section className={styles.main}>
                         <form >
-                            <div className="login-content-body-main-info">
+                            <div className={styles.inputArea}>
                                 {hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
                                 {showSuccessMessage && <div>Login Sucessful</div>}
-                                <div className="login-content-body-main-info-id">
+                                <div className={styles.inputId}>
                                     <input id="userEmail" name="userEmail" placeholder="이메일을 입력하세요" type="email" onChange={EmailHandleChange} />
                                 </div>
-                                <div className="login-content-body-main-info-pw">
+                                <div className={styles.inputPw}>
                                     <input id="userPassword" name="userPassword" placeholder="비밀번호" type="password" autoComplete="on" onChange={passwordHandleChange} />
                                 </div>
                             </div>
                         </form>
 
-                        <div className="login-content-body-main-btn">
-                            <div className="login-content-body-main-btn-login">
+                        <div className={styles.loginBtn}>
+                            <div>
                                 <button id="login" onClick={loginClicked}>로그인</button>
                             </div>
                         </div>
 
 
-                        <div className="login-content-body-main-social">
+                        <div className={styles.social}>
                             <div>소셜로그인</div>
                             <hr></hr>
-                            <div className="login-content-body-main-social-btn-carrier">
-                                <div className='login-content-body-main-social-btn'>
-                                    <img className='social-login-btn' src={require('assets/btn/btn_google_signin.png')} onClick={socialLoginGoogle} />
+                            <div className={styles.btnCarrier}>
+                                <div className={styles.socialBtn}>
+                                    <img src={require('assets/btn/btn_google_signin.png')} onClick={socialLoginGoogle} alt="google signin" />
                                 </div>
-                                <div className='login-content-body-main-social-btn'>
-                                    <img className='social-login-btn' src={require('assets/btn/btn_kakao_signin.png')} onClick={socialLoginKakao} />
+                                <div className={styles.socialBtn}>
+                                    <img src={require('assets/btn/btn_kakao_signin.png')} onClick={socialLoginKakao} alt="kakao signin" />
                                 </div>
                             </div>
                         </div>
 
-                        <div className="login-content-body-main-user">
-                            <div className='login-content-body-main-signup-btn'>
+                        <div className={styles.userAccess}>
+                            <div className={styles.signupBtn}>
                                 <Link to='/signup'>회원가입</Link>
                             </div>
-                            <div className='login-content-body-main-signup-btn'>
+                            <div className={styles.signupBtn}>
                                 <Link to='/signup'>아이디 찾기</Link>
                             </div>
-                            <div className='login-content-body-main-signup-btn'>
+                            <div className={styles.signupBtn}>
                                 <Link to='/signup'>비밀번호 찾기</Link>
                             </div>
                         </div>
 
-                    </div>
+                    </section>
                 </div>
-            </div>
+            </main>
             <Footer />
         </div>
     );

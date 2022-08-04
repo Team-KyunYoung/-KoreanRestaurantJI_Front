@@ -10,7 +10,8 @@ import './index.scss';
 import Home from './containers/HomePage/Home';
 import Menu from './containers/MenuPage/Menu';
 import Login from './containers/LoginPage/Login';
-import Login2 from './containers/LoginPage/Login2';
+import FindPassword from './containers/LoginPage/FindPassword';
+// import Login2 from './containers/LoginPage/Login2';
 import Signup from './containers/SignupPage/Signup';
 import Cart from './containers/CartPage/Cart';
 import Chat from './containers/ChatPage/Chat';
@@ -32,7 +33,7 @@ root.render(
       <Route path="/" element={<Home/>} />
       <Route path="Menu" element={<Menu />} />
       <Route path="Login" element={<Login />} />
-      <Route path="Login2" element={<Login2 />} />
+      <Route path="FindPassword" element={<FindPassword />} />
       <Route path="Signup" element={<Signup />} />
       <Route path="Cart" element={<Cart />} />
       <Route path="Chat" element={<Chat />} />

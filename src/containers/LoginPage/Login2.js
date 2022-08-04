@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import './Login.scss';
+import styles from './Login.module.scss';
 import Header from 'components/header/Header';
 import Footer from 'components/footer/Footer';
 import Authentication from 'lib/api/Authentication';
