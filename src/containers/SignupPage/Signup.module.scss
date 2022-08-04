@@ -1,23 +1,146 @@
-.login-content-body-main-info{
-    padding:5%;
-    &>div{
-        
-    height: 70px;
-    }
-    input{
-        width:100%;
-    }
-    p{
-        font-size:12px;
-        color:red;
+@import "./src/index.scss";
+
+.content {
+  width: 100%;
+  height: 100%;
+  align-content: center;
+  margin: 5% auto;
+  text-align: center;
+  vertical-align: middle;
+
+  .title {
+    color: rgb(53, 53, 53);
+    font-size: 29px;
+  }
+
+  .main {
+    width: 480px;
+    margin: auto;
+    vertical-align: middle;
+    align-content: center;
+    border-radius: 30px;
+    background-color: rgba(181, 181, 181, 0.8);
+    padding: 20px;
+
+    .inputArea {
+      align-content: center;
+      vertical-align: middle;
+      margin: auto;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      padding: 5%;
+
+      .inputId,
+      .inputNickname,
+      .inputPassword {
+        margin-bottom: 20px;
+      }
+
+      :is(.inputNickname, .inputPassword) input {
+        width: 100%;
+      }
+      .inputId {
+        justify-content: space-evenly;
+        input {
+          width: 80%;
+        }
+        button {
+          width: 20%;
+          height: 45px;
+        }
+      }
+
+      input {
+        height: 45px;
+        border-radius: 38px;
+        border: none;
+        padding-left: 10px;
+        border: none;
+      }
+
+      p {
+        font-size: 12px;
+        color: red;
         text-align: start;
-        padding-left:8px;
-        margin-bottom:0px;
+        padding-left: 8px;
+        margin-bottom: 0px;
         //display: none;
+      }
     }
+
+    .signUpBtn {
+      height: 12%;
+      margin-top: 3px;
+      margin-bottom: 3px;
+      vertical-align: middle;
+
+      div {
+        height: 54%;
+        text-align: center;
+        vertical-align: middle;
+        margin: 1%;
+        padding: 0 5%;
+
+        button {
+          text-align: center;
+          vertical-align: middle;
+          height: 45px;
+          width: 100%;
+          border-radius: 38px;
+          border: none;
+          background-color: #4e4e4e;
+          color: white;
+        }
+
+        button:hover {
+          cursor: pointer;
+          background-color: gray;
+        }
+      }
+    }
+  }
+
+  //  &-signup-btn {
+  //      border: 1px solid black;
+  //      border-radius: 15px;
+  //      border-color: black;
+  //  }
+
+  &-signup-btn a {
+    @include commonA(white);
+  }
+
+  &-signup-btn a:hover {
+    @include commonAHover(gray, white);
+  }
 }
 
-.login-content-body-main-btn { 
+@include tablet {
+}
+
+@include mobile {
+  .content {
+    width: 100%;
+
+    .main {
+      width: 90%;
+
+      :is(.inputNickname, .inputPassword) .inputArea {
+        input {
+          width: 90%;
+        }
+      }
+      .inputIdBtn {
+        font-size: x-small;
+      }
+
+      .signUpBtn {
+        button {
+          width: 90%;
+        }
+      }
+    }
+  }
 }
 
 // .login-content {

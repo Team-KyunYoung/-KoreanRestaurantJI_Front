@@ -29,6 +29,16 @@ class Authentication {
         },
       })
     }
+
+//     checkNickname(userNickname){
+//       console.log('name: '+userNickname)
+//       axios.get('/api/user/checkNickname').then((response)=>{
+// console.log(response.data);
+// }).catch((error)=>{
+// console.log(error);
+// })
+  
+//     }
 }
 //delte추가해보기 -> 마이페이지에서 버튼 만들어서 공부
 //아이디 비번 찾기
