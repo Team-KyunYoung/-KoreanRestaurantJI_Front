@@ -61,7 +61,6 @@ const Signup = () => {
       userNickname: userNickname,
     };
     const nicknameInfo = {
-      credentials: "include",
       method: "POST",
       body: JSON.stringify(data),
       headers: {
@@ -69,14 +68,14 @@ const Signup = () => {
       },
     };
     console.log(userNickname);
-    fetch("/api/user/checkNickname", nicknameInfo)
+    fetch("/api/user/checknickname", nicknameInfo)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
         //json에서 받아온 값이
-        if (json === false) {
+        if (json.data === "ok") {
           console.log("false");
-          if (userNickname != 0) setNicknameMessage("중복된 닉네임입니다");
+          if (userNickname !== 0) setNicknameMessage("중복된 닉네임입니다");
           else setNicknameMessage("");
         } else {
           console.log("true");
