@@ -1,91 +1,115 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import styles from "./Signup.module.scss";
-import Authentication from "lib/api/Authentication";
+import * as Authentication from "lib/api/Authentication";
 import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 
 const Signup = () => {
   const [userEmail, setUserEmail] = useState("");
+  const [emailToken, setEmailToken] = useState();
+  const [userToken, setUserToken] = useState();
   const [userNickname, setUserNickname] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
 
-  const [isUsableEmail, setIsUsableEmail] = useState(false);
+  const [isUsableEmail, setIsUsableEmail] = useState(false); //중복확인 통과 여부
+  //true->중복 검사 통과, false->타이머와 input 숨기기(중복검사 불통 또는 인증메일 확인 후)
   const [emailMessage, setEmailMessage] = useState("");
 
-  const [isUsableNickname, setIsUsableNickname] = useState(false);
+  const [isUsableNickname, setIsUsableNickname] = useState(false); //중복확인 통과 여부
   const [nicknameMessage, setNicknameMessage] = useState("");
+  const [isClickedNickname, setIsClickedNickname] = useState(false);
+  //닉네임은 fetch이용하기 때문에 focus되었을 때만 사용할 수 있도록
+
+  const [isCertifiedEmail, setIsCertifiedEmail] = useState(false); //이메일의 토큰인증 통과 여부
 
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
   const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
 
   const onChangeEmail = (e) => {
+    console.log(userEmail); //1g
     setUserEmail(e.target.value);
-    console.log(userEmail);
+    console.log(e.target.value); //1g1
+    console.log(userEmail); //1g
+    //1. 페이지 렌더링 되면서 userEmail에 저장된 값 뿌림
+    //2. 입력과 동시에 e.target.value값 인식
+    //3. 값이 바뀌었으므로 렌더링이 되지만 setState가 비동기이기 때문에 이전 state를 출력
   };
-  function emailAuth() {
-    const data = {
-      userEmail: userEmail,
-    };
-    const emailInfo = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    };
-    console.log(userEmail);
-    fetch("/api/user/signup/emailAuth", emailInfo)
+
+  const onClickEmail = () => {
+    //이메일 중복 검사 + 인증메일 발송
+    Authentication.emailAuth(userEmail)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        if (json === false) {
-          // json에서 tf를 반환하는지 모르겠다
-          console.log("false");
-          setEmailMessage("가입된 회원입니다.");
+        if (json.httpStatus === "OK") {
+          setEmailMessage("사용가능한 이메일입니다.");
+          setIsUsableEmail(true);
+          setEmailToken(json.data);
+        } else if (json.status === 500) {
+          setEmailMessage("올바르지 않은 메일 형식입니다.");
         } else {
           //가입되지 않은 회원이면 이메일 발송 + 카운트다운
-          console.log("true");
-          setIsUsableEmail(true);
+          setEmailMessage("가입된 회원입니다.");
         }
+      })
+      .catch(() => {
+        console.log("error");
       });
-  }
-  //닉네임 변경 시 1. 닉네임을 저장하고 (setUserNickname)
-  //2. 중복 검사 진행하여(fetch) 3. 중복 된 닉네임이면 메세지 보여줌(setIsDuplicateNickname)
+  };
+  const onChangeEmailToken = (e) => {
+    setUserToken(e.target.value);
+  };
+  const onClickEmailToken = () => {
+    if (userToken === emailToken) {
+      setIsUsableEmail(false); //타이머와 인증번호 입력 칸 숨기기 위해 false처리
+      setEmailMessage("인증이 완료되었습니다.");
+      setIsCertifiedEmail(true);
+    } else {
+      setEmailMessage("인증번호를 다시 확인해주세요:)");
+    }
+  };
+
   const onChangeNickname = (e) => {
     setUserNickname(e.target.value);
-    const data = {
-      userNickname: userNickname,
-    };
-    const nicknameInfo = {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    };
-    console.log(userNickname);
-    fetch("/api/user/checknickname", nicknameInfo)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        //json에서 받아온 값이
-        if (json.data === "ok") {
-          console.log("false");
-          if (userNickname !== 0) setNicknameMessage("중복된 닉네임입니다");
-          else setNicknameMessage("");
-        } else {
-          console.log("true");
-          setNicknameMessage("사용 가능한 닉네임입니다");
-          setIsUsableNickname(true);
-        }
-      });
+  };
+  const onClickNickname = () => {
+    setIsClickedNickname(true);
+  };
+  //닉네임 중복 쳌
+  //렌더링 될 때마다 특정 작업을 실행하는 useEffect 사용 : useState를 동기적으로 사용할 수 있음
+  useEffect(() => {
+    if (isClickedNickname === true) {
+      //닉네임 input에 focus되었을 때만 아래를 수행함
+      Authentication.checknickname(userNickname)
+        .then((res) => res.json())
+        .then((json) => {
+          console.log(json);
+          //json에서 받아온 값이
+          if (userNickname.length !== 0) {
+            setNicknameMessage(json.message);
+            console.log(json.data.status);
+            if (json.data.status === "OK") {
+              setIsUsableNickname(true);
+              setNicknameMessage("사용 가능한 닉네임입니다.");
+            } else {
+              setNicknameMessage("이미 존재하는 닉네임입니다.");
+            }
+          } else {
+            setNicknameMessage("");
+          }
+        })
+        .catch(() => {});
+    }
+  });
+  const onClickPassword = () => {
+    setIsClickedNickname(false);
   };
   const onChangePassword = (e) => {
     setUserPassword(e.target.value);
+    console.log(e.target.value);
     setVisiblePwMessage(true);
   };
   const onChangePasswordConfirm = (e) => {
@@ -119,27 +143,44 @@ const Signup = () => {
     }
   }, [userPassword, userPasswordConfirm]);
   //회원가입 신청 시 내용 저장
-  function signupClicked() {
+  const signupClicked = () => {
     console.log("signupClicked");
     console.log({ userEmail });
-    // if (visibleIdMessage === false || visibleNicknameMessage === false || visiblePwMessage === false || visiblePpwwMessage === false)
-    //     alert('입력한 내용을 다시 확인해주세요');
-    Authentication.signup(userEmail, userNickname, userPassword)
-      .then((response) => {
-        console.log(response);
-        alert("회원가입이 완료되었습니다.");
-        document.location.href = "/login";
-      })
-      .catch(() => {
-        alert("Signup Failed");
-      });
-  }
+    if (
+      isCertifiedEmail !== true ||
+      isUsableNickname !== true ||
+      visiblePwMessage !== false ||
+      visiblePpwwMessage !== false
+    ) {
+      alert("입력한 내용을 다시 확인해주세요");
+      console.log(
+        isCertifiedEmail +
+          "," +
+          isUsableNickname +
+          "," +
+          visiblePwMessage +
+          "," +
+          visiblePpwwMessage +
+          ","
+      );
+    } else {
+      Authentication.signup(userEmail, userNickname, userPassword)
+        .then((response) => {
+          console.log(response);
+          alert("회원가입이 완료되었습니다.");
+          document.location.href = "/login";
+        })
+        .catch(() => {
+          alert("Signup Failed");
+        });
+    }
+  };
 
   //이메일 인증 카운트 다운
   //참고 : https://handhand.tistory.com/32
   const [min, setMin] = useState(3);
   const [sec, setSec] = useState(0);
-  const time = useRef(180);
+  var time = useRef(180);
   const timerId = useRef(null);
   useEffect(() => {
     if (isUsableEmail) {
@@ -149,15 +190,16 @@ const Signup = () => {
         setSec(time.current % 60);
         time.current -= 1;
       }, 1000);
-      return () => clearInterval(timerId.current);
+      // return () => clearInterval(timerId.current);
     } else {
       clearInterval(timerId.current);
     }
   }, [isUsableEmail]);
   useEffect(() => {
-    if (time.current <= 0) {
-      clearInterval(timerId.current);
-      //시간 초과 시 멘트 발생
+    if (time.current < 0) {
+      setIsUsableEmail(false);
+      setEmailMessage("다시 한 번 인증해주세요");
+      time.current = 180; //useRef 값 변경
     }
   }, [sec]);
 
@@ -186,44 +228,34 @@ const Signup = () => {
                       variant="outline-secondary"
                       id="button-addon2"
                       className={styles.inputIdBtn}
-                      onClick={
-                        emailAuth
-                        //     () => {
-                        //   //닉네임 검사이메일 인증 발송
-                        //   setIsUsableEmail(true);
-                        // }
-                      }
+                      onClick={onClickEmail}
                     >
                       입력
                     </Button>
                   </InputGroup>
-                  {emailMessage}
+                  <p>{emailMessage}</p>
                   {/*이메일 중복되면 메세지*/}
                   {isUsableEmail && (
-                    <p
-                      className="signup-help-enter-id"
-                      name="enterEmailMessage"
-                    >
+                    <p name="enterEmailMessage">
                       {min}분 {sec}초
                     </p>
                   )}
                   {isUsableEmail && (
                     <InputGroup>
                       <input
-                        id="userToken"
-                        name="userToken"
+                        id="emailToken"
+                        name="emailToken"
                         placeholder="인증키를 입력해주세요"
                         aria-label="인증키를 입력해주세요"
                         type="text"
+                        onChange={onChangeEmailToken}
                       />
-                      {/* onChange={onChangeUserToken} */}
+
                       <Button
                         variant="outline-secondary"
                         className={styles.inputIdBtn}
                         id="button-addon2"
-                        onClick={() => {
-                          setIsUsableEmail(true);
-                        }}
+                        onClick={onClickEmailToken}
                       >
                         인증
                       </Button>
@@ -236,10 +268,9 @@ const Signup = () => {
                     name="userNickname"
                     placeholder="닉네임"
                     onChange={onChangeNickname}
+                    onClick={onClickNickname}
                   />
-                  <p className="signup-help-enter-nickname">
-                    {nicknameMessage}
-                  </p>
+                  <p>{nicknameMessage}</p>
                 </div>
                 <div className={styles.inputPassword}>
                   <input
@@ -249,9 +280,10 @@ const Signup = () => {
                     type="password"
                     autoComplete="on"
                     onChange={onChangePassword}
+                    onClick={onClickPassword}
                   />
                   {visiblePwMessage && (
-                    <p className="signup-help-enter-pw">
+                    <p>
                       영소문자와 숫자를 섞은 8자리 이상의 비밀번호를
                       입력해주세요
                     </p>
@@ -266,11 +298,7 @@ const Signup = () => {
                     autoComplete="on"
                     onChange={onChangePasswordConfirm}
                   />
-                  {visiblePpwwMessage && (
-                    <p className="signup-help-enter-ppww">
-                      일치하지 않는 비밀번호입니다
-                    </p>
-                  )}
+                  {visiblePpwwMessage && <p>일치하지 않는 비밀번호입니다</p>}
                 </div>
               </div>
             </form>
