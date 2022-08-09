@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
-import styles from "./Map.module.scss";
+import styles from "./Info.module.scss";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 
-const Map = () => {
+const Info = () => {
   const [token, setToken] = useState(localStorage.getItem("token") || "");
 
   return (
-    <div className="MapPage">
+    <div className="InfoPage">
       <Header />
-
+      ``
       <main>
         <div className={styles.content}>
           <header className={styles.title}>
@@ -28,4 +28,4 @@ const Map = () => {
   );
 };
 
-export default Map;
+export default Info;
