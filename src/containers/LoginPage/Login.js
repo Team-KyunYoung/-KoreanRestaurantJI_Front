@@ -59,7 +59,6 @@ const Login = () => {
   return (
     <div className="loginPage">
       <Header />
-      ``
       <main>
         <div className={styles.content}>
           <header className={styles.title}>
