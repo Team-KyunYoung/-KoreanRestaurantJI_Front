@@ -117,7 +117,7 @@ const FindPassword = () => {
   //참고 : https://handhand.tistory.com/32
   const [min, setMin] = useState(3);
   const [sec, setSec] = useState(0);
-  const time = useRef(180);
+  const [time, setTime] = useState(180);
   const timerId = useRef(null);
   useEffect(() => {
     if (isUsableEmail) {
@@ -125,7 +125,9 @@ const FindPassword = () => {
       timerId.current = setInterval(() => {
         setMin(parseInt(time.current / 60));
         setSec(time.current % 60);
-        time.current -= 1;
+
+        setTime(time - 1);
+        console.log({ time });
       }, 1000);
       return () => clearInterval(timerId.current);
     } else {
