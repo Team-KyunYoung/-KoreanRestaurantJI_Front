@@ -1,13 +1,30 @@
-import React from "react";
-import './Style.scss';
-//import logo from '../../assets/<파일명>';
-//import SubmitBtn from "../../components/<컴포넌트명>";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+
+import styles from "./Map.module.scss";
+import Header from "components/header/Header";
+import Footer from "components/footer/Footer";
 
 const Map = () => {
+  const [token, setToken] = useState(localStorage.getItem("token") || "");
+
   return (
-  <div>
-    <p>찾아오시는 길</p>
-  </div>
+    <div className="MapPage">
+      <Header />
+
+      <main>
+        <div className={styles.content}>
+          <header className={styles.title}>
+
+          </header>
+          <section className={styles.main}>
+
+          </section>
+        </div>
+      </main>
+
+      <Footer />
+    </div>
   );
 };
 
