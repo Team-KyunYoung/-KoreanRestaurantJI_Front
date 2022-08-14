@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import styles from "./Login.module.scss";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import * as Authentication from "lib/api/Authentication";
+import * as UserService from "lib/api/UserService";
+import Authentication from "lib/api/Authentication";
 
-//
 const Login = () => {
+  let navigate = useNavigate();
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
-  const [token, setToken] = useState(localStorage.getItem("token") || "");
   const [hasLoginFailed, setHasLoginFailed] = useState(false);
   const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
@@ -20,13 +20,14 @@ const Login = () => {
   const loginClicked = () => {
     console.log("loginClicked");
     console.log(userEmail);
-    Authentication.login(userEmail, userPassword)
-      .then((response) => {
-        console.log(response);
-        // setToken();
-        document.location.href = "/";
+    UserService.login(userEmail, userPassword)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        Authentication.loginTokenSave(json.data.token);
         setShowSuccessMessage(true);
         setHasLoginFailed(false);
+        navigate(-1)   //toBack()
       })
       .catch(() => {
         // console.log(error.response)
