@@ -1,6 +1,7 @@
 import React from "react";
 import { Parallax } from "react-parallax";
 const ParallaxContent = (props) => {
+  let { image, title, contents } = props;
   const imageStyle = {
     display: "inline-block",
     width: "60%",
@@ -21,12 +22,12 @@ const ParallaxContent = (props) => {
 
   return (
     <article>
-      <Parallax bgImage={props.image} strength={500} style={imageStyle}>
+      <Parallax bgImage={image} strength={500} style={imageStyle}>
         <div style={{ height: 500 }}></div>
       </Parallax>
       <div style={textStyle}>
-        <h1>{props.title}</h1>
-        {props.contents}
+        <h1>{title}</h1>
+        {contents}
       </div>
     </article>
   );

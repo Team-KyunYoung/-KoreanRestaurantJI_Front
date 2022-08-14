@@ -27,7 +27,7 @@ const Login = () => {
         Authentication.loginTokenSave(json.data.token);
         setShowSuccessMessage(true);
         setHasLoginFailed(false);
-        navigate(-1)   //toBack()
+        navigate(-1); //toBack()
       })
       .catch(() => {
         // console.log(error.response)
@@ -36,17 +36,6 @@ const Login = () => {
         alert("Login Failed");
       });
   };
-  // 페이지 렌더링 후 가장 처음 호출되는 함수
-  {
-    /* useEffect(() => {
-        axios.get('/login')
-            .then(res => console.log(res))
-            .catch()
-    },
-        // 페이지 호출 후 처음 한번만 호출될 수 있도록 [] 추가
-        [])
-*/
-  }
   const socialLoginGoogle = () => {
     console.log("google login clicked");
     //Authentication.loginSocialGoogle();
