@@ -35,7 +35,7 @@ const Info = () => {
             </div>
             <div className={styles.contents}>
               {/* <div data-aos="fade-left" className={styles.img}><img src={image1}></img></div> */}
-              <div data-aos="fade-left" data-aos-duration="2500" className={styles.imgbox} id={styles.leftImg}></div>
+              <div data-aos="fade-right" data-aos-duration="2500" className={styles.imgbox} id={styles.leftImg}></div>
               <div data-aos="zoom-in" data-aos-duration="1500" className={styles.text} id={styles.rightText}>
                 <span>여기는 상세 설명이 담기는 부분입니다.</span><br></br>
                 <span>뭐라고 써야할 지 몰라서 아무말이나 적어봅니다.</span><br></br>

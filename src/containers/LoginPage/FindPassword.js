@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, useCallback } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import styles from "../SignupPage/Signup.module.scss";
-import * as Authentication from "lib/api/Authentication";
+import * as UserService from "lib/api/UserService";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -29,7 +29,7 @@ const FindPassword = () => {
   };
 
   function onClickEmail() {
-    Authentication.emailAuthForPassword(userEmail)
+    UserService.emailAuthForPassword(userEmail)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
@@ -102,7 +102,7 @@ const FindPassword = () => {
       alert("비밀번호 변경이 불가능합니다. 입력 내용을 확인해주세요");
       console.log(isCertifiedEmail + "" + visiblePwMessage);
     } else {
-      Authentication.updatePassword(74, userPassword)
+      UserService.updatePassword(userEmail, userPassword)
         .then((res) => res.json())
         .then((data) => {
           console.log("성공:", data);

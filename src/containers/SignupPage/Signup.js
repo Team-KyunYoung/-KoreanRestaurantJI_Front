@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import styles from "./Signup.module.scss";
-import * as Authentication from "lib/api/Authentication";
+import * as UserService from "lib/api/UserService";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 
@@ -40,7 +40,7 @@ const Signup = () => {
 
   const onClickEmail = () => {
     //이메일 중복 검사 + 인증메일 발송
-    Authentication.emailAuth(userEmail)
+    UserService.emailAuth(userEmail)
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
@@ -83,7 +83,7 @@ const Signup = () => {
   useEffect(() => {
     if (isClickedNickname === true) {
       //닉네임 input에 focus되었을 때만 아래를 수행함
-      Authentication.checknickname(userNickname)
+      UserService.checknickname(userNickname)
         .then((res) => res.json())
         .then((json) => {
           console.log(json);
@@ -164,7 +164,7 @@ const Signup = () => {
           ","
       );
     } else {
-      Authentication.signup(userEmail, userNickname, userPassword)
+      UserService.signup(userEmail, userNickname, userPassword)
         .then((response) => {
           console.log(response);
           alert("회원가입이 완료되었습니다.");
