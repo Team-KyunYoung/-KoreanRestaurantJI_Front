@@ -1,53 +1,54 @@
 // 임시 미디어쿼리
 /*반응형 화면 크기*/
+$lessMobile: 320px;
 $mobile: 768px;
-$overMobile:769px;
+$overMobile: 769px;
 $tablet: 1023px;
-$desktop: 1024px; 
+$desktop: 1024px;
 /*반응형, 브라우저 크기가 992px 이하일때*/
-@mixin mobile{
-  @media (max-width: $mobile){
+@mixin mobile {
+  @media (min-width: $lessMobile) and(max-width: $mobile) {
     @content;
   }
 }
 /*반응형, 브라우저 크기가 768이상, 1023px 이하일때*/
-@mixin tablet{
-  @media (min-width: $overMobile) and (max-width: $tablet){
+@mixin tablet {
+  @media (min-width: $overMobile) and (max-width: $tablet) {
     @content;
   }
 }
 
 /*반응형, 브라우저 크기가 1024px 이상일때*/
-@mixin desktop{
-  @media (min-width: $desktop){
+@mixin desktop {
+  @media (min-width: $desktop) {
     @content;
   }
 }
- 
-//출처 ; https://eunhee-programming.tistory.com/178 
+
+//출처 ; https://eunhee-programming.tistory.com/178
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
 }
-@mixin commonA($color){
+@mixin commonA($color) {
   text-decoration: none;
-  color:$color;
+  color: $color;
   font-weight: bold;
-  padding:5px;
+  padding: 5px;
 }
-@mixin commonAHover($bg,$font){
+@mixin commonAHover($bg, $font) {
   cursor: pointer;
-  color:$font;
-  border-radius:15px;
-  background-color:$bg;
+  color: $font;
+  border-radius: 15px;
+  background-color: $bg;
 }

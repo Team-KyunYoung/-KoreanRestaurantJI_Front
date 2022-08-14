@@ -15,7 +15,7 @@ const Signup = () => {
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
 
   const [isUsableEmail, setIsUsableEmail] = useState(false); //중복확인 통과 여부
-  //true->중복 검사 통과, false->타이머와 input 숨기기(중복검사 불통 또는 인증메일 확인 후)
+  //true->중복 검사 통과, false->타이머와 input 숨기기(중복검사 불통 또는 인증메일 확인 후 또는 시간 초과)
   const [emailMessage, setEmailMessage] = useState("");
 
   const [isUsableNickname, setIsUsableNickname] = useState(false); //중복확인 통과 여부
@@ -44,7 +44,7 @@ const Signup = () => {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        if (json.httpStatus === "OK") {
+        if (json.data.status === "OK") {
           setEmailMessage("사용가능한 이메일입니다.");
           setIsUsableEmail(true);
           setEmailToken(json.data);
@@ -86,11 +86,8 @@ const Signup = () => {
       UserService.checknickname(userNickname)
         .then((res) => res.json())
         .then((json) => {
-          console.log(json);
-          //json에서 받아온 값이
           if (userNickname.length !== 0) {
             setNicknameMessage(json.message);
-            console.log(json.data.status);
             if (json.data.status === "OK") {
               setIsUsableNickname(true);
               setNicknameMessage("사용 가능한 닉네임입니다.");
