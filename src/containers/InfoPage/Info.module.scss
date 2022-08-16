@@ -12,45 +12,96 @@
   }
 
 .contents {
-    display: inline-block;
-    justify-content: center;
     padding: 5%;
     padding-top: 2%;
+    @media ( min-width: 1025px ) {
+        display: inline-block;
+        justify-content: center;
+    }    
+    @media ( max-width: 1024px ){
+        display: grid;
+        justify-items: center;
+        justify-content: center;
+    }
 }
 
 .img {
-    background-color: lightgray;
+    width: 60vw;
+    height: 50vh;
     position: relative;
-    z-index: 1;
+    @media ( min-width: 1025px ) {
+        width: 60vw;
+        height: 50vh;
+        z-index: 1;
+    }    
+    @media ( max-width: 1024px ){
+        width: 80vw;
+        height: 50vh;
+        justify-items: center;
+    }
 }
 
+// 이미지 넣으면 삭제!
 .imgbox {
-    width: 600px;
-    height: 500px;
+    width: 60vw;
+    height: 50vh;
     background-color: lightgray;
     position: relative;
-    z-index: 1;
+    @media ( min-width: 1025px ) {
+        width: 60vw;
+        height: 50vh;
+        z-index: 1;
+    }    
+    @media ( max-width: 1024px ){
+        width: 80vw;
+        height: 50vh;
+        justify-items: center;
+    }
 }
 
 #rightImg {
-    float: right;
+    @media ( min-width: 1025px ) {
+        float: right;
+        right: 5vw;
+    }
 }
 
 #leftImg {
-    float: left;
+    @media ( min-width: 1025px ) {
+        float: left;
+        left: 5vw;
+    }
 }
 
 .text {
     position: relative;
-    z-index: 2;
+
+    @media ( min-width: 1025px ) {
+        z-index: 2;
+    }   
+    @media ( max-width: 1024px ){
+        text-align: center;
+    }
 }
 
 #leftText {
-    left: 80px; top: 350px;
-    float: left;
+    @media ( min-width: 1280px ) {
+        left: 5vw; top: 35vh;
+        float: left;
+    }   
+    @media ( min-width: 1025px ) and ( max-width: 1279px ) {
+        left: 5vw; top: -15vh;
+        float: left;
+    }
 }
 
 #rightText {
-    right: 80px; top: 350px;
-    float: right;
+    @media ( min-width: 1280px ) {
+        right: 5vw; top: 35vh;
+        float: right;
+    }   
+    @media ( min-width: 1025px ) and ( max-width: 1279px ) {
+        right: 5vw; top: -15vh;
+        float: right;
+    }
 }
