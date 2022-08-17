@@ -19,30 +19,34 @@ const popover = (
     </Popover.Body>
   </Popover>
 );
-const remoteController = (
-  <ul>
-    <li>
-      <a href="#appetizer">Appetizer</a>
-    </li>
-    <li>
-      <a href="#main">Main</a>
-    </li>
-    <li>
-      <a href="#dessert">Dessert</a>
-    </li>
-  </ul>
-);
+const remoteController = //상단 바로가기 리모콘, dish에서 사용할 시 컴포넌트 폴더로 옮길 것
+  (
+    <ul>
+      <li>
+        <a href="#appetizer">Appetizer</a>
+      </li>
+      <li>
+        <a href="#main">Main</a>
+      </li>
+      <li>
+        <a href="#dessert">Dessert</a>
+      </li>
+    </ul>
+  );
 const Order = () => {
-  const [ScrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
-  const [ScrollActive, setScrollActive] = useState(false);
+  const [scrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
+  const [scrollOver, setScrollOver] = useState(false); //스크롤이 550을 넘겼는지에 대한 정보
   function handleScroll() {
-    if (ScrollY > 550) {
-      //헤더+carousel 대충 높이, 리액트 내 calc계산 모르겠음
+    console.log(scrollY + "," + scrollOver);
+    if (scrollY > 550) {
+      //바로가기 리모콘 우단으로 옮김
+      //헤더+carousel 대충 높이, jsx 내 px,vh calc계산 모르겠음
       setScrollY(window.pageYOffset);
-      setScrollActive(true);
+      setScrollOver(true);
     } else {
+      //바로가기 리모콘 상단 고정
       setScrollY(window.pageYOffset);
-      setScrollActive(false);
+      setScrollOver(false);
     }
   }
   useEffect(() => {
@@ -67,13 +71,13 @@ const Order = () => {
         <div>
           {/* 모니터ver */}
           <MediaQuery minWidth={993}>
-            {ScrollActive && (
-              <div className={[styles.fixedBox, styles.nonFixed].join(" ")}>
+            {scrollOver && ( //550이상 scrollOver:true
+              <div className={[styles.fixedBox, styles.rightside].join(" ")}>
                 {remoteController}
               </div>
             )}
-            {!ScrollActive && ( //300px이내
-              <div className={[styles.fixedBox, styles.fixed].join(" ")}>
+            {!scrollOver && ( //550px이내 scrollOver:false
+              <div className={[styles.fixedBox, styles.upside].join(" ")}>
                 {remoteController}
               </div>
             )}
@@ -81,7 +85,7 @@ const Order = () => {
 
           {/* 태블리 + 모바일ver */}
           <MediaQuery maxWidth={992}>
-            <div className={[styles.fixedBox, styles.fixed].join(" ")}>
+            <div className={[styles.fixedBox, styles.upside].join(" ")}>
               {remoteController}
             </div>
           </MediaQuery>
@@ -90,6 +94,111 @@ const Order = () => {
               <h1>Appetizer</h1>
             </header>
             <div className={styles.seperator}></div>
+            <div className={styles.dish}>
+              <div className={styles.dishImg}>
+                <img href="#" src="https://picsum.photos/350/350" alt="" />
+                <button type="submit" onClick={onClikcPutInCart}>
+                  장바구니
+                </button>
+              </div>
+              <div className={styles.dishDetails}>
+                <OverlayTrigger
+                  trigger="hover"
+                  placement="bottom"
+                  overlay={popover}
+                >
+                  {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
+                  <div>
+                    <h4>Lorem Ipsum </h4>
+                    <p>
+                      is simply dummy text of the printing and typesetting
+                      industry. Lorem Ipsum is simply dummy text of the printing
+                      and typesetting industry. Lorem Ipsum is simply dummy text
+                      of the printing and typesetting industry.
+                    </p>
+                  </div>
+                </OverlayTrigger>
+                <i>46,000원</i>
+              </div>
+            </div>
+            <div className={styles.dish}>
+              <div className={styles.dishImg}>
+                <img href="#" src="https://picsum.photos/350/350" alt="" />
+                <button type="submit" onClick={onClikcPutInCart}>
+                  장바구니
+                </button>
+              </div>
+              <div className={styles.dishDetails}>
+                <OverlayTrigger
+                  trigger="hover"
+                  placement="bottom"
+                  overlay={popover}
+                >
+                  <div>
+                    <h4>Lorem Ipsum </h4>
+                    <p>
+                      is simply dummy text of the printing and typesetting
+                      industry. Lorem Ipsum is simply dummy text of the printing
+                      and typesetting industry. Lorem Ipsum is simply dummy text
+                      of the printing and typesetting industry.
+                    </p>
+                  </div>
+                </OverlayTrigger>
+                <i>46,000원</i>
+              </div>
+            </div>
+            <div className={styles.dish}>
+              <div className={styles.dishImg}>
+                <img href="#" src="https://picsum.photos/350/350" alt="" />
+                <button type="submit" onClick={onClikcPutInCart}>
+                  장바구니
+                </button>
+              </div>
+              <div className={styles.dishDetails}>
+                <OverlayTrigger
+                  trigger="hover"
+                  placement="bottom"
+                  overlay={popover}
+                >
+                  <div>
+                    <h4>Lorem Ipsum </h4>
+                    <p>
+                      is simply dummy text of the printing and typesetting
+                      industry. Lorem Ipsum is simply dummy text of the printing
+                      and typesetting industry. Lorem Ipsum is simply dummy text
+                      of the printing and typesetting industry.
+                    </p>
+                  </div>
+                </OverlayTrigger>
+                <i>46,000원</i>
+              </div>
+            </div>
+            <div className={styles.dish}>
+              <div className={styles.dishImg}>
+                <img href="#" src="https://picsum.photos/350/350" alt="" />
+                <button type="submit" onClick={onClikcPutInCart}>
+                  장바구니
+                </button>
+              </div>
+              <div className={styles.dishDetails}>
+                <OverlayTrigger
+                  trigger="hover"
+                  placement="bottom"
+                  overlay={popover}
+                >
+                  <div>
+                    <h4>Lorem Ipsum </h4>
+                    <p>
+                      is simply dummy text of the printing and typesetting
+                      industry. Lorem Ipsum is simply dummy text of the printing
+                      and typesetting industry. Lorem Ipsum is simply dummy text
+                      of the printing and typesetting industry.
+                    </p>
+                  </div>
+                </OverlayTrigger>
+                <i>46,000원</i>
+              </div>
+            </div>
             <div className={styles.dish}>
               <div className={styles.dishImg}>
                 <img href="#" src="https://picsum.photos/350/350" alt="" />

@@ -86,7 +86,7 @@ section {
   position: fixed;
   top: 150px;
   right: 5%;
-  z-index: 1001;
+  z-index: 1;
   padding: 10px;
   border-radius: 6px;
   color: #16193c;
@@ -100,7 +100,7 @@ section {
     }
   }
 }
-.nonFixed {
+.rightside {
   ul {
     display: flex;
     flex-direction: column;
@@ -109,6 +109,7 @@ section {
       width: 120px;
       a {
         color: #16193c;
+        text-shadow: 2px 2px 1px white;
       }
       a:hover {
         color: #676b91;
@@ -119,7 +120,7 @@ section {
     }
   }
 }
-.fixedBox.fixed {
+.fixedBox.upside {
   width: 100%;
   top: 7.5vh;
   right: 0;
