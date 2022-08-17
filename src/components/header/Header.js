@@ -63,21 +63,20 @@ const Header = () => {
               id="collasible-nav-dropdown"
               className="p-2"
             >
-              <NavDropdown.Item href="/Course">코스 요리</NavDropdown.Item>
-              <NavDropdown.Item href="/SingleMenu">단품 요리</NavDropdown.Item>
-              <NavDropdown.Item href="#action/3.3">사이드</NavDropdown.Item>
+              <NavDropdown.Item href="/Course">코스</NavDropdown.Item>
+              <NavDropdown.Item href="/Dish">메뉴</NavDropdown.Item>
             </NavDropdown>
+
             <NavDropdown
               title="예약"
               id="collasible-nav-dropdown"
               className="p-2"
             >
-              <NavDropdown.Item href="/Reservation">
+              <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
+              <NavDropdown.Item href="/SelectRoom">
                 테이블 예약
               </NavDropdown.Item>
-              <NavDropdown.Item href="/ReservationDetail">
-                예약 현황
-              </NavDropdown.Item>
+              <NavDropdown.Item href="/Reservation">예약 현황</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown
               title="이벤트"
@@ -141,7 +140,7 @@ const Header = () => {
                 로그인
               </Nav.Link>
             </MediaQuery>
-            {/* 모바일ver */}
+            {/* 태블리 + 모바일ver */}
             <MediaQuery maxWidth={992}>
               <Nav.Link href="/UserInfo" className="p-2">
                 프로필 관리

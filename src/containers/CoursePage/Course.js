@@ -1,9 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
+import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 import styles from "./Course.module.scss";
 import * as Authentication from "lib/api/Authentication";
-
 // 백에서 보내주는 형태에 맞춰 변경 예정, 초안
 // function CourseInnerPage(props) {
 //   const list = [];
@@ -36,12 +37,12 @@ import * as Authentication from "lib/api/Authentication";
 function CourseInnerPage(props) {
   return (
     <div>
-      <h1>Course</h1>
-      <div className={styles.titleSeperation}></div>
       <h3>Lorem Ipsum</h3>
       <hr />
       <ul>
-        <li>Lorem</li>
+        <Link to="../Dish#appetizer">
+          <li>Lorem</li>
+        </Link>
         <li>ipsum</li>
         <li>is</li>
         <li>simply</li>
@@ -66,10 +67,11 @@ const Course = () => {
         </section>
       </main>
       <nav className={styles.dotForNav}>
-        <a href="#page1"></a>
-        <a href="#page2"></a>
-        <a href="#page3"></a>
+        <a href="#page1">1</a>
+        <a href="#page2">2</a>
+        <a href="#page3">3</a>
       </nav>
+      <ChatShortcut />
       <Footer />
     </div>
   );
