@@ -1,44 +1,51 @@
+@import "./src/index.scss";
+
 .title {
-    margin: 5%;
+    margin-top: 7.5vh;
+    padding-top: 10vh;
     h1 {
         text-align: center;
         font-weight: bold;
     }
 }
 
+section {
+    padding: 0 !important;
+}
+
 .main {
     display: grid;
     justify-items: center
-  }
+  
 
 .contents {
     padding: 5%;
     padding-top: 2%;
-    @media ( min-width: 1025px ) {
-        display: inline-block;
-        justify-content: center;
-    }    
     @media ( max-width: 1024px ){
         display: grid;
         justify-items: center;
         justify-content: center;
     }
+    @media ( min-width: 1024px ) {
+        display: inline-block;
+        justify-content: center;
+    }    
 }
 
 .img {
     width: 60vw;
     height: 50vh;
     position: relative;
-    @media ( min-width: 1025px ) {
-        width: 60vw;
-        height: 50vh;
-        z-index: 1;
-    }    
     @media ( max-width: 1024px ){
         width: 80vw;
         height: 50vh;
         justify-items: center;
     }
+    @media ( min-width: 1024px ) {
+        width: 60vw;
+        height: 50vh;
+        z-index: 1;
+    }    
 }
 
 // 이미지 넣으면 삭제!
@@ -47,27 +54,27 @@
     height: 50vh;
     background-color: lightgray;
     position: relative;
-    @media ( min-width: 1025px ) {
-        width: 60vw;
-        height: 50vh;
-        z-index: 1;
-    }    
     @media ( max-width: 1024px ){
         width: 80vw;
         height: 50vh;
         justify-items: center;
     }
+    @media ( min-width: 1024px ) {
+        width: 60vw;
+        height: 50vh;
+        z-index: 1;
+    }    
 }
 
 #rightImg {
-    @media ( min-width: 1025px ) {
+    @include desktop {
         float: right;
         right: 5vw;
     }
 }
 
 #leftImg {
-    @media ( min-width: 1025px ) {
+    @include desktop {
         float: left;
         left: 5vw;
     }
@@ -75,33 +82,34 @@
 
 .text {
     position: relative;
-
-    @media ( min-width: 1025px ) {
-        z-index: 2;
-    }   
+ 
     @media ( max-width: 1024px ){
         text-align: center;
+        padding-top: 3vh;
     }
+    @media ( min-width: 1024px ) {
+        z-index: 2;
+    }  
 }
 
 #leftText {
-    @media ( min-width: 1280px ) {
-        left: 5vw; top: 35vh;
-        float: left;
-    }   
-    @media ( min-width: 1025px ) and ( max-width: 1279px ) {
+    @media ( min-width: 1024px ) and ( max-width: 1279px ) {
         left: 5vw; top: -15vh;
+        float: left;
+    }
+    @media ( min-width: 1279px ) {
+        left: 5vw; top: 35vh;
         float: left;
     }
 }
 
 #rightText {
-    @media ( min-width: 1280px ) {
-        right: 5vw; top: 35vh;
-        float: right;
-    }   
-    @media ( min-width: 1025px ) and ( max-width: 1279px ) {
+    @media ( min-width: 1024px ) and ( max-width: 1279px ) {
         right: 5vw; top: -15vh;
+        float: right;
+    }
+    @media ( min-width: 1279px ) {
+        right: 5vw; top: 35vh;
         float: right;
     }
 }
