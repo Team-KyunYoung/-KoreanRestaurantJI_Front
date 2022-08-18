@@ -51,8 +51,9 @@ const Order = () => {
   }
   useEffect(() => {
     function scrollListener() {
+      //  window 에서 스크롤을 감시하도록 하는 함수
       window.addEventListener("scroll", handleScroll);
-    } //  window 에서 스크롤을 감시 시작
+    }
     scrollListener(); // window 에서 스크롤을 감시
     return () => {
       window.removeEventListener("scroll", handleScroll);
@@ -89,7 +90,7 @@ const Order = () => {
               {remoteController}
             </div>
           </MediaQuery>
-          <section id="appetizer">
+          <section id="appetizer" className={styles.appetizer}>
             <header>
               <h1>Appetizer</h1>
             </header>
@@ -250,7 +251,7 @@ const Order = () => {
               </div>
             </div>
           </section>
-          <section id="dessert">
+          <section id="dessert" className={styles.dessert}>
             <header>
               <h1>Dessert</h1>
             </header>
