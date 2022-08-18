@@ -22,7 +22,7 @@ const Dish = () => {
       industry."
         />
         <div>
-          <section id="appetizer">
+          <section id="appetizer" className={styles.appetizer}>
             <header>
               <h1>Appetizer</h1>
             </header>
@@ -79,7 +79,7 @@ const Dish = () => {
               </div>
             </div>
           </section>
-          <section id="dessert">
+          <section id="dessert" className={styles.dessert}>
             <header>
               <h1>Dessert</h1>
             </header>

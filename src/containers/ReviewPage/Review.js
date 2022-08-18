@@ -1,6 +1,5 @@
 import React from "react";
 import "./Style.scss";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 //import logo from '../../assets/<파일명>';
 //import SubmitBtn from "../../components/<컴포넌트명>";
 
