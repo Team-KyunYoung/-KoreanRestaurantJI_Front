@@ -5,6 +5,10 @@
   top: 0;
   z-index: 1000;
   width: 100%;
+  span {
+    color: white;
+    opacity: 0.5;
+  }
 }
 .header-empty-space {
   height: 7.5vh;
