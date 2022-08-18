@@ -44,7 +44,7 @@ const Signup = () => {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        if (json.data.status === "OK") {
+        if (json.httpStatus === "OK") {
           setEmailMessage("사용가능한 이메일입니다.");
           setIsUsableEmail(true);
           setEmailToken(json.data);
@@ -88,7 +88,7 @@ const Signup = () => {
         .then((json) => {
           if (userNickname.length !== 0) {
             setNicknameMessage(json.message);
-            if (json.data.status === "OK") {
+            if (json.httpStatus === "OK") {
               setIsUsableNickname(true);
               setNicknameMessage("사용 가능한 닉네임입니다.");
             } else {
