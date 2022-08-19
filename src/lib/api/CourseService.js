@@ -1,7 +1,5 @@
 import axios from "axios";
 
-import Authentication from "lib/api/Authentication";
-
 const USER_API_BASE_URL = "/api/course";
 
 class CourseService {
