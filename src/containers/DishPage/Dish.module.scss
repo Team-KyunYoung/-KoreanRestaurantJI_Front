@@ -12,8 +12,9 @@
   }
 }
 .appetizer,
+.entree,
 .dessert {
-  padding: 70px 5% 40px 5%;
+  padding: 70px 10% 40px 10%;
   text-align: center;
   .seperator {
     text-align: center;
@@ -22,11 +23,17 @@
     height: 0px;
     margin: 30px auto;
   }
+
+  a {
+    display: contents;
+    color: black;
+    text-decoration: none;
+  }
   .dish {
     display: flex;
     width: 100%;
     height: auto;
-    margin: 5px;
+    margin: 15px;
     overflow-y: scroll !important;
     border: 1px solid black;
     border-radius: 30px;
@@ -59,5 +66,19 @@
     button {
       display: none;
     }
+  }
+}
+@include tablet {
+  .appetizer,
+  .entree,
+  .dessert {
+    padding: 70px 5% 40px 5%;
+  }
+}
+@include mobile {
+  .appetizer,
+  .entree,
+  .dessert {
+    padding: 70px 5% 40px 5%;
   }
 }
