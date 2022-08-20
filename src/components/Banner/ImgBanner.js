@@ -10,7 +10,6 @@ const parallaxHeader = {
   textAlign: "center",
   color: " white",
   textDecoration: "3px 3px 3px black",
-  paddingTop: "7.5vh",
 };
 const ImgBanner = (props) => {
   return (
