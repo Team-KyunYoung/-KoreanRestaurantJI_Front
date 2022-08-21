@@ -109,27 +109,89 @@
   }
 }
 //detail page
-.reservationFormBox {
-  display: inline-block;
-  padding: 50px;
-  margin: 0 auto;
-  text-align: center;
-  input,
-  select {
-    width: 300px;
-    margin: 10px;
-    padding: 20px;
-    border: none;
-    outline: none;
+.selectMore {
+  header {
+    text-shadow: 1px 1px 2px gray;
   }
-  button {
-    width: 300px;
-    padding: 20px;
-    outline: none;
-    background-color: transparent;
-    color: white;
-    box-shadow: none;
-    border: 2px solid white;
-    margin-top: 150px;
+  .reservationFormBox {
+    display: inline-block;
+    padding: 50px;
+    margin: 0 auto;
+    text-align: center;
+    form {
+      display: flex;
+    }
+    input {
+      width: 300px;
+      margin: 30px;
+      padding: 31px;
+      border: none;
+      outline: none;
+      height: 48px;
+      border-radius: 5px;
+      color: gray;
+    }
+    .select {
+      width: 300px;
+      margin: 30px;
+      border: none;
+      outline: none;
+    }
+    button {
+      width: 300px;
+      padding: 20px;
+      outline: none;
+      background-color: transparent;
+      color: white;
+      box-shadow: none;
+      border: 2px solid white;
+      margin-top: 150px;
+    }
+  }
+}
+@include tablet {
+  .selectMore {
+    .reservationFormBox {
+      form {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      input {
+        margin: 20px;
+      }
+      .select {
+        margin: 20px;
+      }
+      button {
+        width: 40%;
+        margin-top: 80px;
+      }
+    }
+  }
+}
+@include mobile {
+  .selectMore {
+    form {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    input {
+      width: 90%;
+      margin: 10px;
+    }
+    .select {
+      width: 90%;
+      margin: 10px;
+    }
+    .select > div {
+      // height: 64px;
+      // width: 300px;
+    }
+    button {
+      width: 90%;
+      margin-top: 50px;
+    }
   }
 }
