@@ -6,7 +6,7 @@ import "./Style.scss";
 const Review = () => {
   return (
     <div>
-      <p>주문 내역 페이지</p>
+      <p>후기 페이지</p>
     </div>
   );
 };
