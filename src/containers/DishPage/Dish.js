@@ -145,7 +145,6 @@ function DishContent(data) {
 const Dish = () => {
   const [dish, setDish] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [dishCount, setDishCount] = useState(1);
   useEffect(() => {
     DishService.findAllDish().then((response) => {
       console.log(response);

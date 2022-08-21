@@ -37,7 +37,7 @@ root.render(
       <Route path="Course" element={<Course />} />
       <Route path="Order" element={<Order />} />
       <Route path="SelectRoom" element={<SelectRoom />} />
-      <Route path="SelectMore" element={<SelectMore />} />
+      <Route path="SelectMore/:roomNumber/:roomName" element={<SelectMore />} />
       <Route path="Reservation" element={<Reservation />} />
       <Route path="Review" element={<Review />} />
       <Route path="Dish" element={<Dish />} />

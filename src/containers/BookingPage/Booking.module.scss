@@ -1,7 +1,7 @@
 @import "./src/index.scss";
 
 .container {
-  min-height: 75.5vh;
+  min-height: 76vh;
   background-image: url("https://picsum.photos/1200/600");
   background-size: cover;
   background-repeat: no-repeat;
@@ -42,6 +42,7 @@
         display: inline-block;
         position: relative;
         top: -50%;
+        color: black;
         pointer-events: none;
       }
     }
