@@ -5,25 +5,84 @@ import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 import RoomService from "lib/api/RoomService"; //import logo from '../../assets/<파일명>';
+import Select from "react-select";
 //import SubmitBtn from "../../components/<컴포넌트명>";
-function RemainSeatsByTime(data) {
+
+var seatStatus = [
+  { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
+  { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
+  { value: "13:00", label: "13:00", remain: 15, isDisabled: false },
+  { value: "14:00", label: "14:00", remain: 15, isDisabled: false },
+  { value: "15:00", label: "15:00", remain: 15, isDisabled: false },
+  { value: "16:00", label: "16:00", remain: 15, isDisabled: false },
+  { value: "17:00", label: "17:00", remain: 15, isDisabled: false },
+  { value: "18:00", label: "18:00", remain: 15, isDisabled: false },
+  { value: "19:00", label: "19:00", remain: 15, isDisabled: false },
+  { value: "20:00", label: "20:00", remain: 15, isDisabled: false },
+  { value: "21:00", label: "21:00", remain: 15, isDisabled: false },
+];
+var personnelStatus = [
+  { value: 1, label: "2인", isDisabled: false },
+  { value: 1, label: "4인", isDisabled: false },
+  { value: 2, label: "5-8인", isDisabled: false },
+  { value: 3, label: "9-12인", isDisabled: false },
+];
+function RemainingSeatsByDate(data) {
+  //날짜 선택했을 때 남은 좌석을 검사하는 함수
   const res = data.data.roomStatus;
-  var seat = [
-    { id: 1, time: "11:00", remain: 15 },
-    { id: 2, time: "12:00", remain: 15 },
-    { id: 3, time: "13:00", remain: 15 },
-  ];
-  console.log(data.data.roomStatus.length);
-  console.log(res);
+
+  // console.log(data.data.roomStatus.length);
+  // console.log(res);
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < res.length; i++) {
-    console.log();
-    if (res[i].roomRemaining < 4) {
-      switch (res[i].reservationTime) {
-        case "11:00":
+    seatStatus.map((obj) => {
+      // console.log(
+      //   obj.label +
+      //     "," +
+      //     res[i].reservationTime +
+      //     "," +
+      //     obj.remain +
+      //     "," +
+      //     res[i].roomRemaining
+      // );
+      if (obj.label === res[i].reservationTime) {
+        //배열에서 같은 시간대를 찾고
+        if (obj.remain > res[i].roomRemaining) {
+          //그 시간대에 남은 좌석수의 최소값을 저장함
+          obj.remain = res[i].roomRemaining;
+        }
+        if (res[i].roomRemaining < 4) {
+          //4보다 작으면 어떠한 테이블도 예약 불가
+          //그 시간대 선택 불가
+          obj.isDisabled = true;
+        }
       }
-    }
+      // $("select option[value*='volvo']").prop('disabled',true);
+      // {option[value="11o"].prop('disabled',true);}
+      // console.log(seat);
+    });
   }
+}
+function RemainingSeatsByTime(time) {
+  //시간을 선택했을 때 남은 좌석을 검사하는 함수
+  seatStatus.map((seatObj) => {
+    if (time === seatObj.value) {
+      //seatStatus에서 선택한 시간을 찾음
+      personnelStatus.map((personnelObj) => {
+        // console.log(personnelObj.value + "," + seatObj.remain);
+        // console.log(personnel);
+        if (personnelObj.value === 2 && seatObj.remain < 5) {
+          //남은 좌석이 5개 미만이라면
+          personnelObj.isDisabled = true; //5-8인 option disabled
+        }
+        if (personnelObj.value === 3 && seatObj.remain < 9) {
+          //남은 좌석이 9개 미만이라면
+          personnelObj.isDisabled = true; //9-12인 option disabled
+        }
+        // console.log(personnelStatus);
+      });
+    }
+  });
 }
 const SelectMore = () => {
   const roomParams = useParams();
@@ -32,10 +91,10 @@ const SelectMore = () => {
   const [roomStatus, setRoomStatus] = useState([]);
 
   const [date, setDate] = useState();
-
+  const [time, setTime] = useState();
   useEffect(() => {
     RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
-      console.log(response);
+      // console.log(response);
       setRoomStatus(response.data);
       setIsLoading(false);
     });
@@ -48,15 +107,24 @@ const SelectMore = () => {
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date).then(
       (response) => {
-        console.log(response);
-        RemainSeatsByTime(response.data);
+        // console.log(response);
+        RemainingSeatsByDate(response.data);
+        //날짜 선택했을 때 남은 좌석을 검사하는 함수
       }
     );
   }, [date]);
+  const onChangeTime = (e) => {
+    // console.log(e);
+    setTime(e.value.toString());
+    console.log(time);
+  };
+  useEffect(() => {
+    RemainingSeatsByTime(time);
+  }, [time]);
   return (
     <div id="ReservationDetail">
       <Header />
-      <main>
+      <main className={styles.selectMore}>
         <div className={styles.container}>
           <header>
             <h1>{roomParams.roomName}</h1>
@@ -68,29 +136,23 @@ const SelectMore = () => {
           <div className={styles.reservationFormBox}>
             <form>
               <input type="date" onChange={onChangeDate} />
-              <select>
-                <option value="11o">11:00</option>
-                <option value="12o">12:00</option>
-                <option value="13o">13:00</option>
-                <option value="14o">14:00</option>
-                <option value="15o">15:00</option>
-                <option value="16o">16:00</option>
-                <option value="17o">17:00</option>
-                <option value="18o">18:00</option>
-                <option value="19o">19:00</option>
-                <option value="20o">20:00</option>
-                <option value="21o">21:00</option>
-              </select>
-              <select>
-                <option value="2p">2인</option>
-                <option value="4p">4인</option>
-                <option value="8p">5-8인</option>
-                <option value="12p">9-12인</option>
-              </select>
-              <div>
-                <button type="submit">예약하기</button>
-              </div>
+              <Select
+                options={seatStatus}
+                Disabled={(seatStatus) => seatStatus.isDisabled}
+                onChange={onChangeTime}
+                className={styles.select}
+                placeholder="시간"
+              ></Select>
+              <Select
+                options={personnelStatus}
+                Disabled={(personnelStatus) => personnelStatus.isDisabled}
+                className={styles.select}
+                placeholder="인원"
+              ></Select>
             </form>
+            <div>
+              <button type="submit">예약하기</button>
+            </div>
           </div>
         </div>
       </main>
