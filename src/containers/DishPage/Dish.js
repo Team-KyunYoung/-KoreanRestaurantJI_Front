@@ -5,7 +5,6 @@ import Footer from "components/footer/Footer";
 import ChatShortcut from "components/ShortCut/ChatShortcut";
 import ImgBanner from "../../components/Banner/ImgBanner";
 import styles from "./Dish.module.scss";
-import * as Authentication from "lib/api/Authentication";
 import DishService from "lib/api/DishService";
 
 const image1 =
@@ -151,8 +150,6 @@ const Dish = () => {
       setDish(response.data.data);
       setIsLoading(false);
     });
-    // .catch(() => {
-    // });
   }, []);
   return (
     <div id="CoursePage">
