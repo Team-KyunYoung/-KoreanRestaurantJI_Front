@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
+import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ChatShortcut from "../../components/ShortCut/ChatShortcut";
-import RoomService from "lib/api/RoomService"; //import logo from '../../assets/<파일명>';
-import Select from "react-select";
+import RoomService from "lib/api/RoomService";
+import ReservationService from "lib/api/ReservationService";
+import UserService from "lib/api/UserService";
 //import SubmitBtn from "../../components/<컴포넌트명>";
 
 var seatStatus = [
@@ -92,13 +94,14 @@ const SelectMore = () => {
 
   const [date, setDate] = useState();
   const [time, setTime] = useState();
-  useEffect(() => {
-    RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
-      // console.log(response);
-      setRoomStatus(response.data);
-      setIsLoading(false);
-    });
-  }, []);
+  const [tableCnt, setTableCnt] = useState();
+  // useEffect(() => {
+  //   RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
+  //     // console.log(response);
+  //     setRoomStatus(response.data);
+  //     setIsLoading(false);
+  //   });
+  // }, []);
 
   const onChangeDate = (e) => {
     setDate(e.target.value);
@@ -121,6 +124,30 @@ const SelectMore = () => {
   useEffect(() => {
     RemainingSeatsByTime(time);
   }, [time]);
+  const onChangePersonnel = (e) => {
+    // console.log(e);
+    setTableCnt(Number(e.value));
+  };
+  function SubmitReservationForm() {
+    UserService.findUser().then((response) => {
+      console.log(response);
+      ReservationService.createReservation(
+        date,
+        response.data.data.userNickname,
+        response.data.data.userNickname,
+        Number(roomParams.roomNumber),
+        tableCnt,
+        time
+      )
+        .then((response) => {
+          console.log(response);
+          alert(date + " " + time + " 예약이 완료되었습니다.");
+        })
+        .catch(() => {
+          alert("예약에 실패하였습니다.");
+        });
+    });
+  }
   return (
     <div id="ReservationDetail">
       <Header />
@@ -148,11 +175,14 @@ const SelectMore = () => {
                 Disabled={(personnelStatus) => personnelStatus.isDisabled}
                 className={styles.select}
                 placeholder="인원"
+                onChange={onChangePersonnel}
               ></Select>
             </form>
-            <div>
-              <button type="submit">예약하기</button>
-            </div>
+            <Link to="/reservation">
+              <button type="submit" onClick={SubmitReservationForm}>
+                예약하기
+              </button>
+            </Link>
           </div>
         </div>
       </main>
