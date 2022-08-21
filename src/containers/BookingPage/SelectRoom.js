@@ -1,13 +1,48 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 import styles from "./Booking.module.scss";
-import * as Authentication from "lib/api/Authentication";
+import RoomService from "lib/api/RoomService";
 //import logo from '../../assets/<파일명>';
 //import SubmitBtn from "../../components/<컴포넌트명>";
+function RoomContent(data) {
+  const roomList = [];
 
+  for (let i = 1; i < data.data.length; i++) {
+    roomList.push(
+      <div key={i}>
+        <Link
+          to={
+            "/SelectMore/" +
+            // data.data[i].roomNumber +
+            4 +
+            "/" +
+            data.data[i].roomName
+          }
+        >
+          <img src="https://picsum.photos/300/600" alt="room1" />
+          <h3>{data.data[i].roomName}</h3>
+          {/* <p>마우스를 올려보세요</p>
+    <button type="submit">예약하기</button> */}
+        </Link>
+      </div>
+    );
+  }
+  return <>{roomList}</>;
+}
 const SelectRoom = () => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [roomRes, setRoomRes] = useState([]);
+  useEffect(() => {
+    console.log("Booking PAGE LOADING");
+    RoomService.findAllRoom().then((response) => {
+      console.log(response);
+      setRoomRes(response.data.data);
+      setIsLoading(false);
+    });
+  }, []);
   return (
     <div id="ReservationDetail">
       <Header />
@@ -21,38 +56,7 @@ const SelectRoom = () => {
             </p>
           </header>
           <div className={styles.roomContainer}>
-            <div>
-              <img
-                onClick={() => {
-                  window.location.href = "/SelectMore";
-                }}
-                src="https://picsum.photos/300/600"
-                alt="room1"
-              />
-              <h3>Lorem Ipsum</h3>
-              {/* <p>마우스를 올려보세요</p>
-              <button type="submit">예약하기</button> */}
-            </div>
-            <div>
-              <img
-                href="/selectMore"
-                src="https://picsum.photos/300/600"
-                alt="room2"
-              />
-              <h3>is simply dummy</h3>
-            </div>
-            <div>
-              <img src="https://picsum.photos/300/600" alt="room1" />
-              <h3>text</h3>
-            </div>
-            <div>
-              <img src="https://picsum.photos/200/600" alt="room1" />
-              <h3>of</h3>
-            </div>
-            <div>
-              <img src="https://picsum.photos/200/600" alt="room1" />
-              <h3>the printing</h3>
-            </div>
+            {isLoading ? "Loading" : <RoomContent data={roomRes} />}
           </div>
         </div>
       </main>
