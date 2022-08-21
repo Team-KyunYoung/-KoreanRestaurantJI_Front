@@ -20,7 +20,10 @@ function DishContent(data) {
   for (let i = 1; i < data.data.length; i++) {
     if (data.data[i].dishCategory === "전식") {
       appetizerList.push(
-        <Link to={"./" + data.data[i].dishName} key={i}>
+        <Link
+          to={"./" + data.data[i].dishNumber + "/" + data.data[i].dishName}
+          key={i}
+        >
           <div className={styles.dish}>
             <div className={styles.dishImg}>
               <img
@@ -32,7 +35,7 @@ function DishContent(data) {
                 장바구니
               </button>
             </div>
-            <div className={styles.dishDetails}>
+            <div className={styles.dishDescription}>
               <div>
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
@@ -56,7 +59,7 @@ function DishContent(data) {
                 장바구니
               </button>
             </div>
-            <div className={styles.dishDetails}>
+            <div className={styles.dishDescription}>
               <div>
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
@@ -80,7 +83,7 @@ function DishContent(data) {
                 장바구니
               </button>
             </div>
-            <div className={styles.dishDetails}>
+            <div className={styles.dishDescription}>
               <div>
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
