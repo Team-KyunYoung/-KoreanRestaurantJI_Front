@@ -129,24 +129,28 @@ const SelectMore = () => {
     setTableCnt(Number(e.value));
   };
   function SubmitReservationForm() {
-    UserService.findUser().then((response) => {
-      console.log(response);
-      ReservationService.createReservation(
-        date,
-        response.data.data.userNickname,
-        response.data.data.userNickname,
-        Number(roomParams.roomNumber),
-        tableCnt,
-        time
-      )
-        .then((response) => {
-          console.log(response);
-          alert(date + " " + time + " 예약이 완료되었습니다.");
-        })
-        .catch(() => {
-          alert("예약에 실패하였습니다.");
-        });
-    });
+    UserService.findUser()
+      .then((response) => {
+        console.log(response);
+        ReservationService.createReservation(
+          date,
+          response.data.data.userNickname,
+          response.data.data.userNickname,
+          Number(roomParams.roomNumber),
+          tableCnt,
+          time
+        )
+          .then((response) => {
+            console.log(response);
+            alert(date + " " + time + " 예약이 완료되었습니다.");
+          })
+          .catch(() => {
+            alert("예약에 실패하였습니다.");
+          });
+      })
+      .catch(() => {
+        alert("로그인 후 이용해주세요.");
+      });
   }
   return (
     <div id="ReservationDetail">
