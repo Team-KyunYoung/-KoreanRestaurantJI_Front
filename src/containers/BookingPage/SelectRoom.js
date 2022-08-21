@@ -10,14 +10,13 @@ import RoomService from "lib/api/RoomService";
 function RoomContent(data) {
   const roomList = [];
 
-  for (let i = 1; i < data.data.length; i++) {
+  for (let i = 0; i < data.data.length; i++) {
     roomList.push(
       <div key={i}>
         <Link
           to={
             "/SelectMore/" +
-            // data.data[i].roomNumber +
-            4 +
+            data.data[i].roomNumber +
             "/" +
             data.data[i].roomName
           }
