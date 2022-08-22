@@ -24,10 +24,16 @@ const Login = () => {
       .then((res) => res.json())
       .then((json) => {
         console.log(json);
-        Authentication.loginTokenSave(json.data.token);
-        setShowSuccessMessage(true);
-        setHasLoginFailed(false);
-        navigate(-1); //toBack()
+        if (json.httpStatus === "OK") {
+          Authentication.loginTokenSave(json.data.token);
+          setShowSuccessMessage(true);
+          setHasLoginFailed(false);
+          navigate(-1); //toBack()
+        } else {
+          setShowSuccessMessage(false);
+          setHasLoginFailed(true);
+          alert("Login Failed");
+        }
       })
       .catch(() => {
         // console.log(error.response)
