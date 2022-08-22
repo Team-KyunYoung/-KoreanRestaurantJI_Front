@@ -15,7 +15,6 @@ import Course from "./containers/CoursePage/Course";
 import Order from "./containers/OrderPage/Order";
 import SelectRoom from "./containers/BookingPage/SelectRoom";
 import SelectMore from "./containers/BookingPage/SelectMore";
-import Reservation from "./containers/ReservationPage/Reservation";
 import Review from "./containers/ReviewPage/Review";
 import Dish from "./containers/DishPage/Dish";
 import DishDetails from "./containers/DishPage/DishDetails";
@@ -39,11 +38,9 @@ root.render(
       <Route path="Order" element={<Order />} />
       <Route path="SelectRoom" element={<SelectRoom />} />
       <Route path="SelectMore/:roomNumber/:roomName" element={<SelectMore />} />
-      <Route path="Reservation" element={<Reservation />} />
       <Route path="Review" element={<Review />} />
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
-      <Route path="UserInfo" element={<UserInfo />} />
       <Route path="UserInfo/:location" element={<UserInfo />} />
     </Routes>
   </BrowserRouter>
