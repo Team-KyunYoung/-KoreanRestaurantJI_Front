@@ -15,13 +15,16 @@ function CourseInnerPage(data) {
       <ul>
         <h5>Appetizer</h5>
         <li>{data.data.appetizer.dishName}</li>
-        <br/><h5>Entree</h5>
+        <br />
+        <h5>Entree</h5>
         <li>{data.data.entree1.dishName}</li>
         <li>{data.data.entree2.dishName}</li>
         <li>{data.data.entree3.dishName}</li>
-        <br/><h5>Dessert</h5>
+        <br />
+        <h5>Dessert</h5>
         <li>{data.data.dessert.dishName}</li>
       </ul>
+      <i>{data.data.coursePrice}원</i>
     </div>
   );
 }
@@ -33,15 +36,15 @@ const Course = () => {
 
   useEffect(() => {
     console.log("COURESE PAGE LOADING");
-    CourseService.findAllCourse()
-      .then((response) => {
-        if(response.data.data.length >= 3){
-          setCourse1(response.data.data[0]);
-          setCourse2(response.data.data[1]);
-          setCourse3(response.data.data[2]);
-        }
-        setIsLoading(false)
-      });
+    CourseService.findAllCourse().then((response) => {
+      if (response.data.data.length >= 3) {
+        setCourse1(response.data.data[0]);
+        setCourse2(response.data.data[1]);
+        setCourse3(response.data.data[2]);
+      }
+      console.log(response);
+      setIsLoading(false);
+    });
   }, []);
 
   return (
@@ -49,13 +52,25 @@ const Course = () => {
       <Header />
       <main className={styles.container}>
         <section id="page1" className={[styles.page, styles.page1].join(" ")}>
-          { isLoading ? "Loading..." : <CourseInnerPage key={course1.courseName} data={course1} /> }
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <CourseInnerPage key={course1.courseName} data={course1} />
+          )}
         </section>
         <section id="page2" className={[styles.page, styles.page2].join(" ")}>
-          { isLoading ? "Loading..." : <CourseInnerPage key={course2.courseName} data={course2} /> }
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <CourseInnerPage key={course2.courseName} data={course2} />
+          )}
         </section>
         <section id="page3" className={[styles.page, styles.page3].join(" ")}>
-          { isLoading ? "Loading..." : <CourseInnerPage key={course3.courseName} data={course3} /> }
+          {isLoading ? (
+            "Loading..."
+          ) : (
+            <CourseInnerPage key={course3.courseName} data={course3} />
+          )}
         </section>
       </main>
       <nav className={styles.dotForNav}>

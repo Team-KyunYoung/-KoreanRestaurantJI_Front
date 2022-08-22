@@ -125,7 +125,7 @@
       width: 300px;
       margin: 30px;
       padding: 31px;
-      border: none;
+      border: 1px solid rgb(177, 177, 177);
       outline: none;
       height: 48px;
       border-radius: 5px;
@@ -184,10 +184,6 @@
     .select {
       width: 90%;
       margin: 10px;
-    }
-    .select > div {
-      // height: 64px;
-      // width: 300px;
     }
     button {
       width: 90%;

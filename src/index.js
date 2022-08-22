@@ -44,6 +44,7 @@ root.render(
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
       <Route path="UserInfo" element={<UserInfo />} />
+      <Route path="UserInfo/:location" element={<UserInfo />} />
     </Routes>
   </BrowserRouter>
 );
