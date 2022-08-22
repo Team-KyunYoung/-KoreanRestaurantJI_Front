@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
@@ -87,15 +87,13 @@ function RemainingSeatsByTime(time) {
   });
 }
 const SelectMore = () => {
-  const roomParams = useParams();
-
-  const [isLoading, setIsLoading] = useState(true);
-  const [roomStatus, setRoomStatus] = useState([]);
+  const roomParams = useParams(); //url에서 파라미터 가져오기
 
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
-  // useEffect(() => {
+  const navigate = useNavigate();
+  // useEffect(() => {//해당 방의 모든 예약을 불러옴
   //   RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
   //     // console.log(response);
   //     setRoomStatus(response.data);
@@ -125,10 +123,14 @@ const SelectMore = () => {
     RemainingSeatsByTime(time);
   }, [time]);
   const onChangePersonnel = (e) => {
-    // console.log(e);
     setTableCnt(Number(e.value));
   };
   function SubmitReservationForm() {
+    if (date === undefined) alert("날짜를 선택해주세요");
+    if (time === undefined) alert("시간을 선택해주세요");
+    if (tableCnt === undefined) alert("인원을 선택해주세요");
+
+    // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
     UserService.findUser()
       .then((response) => {
         console.log(response);
@@ -143,13 +145,15 @@ const SelectMore = () => {
           .then((response) => {
             console.log(response);
             alert(date + " " + time + " 예약이 완료되었습니다.");
+            navigate("../../../reservation");
           })
           .catch(() => {
-            alert("예약에 실패하였습니다.");
+            alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
           });
       })
       .catch(() => {
         alert("로그인 후 이용해주세요.");
+        navigate("../../../login");
       });
   }
   return (
@@ -182,11 +186,9 @@ const SelectMore = () => {
                 onChange={onChangePersonnel}
               ></Select>
             </form>
-            <Link to="/reservation">
-              <button type="submit" onClick={SubmitReservationForm}>
-                예약하기
-              </button>
-            </Link>
+            <button type="submit" onClick={SubmitReservationForm}>
+              예약하기
+            </button>
           </div>
         </div>
       </main>
