@@ -10,6 +10,7 @@ import Authentication from "lib/api/Authentication";
 
 const Header = () => {
   const [isOnLogin, setIsOnLogin] = useState(Authentication.isUserLoggedIn);
+  const [goToUserInfo, setGoToUserInfo] = useState();
   function logout() {
     console.log(isOnLogin);
     console.log(localStorage.getItem("token"));
@@ -56,12 +57,26 @@ const Header = () => {
                 className="p-2"
               >
                 <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
+                {isOnLogin && (
+                  <NavDropdown.Item href="./../UserInfo/Ordered">
+                    주문 현황
+                  </NavDropdown.Item>
+                )}
+                {!isOnLogin && (
+                  <NavDropdown.Item href="/login">주문 현황</NavDropdown.Item>
+                )}
+                <NavDropdown.Divider />
                 <NavDropdown.Item href="/SelectRoom">
                   테이블 예약
                 </NavDropdown.Item>
-                <NavDropdown.Item href="UserInfo/reservation">
-                  예약 현황
-                </NavDropdown.Item>
+                {isOnLogin && (
+                  <NavDropdown.Item href="./../UserInfo/reservation">
+                    예약 현황
+                  </NavDropdown.Item>
+                )}
+                {!isOnLogin && (
+                  <NavDropdown.Item href="/login">예약 현황</NavDropdown.Item>
+                )}
               </NavDropdown>
               <NavDropdown
                 title="이벤트"
@@ -99,18 +114,34 @@ const Header = () => {
             <Nav>
               {/* 모니터ver */}
               <MediaQuery minWidth={993}>
-                <Nav.Link href="/UserInfo/editprofile" className="p-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-person-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                  </svg>
-                </Nav.Link>
+                {isOnLogin && (
+                  <Nav.Link href="/UserInfo/editprofile" className="p-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-person-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                  </Nav.Link>
+                )}
+                {!isOnLogin && (
+                  <Nav.Link href="/login" className="p-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-person-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                    </svg>
+                  </Nav.Link>
+                )}
                 <Nav.Link eventKey={2} href="/Cart" className="p-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -136,9 +167,16 @@ const Header = () => {
               </MediaQuery>
               {/* 태블리 + 모바일ver */}
               <MediaQuery maxWidth={992}>
-                <Nav.Link href="/UserInfo/editprofile" className="p-2">
-                  프로필 관리
-                </Nav.Link>
+                {isOnLogin && (
+                  <Nav.Link href="/UserInfo/editprofile" className="p-2">
+                    프로필 관리
+                  </Nav.Link>
+                )}
+                {!isOnLogin && (
+                  <Nav.Link href="/login" className="p-2">
+                    프로필 관리
+                  </Nav.Link>
+                )}
                 <Nav.Link eventKey={2} href="/Cart" className="p-2 pt-3 pb-3">
                   장바구니
                 </Nav.Link>
