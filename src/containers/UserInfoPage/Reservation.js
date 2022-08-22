@@ -3,6 +3,8 @@ import styles from "./UserInfo.module.scss";
 import ReservationService from "lib/api/ReservationService";
 import Page from "./Pagination";
 
+import * as UserServices from "lib/api/UserService";
+import UserService from "lib/api/UserService";
 const image1 = "https://picsum.photos/800/600";
 function ReservationInnerPage(props) {
   return (
@@ -45,6 +47,9 @@ const Reservation = () => {
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
     return currentPosts;
   };
+  useEffect(() => {
+    UserService.findUser();
+  }, []);
   useEffect(() => {
     ReservationService.findReservation()
       .then((response) => {
