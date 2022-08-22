@@ -19,5 +19,13 @@ class ReservationService {
       },
     });
   }
+  findReservation() {
+    return axios.get(USER_API_BASE_URL + "/find", JSON.stringify(), {
+      headers: {
+        "Content-Type": `application/json`,
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+  }
 }
 export default new ReservationService();

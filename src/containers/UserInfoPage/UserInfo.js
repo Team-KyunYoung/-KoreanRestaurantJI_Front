@@ -1,11 +1,13 @@
 import React from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import MediaQuery from "react-responsive";
 import styles from "./UserInfo.module.scss";
 
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import EditProfile from "./EditProfile";
+import Reservation from "./Reservation";
+import Ordered from "./Ordered";
 
 const image1 = "https://picsum.photos/800/600";
 const UserInfo = () => {
@@ -13,13 +15,13 @@ const UserInfo = () => {
   const remoteController = (
     <ul>
       <li>
-        <a href="#appetizer">Appetizer</a>
+        <Link to="./../editprofile">정보 수정</Link>
       </li>
       <li>
-        <a href="#entree">Entree</a>
+        <Link to="./../reservation">예약목록 보기</Link>
       </li>
       <li>
-        <a href="#dessert">Dessert</a>
+        <Link to="./../ordered">주문내역 보기</Link>
       </li>
     </ul>
   );
@@ -48,9 +50,9 @@ const UserInfo = () => {
                   {remoteController}
                 </div>
               </MediaQuery>
-              {param.location === "editprofile" ? <EditProfile /> : "loading"}
-              {param.location === "reservation" ? "reservationpage" : "loading"}
-              {param.location === "orderlist" ? "orderlistpage" : "loading"}
+              {param.location === "editprofile" ? <EditProfile /> : ""}
+              {param.location === "reservation" ? <Reservation /> : ""}
+              {param.location === "ordered" ? <Ordered /> : ""}
               {/*  */}
             </div>
           </section>

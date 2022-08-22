@@ -59,7 +59,7 @@ const Header = () => {
                 <NavDropdown.Item href="/SelectRoom">
                   테이블 예약
                 </NavDropdown.Item>
-                <NavDropdown.Item href="/Reservation">
+                <NavDropdown.Item href="UserInfo/reservation">
                   예약 현황
                 </NavDropdown.Item>
               </NavDropdown>
@@ -99,7 +99,7 @@ const Header = () => {
             <Nav>
               {/* 모니터ver */}
               <MediaQuery minWidth={993}>
-                <Nav.Link href="/UserInfo" className="p-3">
+                <Nav.Link href="/UserInfo/editprofile" className="p-3">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="16"
@@ -136,7 +136,7 @@ const Header = () => {
               </MediaQuery>
               {/* 태블리 + 모바일ver */}
               <MediaQuery maxWidth={992}>
-                <Nav.Link href="/UserInfo" className="p-2">
+                <Nav.Link href="/UserInfo/editprofile" className="p-2">
                   프로필 관리
                 </Nav.Link>
                 <Nav.Link eventKey={2} href="/Cart" className="p-2 pt-3 pb-3">

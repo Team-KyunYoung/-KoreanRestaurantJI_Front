@@ -11,14 +11,6 @@ import DishService from "lib/api/DishService";
 
 const image1 = "https://picsum.photos/1200/600";
 const onClikcPutInCart = () => {};
-const popover = (
-  <Popover id="popover-basic">
-    <Popover.Body>
-      is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-      is simply dummy text of the printing and typesetting industry.
-    </Popover.Body>
-  </Popover>
-);
 function OrderContent(data) {
   console.log(data.data.length);
   const entreeList = [];

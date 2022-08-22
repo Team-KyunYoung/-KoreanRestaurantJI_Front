@@ -1,11 +1,6 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./UserInfo.module.scss";
-import Button from "react-bootstrap/Button";
-import InputGroup from "react-bootstrap/InputGroup";
-
-import Header from "components/header/Header";
-import Footer from "components/footer/Footer";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
