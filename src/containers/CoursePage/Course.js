@@ -11,6 +11,7 @@ function CourseInnerPage(data) {
   return (
     <div>
       <h3>Course {data.data.courseName}</h3>
+      <i>{data.data.coursePrice}원</i>
       <hr />
       <ul>
         <h5>Appetizer</h5>
@@ -24,7 +25,6 @@ function CourseInnerPage(data) {
         <h5>Dessert</h5>
         <li>{data.data.dessert.dishName}</li>
       </ul>
-      <i>{data.data.coursePrice}원</i>
     </div>
   );
 }
