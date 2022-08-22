@@ -1,6 +1,5 @@
 import React from "react";
 
-import ReservationService from "lib/api/ReservationService";
 const Ordered = () => {
   return (
     <>

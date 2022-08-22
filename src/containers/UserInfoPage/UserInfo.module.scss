@@ -87,7 +87,7 @@
         }
       }
     }
-
+    //editProfile 페이지
     .editProfile {
       .inputArea {
         align-content: center;
@@ -133,6 +133,43 @@
           background: #d4d4d4;
           border: none;
         }
+      }
+    }
+    //reservation페이지
+    .reservation {
+      .list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 50px;
+        hr {
+          width: 60%;
+          margin: 0 auto;
+        }
+        li {
+          height: 70px;
+          overflow: hidden;
+          margin: 12px;
+          img {
+            width: 70px;
+            height: 70px;
+            border-radius: 50px;
+            margin-top: -24px;
+          }
+          .listSpan {
+            width: 300px;
+            display: inline-block;
+            height: 60px;
+            padding: 10px;
+            span {
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+    .pagination {
+      ul {
+        justify-content: center !important;
       }
     }
   }
@@ -200,6 +237,44 @@
           }
           input {
             width: 90%;
+          }
+        }
+      }
+    } //reservation페이지
+    .reservation {
+      margin-bottom: 100px;
+      .list {
+        list-style: none;
+        padding-left: 0;
+        width: 98%;
+        hr {
+          width: 90% !important;
+        }
+        li {
+          height: 70px;
+          overflow: hidden;
+          margin: 12px;
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+          align-content: flex-end;
+          justify-content: flex-end;
+          align-items: flex-end;
+          width: 100%;
+          img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50px;
+            margin-top: 0;
+          }
+          .listSpan {
+            width: 90% !important;
+            display: inline-block;
+            height: 60px;
+            padding: 0;
+            span {
+              padding: 5px;
+            }
           }
         }
       }
