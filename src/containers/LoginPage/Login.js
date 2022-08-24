@@ -28,7 +28,8 @@ const Login = () => {
           Authentication.loginTokenSave(json.data.token);
           setShowSuccessMessage(true);
           setHasLoginFailed(false);
-          navigate(-1); //toBack()
+          // navigate("../", { replace: true }); //toBack()
+          navigate(-1, { replace: true }); //toBack()
         } else {
           setShowSuccessMessage(false);
           setHasLoginFailed(true);
