@@ -129,32 +129,33 @@ const SelectMore = () => {
     if (date === undefined) alert("날짜를 선택해주세요");
     if (time === undefined) alert("시간을 선택해주세요");
     if (tableCnt === undefined) alert("인원을 선택해주세요");
-
-    // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
-    UserService.findUser()
-      .then((response) => {
-        console.log(response);
-        ReservationService.createReservation(
-          date,
-          response.data.data.userNickname,
-          response.data.data.userNickname,
-          Number(roomParams.roomNumber),
-          tableCnt,
-          time
-        )
-          .then((response) => {
-            console.log(response);
-            alert(date + " " + time + " 예약이 완료되었습니다.");
-            navigate("../../../reservation");
-          })
-          .catch(() => {
-            alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
-          });
-      })
-      .catch(() => {
-        alert("로그인 후 이용해주세요.");
-        navigate("../../../login");
-      });
+    if (date !== undefined || time !== undefined || tableCnt !== undefined) {
+      // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
+      UserService.findUser()
+        .then((response) => {
+          console.log(response);
+          ReservationService.createReservation(
+            date,
+            response.data.data.userNickname,
+            response.data.data.userEmail,
+            Number(roomParams.roomNumber),
+            tableCnt,
+            time
+          )
+            .then((response) => {
+              console.log(response);
+              alert(date + " " + time + " 예약이 완료되었습니다.");
+              navigate("../../../UserInfo/reservation");
+            })
+            .catch(() => {
+              alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
+            });
+        })
+        .catch(() => {
+          alert("로그인 후 이용해주세요.");
+          navigate("../../../login");
+        });
+    }
   }
   return (
     <div id="ReservationDetail">

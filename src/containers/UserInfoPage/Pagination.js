@@ -1,4 +1,5 @@
 import React from "react";
+import styles from "./UserInfo.module.scss";
 import Pagination from "react-bootstrap/Pagination";
 
 const Page = ({ postsPerPage, totalPosts, paginate }) => {
@@ -8,7 +9,7 @@ const Page = ({ postsPerPage, totalPosts, paginate }) => {
   }
   return (
     <>
-      <Pagination>
+      <Pagination className={styles.pagination}>
         {pageNumbers.map((number) => (
           <Pagination.Item key={number} onClick={() => paginate(number)}>
             {number}
