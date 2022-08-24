@@ -8,9 +8,27 @@ import CartShortcut from "../../components/ShortCut/CartShortcut";
 import ImgBanner from "../../components/Banner/ImgBanner";
 import styles from "./Order.module.scss";
 import DishService from "lib/api/DishService";
+import CartService from "lib/api/CartService";
 
 const image1 = "https://picsum.photos/1200/600";
-const onClikcPutInCart = () => {};
+
+function onClicktoModal(dishNumber, dishName, dishPhoto, dishPrice) {
+  //React Modal 띄워서 dish 간략한 설명과 수량 선택 후 장바구니(또는 구매하기) 추가)
+};
+
+function onClickAddCart(dishNumber, cartQuantity){
+  CartService.addCartDish(dishNumber, cartQuantity)
+    .then((response) => {
+      console.log(response.data.data);
+      //Modal 창 내용을 '장바구니에 추가 되었습니다. 이동하시겠습니까? 예/계속 쇼핑하기' 바꾸던가 새 모달창 띄우기
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
+}
+
+//바로 구매하기 추가하기로 결정나면, Order 추가 함수 작성 필요.
+
 function OrderContent(data) {
   console.log(data.data.length);
   const entreeList = [];
@@ -33,7 +51,8 @@ function OrderContent(data) {
               src="https://picsum.photos/350/350"
               alt={data.data[i].dishName}
             />
-            <button type="submit" onClick={onClikcPutInCart}>
+            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
+              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
               장바구니
             </button>
           </div>
@@ -63,7 +82,8 @@ function OrderContent(data) {
               src="https://picsum.photos/350/350"
               alt={data.data[i].dishName}
             />
-            <button type="submit" onClick={onClikcPutInCart}>
+            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
+              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
               장바구니
             </button>
           </div>
@@ -93,7 +113,8 @@ function OrderContent(data) {
               src="https://picsum.photos/350/350"
               alt={data.data[i].dishName}
             />
-            <button type="submit" onClick={onClikcPutInCart}>
+            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
+              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
               장바구니
             </button>
           </div>
