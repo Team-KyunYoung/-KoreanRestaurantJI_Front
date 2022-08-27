@@ -100,7 +100,8 @@ const Reservation = () => {
           <Page
             postsPerPage={postsPerPage}
             totalPosts={list.length}
-            paginate={setCurrentPage}
+            setCurrentPage={setCurrentPage}
+            currentPage={currentPage}
             className={styles.pagination}
           ></Page>
         </div>
