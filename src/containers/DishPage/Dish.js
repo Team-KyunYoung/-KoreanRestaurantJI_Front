@@ -17,7 +17,7 @@ function DishContent(data) {
   const appetizerList = [];
   const dessertList = [];
 
-  for (let i = 1; i < data.data.length; i++) {
+  for (let i = 0; i < data.data.length; i++) {
     if (data.data[i].dishCategory === "전식") {
       appetizerList.push(
         <Link
