@@ -43,6 +43,7 @@
     }
     .dishDetails {
       text-align: start;
+      padding: 7px;
       i {
         font-size: 14px;
         color: gray;
@@ -63,23 +64,43 @@
         //참고 : https://webdir.tistory.com/483
       }
     }
-    button {
-      display: none;
-    }
-    &:hover button {
-      display: inline-block;
+    .btnClub {
       position: relative;
-      top: -200px;
-      border: 2px solid white;
-      border-radius: 22px;
-      background: none;
-      color: white;
-      padding: 5px 10px;
-      font-size: 20px;
+      left: 110px;
+      button {
+        background-color: white;
+        width: 89px;
+        height: 40px;
+        border-radius: 8px 0 0 25px;
+        border: 1px solid gray;
+      }
+      .cart {
+        border-radius: 0 25px 8px 0;
+        border-left: none;
+      }
+      button:hover {
+        background-color: gray;
+        color: white;
+      }
     }
-    &:hover img {
-      opacity: 0.9;
-    }
+    // button {
+    //   display: none;
+    // }
+    // &:hover button {
+    //   display: inline-block;
+    //   position: relative;
+    //   top: -200px;
+    //   border: 2px solid white;
+    //   // border-radius: 22px 0 0 22px;
+    //   border-radius: 22px;
+    //   background: none;
+    //   color: white;
+    //   padding: 5px 10px;
+    //   font-size: 20px;
+    // }
+    // &:hover img {
+    //   opacity: 0.9;
+    // }
   }
 }
 
@@ -139,5 +160,11 @@
       margin: 10px;
       float: left;
     }
+  }
+}
+@include mobile {
+  .appetizer,
+  .dessert {
+    padding: 70px 2% 40px 2%;
   }
 }
