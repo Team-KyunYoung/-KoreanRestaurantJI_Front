@@ -17,7 +17,7 @@ function OrderContent(data) {
   const appetizerList = [];
   const dessertList = [];
 
-  for (let i = 1; i < data.data.length; i++) {
+  for (let i = 0; i < data.data.length; i++) {
     var popover = (
       <Popover id="popover-basic">
         <Popover.Body>{data.data[i].dishDescription}</Popover.Body>
