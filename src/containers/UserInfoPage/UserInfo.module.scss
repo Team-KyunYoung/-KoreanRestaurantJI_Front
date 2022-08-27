@@ -150,19 +150,15 @@
           margin: 0 auto;
         }
         li {
-          height: 70px;
           overflow: hidden;
           margin: 12px;
           img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50px;
-            margin-top: -24px;
+            width: 200px;
+            height: 200px;
+            border-radius: 150px;
           }
           .listSpan {
-            width: 300px;
-            display: inline-block;
-            height: 60px;
+            display: block;
             padding: 10px;
             span {
               padding: 5px;
@@ -171,8 +167,14 @@
         }
       }
       .today {
-        background-color: #b4b4b6;
-        color: white;
+        // background-color: #b4b4b6;
+        // color: white;
+        img {
+          border: 5px solid salmon;
+        }
+        .listSpan p:first-child span {
+          color: salmon;
+        }
       }
     }
   }
@@ -209,6 +211,35 @@
           input {
             width: 90%;
           }
+        }
+      }
+    }
+  }
+  .list {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 50px;
+    hr {
+      width: 50%;
+      margin: 0 auto;
+    }
+    li {
+      height: 70px;
+      overflow: hidden;
+      margin: 12px;
+      img {
+        width: 70px;
+        height: 70px;
+        border-radius: 50px;
+        margin-top: -24px;
+      }
+      .listSpan {
+        width: 300px;
+        display: inline-block;
+        height: 60px;
+        padding: 10px;
+        span {
+          padding: 5px;
         }
       }
     }
