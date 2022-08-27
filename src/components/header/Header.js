@@ -58,7 +58,7 @@ const Header = () => {
               >
                 <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="./../UserInfo/Ordered">
+                  <NavDropdown.Item href="/UserInfo/Ordered">
                     주문 현황
                   </NavDropdown.Item>
                 )}
@@ -70,7 +70,7 @@ const Header = () => {
                   테이블 예약
                 </NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="./../UserInfo/reservation">
+                  <NavDropdown.Item href="/UserInfo/reservation">
                     예약 현황
                   </NavDropdown.Item>
                 )}
