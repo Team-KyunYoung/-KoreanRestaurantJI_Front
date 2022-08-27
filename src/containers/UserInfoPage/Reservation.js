@@ -22,21 +22,29 @@ function ReservationInnerPage(props) {
                 }
               >
                 <img src={image1} alt="reservation list" />
-                <span className={styles.listSpan}>
-                  <span>{obj.reservationDate}</span>
-                  <span>|</span>
-                  <span>{obj.reservationTime}</span>
-                  <span>|</span>
-                  <span>{obj.reservationRoomName}</span>
-                  <br />
-                  <span>{obj.reservationName}</span>
-                  <span>|</span>
-                  <span>{obj.reservationHeadCount}</span>
-                  <span>|</span>
-                  <span>{obj.reservationPhoneNumber}</span>
-                </span>
+                <div className={styles.listSpan}>
+                  <p>
+                    {props.date.toString() ===
+                    obj.reservationDate.toString() ? (
+                      <span>
+                        <strong>Today!</strong>
+                      </span>
+                    ) : (
+                      <b>예약 일시</b>
+                    )}{" "}
+                    {obj.reservationDate} {obj.reservationTime}{" "}
+                  </p>
+                  <p>
+                    <b>예약 정보</b> {obj.reservationRoomName}홀{" "}
+                    {obj.reservationHeadCount}
+                  </p>
+                  <p>
+                    <b>예약자</b> {obj.reservationName}님{" "}
+                    {obj.reservationPhoneNumber}
+                  </p>
+                </div>
               </li>
-              <hr />
+              {/* <hr /> */}
             </>
           ))}
     </ul>
@@ -46,7 +54,7 @@ const Reservation = () => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(5);
+  const [postsPerPage, setPostsPerPage] = useState(1);
 
   //오늘 날짜 구하기
   const year = new Date().getFullYear();
