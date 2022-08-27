@@ -11,6 +11,7 @@ import DishService from "lib/api/DishService";
 
 const image1 = "https://picsum.photos/1200/600";
 const onClikcPutInCart = () => {};
+const onClickOrderNow = () => {};
 function OrderContent(data) {
   console.log(data.data.length);
   const entreeList = [];
@@ -33,9 +34,6 @@ function OrderContent(data) {
               src="https://picsum.photos/350/350"
               alt={data.data[i].dishName}
             />
-            <button type="submit" onClick={onClikcPutInCart}>
-              장바구니
-            </button>
           </div>
           <div className={styles.dishDetails}>
             <OverlayTrigger
@@ -50,6 +48,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );
@@ -80,6 +90,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );
@@ -110,6 +132,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );
