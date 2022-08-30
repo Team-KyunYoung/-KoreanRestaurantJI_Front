@@ -10,63 +10,65 @@ const image1 = "https://picsum.photos/800/600";
 function OrderedInnerPage(props) {
   console.log(props.list);
   console.log(props);
-  return props.list.length === 0 ? (
-    <div className={styles.noList}>
-      <p>주문 내역 없음</p>
-      <Link to={"./../../Order"}>주문하러 가기</Link>
-    </div>
-  ) : (
+  return (
     <ul className={styles.list}>
-      {props.loading
-        ? "loading"
-        : props.list.map((obj) => (
-            <>
-              <li key={obj.createdDate}>
-                {/* <img src={image1} alt="reservation list" /> */}
-                {/* <h3>{obj.orderStatus}</h3> */}
-                <div className={styles.listSpan}>
-                  <h3>"{obj.orderStatus}"</h3>
-                  <p>
-                    <b>주문 정보 </b>
-                    {obj.createdDate}
-                  </p>
-                  <p>
-                    <b>총</b> {obj.orderPrice}
-                    <b>원</b>
-                  </p>
-                  <ul>
-                    {obj.orderDishList.map((dishObj) => (
-                      <li>
-                        <Link
-                          to={
-                            "./../../Dish/" +
-                            dishObj.dishNumber +
-                            "/" +
-                            dishObj.dishName
-                          }
-                        >
-                          <span className={styles.imgContainer}>
-                            <img src={image1} alt="reservation list" />
+      {props.loading ? (
+        "loading"
+      ) : props.list.length === 0 ? (
+        <div className={styles.noList}>
+          <p>주문 내역 없음</p>
+          <Link to={"./../../Order"}>주문하러 가기</Link>
+        </div>
+      ) : (
+        props.list.map((obj) => (
+          <>
+            <li key={obj.createdDate}>
+              {/* <img src={image1} alt="reservation list" /> */}
+              {/* <h3>{obj.orderStatus}</h3> */}
+              <div className={styles.listSpan}>
+                <h3>"{obj.orderStatus}"</h3>
+                <p>
+                  <b>주문 정보 </b>
+                  {obj.createdDate}
+                </p>
+                <p>
+                  <b>총</b> {obj.orderPrice}
+                  <b>원</b>
+                </p>
+                <ul>
+                  {obj.orderDishList.map((dishObj) => (
+                    <li>
+                      <Link
+                        to={
+                          "./../../Dish/" +
+                          dishObj.dishNumber +
+                          "/" +
+                          dishObj.dishName
+                        }
+                      >
+                        <span className={styles.imgContainer}>
+                          <img src={image1} alt="reservation list" />
+                        </span>
+                        <span className={styles.dishList}>
+                          <span>
+                            <i>{dishObj.dishName}</i>
                           </span>
-                          <span className={styles.dishList}>
-                            <span>
-                              <i>{dishObj.dishName}</i>
-                            </span>
-                            <span>
-                              <b>수량</b> {dishObj.orderQuantity}개{" "}
-                            </span>
-                            <span>
-                              <b>가격</b> {dishObj.orderDishPrice}원
-                            </span>
+                          <span>
+                            <b>수량</b> {dishObj.orderQuantity}개{" "}
                           </span>
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </li>
-            </>
-          ))}
+                          <span>
+                            <b>가격</b> {dishObj.orderDishPrice}원
+                          </span>
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </li>
+          </>
+        ))
+      )}
     </ul>
   );
 }
