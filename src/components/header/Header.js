@@ -103,12 +103,12 @@ const Header = () => {
                 </Nav.Link>
               </MediaQuery>
               <NavDropdown
-                title="고객 문의"
+                title="문의"
                 id="collasible-nav-dropdown"
                 className="p-2"
               >
-                <NavDropdown.Item href="#action/3.1">Q&A</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">F&Q</NavDropdown.Item>
+                <NavDropdown.Item href="/QnA">Q&A</NavDropdown.Item>
+                <NavDropdown.Item href="/FnQ">F&Q</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav>
