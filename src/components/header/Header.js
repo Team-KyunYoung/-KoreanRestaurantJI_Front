@@ -58,7 +58,7 @@ const Header = () => {
               >
                 <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="./../UserInfo/Ordered">
+                  <NavDropdown.Item href="/UserInfo/Ordered">
                     주문 현황
                   </NavDropdown.Item>
                 )}
@@ -70,7 +70,7 @@ const Header = () => {
                   테이블 예약
                 </NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="./../UserInfo/reservation">
+                  <NavDropdown.Item href="/UserInfo/reservation">
                     예약 현황
                   </NavDropdown.Item>
                 )}
@@ -142,27 +142,44 @@ const Header = () => {
                     </svg>
                   </Nav.Link>
                 )}
-                <Nav.Link eventKey={2} href="/Cart" className="p-3">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    fill="currentColor"
-                    className="bi bi-cart-fill"
-                    viewBox="0 0 16 16"
-                  >
-                    <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
-                  </svg>
-                </Nav.Link>
+
+                {isOnLogin && (
+                  <Nav.Link eventKey={2} href="/Cart" className="p-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-cart-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg>
+                  </Nav.Link>
+                )}
+                {!isOnLogin && (
+                  <Nav.Link eventKey={2} href="/Login" className="p-3">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      fill="currentColor"
+                      className="bi bi-cart-fill"
+                      viewBox="0 0 16 16"
+                    >
+                      <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4zm-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2zm7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+                    </svg>
+                  </Nav.Link>
+                )}
                 {!isOnLogin && (
                   <Nav.Link href="/login" className="p-3">
                     로그인
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <span href="/login" onClick={logout} className="p-3">
+                  <Nav.Link href="/login" onClick={logout} className="p-3">
                     로그아웃
-                  </span>
+                  </Nav.Link>
                 )}
               </MediaQuery>
               {/* 태블리 + 모바일ver */}
@@ -177,18 +194,29 @@ const Header = () => {
                     프로필 관리
                   </Nav.Link>
                 )}
-                <Nav.Link eventKey={2} href="/Cart" className="p-2 pt-3 pb-3">
-                  장바구니
-                </Nav.Link>
+                {isOnLogin && (
+                  <Nav.Link eventKey={2} href="/Cart" className="p-2 pt-3 pb-3">
+                    장바구니
+                  </Nav.Link>
+                )}
+                {!isOnLogin && (
+                  <Nav.Link
+                    eventKey={2}
+                    href="/Login"
+                    className="p-2 pt-3 pb-3"
+                  >
+                    장바구니
+                  </Nav.Link>
+                )}
                 {!isOnLogin && (
                   <Nav.Link href="/login" className="p-2">
                     로그인
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <span onClick={logout} className="p-2">
+                  <Nav.Link href="/login" onClick={logout} className="p-2">
                     로그아웃
-                  </span>
+                  </Nav.Link>
                 )}
               </MediaQuery>
               <NavDropdown

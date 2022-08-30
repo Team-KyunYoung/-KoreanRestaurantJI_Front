@@ -32,13 +32,13 @@
     .fixedBox {
       position: fixed;
       top: 150px;
-      right: 5%;
       z-index: 1;
       padding: 10px;
       border-radius: 6px;
       color: #16193c;
-      text-align: left;
+      text-align: center;
       display: flex;
+      box-shadow: 1px 1px 5px rgb(187, 187, 187);
       ul {
         list-style: none;
         padding-left: 0;
@@ -48,15 +48,19 @@
       }
     }
     .rightside {
+      left: 5%;
+      height: 104px;
       ul {
         display: flex;
         flex-direction: column;
+        margin-bottom: 0;
         li {
           height: 30px;
           width: 120px;
           a {
-            color: #16193c;
-            text-shadow: 2px 2px 1px white;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgb(51, 50, 50);
           }
           a:hover {
             color: #676b91;
@@ -142,36 +146,40 @@
         padding-left: 0;
         margin-top: 50px;
         hr {
-          width: 60%;
+          width: 50%;
           margin: 0 auto;
         }
         li {
-          height: 70px;
           overflow: hidden;
           margin: 12px;
           img {
-            width: 70px;
-            height: 70px;
-            border-radius: 50px;
-            margin-top: -24px;
+            width: 240px;
+            height: 240px;
+            border-radius: 150px;
           }
           .listSpan {
-            width: 300px;
-            display: inline-block;
-            height: 60px;
-            padding: 10px;
+            display: block;
+            padding: 30px;
             span {
               padding: 5px;
             }
           }
         }
       }
-    }
-    .pagination {
-      ul {
-        justify-content: center !important;
+      .today {
+        // background-color: #b4b4b6;
+        // color: white;
+        img {
+          border: 5px solid salmon;
+        }
+        .listSpan p:first-child span {
+          color: salmon;
+        }
       }
     }
+  }
+  .pagination {
+    justify-content: center !important;
   }
 }
 @include tablet {
@@ -237,44 +245,6 @@
           }
           input {
             width: 90%;
-          }
-        }
-      }
-    } //reservation페이지
-    .reservation {
-      margin-bottom: 100px;
-      .list {
-        list-style: none;
-        padding-left: 0;
-        width: 98%;
-        hr {
-          width: 90% !important;
-        }
-        li {
-          height: 70px;
-          overflow: hidden;
-          margin: 12px;
-          display: flex;
-          flex-direction: row;
-          flex-wrap: nowrap;
-          align-content: flex-end;
-          justify-content: flex-end;
-          align-items: flex-end;
-          width: 100%;
-          img {
-            width: 50px;
-            height: 50px;
-            border-radius: 50px;
-            margin-top: 0;
-          }
-          .listSpan {
-            width: 90% !important;
-            display: inline-block;
-            height: 60px;
-            padding: 0;
-            span {
-              padding: 5px;
-            }
           }
         }
       }

@@ -29,13 +29,15 @@ function onClickAddCart(dishNumber, cartQuantity){
 
 //바로 구매하기 추가하기로 결정나면, Order 추가 함수 작성 필요.
 
+const onClikcPutInCart = () => {};
+const onClickOrderNow = () => {};
 function OrderContent(data) {
   console.log(data.data.length);
   const entreeList = [];
   const appetizerList = [];
   const dessertList = [];
 
-  for (let i = 1; i < data.data.length; i++) {
+  for (let i = 0; i < data.data.length; i++) {
     var popover = (
       <Popover id="popover-basic">
         <Popover.Body>{data.data[i].dishDescription}</Popover.Body>
@@ -58,7 +60,7 @@ function OrderContent(data) {
           </div>
           <div className={styles.dishDetails}>
             <OverlayTrigger
-              trigger="hover"
+              trigger={['hover', 'focus']}
               placement="bottom"
               overlay={popover}
             >
@@ -69,6 +71,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );
@@ -89,7 +103,7 @@ function OrderContent(data) {
           </div>
           <div className={styles.dishDetails}>
             <OverlayTrigger
-              trigger="hover"
+              trigger={['hover', 'focus']}
               placement="bottom"
               overlay={popover}
             >
@@ -100,6 +114,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );
@@ -120,7 +146,7 @@ function OrderContent(data) {
           </div>
           <div className={styles.dishDetails}>
             <OverlayTrigger
-              trigger="hover"
+              trigger={['hover', 'focus']}
               placement="bottom"
               overlay={popover}
             >
@@ -131,6 +157,18 @@ function OrderContent(data) {
               </div>
             </OverlayTrigger>
             <i>{data.data[i].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
           </div>
         </div>
       );

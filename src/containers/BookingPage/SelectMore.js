@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
@@ -34,7 +37,7 @@ function RemainingSeatsByDate(data) {
   const res = data.data.roomStatus;
 
   // console.log(data.data.roomStatus.length);
-  // console.log(res);
+  console.log(res);
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < res.length; i++) {
     seatStatus.map((obj) => {
@@ -53,7 +56,7 @@ function RemainingSeatsByDate(data) {
           //그 시간대에 남은 좌석수의 최소값을 저장함
           obj.remain = res[i].roomRemaining;
         }
-        if (res[i].roomRemaining < 4) {
+        if (res[i].roomRemaining < 1) {
           //4보다 작으면 어떠한 테이블도 예약 불가
           //그 시간대 선택 불가
           obj.isDisabled = true;
@@ -73,11 +76,11 @@ function RemainingSeatsByTime(time) {
       personnelStatus.map((personnelObj) => {
         // console.log(personnelObj.value + "," + seatObj.remain);
         // console.log(personnel);
-        if (personnelObj.value === 2 && seatObj.remain < 5) {
+        if (personnelObj.value === 2 && seatObj.remain < 2) {
           //남은 좌석이 5개 미만이라면
           personnelObj.isDisabled = true; //5-8인 option disabled
         }
-        if (personnelObj.value === 3 && seatObj.remain < 9) {
+        if (personnelObj.value === 3 && seatObj.remain < 3) {
           //남은 좌석이 9개 미만이라면
           personnelObj.isDisabled = true; //9-12인 option disabled
         }
@@ -89,10 +92,19 @@ function RemainingSeatsByTime(time) {
 const SelectMore = () => {
   const roomParams = useParams(); //url에서 파라미터 가져오기
 
+  const [userName, setUserName] = useState();
+  const [userPhoneNumber, setUserPhoneNumber] = useState();
+  const [userRequest, setUserRequest] = useState(); //요청사항은 백과 협의 후 전달
+
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
   const navigate = useNavigate();
+
+  //모달 창
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   // useEffect(() => {//해당 방의 모든 예약을 불러옴
   //   RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
   //     // console.log(response);
@@ -100,6 +112,21 @@ const SelectMore = () => {
   //     setIsLoading(false);
   //   });
   // }, []);
+
+  useEffect(() => {
+    //페이지 첫 로드 시, 모달 창 열림->개인 정보 입력
+    handleShow();
+  }, []);
+  const onChangeFormName = (e) => {
+    console.log(e.target.value === null);
+    setUserName(e.target.value);
+  };
+  const onChangeFormPhoneNumber = (e) => {
+    setUserPhoneNumber(e.target.value);
+  };
+  const onChangeFormRequest = (e) => {
+    setUserRequest(e.target.value);
+  };
 
   const onChangeDate = (e) => {
     setDate(e.target.value);
@@ -129,32 +156,43 @@ const SelectMore = () => {
     if (date === undefined) alert("날짜를 선택해주세요");
     if (time === undefined) alert("시간을 선택해주세요");
     if (tableCnt === undefined) alert("인원을 선택해주세요");
-
-    // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
-    UserService.findUser()
-      .then((response) => {
-        console.log(response);
-        ReservationService.createReservation(
-          date,
-          response.data.data.userNickname,
-          response.data.data.userNickname,
-          Number(roomParams.roomNumber),
-          tableCnt,
-          time
-        )
-          .then((response) => {
-            console.log(response);
-            alert(date + " " + time + " 예약이 완료되었습니다.");
-            navigate("../../../reservation");
-          })
-          .catch(() => {
-            alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
-          });
-      })
-      .catch(() => {
-        alert("로그인 후 이용해주세요.");
-        navigate("../../../login");
-      });
+    if (userName === undefined || userPhoneNumber === undefined)
+      alert("예약자 정보를 입력해주세요");
+    if (
+      date !== undefined ||
+      time !== undefined ||
+      tableCnt !== undefined ||
+      userName !== undefined ||
+      userPhoneNumber !== undefined
+    ) {
+      // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
+      UserService.findUser()
+        .then((response) => {
+          console.log(response);
+          ReservationService.createReservation(
+            date,
+            userName, //성명
+            userPhoneNumber, //예약자 연락처
+            Number(roomParams.roomNumber),
+            tableCnt,
+            time
+          )
+            .then((response) => {
+              console.log(response);
+              alert(
+                userName + "님 " + date + " " + time + " 예약이 완료되었습니다."
+              );
+              navigate("../../../UserInfo/reservation");
+            })
+            .catch(() => {
+              alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
+            });
+        })
+        .catch(() => {
+          alert("로그인 후 이용해주세요.");
+          navigate("../../../login");
+        });
+    }
   }
   return (
     <div id="ReservationDetail">
@@ -192,6 +230,44 @@ const SelectMore = () => {
           </div>
         </div>
       </main>
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>예약자 정보 입력</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>성명</Form.Label>
+              <Form.Control type="text" autoFocus onChange={onChangeFormName} />
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+              <Form.Label>연락처</Form.Label>
+              <Form.Control type="text" onChange={onChangeFormPhoneNumber} />
+            </Form.Group>
+            <Form.Group
+              className="mb-3"
+              controlId="exampleForm.ControlTextarea1"
+            >
+              <Form.Label onChange={onChangeFormRequest}>
+                요청사항을 입력해주세요
+              </Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                placeholder="(ex. 알러지 정보, 아기 식사)"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            닫기
+          </Button>
+          <Button variant="primary" onClick={handleClose}>
+            제출하기
+          </Button>
+        </Modal.Footer>
+      </Modal>
       <ChatShortcut />
       <Footer />
     </div>
