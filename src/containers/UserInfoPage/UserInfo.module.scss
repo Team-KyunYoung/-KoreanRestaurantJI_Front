@@ -177,6 +177,71 @@
         }
       }
     }
+    //ordered 페이지
+    .ordered {
+      height: auto;
+      margin-top: -30px;
+      .list {
+        list-style: none;
+        padding-left: 0;
+        margin-top: 50px;
+        li {
+          overflow: hidden;
+          .listSpan {
+            padding: 10px;
+            overflow: hidden;
+            max-height: 65vh;
+            h3 {
+              color: rgb(93, 93, 97);
+            }
+            ul {
+              overflow: scroll;
+              // border: solid 1px rgb(201, 201, 201);
+              border-radius: 30px;
+              max-height: 50vh;
+              width: 95%;
+              li {
+                display: inline-block;
+                width: 300px;
+                margin: 5px;
+                border: 1px solid rgb(197, 194, 194);
+                &:hover img {
+                  transform: scale(1.4);
+                }
+                a {
+                  color: black;
+                  text-decoration: none;
+                  display: flex;
+                  // justify-content: space-between;
+                  justify-content: flex-start;
+                  align-items: center;
+                  .dishList {
+                    display: flex;
+                    align-items: flex-start;
+                    flex-direction: column;
+                    padding: 10px;
+                    i {
+                      font-size: 18px;
+                    }
+                  }
+                }
+                .imgContainer {
+                  width: 100px;
+                  height: 100px;
+                  overflow: hidden;
+                  img {
+                    width: 100px;
+                    height: 100px;
+                    transition: all 0.2s linear;
+                    // border-radius: 150px;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
   }
   .pagination {
     justify-content: center !important;
@@ -189,7 +254,7 @@
     height: auto;
     .banner {
       width: 100%;
-      height: 300px;
+      // height: 300px;
       img {
         height: 100%;
       }
@@ -201,7 +266,7 @@
     }
     .contents {
       width: 100%;
-      height: 700px;
+      // height: 700px;
       padding: 10%;
       .editProfile {
         .inputArea {
@@ -235,7 +300,7 @@
     }
     .contents {
       width: 100%;
-      height: 600px;
+      // height: 600px;
       padding: 3%;
       padding-top: 45px;
       .editProfile {
