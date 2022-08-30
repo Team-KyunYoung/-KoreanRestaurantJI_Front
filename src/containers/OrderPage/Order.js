@@ -31,147 +31,67 @@ function onClickAddCart(dishNumber, cartQuantity){
 
 const onClikcPutInCart = () => {};
 const onClickOrderNow = () => {};
+function DishContent(count, data){
+  var popover = (
+    <Popover id="popover-basic">
+      <Popover.Body>{data.data[count].dishDescription}</Popover.Body>
+    </Popover>
+  );
+  return(
+    <div className={styles.dish}>
+          <div className={styles.dishImg}>
+            <img
+              href="#"
+              // src={data.data[count].dishPhoto}
+              src="https://picsum.photos/350/350"
+              alt={data.data[count].dishName}
+            />
+            <button type="submit" onClick={() => onClicktoModal(data.data[count].dishNumber, 
+              data.data[count].dishName, data.data[count].dishPhoto, data.data[count].dishPrice)}>
+              장바구니
+            </button>
+          </div>
+          <div className={styles.dishDetails}>
+            <OverlayTrigger
+              trigger={['hover', 'focus']}
+              placement="bottom"
+              overlay={popover}
+            >
+              {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
+              <div>
+                <h4>{data.data[count].dishName}</h4>
+                <p>{data.data[count].dishDescription}</p>
+              </div>
+            </OverlayTrigger>
+            <i>{data.data[count].dishPrice}원</i>
+            <span className={styles.btnClub}>
+              <button type="submit" onClick={onClickOrderNow}>
+                바로주문
+              </button>
+              <button
+                type="submit"
+                onClick={onClikcPutInCart}
+                className={styles.cart}
+              >
+                장바구니
+              </button>
+            </span>
+          </div>
+        </div>
+  )
+}
 function OrderContent(data) {
-  console.log(data.data.length);
+  //console.log(data.data.length);
   const entreeList = [];
   const appetizerList = [];
   const dessertList = [];
-
   for (let i = 0; i < data.data.length; i++) {
-    var popover = (
-      <Popover id="popover-basic">
-        <Popover.Body>{data.data[i].dishDescription}</Popover.Body>
-      </Popover>
-    );
     if (data.data[i].dishCategory === "전식") {
-      appetizerList.push(
-        <div className={styles.dish}>
-          <div className={styles.dishImg}>
-            <img
-              href="#"
-              // src={data.data[i].dishPhoto}
-              src="https://picsum.photos/350/350"
-              alt={data.data[i].dishName}
-            />
-            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
-              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
-              장바구니
-            </button>
-          </div>
-          <div className={styles.dishDetails}>
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="bottom"
-              overlay={popover}
-            >
-              {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
-              <div>
-                <h4>{data.data[i].dishName}</h4>
-                <p>{data.data[i].dishDescription}</p>
-              </div>
-            </OverlayTrigger>
-            <i>{data.data[i].dishPrice}원</i>
-            <span className={styles.btnClub}>
-              <button type="submit" onClick={onClickOrderNow}>
-                바로주문
-              </button>
-              <button
-                type="submit"
-                onClick={onClikcPutInCart}
-                className={styles.cart}
-              >
-                장바구니
-              </button>
-            </span>
-          </div>
-        </div>
-      );
+      appetizerList.push(DishContent(i, data));
     } else if (data.data[i].dishCategory === "본식") {
-      entreeList.push(
-        <div className={styles.dish}>
-          <div className={styles.dishImg}>
-            <img
-              href="#"
-              // src={data.data[i].dishPhoto}
-              src="https://picsum.photos/350/350"
-              alt={data.data[i].dishName}
-            />
-            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
-              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
-              장바구니
-            </button>
-          </div>
-          <div className={styles.dishDetails}>
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="bottom"
-              overlay={popover}
-            >
-              {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
-              <div>
-                <h4>{data.data[i].dishName}</h4>
-                <p>{data.data[i].dishDescription}</p>
-              </div>
-            </OverlayTrigger>
-            <i>{data.data[i].dishPrice}원</i>
-            <span className={styles.btnClub}>
-              <button type="submit" onClick={onClickOrderNow}>
-                바로주문
-              </button>
-              <button
-                type="submit"
-                onClick={onClikcPutInCart}
-                className={styles.cart}
-              >
-                장바구니
-              </button>
-            </span>
-          </div>
-        </div>
-      );
+      entreeList.push(DishContent(i, data));
     } else if (data.data[i].dishCategory === "후식") {
-      dessertList.push(
-        <div className={styles.dish}>
-          <div className={styles.dishImg}>
-            <img
-              href="#"
-              // src={data.data[i].dishPhoto}
-              src="https://picsum.photos/350/350"
-              alt={data.data[i].dishName}
-            />
-            <button type="submit" onClick={() => onClicktoModal(data.data[i].dishNumber, 
-              data.data[i].dishName, data.data[i].dishPhoto, data.data[i].dishPrice)}>
-              장바구니
-            </button>
-          </div>
-          <div className={styles.dishDetails}>
-            <OverlayTrigger
-              trigger={['hover', 'focus']}
-              placement="bottom"
-              overlay={popover}
-            >
-              {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
-              <div>
-                <h4>{data.data[i].dishName}</h4>
-                <p>{data.data[i].dishDescription}</p>
-              </div>
-            </OverlayTrigger>
-            <i>{data.data[i].dishPrice}원</i>
-            <span className={styles.btnClub}>
-              <button type="submit" onClick={onClickOrderNow}>
-                바로주문
-              </button>
-              <button
-                type="submit"
-                onClick={onClikcPutInCart}
-                className={styles.cart}
-              >
-                장바구니
-              </button>
-            </span>
-          </div>
-        </div>
-      );
+      dessertList.push(DishContent(i, data));
     }
   }
   return (
@@ -218,7 +138,7 @@ const Order = () => {
   const [scrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
   const [scrollOver, setScrollOver] = useState(false); //스크롤이 550을 넘겼는지에 대한 정보
   function handleScroll() {
-    console.log(scrollY + "," + scrollOver);
+    //console.log(scrollY + "," + scrollOver);
     if (scrollY > 550) {
       //바로가기 리모콘 우단으로 옮김
       //헤더+carousel 대충 높이, jsx 내 px,vh calc계산 모르겠음
@@ -280,7 +200,7 @@ const Order = () => {
               {remoteController}
             </div>
           </MediaQuery>
-          <div>{isLoading ? "Loading..." : <OrderContent data={dish} />}</div>
+          <div>{isLoading ? "Loading..." : <OrderContent key="OrderContent" data={dish} />}</div>
         </div>
       </main>
       <CartShortcut />
