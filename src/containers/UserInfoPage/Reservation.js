@@ -8,51 +8,53 @@ import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
 const image1 = "https://picsum.photos/800/600";
 function ReservationInnerPage(props) {
-  return props.list.length === 0 ? (
-    <div className={styles.noList}>
-      <p>예약 내역 없음</p>
-      <Link to={"./../../Order"}>테이블 예약하러 가기</Link>
-    </div>
-  ) : (
+  console.log(props.list.length);
+  return (
     <ul className={styles.list}>
-      {props.loading
-        ? "loading"
-        : props.list.map((obj) => (
-            <>
-              <li
-                key={obj.reservationNumber}
-                className={
-                  props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
-                    ? styles.today
-                    : styles.notToday
-                }
-              >
-                <img src={image1} alt="reservation list" />
-                <div className={styles.listSpan}>
-                  <p>
-                    {props.date.toString() ===
-                    obj.reservationDate.toString() ? (
-                      <span>
-                        <strong>Today!</strong>
-                      </span>
-                    ) : (
-                      <b>예약 일시</b>
-                    )}{" "}
-                    {obj.reservationDate} {obj.reservationTime}{" "}
-                  </p>
-                  <p>
-                    <b>예약 정보</b> {obj.reservationRoomName}홀{" "}
-                    {obj.reservationHeadCount}
-                  </p>
-                  <p>
-                    <b>예약자</b> {obj.reservationName}님{" "}
-                    {obj.reservationPhoneNumber}
-                  </p>
-                </div>
-              </li>
-              {/* <hr /> */}
-            </>
-          ))}
+      {props.loading ? (
+        "loading"
+      ) : props.list.length === 0 ? (
+        <div className={styles.noList}>
+          <p>예약 내역 없음</p>
+          <Link to={"./../../Order"}>테이블 예약하러 가기</Link>
+        </div>
+      ) : (
+        props.list.map((obj) => (
+          <>
+            <li
+              key={obj.reservationNumber}
+              className={
+                props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
+                  ? styles.today
+                  : styles.notToday
+              }
+            >
+              <img src={image1} alt="reservation list" />
+              <div className={styles.listSpan}>
+                <p>
+                  {props.date.toString() === obj.reservationDate.toString() ? (
+                    <span>
+                      <strong>Today!</strong>
+                    </span>
+                  ) : (
+                    <b>예약 일시</b>
+                  )}{" "}
+                  {obj.reservationDate} {obj.reservationTime}{" "}
+                </p>
+                <p>
+                  <b>예약 정보</b> {obj.reservationRoomName}홀{" "}
+                  {obj.reservationHeadCount}
+                </p>
+                <p>
+                  <b>예약자</b> {obj.reservationName}님{" "}
+                  {obj.reservationPhoneNumber}
+                </p>
+              </div>
+            </li>
+            {/* <hr /> */}
+          </>
+        ))
+      )}
     </ul>
   );
 }
