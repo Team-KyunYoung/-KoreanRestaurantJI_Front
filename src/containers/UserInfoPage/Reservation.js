@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
 import ReservationService from "lib/api/ReservationService";
 import Page from "./Pagination";
@@ -7,7 +8,12 @@ import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
 const image1 = "https://picsum.photos/800/600";
 function ReservationInnerPage(props) {
-  return (
+  return props.list.length === 0 ? (
+    <div className={styles.noList}>
+      <p>예약 내역 없음</p>
+      <Link to={"./../../Order"}>테이블 예약하러 가기</Link>
+    </div>
+  ) : (
     <ul className={styles.list}>
       {props.loading
         ? "loading"

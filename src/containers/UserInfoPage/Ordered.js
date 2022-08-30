@@ -1,18 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import MediaQuery from "react-responsive";
 import styles from "./UserInfo.module.scss";
 import OrderService from "lib/api/OrderService";
 import Page from "./Pagination";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
-import Dish from "containers/DishPage/Dish";
 const image1 = "https://picsum.photos/800/600";
 function OrderedInnerPage(props) {
   console.log(props.list);
   console.log(props);
-  return (
+  return props.list.length === 0 ? (
+    <div className={styles.noList}>
+      <p>주문 내역 없음</p>
+      <Link to={"./../../Order"}>주문하러 가기</Link>
+    </div>
+  ) : (
     <ul className={styles.list}>
       {props.loading
         ? "loading"
@@ -88,6 +91,7 @@ const Ordered = () => {
   useEffect(() => {
     OrderService.findAllOrder()
       .then((response) => {
+        console.log(response);
         setList(response.data.data);
         console.log(response.data);
       })
