@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
 import ReservationService from "lib/api/ReservationService";
 import Page from "./Pagination";
@@ -7,6 +8,7 @@ import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
 const image1 = "https://picsum.photos/800/600";
 function ReservationInnerPage(props) {
+  console.log(props.list.length);
   return (
     <ul className={styles.list}>
       {props.loading
@@ -67,6 +69,7 @@ const Reservation = () => {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
+  console.log(indexOfFirst, indexOfLast);
   const currentPosts = (posts) => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);

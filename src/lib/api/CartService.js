@@ -25,7 +25,7 @@ class CartService {
 
     updateCartQuantitiy(cartNumber, cartQuantity) {
         Authentication.setupAxiosInterceptors();
-        return axios.put(CART_API_BASE_URL + "/update" + cartNumber, JSON.stringify(cartQuantity), {
+        return axios.put(CART_API_BASE_URL + "/update/" + cartNumber, JSON.stringify(cartQuantity), {
             headers: {
               "Content-Type": `application/json`,
             },
