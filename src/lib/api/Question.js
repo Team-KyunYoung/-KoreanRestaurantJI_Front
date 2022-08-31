@@ -9,23 +9,31 @@ class Question {
   findAllQnA() {
     return axios.get(USER_API_BASE_URL + "/find/public/qna");
   }
-  findPublicQnAAnswer(questionNumber) {
-    return axios.get(
-      USER_API_BASE_URL + "/find/public/qna/" + questionNumber,
-      JSON.stringify(),
-      {
-        headers: {
-          "Content-Type": `application/json`,
-          "X-AUTH-TOKEN": localStorage.getItem("token"),
-        },
-      }
-    );
-  }
   findPrivateQnAAnswer(questionNumber) {
     Authentication.setupAxiosInterceptors();
     return axios.get(
       USER_API_BASE_URL + "/find/private/qna/" + questionNumber,
       JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+  }
+  findPublicQnAAnswer(questionNumber) {
+    return axios.get(USER_API_BASE_URL + "/find/public/qna/" + questionNumber);
+  }
+  updateQnA(questionNumber, isPrivate, questionContents, questionTitle) {
+    let data = {
+      isPrivate: isPrivate,
+      questionContents: questionContents,
+      questionTitle: questionTitle,
+    };
+    Authentication.setupAxiosInterceptors();
+    return axios.get(
+      USER_API_BASE_URL + "/update/qna/" + questionNumber,
+      JSON.stringify(data),
       {
         headers: {
           "Content-Type": `application/json`,
