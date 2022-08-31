@@ -1,22 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Table from "react-bootstrap/Table";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ChatShortcut from "../../components/ShortCut/ChatShortcut";
-import Page from "../../components/Pagination/Pagination";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
+import UserService from "lib/api/UserService";
 const QnADetails = () => {
   const [data, setData] = useState();
+  const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [editStatus, setEditStatus] = useState(true); //기본값 수정x상태
+  const [editMode, setEditMode] = useState(false);
   const param = useParams();
   const navigate = useNavigate();
   console.log(param.number);
   useEffect(() => {
     if (param.isPrivate === "true") {
+      console.log("private");
       //false가 boolean이 아니라 string으로 인식됨
       Question.findPrivateQnAAnswer(Number(param.number))
         .then((response) => {
@@ -38,8 +39,25 @@ const QnADetails = () => {
         .catch(() => {});
     }
   }, []);
-  const editMode = () => {
-    setEditStatus(false);
+  const requestEdit = (e) => {
+    console.log(e.target);
+
+    UserService.findUser().then((response) => {
+      console.log(response.data.data);
+      setUser(response.data.data);
+      if (response.data.data.userNickname === data.writer) {
+        setEditMode(true);
+        setEditStatus(false);
+      } else {
+        alert("작성자 본인만 수정할 수 있습니다.");
+
+        setEditMode(false);
+      }
+    });
+  };
+
+  const submitEditQnA = () => {
+    alert("d");
   };
   return (
     <div id="QnAPage">
@@ -75,7 +93,6 @@ const QnADetails = () => {
                       <input
                         type="checkbox"
                         id="private"
-                        checked
                         disabled={editStatus}
                       />
                     </>
@@ -85,6 +102,7 @@ const QnADetails = () => {
                       <input
                         type="checkbox"
                         id="private"
+                        checked
                         disabled={editStatus}
                       />
                     </>
@@ -97,7 +115,15 @@ const QnADetails = () => {
               </form>
             </div>
             <div className={styles.btn}>
-              <button onClick={editMode}>수정하기</button>
+              {editMode ? (
+                <button type="submit" onClick={submitEditQnA}>
+                  바꾸기
+                </button>
+              ) : (
+                <button type="button" onClick={requestEdit}>
+                  수정하기
+                </button>
+              )}
             </div>
           </section>
         )}
