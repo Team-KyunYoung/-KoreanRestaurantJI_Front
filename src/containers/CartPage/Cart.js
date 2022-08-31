@@ -74,7 +74,7 @@ const Cart = () => {
             data.cartNumber === cartNumber ? 
             {...data, quantity: cartQuantity, cartPrice: cartQuantity*dishPrice}
             : data
-        ))git
+        ))
         console.log(dishQuantity)
       })
       .catch((error) => {
