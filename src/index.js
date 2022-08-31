@@ -47,7 +47,7 @@ root.render(
       <Route path="UserInfo/:location" element={<UserInfo />} />
       <Route path="FAQ" element={<FAQ />} />
       <Route path="QnA" element={<QnA />} />
-      <Route path="QnA/:number" element={<QnADetails />} />
+      <Route path="QnA/:number/:isPrivate" element={<QnADetails />} />
     </Routes>
   </BrowserRouter>
 );
