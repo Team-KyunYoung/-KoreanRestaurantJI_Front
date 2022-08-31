@@ -1,0 +1,203 @@
+@import "./src/index.scss";
+.container {
+    width: 100%;
+    min-height: 75.5vh;
+    > header {
+      text-align: center;
+      color: white;
+      text-decoration: 1px 1px 1px black;
+      .react-parallax-content {
+        width: 100%;
+      }
+    }
+}
+
+.mainContents{
+    margin: 5%;
+    padding-right: 3%;
+    padding-left: 3%;
+}
+
+.cartContents{
+    display: grid;
+    justify-items: center;
+    grid-template-columns: 1fr 1fr;
+    @media (min-width: 1550px) {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    @include tablet{
+        grid-template-columns: 1fr;
+    }
+    @include mobile {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cartDish{ 
+    width: 500px;
+    height: 250px;
+    @media (min-width: 1550px) {
+        width: 420px;
+    }
+    @include tablet{
+        width: 70%;
+        height: 70%;
+    }
+    @include mobile {
+        width: 70%;
+        height: 70%;
+    }
+    margin-right: 20px;
+    margin-left: 3%;
+    margin-bottom: 10%;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: 0.2fr 1fr 1fr;
+    align-items: center;
+    outline : solid 2px black;
+}
+
+.checkbox{
+    display: grid;
+    justify-content: start;
+    align-items: start;
+}
+
+.cartImg img{
+    width: 150px;
+    height: 150px;
+    @media (min-width: 1550px) {
+        width: 200px;
+        height: 200px;
+    }
+    @include tablet{
+        width: 80%;
+        height: 80%;
+    }
+    @include mobile {
+        width: 80%;
+        height: 80%;
+    }
+}
+
+.cartDetail{
+  display: grid;
+  justify-items: end;
+  padding-right: 30px;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  @include tablet{
+    padding-right: 20px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+  @include mobile {
+    padding-right: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+}
+
+    .dishName {
+        font-size: 1.3em;
+        font-weight: bold;
+        padding-bottom: 50px;
+        @include tablet{
+            font-size: 1em;
+            padding-bottom: 30px;
+        }
+        @include mobile {
+            font-size: 0.8em;
+            padding-bottom: 20px;
+        }
+    }
+
+    .cartQuantity {
+      font-size: 1em;
+      font-weight: bold;
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      padding-bottom: 2px;
+      @include tablet{
+          font-size: 0.7em;
+          padding-bottom: 10px;
+          margin-bottom: 5px;
+      }
+      @include mobile {
+          font-size: 0.5em;
+          padding-bottom: 2px;
+          margin-bottom: 00px;
+      }
+    }
+    
+    .countbutton {
+      display: inline-block;
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      cursor: pointer;
+      background: linear-gradient(#000, #000), linear-gradient(#000, #000);
+      background-position: center;
+      background-size: 40% 2px;
+      background-repeat: no-repeat;
+      @include tablet{
+        width: 17px;
+        height: 22px;
+      }
+      @include mobile {
+        width: 10px;
+        height: 15px;
+      }
+    }
+    
+    .disableclick {
+      background: linear-gradient(rgb(197, 197, 197), rgb(197, 197, 197)), linear-gradient(#000, #000);
+      background-position: center;
+      background-size: 40% 2px;
+      background-repeat: no-repeat;
+      cursor: default;
+    }
+    
+    .plus { 
+      background-size: 40% 2px, 2px 40%;
+    }
+    
+    .cartDishPrice {
+      font-size: 1.2em;
+      font-weight: bold;
+      @include tablet{
+        font-size: 0.9em;
+      }
+      @include mobile {
+        font-size: 0.7em;
+      }
+    }
+
+.orderContents{
+    display: grid;
+    justify-items: end;
+}
+
+    #total{
+        font-size: 1.3em;
+        margin-right: 20px;
+    }
+
+    #totalPrice{
+        font-size: 1.7em;
+        font-weight: bold;
+    }
+
+    #orderButton{
+        width: 20vw;
+        height: 5vh;
+        min-width: 150px;
+        min-height: 50px;
+        background-color: white;
+        margin-top: 2vh;
+    }
+    #orderButton:hover{
+        background-color: #16193c;
+        color: white;
+    }
