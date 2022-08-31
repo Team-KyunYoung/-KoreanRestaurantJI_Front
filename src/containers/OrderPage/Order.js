@@ -197,7 +197,7 @@ const Order = () => {
     });
   }, []);
   return (
-    <div id="CoursePage">
+    <div id="OrderPage">
       <Header />
       <main className={styles.container}>
         <ImgBanner

@@ -4,7 +4,6 @@ import styles from "./UserInfo.module.scss";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
-import { isDisabled } from "@testing-library/user-event/dist/utils";
 
 function EditProfile() {
   const [user, setUser] = useState([]);

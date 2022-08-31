@@ -20,6 +20,8 @@ import Review from "./containers/ReviewPage/Review";
 import Dish from "./containers/DishPage/Dish";
 import DishDetails from "./containers/DishPage/DishDetails";
 import UserInfo from "./containers/UserInfoPage/UserInfo";
+import FnQ from "./containers/CustomerServicePage/FnQ";
+import QnA from "./containers/CustomerServicePage/QnA";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
@@ -43,6 +45,8 @@ root.render(
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
       <Route path="UserInfo/:location" element={<UserInfo />} />
+      <Route path="FnQ" element={<FnQ />} />
+      <Route path="QnA" element={<QnA />} />
     </Routes>
   </BrowserRouter>
 );
