@@ -1,5 +1,5 @@
 import axios from "axios";
-
+import Authentication from "./Authentication";
 const USER_API_BASE_URL = "/api/question";
 
 class Question {
@@ -9,14 +9,10 @@ class Question {
   findAllQnA() {
     return axios.get(USER_API_BASE_URL + "/find/public/qna");
   }
-
-  findFAQAnswer(questionNumber) {
-    let data = {
-      questionNumber: questionNumber,
-    };
+  findPublicQnAAnswer(questionNumber) {
     return axios.get(
-      USER_API_BASE_URL + "/find/public/faq/questionNumber",
-      JSON.stringify(data),
+      USER_API_BASE_URL + "/find/public/qna/" + questionNumber,
+      JSON.stringify(),
       {
         headers: {
           "Content-Type": `application/json`,
@@ -25,17 +21,14 @@ class Question {
       }
     );
   }
-  findQnAAnswer(questionNumber) {
-    let data = {
-      questionNumber: questionNumber,
-    };
+  findPrivateQnAAnswer(questionNumber) {
+    Authentication.setupAxiosInterceptors();
     return axios.get(
-      USER_API_BASE_URL + "/find/public/faq/questionNumber",
-      JSON.stringify(data),
+      USER_API_BASE_URL + "/find/private/qna/" + questionNumber,
+      JSON.stringify(),
       {
         headers: {
           "Content-Type": `application/json`,
-          "X-AUTH-TOKEN": localStorage.getItem("token"),
         },
       }
     );
