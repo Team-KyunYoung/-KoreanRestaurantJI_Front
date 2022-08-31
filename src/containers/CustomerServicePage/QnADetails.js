@@ -11,6 +11,7 @@ import Question from "lib/api/Question";
 const QnADetails = () => {
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [editStatus, setEditStatus] = useState(true); //기본값 수정x상태
   const param = useParams();
   const navigate = useNavigate();
   console.log(param.number);
@@ -37,6 +38,9 @@ const QnADetails = () => {
         .catch(() => {});
     }
   }, []);
+  const editMode = () => {
+    setEditStatus(false);
+  };
   return (
     <div id="QnAPage">
       <Header />
@@ -52,10 +56,48 @@ const QnADetails = () => {
         {isLoading ? (
           "loading"
         ) : (
-          <section className={styles.tableBox}>
-            <div></div>
+          <section className={styles.singleQuestionBox}>
+            <div>
+              <form>
+                <input
+                  type="text"
+                  id="QnAtitle"
+                  name="QnAtitle"
+                  placeholder={data.questionTitle}
+                  disabled={editStatus}
+                />
+                <span>{data.writer}</span>
+                <span>{data.writeDate}</span>
+                <span>
+                  {data.private === "true" ? (
+                    <>
+                      <label for="private">공개</label>
+                      <input
+                        type="checkbox"
+                        id="private"
+                        checked
+                        disabled={editStatus}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <label for="private">공개</label>
+                      <input
+                        type="checkbox"
+                        id="private"
+                        disabled={editStatus}
+                      />
+                    </>
+                  )}
+                </span>
+                <textarea
+                  placeholder={data.questionContents}
+                  disabled={editStatus}
+                ></textarea>
+              </form>
+            </div>
             <div className={styles.btn}>
-              <Link to="/QnA">목록으로 돌아가기</Link>
+              <button onClick={editMode}>수정하기</button>
             </div>
           </section>
         )}
