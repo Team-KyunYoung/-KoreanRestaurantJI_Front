@@ -1,0 +1,132 @@
+.overlay {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.content {
+  position: absolute;
+  width: 40vw;
+  height: 40vh;
+  top: 30%;
+  left: 30%;
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  margin-right: -50%;
+  transform: 'translate(-50%, -50%)';
+  display: grid;
+  align-items: center;
+  align-content: center;
+}
+.contentSuccess {
+  width: 40vw;
+  height: 20vh;
+  top: 30%;
+  left: 35%;
+}
+
+.content h3 {
+  text-align: center;
+  font-weight: bold;
+  padding: 4%;
+}
+
+.dish {
+  padding: 10px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  justify-items: center;
+}
+
+.img img {
+  width: 100%;
+  height: 100%;
+}
+
+.dishdetail {
+  display: grid;
+  justify-items: end;
+}
+
+.title {
+  font-size: 1.3em;
+  font-weight: bold;
+  padding-bottom: 50%;
+}
+
+.quantitity {
+  font-size: 1em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  padding-bottom: 5%;
+}
+
+.countbutton {
+  display: inline-block;
+  width: 27px;
+  height: 27px;
+  border-radius: 50%;
+  cursor: pointer;
+  background: linear-gradient(#000, #000), linear-gradient(#000, #000);
+  background-position: center;
+  background-size: 40% 2px;
+  background-repeat: no-repeat;
+}
+
+.disableclick {
+  background: linear-gradient(rgb(197, 197, 197), rgb(197, 197, 197)), linear-gradient(#000, #000);
+  background-position: center;
+  background-size: 40% 2px;
+  background-repeat: no-repeat;
+  cursor: default;
+}
+
+.plus { 
+  background-size: 40% 2px, 2px 40%;
+}
+
+.price {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+.submitBtns {
+  margin-top: 10%;
+  display: flex;
+  justify-content: center;
+  border-radius: 25px;
+}
+.toGoBtns {
+  display: flex;
+  justify-content: center;
+}
+
+.submit {
+  background-color: white;
+  border-radius: 20px;
+  margin: 5px;
+}
+
+.submit:hover {
+  background-color: gray;
+  color: white;
+}
+
+.submit a {
+  color: black;
+  text-decoration: none;
+}
+
+.submit a:hover {
+  color: white;
+}

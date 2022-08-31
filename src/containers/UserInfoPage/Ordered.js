@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
-import OrderService from "lib/api/OrderService";
+
 import Page from "./Pagination";
 
-import * as UserServices from "lib/api/UserService";
+import OrderService from "lib/api/OrderService";
 import UserService from "lib/api/UserService";
+
 const image1 = "https://picsum.photos/800/600";
+
 function OrderedInnerPage(props) {
   console.log(props.list);
   console.log(props);
@@ -73,6 +75,9 @@ function OrderedInnerPage(props) {
   );
 }
 const Ordered = () => {
+  //주문 내역 삭제버튼
+  //orderStatus가 '수령 대기'일 경우 수령 완료 버튼 보이게? 누를 시 update.
+  //날짜별 조회(1개월/3개월/1년) 추가 필요?
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
@@ -91,7 +96,7 @@ const Ordered = () => {
     UserService.findUser(); //유저를 찾는 과정이 있어야 아래 findReservation 통신 가능
   }, []);
   useEffect(() => {
-    OrderService.findAllOrder()
+    OrderService.findOrderByUser()
       .then((response) => {
         console.log(response);
         setList(response.data.data);
@@ -102,6 +107,7 @@ const Ordered = () => {
         console.log("error:예약 목록 불러오기");
       });
   }, []);
+
   return (
     <>
       <h2>What I Ordered</h2>
