@@ -14,31 +14,14 @@
   }
 
   .accordionBox,
-  .tableBox {
+  .tableBox,
+  .singleQuestionBox {
     text-align: center;
     padding-bottom: 100px;
     > div:first-child {
       width: 900px;
       display: inline-block;
     }
-    // .accordionHeader {
-    //   button {
-    //     z-index: 2;
-    //     &:focus {
-    //       z-index: 3;
-    //       border-color: black !important;
-    //       outline: 0;
-    //       box-shadow: black;
-    //     }
-    //     &:not(.collapsed) {
-    //       color: black;
-    //       background-color: black !important;
-    //     }
-    //     &:hover {
-    //       z-index: 2;
-    //     }
-    //   }
-    // }
   }
   .table {
     // display: flex;
@@ -99,20 +82,17 @@
       }
     }
   }
-  .tableBox {
-    thead {
-      background-color: rgb(70, 69, 69);
-      color: white;
-      font-weight: 500;
-    }
-    tbody {
+  .singleQuestionBox {
+    form {
       background-color: white;
     }
   }
+
   .btn {
     text-align: center;
     margin-top: 100px;
-    a {
+    a,
+    button {
       text-decoration: none;
       width: 300px;
       padding: 20px;
