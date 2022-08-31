@@ -67,6 +67,7 @@ const Page = ({ postsPerPage, totalPosts, currentPage, setCurrentPage }) => {
         {pageNumbers.map((number) => (
           <Pagination.Item
             page={number}
+            setCurrentPage={setCurrentPage}
             onClick={() => setCurrentPage(number)}
             active={number === currentPage}
           >
