@@ -10,6 +10,7 @@ import Authentication from "lib/api/Authentication";
 
 const Header = () => {
   const [isOnLogin, setIsOnLogin] = useState(Authentication.isUserLoggedIn);
+  console.log("시작" + isOnLogin);
   const [goToUserInfo, setGoToUserInfo] = useState();
   function logout() {
     console.log(isOnLogin);
@@ -108,7 +109,7 @@ const Header = () => {
                 className="p-2"
               >
                 <NavDropdown.Item href="/QnA">Q&A</NavDropdown.Item>
-                <NavDropdown.Item href="/FnQ">F&Q</NavDropdown.Item>
+                <NavDropdown.Item href="/FAQ">FAQ</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav>

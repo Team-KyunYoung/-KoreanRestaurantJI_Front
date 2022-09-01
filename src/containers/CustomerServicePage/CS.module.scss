@@ -1,0 +1,188 @@
+@import "./src/index.scss";
+.container {
+  background-image: url("https://picsum.photos/1200/600");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  header {
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    padding: 80px;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .accordionBox,
+  .tableBox,
+  .singleQuestionBox {
+    text-align: center;
+    padding-bottom: 100px;
+    > div:first-child {
+      width: 900px;
+      display: inline-block;
+    }
+  }
+  .table {
+    // display: flex;
+    background-color: white;
+    // display: table;
+    .thead > div {
+      display: flex;
+      flex-wrap: nowrap;
+      flex: 1;
+      justify-content: space-between;
+      background-color: rgb(78, 78, 78);
+      color: white;
+      padding: 15px;
+      div {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+      }
+      div:nth-child(2) {
+        flex: 3;
+        // width: 40%;
+        // width: 40%;
+      }
+    }
+    .tbody {
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      > a > div {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        padding: 15px;
+        &:hover {
+          color: rgb(171, 179, 228);
+        }
+        div {
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          overflow: hidden;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+          word-wrap: break-word;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
+        div:nth-child(2) {
+          // width: 40%;
+          flex: 3;
+          //3줄을 넘어가먄 ellipsis
+        }
+      }
+    }
+  }
+  .singleQuestionBox {
+    form {
+      background-color: white;
+    }
+  }
+
+  .btn {
+    text-align: center;
+    margin-top: 100px;
+    a,
+    button {
+      text-decoration: none;
+      width: 300px;
+      padding: 20px;
+      outline: none;
+      background-color: transparent;
+      color: white;
+      box-shadow: none;
+      border: 2px solid white;
+    }
+  }
+}
+@include tablet {
+  .container {
+    header {
+      text-align: center;
+      color: white;
+      text-decoration: 1px 1px 1px gray;
+      padding: 60px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .accordionBox {
+      text-align: center;
+      > div {
+        width: 80%;
+        display: inline-block;
+      }
+    }
+  }
+  .tableBox {
+    padding-bottom: 100px;
+    > div:first-child {
+      width: 90% !important;
+    }
+    .table {
+      margin: 0 auto;
+      .thead > div {
+        div:nth-child(2) {
+          // width: 40%;
+          width: 30%;
+        }
+      }
+      .tbody > div {
+        div:nth-child(2) {
+          // width: 40%;
+          width: 40%;
+        }
+      }
+    }
+  }
+}
+@include mobile {
+  .container {
+    header {
+      text-align: center;
+      color: white;
+      text-decoration: 1px 1px 1px gray;
+      padding: 40px;
+      width: 95%;
+      margin: 0 auto;
+    }
+
+    .accordionBox {
+      text-align: center;
+      > div {
+        width: 95%;
+        display: inline-block;
+      }
+    }
+  }
+  .tableBox {
+    padding-bottom: 100px;
+    > div:first-child {
+      width: 90% !important;
+    }
+    .table {
+      margin: 0 auto;
+      .thead > div {
+        div:nth-child(2) {
+          // width: 40%;
+          width: 30%;
+        }
+      }
+      .tbody > div {
+        div:nth-child(2) {
+          // width: 40%;
+          width: 40%;
+        }
+      }
+    }
+  }
+}
