@@ -1,10 +1,14 @@
 import CartService from "lib/api/CartService";
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Modal from 'react-modal';
 
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ImgBanner from "../../components/Banner/ImgBanner";
+import modalstyles from "./Modal.module.scss";
 import styles from "./Cart.module.scss";
+import OrderService from "lib/api/OrderService";
 
 const image1 = "https://picsum.photos/1200/600";
 const dishImageRan = "https://picsum.photos/170/170";
@@ -19,13 +23,14 @@ const Cart = () => {
   const [dishQuantity, setDishQuantity] = useState([]); // 수량 변화를 담는 데이터
   const [orderPrice, setOrderPrice] = useState(0); // 총 주문 금액
   const [dishOrderList, setDishOrderList] = useState([]); //Order(주문)을 위한 데이터
+  const [checkedItems, setCheckedItems] = useState([]); //checkbox 상태 체크를 위한 데이터
   useEffect(() => {
     CartService.findCartByUser()
       .then((response) => {
-        console.log(response.data.data);
-        setCartList(response.data.data);
+        setCartList(response.data.data)
         if(response.data.data.length !== 0){
           let quantityData = []
+          let checkboxStatus = []
           let orderDate = []
           let totalPrice = 0
           response.data.data.map( cart => (
@@ -34,11 +39,13 @@ const Cart = () => {
               quantity: cart.cartQuantity,
               cartPrice: cart.cartQuantity*cart.dishPrice
             }),
+            checkboxStatus.push( {cartNumber: cart.cartNumber, checked: true} ),
             orderDate.push({dishNumber: cart.dishNumber, orderQuantity: cart.cartQuantity}),
             totalPrice += cart.cartQuantity*cart.dishPrice
           ))
           if(response.data.data.length === quantityData.length){
             setDishQuantity(quantityData)
+            setCheckedItems(checkboxStatus)
             setDishOrderList(orderDate)
             setOrderPrice(totalPrice)
             setIsLoading(false)
@@ -52,18 +59,35 @@ const Cart = () => {
       });
   }, []);
 
-  //수정 필요
-  function onChangeCheck(dishNumber, cartQuantity, event) {
+  function checkCheckboxStatus(cartNumber){
+    let status = true
+    checkedItems.map( checkedItem =>
+      checkedItem.cartNumber === cartNumber ? checkedItem.checked !== true ? status = false : null : null
+    )
+    return status
+  }
+  function onChangeCheck(cartNumber, dishNumber, cartQuantity, event) {
     console.log(event)
+    setCheckedItems(
+      checkedItems.map( checkedItem =>
+        checkedItem.cartNumber === cartNumber ? {...checkedItem, checked: !checkedItem.checked} : checkedItem
+    ))
     if(event.target.checked){
-      event.target.checked = false
       setDishOrderList(dishOrderList => [...dishOrderList, {dishNumber: dishNumber, orderQuantity: cartQuantity}])
     } else {
-      event.target.checked = true
-      const newOrderList = dishOrderList.filter((data) => data.dishNumber !== dishNumber);
-      setDishOrderList(newOrderList);
-      console.log(dishOrderList)
+      const newOrderList = dishOrderList.filter((data) => data.dishNumber !== dishNumber)
+      setDishOrderList(newOrderList)
     }
+  }
+  const [successModalIsOpen, setSuccessModalIsOpen] = useState(false); // 주문 성공시 모달창
+  function handleOrderClick() {
+    OrderService.addCarttoOrder(dishOrderList)
+    .then((response) => {
+      setSuccessModalIsOpen(true)
+    })
+    .catch((error) => {
+      console.log(error.response);
+    });
   }
   
   function cartQuantityPriceCheck(cartNumber){
@@ -104,9 +128,10 @@ const Cart = () => {
 
   }
   function CartDish({cartNumber, dishNumber, dishImage, dishName, dishPrice, cartQuantity, cartPrice}) {
+    let isChecked = checkCheckboxStatus(cartNumber)
     return(
       <div className={styles.cartDish} id={styles.checkbox}>
-        <div className={styles.checkbox}><input type="checkbox" checked onChange={(event) => onChangeCheck(dishNumber, cartQuantity, event)}></input></div>
+        <div className={styles.checkbox}><input type="checkbox" checked={isChecked} onChange={(event) => onChangeCheck(cartNumber, dishNumber, cartQuantity, event)}></input></div>
         {/* <div className={styles.cartImg}><img src={dishImage}></img></div> */}
         <div className={styles.cartImg}><img src={dishImageRan}></img></div>
         <div className={styles.cartDetail}>
@@ -137,7 +162,7 @@ const Cart = () => {
             { isLoading ? "Loading..." :
               cartList.length == 0 ? <div className={styles.cartNone}>장바구니가 비어있습니다.</div>
               : cartList.map( cartdish => (
-                <CartDish
+                <CartDish key={cartdish.cartNumber}
                   cartNumber={cartdish.cartNumber}
                   dishNumber={cartdish.dishNumber}
                   dishImage={cartdish.dishImage}
@@ -151,11 +176,23 @@ const Cart = () => {
           </div>
           <div className={styles.orderContents}>
             <div><span id={styles.total}>Total</span> <span id={styles.totalPrice}>{orderPrice.toLocaleString('ko-KR')} 원</span></div>
-            <div><button id={styles.orderButton}>주문하기</button></div>
+            <div><button id={styles.orderButton} onClick={handleOrderClick}>주문하기</button></div>
           </div>
         </div>
       </main>
       <Footer />
+      <Modal
+        isOpen={successModalIsOpen} 
+        onRequestClose={() => setSuccessModalIsOpen(false)}
+        overlayClassName={modalstyles.overlay}
+        className={`${modalstyles.content} ${modalstyles.contentSuccess}`}
+      >
+        <h3>주문이 완료되었습니다.<br/>결제 과정은 미구현되었습니다.</h3>
+        <div className={modalstyles.toGoBtns}>
+          <button className={modalstyles.submit}><Link to="/UserInfo/ordered">주문 확인하기</Link></button>
+          <button className={modalstyles.submit} onClick={()=> (setSuccessModalIsOpen(false), window.location.reload())}>계속 쇼핑하기</button>
+        </div>
+      </Modal>
     </div>
   );
 };
