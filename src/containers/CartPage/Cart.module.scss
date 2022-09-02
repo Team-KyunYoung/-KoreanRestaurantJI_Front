@@ -13,18 +13,25 @@
 }
 
 .mainContents{
-    margin: 5%;
-    padding-right: 3%;
-    padding-left: 3%;
+  margin-top: 10%;
+  @include desktop {
+    margin: 60px;
+  }
+  @include tablet {
+    margin: 7%;
+    margin: 10%;
+  }
+  @include mobile {
+    margin: 7%;
+    margin: 10%;
+  }
 }
 
 .cartContents{
-    display: grid;
-    justify-items: center;
-    grid-template-columns: 1fr 1fr;
-    @media (min-width: 1550px) {
-        grid-template-columns: 1fr 1fr 1fr;
-    }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(430px, 1fr));
+  grid-gap: 30px;
+  justify-items: center;
     @include tablet{
         grid-template-columns: 1fr;
     }
@@ -34,21 +41,19 @@
 }
 
 .cartDish{ 
-    width: 500px;
+    width: 90%;
     height: 250px;
-    @media (min-width: 1550px) {
-        width: 420px;
+    @media (min-width: 1700px) {
+        width: 450px;
     }
     @include tablet{
-        width: 70%;
-        height: 70%;
+        width: 100%;
+        height: 80%;
     }
     @include mobile {
-        width: 70%;
-        height: 70%;
+        width: 100%;
+        height: 80%;
     }
-    margin-right: 20px;
-    margin-left: 3%;
     margin-bottom: 10%;
     padding: 20px;
     display: grid;
@@ -64,20 +69,16 @@
 }
 
 .cartImg img{
-    width: 150px;
-    height: 150px;
-    @media (min-width: 1550px) {
-        width: 200px;
-        height: 200px;
-    }
-    @include tablet{
-        width: 80%;
-        height: 80%;
-    }
-    @include mobile {
-        width: 80%;
-        height: 80%;
-    }
+  width: 160px;
+  height: 160px;
+  @include tablet{
+      width: 80%;
+      height: 80%;
+  }
+  @include mobile {
+      width: 80%;
+      height: 80%;
+  }
 }
 
 .cartDetail{
@@ -103,7 +104,7 @@
         font-weight: bold;
         padding-bottom: 50px;
         @include tablet{
-            font-size: 1em;
+            font-size: 1.3em;
             padding-bottom: 30px;
         }
         @include mobile {
@@ -120,7 +121,7 @@
       align-items: center;
       padding-bottom: 2px;
       @include tablet{
-          font-size: 0.7em;
+          font-size: 1em;
           padding-bottom: 10px;
           margin-bottom: 5px;
       }
@@ -142,7 +143,7 @@
       background-size: 40% 2px;
       background-repeat: no-repeat;
       @include tablet{
-        width: 17px;
+        width: 22px;
         height: 22px;
       }
       @include mobile {
@@ -166,9 +167,6 @@
     .cartDishPrice {
       font-size: 1.2em;
       font-weight: bold;
-      @include tablet{
-        font-size: 0.9em;
-      }
       @include mobile {
         font-size: 0.7em;
       }
@@ -182,18 +180,24 @@
     #total{
         font-size: 1.3em;
         margin-right: 20px;
+        @include mobile {
+          font-size: 0.9em;
+        }
     }
 
     #totalPrice{
         font-size: 1.7em;
         font-weight: bold;
+        @include mobile {
+          font-size: 1.3em;
+        }
     }
 
     #orderButton{
         width: 20vw;
         height: 5vh;
-        min-width: 150px;
-        min-height: 50px;
+        min-width: 130px;
+        min-height: 40px;
         background-color: white;
         margin-top: 2vh;
     }
