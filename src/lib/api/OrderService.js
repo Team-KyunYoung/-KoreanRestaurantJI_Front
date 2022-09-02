@@ -8,16 +8,20 @@ class OrderService {
     addOrder(dishOrderList){
         let data = {
             dishOrderList: dishOrderList
-            // "dishOrderList": [
-            //     {
-            //       "dishNumber": 0,
-            //       "orderQuantity": 0
-            //     },
-            //     ...
-            // ]
         }
         Authentication.setupAxiosInterceptors();
         return axios.post(ORDER_API_BASE_URL + "/create", JSON.stringify(data), {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+        });
+    }
+    addCarttoOrder(dishOrderList){
+        let data = {
+            dishOrderList: dishOrderList
+        }
+        Authentication.setupAxiosInterceptors();
+        return axios.post(ORDER_API_BASE_URL + "/create/cart", JSON.stringify(data), {
             headers: {
               "Content-Type": `application/json`,
             },

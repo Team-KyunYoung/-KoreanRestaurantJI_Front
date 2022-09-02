@@ -1,0 +1,74 @@
+@import "./src/index.scss";
+.overlay {
+  position: fixed;
+  top: 72px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+.content {
+  position: absolute;
+  width: 45vw;
+  height: 20vh;
+  top: 30%;
+  left: 28%;
+  @include mobile {
+    width: 70vw;
+    height: 25vh;
+    left: 15vw;
+  }
+  border: 1px solid rgb(204, 204, 204);
+  background: rgb(255, 255, 255);
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  margin-right: -50%;
+  transform: 'translate(-50%, -50%)';
+  display: grid;
+  align-items: center;
+  align-content: center;
+}
+
+.content h3 {
+  text-align: center;
+  font-weight: bold;
+  padding: 4%;
+  @include mobile {
+    font-size: 1em;
+    padding: 0%;
+  }
+}
+
+.toGoBtns {
+  display: flex;
+  justify-content: center;
+  @include mobile {
+    margin-top: 10px;
+  }
+}
+
+.submit {
+  background-color: white;
+  border-radius: 20px;
+  margin: 5px;
+  @include mobile {
+    font-size: 0.8em;
+  }
+}
+
+.submit:hover {
+  background-color: gray;
+  color: white;
+}
+
+.submit a {
+  color: black;
+  text-decoration: none;
+}
+
+.submit a:hover {
+  color: white;
+}
