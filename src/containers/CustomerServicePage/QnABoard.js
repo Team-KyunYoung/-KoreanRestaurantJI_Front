@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Table from "react-bootstrap/Table";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ChatShortcut from "../../components/ShortCut/ChatShortcut";
@@ -113,7 +111,7 @@ const QnABoard = () => {
               ></Page>
             </div>
             <div className={styles.btn}>
-              <Link to="/QnA">직접 문의하기</Link>
+              <Link to="/Question">직접 문의하기</Link>
             </div>
           </section>
         )}
