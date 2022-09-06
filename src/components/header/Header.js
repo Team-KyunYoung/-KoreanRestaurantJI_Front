@@ -108,8 +108,8 @@ const Header = () => {
                 id="collasible-nav-dropdown"
                 className="p-2"
               >
-                <NavDropdown.Item href="/QnA">Q&A</NavDropdown.Item>
-                <NavDropdown.Item href="/FAQ">FAQ</NavDropdown.Item>
+                <NavDropdown.Item href="/QnABoard">Q&A</NavDropdown.Item>
+                <NavDropdown.Item href="/FAQBoard">FAQ</NavDropdown.Item>
               </NavDropdown>
             </Nav>
             <Nav>

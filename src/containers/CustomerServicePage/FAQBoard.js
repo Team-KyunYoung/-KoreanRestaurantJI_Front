@@ -19,7 +19,7 @@ const InnerFAQ = (props) => {
   );
   return <>{questionList}</>;
 };
-const FAQ = () => {
+const FAQBoard = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -62,4 +62,4 @@ const FAQ = () => {
   );
 };
 
-export default FAQ;
+export default FAQBoard;
