@@ -30,8 +30,9 @@ class Question {
       questionContents: questionContents,
       questionTitle: questionTitle,
     };
+    console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.get(
+    return axios.put(
       USER_API_BASE_URL + "/update/qna/" + questionNumber,
       JSON.stringify(data),
       {

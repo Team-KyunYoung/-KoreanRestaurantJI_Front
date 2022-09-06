@@ -84,7 +84,57 @@
   }
   .singleQuestionBox {
     form {
-      background-color: white;
+      .inputBox {
+        text-align: left;
+        width: 70%;
+      }
+      .checkBox {
+        width: 20%;
+      }
+      .firstLine {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 15px;
+      }
+      .formBox {
+        input[type="text"] {
+          width: 93%;
+        }
+        span {
+          width: 25%;
+        }
+        textarea {
+          width: 90%;
+        }
+        .textareaLabel {
+          position: relative;
+          top: calc(-30vh + 21px);
+        }
+        span,
+        label {
+          color: white;
+        }
+        textarea {
+          height: 30vh;
+          overflow: scroll;
+        }
+        input[type="text"] {
+          height: 50px;
+        }
+        input[type="text"],
+        textarea {
+          background-color: white;
+          border-radius: 10px;
+        }
+      }
+      // .formBox:nth-child(2) {
+      //   text-align: start;
+      //   width: 90%;
+      //   span {
+      //     margin: 25px;
+      //   }
+      // }
     }
   }
 
