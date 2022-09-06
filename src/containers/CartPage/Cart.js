@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import Modal from 'react-modal';
 
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import ImgBanner from "../../components/Banner/ImgBanner";
 import modalstyles from "./Modal.module.scss";
@@ -180,6 +181,7 @@ const Cart = () => {
           </div>
         </div>
       </main>
+      <Chat />
       <Footer />
       <Modal
         isOpen={successModalIsOpen} 

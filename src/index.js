@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Modal from 'react-modal';
 import "./index.scss";
+
 import Home from "./containers/HomePage/Home";
 import Login from "./containers/LoginPage/Login";
 import FindPassword from "./containers/LoginPage/FindPassword";
@@ -11,7 +12,6 @@ import Signup from "./containers/SignupPage/Signup";
 import Info from "./containers/InfoPage/Info";
 import Map from "./containers/MapPage/Map";
 import Cart from "./containers/CartPage/Cart";
-import Chat from "./containers/ChatPage/Chat";
 import Course from "./containers/CoursePage/Course";
 import Order from "./containers/OrderPage/Order";
 import SelectRoom from "./containers/BookingPage/SelectRoom";
@@ -37,7 +37,6 @@ root.render(
       <Route path="Info" element={<Info />} />
       <Route path="Map" element={<Map />} />
       <Route path="Cart" element={<Cart />} />
-      <Route path="Chat" element={<Chat />} />
       <Route path="Course" element={<Course />} />
       <Route path="Order" element={<Order />} />
       <Route path="SelectRoom" element={<SelectRoom />} />

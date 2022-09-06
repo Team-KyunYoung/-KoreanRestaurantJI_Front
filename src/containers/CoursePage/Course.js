@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 import styles from "./Course.module.scss";
 import CourseService from "lib/api/CourseService";
 
@@ -78,7 +77,7 @@ const Course = () => {
         <a href="#page2">2</a>
         <a href="#page3">3</a>
       </nav>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );
