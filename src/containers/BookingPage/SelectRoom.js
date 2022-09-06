@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
+import Chat from "../../components/ChatBot/Chat";
 import styles from "./Booking.module.scss";
 import RoomService from "lib/api/RoomService";
 //import logo from '../../assets/<파일명>';
@@ -59,7 +59,7 @@ const SelectRoom = () => {
           </div>
         </div>
       </main>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );

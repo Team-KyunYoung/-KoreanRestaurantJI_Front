@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "./Home.module.scss";
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import MainCarousel from "./MainCarousel.js";
 import ParallaxContent from "./ParallaxContent.js";
@@ -35,6 +35,7 @@ function Home() {
           float="right"
         />
       </main>
+      <Chat />
       <Footer />
     </div>
   );

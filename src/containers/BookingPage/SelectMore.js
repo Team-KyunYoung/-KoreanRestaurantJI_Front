@@ -6,8 +6,8 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
 import RoomService from "lib/api/RoomService";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
@@ -268,7 +268,7 @@ const SelectMore = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );

@@ -5,6 +5,7 @@ import { FaMapMarkerAlt, FaPhoneAlt, FaBus } from "react-icons/fa";
 
 import styles from "./Map.module.scss";
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 
 const Map = () => {
@@ -50,7 +51,7 @@ const Map = () => {
           </section>
         </div>
       </main>
-
+      <Chat />
       <Footer />
     </div>
   );

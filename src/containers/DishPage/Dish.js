@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "components/ShortCut/ChatShortcut";
 import ImgBanner from "../../components/Banner/ImgBanner";
 import styles from "./Dish.module.scss";
 import DishService from "lib/api/DishService";
@@ -166,7 +166,7 @@ const Dish = () => {
         />
         <div>{isLoading ? "Loading..." : <DishContent data={dish} />}</div>
       </main>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );
