@@ -48,7 +48,7 @@ function InnerQnA(props) {
     </div>
   );
 }
-const QnA = () => {
+const QnABoard = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -124,4 +124,4 @@ const QnA = () => {
   );
 };
 
-export default QnA;
+export default QnABoard;
