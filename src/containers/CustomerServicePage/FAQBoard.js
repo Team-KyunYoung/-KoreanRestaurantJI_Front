@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
+import Chat from "../../components/ChatBot/Chat";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
 const InnerFAQ = (props) => {
@@ -19,7 +19,7 @@ const InnerFAQ = (props) => {
   );
   return <>{questionList}</>;
 };
-const FAQ = () => {
+const FAQBoard = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
@@ -56,10 +56,10 @@ const FAQ = () => {
           </div>
         </section>
       </main>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );
 };
 
-export default FAQ;
+export default FAQBoard;

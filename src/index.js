@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import "./index.scss";
 
 import Home from "./containers/HomePage/Home";
@@ -20,9 +20,10 @@ import Review from "./containers/ReviewPage/Review";
 import Dish from "./containers/DishPage/Dish";
 import DishDetails from "./containers/DishPage/DishDetails";
 import UserInfo from "./containers/UserInfoPage/UserInfo";
-import FAQ from "./containers/CustomerServicePage/FAQ";
-import QnA from "./containers/CustomerServicePage/QnA";
-import QnADetails from "./containers/CustomerServicePage/QnADetails";
+import FAQBoard from "./containers/CustomerServicePage/FAQBoard";
+import QnABoard from "./containers/CustomerServicePage/QnABoard";
+import QnAPost from "./containers/CustomerServicePage/QnAPost";
+import Question from "./containers/CustomerServicePage/Questioning";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
@@ -45,9 +46,10 @@ root.render(
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
       <Route path="UserInfo/:location" element={<UserInfo />} />
-      <Route path="FAQ" element={<FAQ />} />
-      <Route path="QnA" element={<QnA />} />
-      <Route path="QnA/:number/:isPrivate" element={<QnADetails />} />
+      <Route path="FAQBoard" element={<FAQBoard />} />
+      <Route path="QnABoard" element={<QnABoard />} />
+      <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
+      <Route path="Question" element={<Question />} />
     </Routes>
   </BrowserRouter>
 );
@@ -56,4 +58,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
-Modal.setAppElement('#root')
+Modal.setAppElement("#root");
