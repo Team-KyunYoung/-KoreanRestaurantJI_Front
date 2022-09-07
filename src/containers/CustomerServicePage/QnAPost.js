@@ -36,7 +36,7 @@ const QnADetails = () => {
         })
         .catch(() => {
           alert("작성자만 조회할 수 있습니다.");
-          navigate("/QnA");
+          navigate("/QnABoard");
         });
     } else {
       Question.findPublicQnAAnswer(Number(param.number))
@@ -87,7 +87,7 @@ const QnADetails = () => {
         alert(response);
       })
       .catch(() => {
-        alert("d");
+        alert("입력 내용을 확인해주세요");
       });
   };
   return (
@@ -110,7 +110,7 @@ const QnADetails = () => {
               <form onSubmit={handleSubmit}>
                 <div className={styles.firstLine}>
                   <div className={[styles.formBox, styles.inputBox].join(" ")}>
-                    <label for="title">제목</label>{" "}
+                    <label htmlFor="title">제목</label>{" "}
                     <input
                       type="text"
                       id="title"
@@ -125,7 +125,7 @@ const QnADetails = () => {
                     {/* <span>작성자 {data.writer}</span>
                   <span>날짜 {data.writeDate}</span>*/}
                     <span>
-                      <label for="public">공개</label>
+                      <label htmlFor="public">공개</label>
                       {"  "}
                       <input
                         type="radio"
@@ -136,7 +136,7 @@ const QnADetails = () => {
                         disabled={editStatus}
                         onChange={handleChange}
                       />{" "}
-                      <label for="private">비공개</label>{" "}
+                      <label htmlFor="private">비공개</label>{" "}
                       <input
                         type="radio"
                         id="private"

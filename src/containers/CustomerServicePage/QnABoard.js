@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Accordion from "react-bootstrap/Accordion";
-import Table from "react-bootstrap/Table";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
+import Chat from "../../components/ChatBot/Chat";
 import Page from "../../components/Pagination/Pagination";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
@@ -48,7 +46,7 @@ function InnerQnA(props) {
     </div>
   );
 }
-const QnA = () => {
+const QnABoard = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
@@ -113,15 +111,15 @@ const QnA = () => {
               ></Page>
             </div>
             <div className={styles.btn}>
-              <Link to="/QnA">직접 문의하기</Link>
+              <Link to="/Question">직접 문의하기</Link>
             </div>
           </section>
         )}
       </main>
-      <ChatShortcut />
+      <Chat />
       <Footer />
     </div>
   );
 };
 
-export default QnA;
+export default QnABoard;

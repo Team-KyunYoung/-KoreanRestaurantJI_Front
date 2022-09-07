@@ -1,16 +1,17 @@
 import React from "react";
-import './Style.scss';
+import styles from './Chat.module.scss';
 
 import ChatBot from 'react-simple-chatbot';
 import { ThemeProvider } from 'styled-components';
 import { Link } from "react-router-dom";
 
+import Logo_Img from '../../assets/ChatBot/ChatBot_Logo.png';
+
 // Set some properties of the bot
 const config = {
-  botAvatar: "img.png",
+  botAvatar: Logo_Img,
   floating: true,
-  headerTitle: "&ensp;智 문의하기",
-  recognitionEnable: true
+  placeholder: '채팅이 불가능한 채널입니다.'
 };
  
 // Creating our own theme
@@ -68,13 +69,13 @@ const steps = [
 }, {
     id: 'Dish-Course-link',
     component: (
-      <div><Link to="/Course">코스 페이지로 이동하기</Link></div>
+      <div className={styles.link_button}><Link to="/Course">코스 페이지로 이동하기</Link></div>
     ),
     end: true
 }, {
     id: 'Dish-link',
     component: (
-      <div><Link to="/Dish">일반 메뉴 페이지로 이동하기</Link></div>
+      <div className={styles.link_button}><Link to="/Dish">일반 메뉴 페이지로 이동하기</Link></div>
     ),
     end: true
 }, {
@@ -84,7 +85,7 @@ const steps = [
   }, {
       id: 'Order-link',
       component: (
-        <div><Link to="/Order">주문 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/Order">주문 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -98,7 +99,7 @@ const steps = [
   }, {
       id: 'Reservation-link',
       component: (
-        <div><Link to="/SelectRoom">예약 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/SelectRoom">예약 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -108,7 +109,7 @@ const steps = [
   }, {
       id: 'Map-link',
       component: (
-        <div><Link to="/Map">지도 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/Map">지도 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -124,13 +125,13 @@ const steps = [
   }, {
       id: 'UserInfo-Order-link',
       component: (
-        <div><Link to="/UserInfo/ordered">주문 확인 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/UserInfo/ordered">주문 확인 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
       id: 'UserInfo-Reservation-link',
       component: (
-        <div><Link to="/UserInfo/reservation">예약 확인 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/UserInfo/reservation">예약 확인 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -150,7 +151,7 @@ const steps = [
   }, {
       id: 'QNA-Board-link',
       component: (
-        <div><Link to="/QnA">문의 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/QnA">문의 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -160,7 +161,7 @@ const steps = [
   }, {
       id: 'QNA-Post-link',
       component: (
-        <div><Link to="/QnA">문의 작성 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/QnA">문의 작성 페이지로 이동하기</Link></div>
       ),
       end: true
   }, {
@@ -176,7 +177,7 @@ const steps = [
   }, {
       id: 'FAQ-Board',
       component: (
-        <div><Link to="/FAQ">FAQ 페이지로 이동하기</Link></div>
+        <div className={styles.link_button}><Link to="/FAQ">FAQ 페이지로 이동하기</Link></div>
       ),
       end: true
   }
@@ -186,10 +187,13 @@ const Chat = () => {
   return (
     <ThemeProvider theme={theme}>
       <ChatBot
-        floating={true}
-        headerTitle="&ensp;智 문의하기"
-        placeholder=' 채팅이 불가능한 채널입니다.'
+        floatingStyle= {{}}
+        bubbleOptionStyle= {{ backgroundColor: "#f5f8fb", color: "#424566", border: '2px solid #424566', 
+                              hover: {backgroundColor: "#424566", color: "#fff"} }}   //hover 적용 안됨. 하는 법 모르겠음
+        customStyle= {{ border: '2px solid #424566' }}
+        headerTitle = '&ensp; 智 문의하기'
         steps={steps}
+        {...config}
       />
     </ThemeProvider>
   );
