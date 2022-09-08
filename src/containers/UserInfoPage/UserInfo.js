@@ -4,6 +4,7 @@ import MediaQuery from "react-responsive";
 import styles from "./UserInfo.module.scss";
 
 import Header from "components/header/Header";
+import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import EditProfile from "./EditProfile";
 import Reservation from "./Reservation";
@@ -58,7 +59,7 @@ const UserInfo = () => {
           </section>
         </div>
       </main>
-
+      <Chat />
       <Footer />
     </div>
   );
