@@ -107,7 +107,6 @@ const Questioning = () => {
           </div>
         </section>
       </main>
-      <ChatShortcut />
       <Footer />
     </div>
   );

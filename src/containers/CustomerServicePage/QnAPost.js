@@ -173,7 +173,6 @@ const QnADetails = () => {
           </section>
         )}
       </main>
-      <ChatShortcut />
       <Footer />
     </div>
   );
