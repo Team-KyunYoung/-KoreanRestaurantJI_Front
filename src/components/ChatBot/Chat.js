@@ -7,9 +7,10 @@ import { Link } from "react-router-dom";
 
 import Logo_Img from '../../assets/ChatBot/ChatBot_Logo.png';
 
-function ToLink(link) {
+function ToLink(data) {
+    console.log(data.link)
   return(
-    <div className={styles.link_button}><Link to={link}>코스 페이지로 이동하기</Link></div>
+    <div className={styles.link_button}><Link to={data.link}>해당 페이지로 이동하기</Link></div>
   )
 }
 
@@ -144,7 +145,7 @@ const steps = [
       trigger: 'QNA-Board-link'
   }, {
       id: 'QNA-Board-link',
-      component: <ToLink link="/QnA"/>,
+      component: <ToLink link="/QnABoard"/>,
       trigger: 'reQuestion'
   }, {
       id: 'QNA-Post',
@@ -152,7 +153,7 @@ const steps = [
       trigger: 'QNA-Post-link'
   }, {
       id: 'QNA-Post-link',
-      component: <ToLink link="/QnA"/>,
+      component: <ToLink link="/Question"/>,
       trigger: 'reQuestion'
   }, {
       id: 'etc',
@@ -166,7 +167,7 @@ const steps = [
       ]
   }, {
       id: 'FAQ-Board',
-      component: <ToLink link="/FAQ"/>,
+      component: <ToLink link="/FAQBoard"/>,
       trigger: 'reQuestion_select'
   }, {
       id: 'reQuestion',
