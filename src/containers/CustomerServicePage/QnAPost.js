@@ -4,15 +4,35 @@ import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ListShortcut from "../../components/ShortCut/ListShortcut";
 import styles from "./CS.module.scss";
-import Question from "lib/api/Question";
 import UserService from "lib/api/UserService";
+import Question from "lib/api/Question";
+import AdminComment from "lib/api/AdminComment";
+
 const QnADetails = () => {
+  function Comment(props) {
+    const commentlist = [];
+    if (!props.load) {
+      console.log(props.list);
+      props.list.map((obj) => {
+        commentlist.push(
+          <input
+            key={obj.commentNumber}
+            placeholder={obj.commentContents}
+            onChange={commentOnChange}
+            onClick={onClickComment}
+          />
+        );
+      });
+    }
+    return <>{commentlist}</>;
+  }
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [commentLoading, setCommentLoading] = useState(true);
   const [isWriter, setIsWriter] = useState(false); //조회자가 글쓴이 본인인지 확인 t->버튼 보임 f->버튼 숨김
   const [editDisabled, setEditDisabled] = useState(true); //input disabled 상태,수정하기 버튼 클릭 시 버튼 바뀌며 input이 입력가능해짐
   const [counterDisplay, setCounterDisplay] = useState("none"); //글자 수 카운터의 display style, 버튼 클릭 시 none->block
-
+  const [commentList, setCommentList] = useState({});
   //json으로 보낼 내용
   const [form, setForm] = useState({
     title: "",
@@ -58,6 +78,13 @@ const QnADetails = () => {
       })
       .catch(() => {});
   }, []);
+  useEffect(() => {
+    AdminComment.findComment(Number(param.number)).then((response) => {
+      setCommentList(response.data.data);
+      console.log(response.data.data);
+      setCommentLoading(false);
+    });
+  }, []);
   const requestEdit = (e) => {
     //수정하기 버튼 : input의 disabled 해제
     if (isWriter) {
@@ -102,7 +129,29 @@ const QnADetails = () => {
       });
   };
   //관리자 답글
-
+  const [comment, setComment] = useState("");
+  const adminHandleChange = (e) => {
+    setComment(e.target.value);
+    console.log(e.target.value);
+  };
+  const adminHandleClick = (e) => {
+    AdminComment.createComment(Number(param.number), comment)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {});
+  };
+  const commentOnChange = (e) => {
+    console.log(e.target.key);
+    AdminComment.updateComment(Number(param.number), comment)
+      .then((response) => {
+        console.log(response);
+      })
+      .catch(() => {});
+  };
+  const onClickComment = (e) => {
+    console.log(e.target.key);
+  };
   return (
     <div id="QnAPage">
       <Header />
@@ -221,7 +270,26 @@ const QnADetails = () => {
             </section>
           </>
         )}
+        <section className={styles.singleQuestionBox}>
+          <form onSubmit={adminHandleClick}>
+            <input
+              type="text"
+              id="title"
+              // placeholder={data.questionTitle}
+              // disabled={editDisabled}
+              onChange={adminHandleChange}
+              name="title"
+              maxLength={200}
+            />
+            <button type="submit">submit</button>
+          </form>
+          <>
+            <Comment list={commentList} load={commentLoading} />
+          </>
+          {/* <p style={{ display: counterDisplay }}>({title.length}/200)</p> */}
+        </section>
       </main>
+
       <ListShortcut />
       <Footer />
     </div>
