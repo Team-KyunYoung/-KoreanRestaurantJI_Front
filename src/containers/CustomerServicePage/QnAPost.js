@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
+import ListShortcut from "../../components/ShortCut/ListShortcut";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
 import UserService from "lib/api/UserService";
 const QnADetails = () => {
   const [data, setData] = useState();
-  const [user, setUser] = useState();
   const [isLoading, setIsLoading] = useState(true);
-  const [editStatus, setEditStatus] = useState(true); //기본값 수정x상태
-  const [editMode, setEditMode] = useState(false);
+  const [isWriter, setIsWriter] = useState(false); //조회자가 글쓴이 본인인지 확인 t->버튼 보임 f->버튼 숨김
+  const [editDisabled, setEditDisabled] = useState(true); //input disabled 상태,수정하기 버튼 클릭 시 버튼 바뀌며 input이 입력가능해짐
+  const [counterDisplay, setCounterDisplay] = useState("none"); //글자 수 카운터의 display style, 버튼 클릭 시 none->block
 
   //json으로 보낼 내용
   const [form, setForm] = useState({
@@ -25,53 +25,64 @@ const QnADetails = () => {
   const navigate = useNavigate();
   console.log(param.number);
   useEffect(() => {
-    if (param.isPrivate === "true") {
-      console.log("private");
-      //false가 boolean이 아니라 string으로 인식됨
-      Question.findPrivateQnAAnswer(Number(param.number))
-        .then((response) => {
-          console.log(response.data.data);
-          setData(response.data.data);
-          setIsLoading(false);
-        })
-        .catch(() => {
-          alert("작성자만 조회할 수 있습니다.");
-          navigate("/QnABoard");
-        });
-    } else {
-      Question.findPublicQnAAnswer(Number(param.number))
-        .then((response) => {
-          console.log(response.data.data);
-          setData(response.data.data);
-          setIsLoading(false);
-        })
-        .catch(() => {});
-    }
+    UserService.findUser()
+      .then((res) => {
+        if (param.isPrivate === "true") {
+          console.log("private");
+          //false가 boolean이 아니라 string으로 인식됨
+          Question.findPrivateQnAAnswer(Number(param.number))
+            .then((response) => {
+              console.log(response.data.data);
+              setData(response.data.data);
+              setIsLoading(false);
+              if (res.data.data.userNickname === response.data.data.writer) {
+                setIsWriter(true);
+              }
+            })
+            .catch(() => {
+              alert("작성자만 조회할 수 있습니다.");
+              navigate("/QnABoard");
+            });
+        } else {
+          Question.findPublicQnAAnswer(Number(param.number))
+            .then((response) => {
+              console.log(response.data.data);
+              setData(response.data.data);
+              setIsLoading(false);
+              if (res.data.data.userNickname === response.data.data.writer) {
+                setIsWriter(true);
+              }
+            })
+            .catch(() => {});
+        }
+      })
+      .catch(() => {});
   }, []);
   const requestEdit = (e) => {
     //수정하기 버튼 : input의 disabled 해제
-    console.log(e.target);
-
-    UserService.findUser().then((response) => {
-      console.log(response.data.data);
-      setUser(response.data.data);
-      if (response.data.data.userNickname === data.writer) {
-        setEditMode(true);
-        setEditStatus(false);
-        setForm({
-          title: data.questionTitle,
-          privatePost: data.private,
-          contents: data.questionContents,
-        });
-      } else {
-        alert("작성자 본인만 수정할 수 있습니다.");
-
-        setEditMode(false);
-      }
+    if (isWriter) {
+      setEditDisabled(false);
+      setCounterDisplay("block");
+      setForm({
+        title: data.questionTitle,
+        privatePost: data.private,
+        contents: data.questionContents,
+      });
+    } else {
+      alert("작성자 본인만 수정할 수 있습니다.");
+    }
+  };
+  const refuseEdit = (e) => {
+    //수정 취소 버튼 클릭 시
+    setEditDisabled(true);
+    setForm({
+      title: data.questionTitle,
+      privatePost: data.private,
+      contents: data.questionContents,
     });
   };
-
-  const handleChange = (e) => {
+  //qna 포스팅 수정
+  const writerHandleChange = (e) => {
     const nextForm = {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
@@ -79,8 +90,8 @@ const QnADetails = () => {
     console.log(nextForm);
     setForm(nextForm);
   };
-  const handleSubmit = (e) => {
-    //바꾸기 버튼 : input 제출
+  const WriterHandleSubmit = (e) => {
+    //저장하기 버튼 : input 제출
     Question.updateQnA(Number(param.number), privatePost, contents, title)
       .then((response) => {
         console.log(response);
@@ -90,6 +101,8 @@ const QnADetails = () => {
         alert("입력 내용을 확인해주세요");
       });
   };
+  //관리자 답글
+
   return (
     <div id="QnAPage">
       <Header />
@@ -105,75 +118,111 @@ const QnADetails = () => {
         {isLoading ? (
           "loading"
         ) : (
-          <section className={styles.singleQuestionBox}>
-            <div>
-              <form onSubmit={handleSubmit}>
-                <div className={styles.firstLine}>
-                  <div className={[styles.formBox, styles.inputBox].join(" ")}>
-                    <label htmlFor="title">제목</label>{" "}
-                    <input
-                      type="text"
-                      id="title"
-                      value={title}
-                      placeholder={data.questionTitle}
-                      disabled={editStatus}
-                      onChange={handleChange}
-                      name="title"
-                    />
-                  </div>
-                  <div className={[styles.formBox, styles.checkBox].join(" ")}>
-                    {/* <span>작성자 {data.writer}</span>
-                  <span>날짜 {data.writeDate}</span>*/}
-                    <span>
-                      <label htmlFor="public">공개</label>
-                      {"  "}
+          <>
+            <section className={styles.singleQuestionBox}>
+              <div>
+                <form onSubmit={WriterHandleSubmit}>
+                  <div className={styles.firstLine}>
+                    <div
+                      className={[styles.formBox, styles.inputBox].join(" ")}
+                    >
+                      <label htmlFor="title">제목</label>{" "}
                       <input
-                        type="radio"
-                        id="public"
-                        value={false}
-                        name="privatePost"
-                        defaultChecked={data.private ? false : true}
-                        disabled={editStatus}
-                        onChange={handleChange}
+                        type="text"
+                        id="title"
+                        value={title}
+                        placeholder={data.questionTitle}
+                        disabled={editDisabled}
+                        onChange={writerHandleChange}
+                        name="title"
+                        maxLength={100}
                       />{" "}
-                      <label htmlFor="private">비공개</label>{" "}
-                      <input
-                        type="radio"
-                        id="private"
-                        value={true}
-                        name="privatePost"
-                        defaultChecked={data.private ? true : false}
-                        disabled={editStatus}
-                        onChange={handleChange}
-                      />
-                    </span>
+                    </div>
+                    <p
+                      className={styles.titleCounter}
+                      style={{ display: counterDisplay }}
+                    >
+                      ({title.length}/100)
+                    </p>
+                    <div
+                      className={[styles.formBox, styles.checkBox].join(" ")}
+                    >
+                      {/* <span>작성자 {data.writer}</span>
+                  <span>날짜 {data.writeDate}</span>*/}
+                      <span>
+                        <label htmlFor="public">공개</label>
+                        {"  "}
+                        <input
+                          type="radio"
+                          id="public"
+                          value={false}
+                          name="privatePost"
+                          defaultChecked={data.private ? false : true}
+                          disabled={editDisabled}
+                          onChange={writerHandleChange}
+                        />{" "}
+                        <label htmlFor="private">비공개</label>{" "}
+                        <input
+                          type="radio"
+                          id="private"
+                          value={true}
+                          name="privatePost"
+                          defaultChecked={data.private ? true : false}
+                          disabled={editDisabled}
+                          onChange={writerHandleChange}
+                        />
+                      </span>
+                    </div>
                   </div>
-                </div>
-                <div className={styles.formBox}>
-                  <span className={styles.textareaLabel}>내용</span>{" "}
-                  <textarea
-                    placeholder={data.questionContents}
-                    disabled={editStatus}
-                    onChange={handleChange}
-                    value={contents}
-                    name="contents"
-                  ></textarea>
-                </div>
-                <div className={styles.btn}>
-                  {editMode ? (
-                    <button type="submit">바꾸기</button>
-                  ) : (
-                    <button type="button" onClick={requestEdit}>
-                      수정하기
-                    </button>
-                  )}
-                </div>
-              </form>
-            </div>
-          </section>
+                  <div className={styles.formBox}>
+                    <span className={styles.textareaLabel}>내용</span>{" "}
+                    <textarea
+                      placeholder={data.questionContents}
+                      disabled={editDisabled}
+                      onChange={writerHandleChange}
+                      value={contents}
+                      name="contents"
+                      maxLength={500}
+                    ></textarea>{" "}
+                    <p
+                      className={styles.contentCounter}
+                      style={{ display: counterDisplay }}
+                    >
+                      ({contents.length}/500)
+                    </p>
+                  </div>
+                  <div className={styles.btn}>
+                    {isWriter ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
+                      <>
+                        {editDisabled ? ( //수정하기 버튼 클릭
+                          <button type="button" onClick={requestEdit}>
+                            수정하기
+                          </button>
+                        ) : (
+                          <>
+                            <button type="submit">저장하기</button>
+                            <button
+                              name="reset"
+                              type="reset"
+                              value="Reset"
+                              onClick={refuseEdit}
+                            >
+                              취소하기
+                            </button>
+                          </>
+                        )}
+                      </>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                </form>
+              </div>
+            </section>
+          </>
         )}
       </main>
-      <ChatShortcut />
+      <ListShortcut />
       <Footer />
     </div>
   );

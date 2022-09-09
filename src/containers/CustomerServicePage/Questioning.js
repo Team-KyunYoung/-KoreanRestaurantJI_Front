@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ChatShortcut from "../../components/ShortCut/ChatShortcut";
+import ListShortcut from "../../components/ShortCut/ListShortcut";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
 import UserService from "lib/api/UserService";
@@ -62,8 +62,11 @@ const Questioning = () => {
                     placeholder="제목을 입력해주세요"
                     onChange={handleChange}
                     name="title"
+                    maxLength={100}
                   />
                 </div>
+                <p className={styles.titleCounter}>({title.length}/100)</p>
+
                 <div className={[styles.formBox, styles.checkBox].join(" ")}>
                   {/* <span>작성자 {data.writer}</span>
                   <span>날짜 {data.writeDate}</span>*/}
@@ -95,7 +98,9 @@ const Questioning = () => {
                   onChange={handleChange}
                   value={contents}
                   name="contents"
+                  maxLength={500}
                 ></textarea>
+                <p className={styles.contentCounter}>({contents.length}/500)</p>
               </div>
               <div className={styles.btn}>
                 {" "}
@@ -107,7 +112,7 @@ const Questioning = () => {
           </div>
         </section>
       </main>
-      <ChatShortcut />
+      <ListShortcut />
       <Footer />
     </div>
   );
