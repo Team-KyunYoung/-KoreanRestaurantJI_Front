@@ -16,7 +16,7 @@ const btnStyle = {
 };
 const CartShortcut = () => {
   return (
-    <Link to="../Cart" style={btnStyle}>
+    <Link to="/QnABoard" style={btnStyle}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="16"

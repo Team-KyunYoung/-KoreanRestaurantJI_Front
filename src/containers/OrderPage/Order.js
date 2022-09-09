@@ -3,10 +3,9 @@ import { Link } from "react-router-dom";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Popover from "react-bootstrap/Popover";
 import MediaQuery from "react-responsive";
-import Modal from 'react-modal';
+import Modal from "react-modal";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import CartShortcut from "../../components/ShortCut/CartShortcut";
 import ImgBanner from "../../components/Banner/ImgBanner";
 import modalstyles from "./Modal.module.scss";
 import styles from "./Order.module.scss";
@@ -16,65 +15,77 @@ import OrderService from "lib/api/OrderService";
 
 const image1 = "https://picsum.photos/1200/600";
 
-const remoteController = //상단 바로가기 리모콘, dish에서 사용할 시 컴포넌트 폴더로 옮길 것
-  (
-    <ul>
-      <li>
-        <a href="#appetizer">Appetizer</a>
-      </li>
-      <li>
-        <a href="#entree">Entree</a>
-      </li>
-      <li>
-        <a href="#dessert">Dessert</a>
-      </li>
-    </ul>
-  );
+const remoteController = ( //상단 바로가기 리모콘, dish에서 사용할 시 컴포넌트 폴더로 옮길 것
+  <ul>
+    <li>
+      <a href="#appetizer">Appetizer</a>
+    </li>
+    <li>
+      <a href="#entree">Entree</a>
+    </li>
+    <li>
+      <a href="#dessert">Dessert</a>
+    </li>
+  </ul>
+);
 const Order = () => {
-  function DishContent(count, data){
+  function DishContent(count, data) {
     var popover = (
       <Popover id="popover-basic">
         <Popover.Body>{data.data[count].dishDescription}</Popover.Body>
       </Popover>
     );
-    return(
+    return (
       <div className={styles.dish}>
-            <div className={styles.dishImg}>
-              <img
-                href="#"
-                // src={data.data[count].dishPhoto}
-                src="https://picsum.photos/350/350"
-                alt={data.data[count].dishName}
-              />
-              {/* <button type="submit" onClick={() => onClickPutInCarttoModal(data.data[count].dishNumber, 
+        <div className={styles.dishImg}>
+          <img
+            href="#"
+            // src={data.data[count].dishPhoto}
+            src="https://picsum.photos/350/350"
+            alt={data.data[count].dishName}
+          />
+          {/* <button type="submit" onClick={() => onClickPutInCarttoModal(data.data[count].dishNumber, 
                 data.data[count].dishName, data.data[count].dishPhoto, data.data[count].dishPrice)}>
                 장바구니
               </button> */}
+        </div>
+        <div className={styles.dishDetails}>
+          <OverlayTrigger
+            trigger={["hover", "focus"]}
+            placement="bottom"
+            overlay={popover}
+          >
+            {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
+            <div>
+              <h4>{data.data[count].dishName}</h4>
+              <p>{data.data[count].dishDescription}</p>
             </div>
-            <div className={styles.dishDetails}>
-              <OverlayTrigger
-                trigger={['hover', 'focus']}
-                placement="bottom"
-                overlay={popover}
-              >
-                {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
-                <div>
-                  <h4>{data.data[count].dishName}</h4>
-                  <p>{data.data[count].dishDescription}</p>
-                </div>
-              </OverlayTrigger>
-              <i>{data.data[count].dishPrice}원</i>
-              <span className={styles.btnClub}>
-                <button type="submit" onClick={() => {setModalIsOpen(true); setOrderDish(data.data[count])}}>
-                  바로주문
-                </button>
-                <button type="submit" className={styles.cart} onClick={() => {setModalIsOpen(true); setOrderDish(data.data[count])}}>
-                  장바구니
-                </button>
-              </span>
-            </div>
-          </div>
-    )
+          </OverlayTrigger>
+          <i>{data.data[count].dishPrice}원</i>
+          <span className={styles.btnClub}>
+            <button
+              type="submit"
+              onClick={() => {
+                setModalIsOpen(true);
+                setOrderDish(data.data[count]);
+              }}
+            >
+              바로주문
+            </button>
+            <button
+              type="submit"
+              className={styles.cart}
+              onClick={() => {
+                setModalIsOpen(true);
+                setOrderDish(data.data[count]);
+              }}
+            >
+              장바구니
+            </button>
+          </span>
+        </div>
+      </div>
+    );
   }
   function OrderContent(data) {
     //console.log(data.data.length);
@@ -139,32 +150,34 @@ const Order = () => {
   const [isCartIn, setIsCartIn] = useState(true); // 카트에 넣었다면 true, 바로주문이라면 false
 
   useEffect(() => {
-    setOrderQuantity(1)
+    setOrderQuantity(1);
   }, [modalIsOpen]);
 
   function handleChangeQuantity(count) {
-    if(orderQuantity+count === 1){
-      setDisable(true)
+    if (orderQuantity + count === 1) {
+      setDisable(true);
     } else {
-      setDisable(false)
+      setDisable(false);
     }
-    console.log(count)
-    setOrderQuantity((current) => current + count)
+    console.log(count);
+    setOrderQuantity((current) => current + count);
   }
-  function onClickAddCart(dishNumber, orderQuantity){
+  function onClickAddCart(dishNumber, orderQuantity) {
     CartService.addCartDish(dishNumber, orderQuantity)
       .then((response) => {
         console.log(response.data.data);
         setModalIsOpen(false);
-        setIsCartIn(true)
+        setIsCartIn(true);
         setSuccessModalIsOpen(true);
       })
       .catch((error) => {
         console.log(error.response);
       });
   }
-  function onClickAddOrder(dishNumber, orderQuantity){
-    let dishOrderList = [{ "dishNumber": dishNumber, "orderQuantity": orderQuantity }]
+  function onClickAddOrder(dishNumber, orderQuantity) {
+    let dishOrderList = [
+      { dishNumber: dishNumber, orderQuantity: orderQuantity },
+    ];
     OrderService.addOrder(dishOrderList)
       .then((response) => {
         console.log(response.data.data);
@@ -227,11 +240,17 @@ const Order = () => {
               {remoteController}
             </div>
           </MediaQuery>
-          <div>{isLoading ? "Loading..." : <OrderContent key="OrderContent" data={dish} />}</div>
+          <div>
+            {isLoading ? (
+              "Loading..."
+            ) : (
+              <OrderContent key="OrderContent" data={dish} />
+            )}
+          </div>
         </div>
       </main>
       <Modal
-        isOpen={modalIsOpen} 
+        isOpen={modalIsOpen}
         onRequestClose={() => setModalIsOpen(false)}
         overlayClassName={modalstyles.overlay}
         className={modalstyles.content}
@@ -239,25 +258,54 @@ const Order = () => {
         <h3>주문 상세</h3>
         <div className={modalstyles.dish}>
           {/* <div className={modalstyles.img}><img src={orderDish.dishPhoto}></img></div> */}
-          <div className={modalstyles.img}><img src="https://picsum.photos/160/160"></img></div>
+          <div className={modalstyles.img}>
+            <img src="https://picsum.photos/160/160"></img>
+          </div>
           <div className={modalstyles.dishdetail}>
             <div className={modalstyles.title}>{orderDish.dishName}</div>
             <div className={modalstyles.quantitity}>
-              <button className={`${modalstyles.countbutton} ${disable ? modalstyles.disableclick : null}`} id="minusBtn" onClick={() => handleChangeQuantity(-1)} disabled={disable}></button>
+              <button
+                className={`${modalstyles.countbutton} ${
+                  disable ? modalstyles.disableclick : null
+                }`}
+                id="minusBtn"
+                onClick={() => handleChangeQuantity(-1)}
+                disabled={disable}
+              ></button>
               <span>&nbsp;{orderQuantity}&nbsp;</span>
-              <button className={`${modalstyles.countbutton} ${modalstyles.plus}`} onClick={() => handleChangeQuantity(1)}></button>
+              <button
+                className={`${modalstyles.countbutton} ${modalstyles.plus}`}
+                onClick={() => handleChangeQuantity(1)}
+              ></button>
             </div>
-            <div className={modalstyles.price}>{(orderDish.dishPrice*orderQuantity).toLocaleString('ko-KR')}원</div>
+            <div className={modalstyles.price}>
+              {(orderDish.dishPrice * orderQuantity).toLocaleString("ko-KR")}원
+            </div>
           </div>
         </div>
         <div className={modalstyles.submitBtns}>
-        <button className={modalstyles.submit} onClick={()=> setModalIsOpen(false)}>취소</button>
-          <button className={modalstyles.submit} onClick={() => onClickAddOrder(orderDish.dishNumber, orderQuantity)}>구매하기</button>
-          <button className={modalstyles.submit} onClick={() => onClickAddCart(orderDish.dishNumber, orderQuantity)}>장바구니</button>
+          <button
+            className={modalstyles.submit}
+            onClick={() => setModalIsOpen(false)}
+          >
+            취소
+          </button>
+          <button
+            className={modalstyles.submit}
+            onClick={() => onClickAddOrder(orderDish.dishNumber, orderQuantity)}
+          >
+            구매하기
+          </button>
+          <button
+            className={modalstyles.submit}
+            onClick={() => onClickAddCart(orderDish.dishNumber, orderQuantity)}
+          >
+            장바구니
+          </button>
         </div>
       </Modal>
       <Modal
-        isOpen={successModalIsOpen} 
+        isOpen={successModalIsOpen}
         onRequestClose={() => setSuccessModalIsOpen(false)}
         overlayClassName={modalstyles.overlay}
         className={`${modalstyles.content} ${modalstyles.contentSuccess}`}
@@ -265,12 +313,24 @@ const Order = () => {
         {!isCartIn && <h3>주문 완료</h3>}
         {isCartIn && <h3>장바구니에 담겼습니다</h3>}
         <div className={modalstyles.toGoBtns}>
-          {!isCartIn && <button className={modalstyles.submit}><Link to="/UserInfo/ordered">구매 확인하기</Link></button>}
-          {isCartIn && <button className={modalstyles.submit}><Link to="/Cart">장바구니 확인하기</Link></button>}
-          <button className={modalstyles.submit} onClick={()=> setSuccessModalIsOpen(false)}>계속 쇼핑하기</button>
+          {!isCartIn && (
+            <button className={modalstyles.submit}>
+              <Link to="/UserInfo/ordered">구매 확인하기</Link>
+            </button>
+          )}
+          {isCartIn && (
+            <button className={modalstyles.submit}>
+              <Link to="/Cart">장바구니 확인하기</Link>
+            </button>
+          )}
+          <button
+            className={modalstyles.submit}
+            onClick={() => setSuccessModalIsOpen(false)}
+          >
+            계속 쇼핑하기
+          </button>
         </div>
       </Modal>
-      <CartShortcut />
       <Footer />
     </div>
   );
