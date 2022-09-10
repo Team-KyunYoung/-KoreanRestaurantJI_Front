@@ -9,9 +9,9 @@ import Question from "lib/api/Question";
 const InnerFAQ = (props) => {
   console.log(props.list);
   const questionList = [];
-  props.list.map((obj) =>
+  props.list.map((obj, i) =>
     questionList.push(
-      <Accordion.Item eventKey={obj.questionNumber}>
+      <Accordion.Item eventKey={obj.questionNumber} key={i}>
         <Accordion.Header>{obj.questionTitle}</Accordion.Header>
         <Accordion.Body>{obj.questionContents}</Accordion.Body>
       </Accordion.Item>
@@ -52,7 +52,7 @@ const FAQBoard = () => {
             </div>
           )}
           <div className={styles.btn}>
-            <Link to="/QnA">FAQ에 없다면?</Link>
+            <Link to="/QnABoard">FAQ에 없다면?</Link>
           </div>
         </section>
       </main>
