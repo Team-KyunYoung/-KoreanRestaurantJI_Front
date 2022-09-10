@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
 
-import Page from "./Pagination";
+import Page from "../../components/Pagination/Pagination";
 
 import OrderService from "lib/api/OrderService";
 import UserService from "lib/api/UserService";
@@ -22,9 +22,9 @@ function OrderedInnerPage(props) {
           <Link to={"./../../Order"}>주문하러 가기</Link>
         </div>
       ) : (
-        props.list.map((obj) => (
+        props.list.map((obj, i) => (
           <>
-            <li key={obj.createdDate}>
+            <li key={i}>
               {/* <img src={image1} alt="reservation list" /> */}
               {/* <h3>{obj.orderStatus}</h3> */}
               <div className={styles.listSpan}>
@@ -38,8 +38,8 @@ function OrderedInnerPage(props) {
                   <b>원</b>
                 </p>
                 <ul>
-                  {obj.orderDishList.map((dishObj) => (
-                    <li>
+                  {obj.orderDishList.map((dishObj, j) => (
+                    <li key={"dish" + i + j}>
                       <Link
                         to={
                           "./../../Dish/" +
