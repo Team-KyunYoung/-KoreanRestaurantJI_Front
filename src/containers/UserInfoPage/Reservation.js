@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
 import ReservationService from "lib/api/ReservationService";
-import Page from "./Pagination";
+import Page from "../../components/Pagination/Pagination";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
@@ -13,10 +13,10 @@ function ReservationInnerPage(props) {
     <ul className={styles.list}>
       {props.loading
         ? "loading"
-        : props.list.map((obj) => (
+        : props.list.map((obj, i) => (
             <>
               <li
-                key={obj.reservationNumber}
+                key={i}
                 className={
                   props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
                     ? styles.today

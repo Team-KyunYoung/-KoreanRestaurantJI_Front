@@ -64,11 +64,12 @@ const Page = ({ postsPerPage, totalPosts, currentPage, setCurrentPage }) => {
             <path d="m3.86 8.753 5.482 4.796c.646.566 1.658.106 1.658-.753V3.204a1 1 0 0 0-1.659-.753l-5.48 4.796a1 1 0 0 0 0 1.506z" />
           </svg>
         </Pagination.Item>
-        {pageNumbers.map((number) => (
+        {pageNumbers.map((number, i) => (
           <Pagination.Item
             page={number}
             onClick={() => setCurrentPage(number)}
             active={number === currentPage}
+            key={i}
           >
             {number}
           </Pagination.Item>
