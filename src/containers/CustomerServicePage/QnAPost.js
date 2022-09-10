@@ -1,35 +1,19 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, Navigate, useNavigate, useParams } from "react-router-dom";
+import React, { useState, useEffect, useCallback } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import ListShortcut from "../../components/ShortCut/ListShortcut";
+import Comment from "./QnAComment";
 import styles from "./CS.module.scss";
 import UserService from "lib/api/UserService";
 import Question from "lib/api/Question";
 import AdminComment from "lib/api/AdminComment";
 
 const QnADetails = () => {
-  function Comment(props) {
-    const commentlist = [];
-    if (!props.load) {
-      console.log(props.list);
-      props.list.map((obj) => {
-        commentlist.push(
-          <input
-            key={obj.commentNumber}
-            placeholder={obj.commentContents}
-            onChange={commentOnChange}
-            onClick={onClickComment}
-          />
-        );
-      });
-    }
-    return <>{commentlist}</>;
-  }
   const [data, setData] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [commentLoading, setCommentLoading] = useState(true);
-  const [isWriter, setIsWriter] = useState(false); //조회자가 글쓴이 본인인지 확인 t->버튼 보임 f->버튼 숨김
+  const [role, setRole] = useState("none"); //조회자의 역할 : admin,writer,non
   const [editDisabled, setEditDisabled] = useState(true); //input disabled 상태,수정하기 버튼 클릭 시 버튼 바뀌며 input이 입력가능해짐
   const [counterDisplay, setCounterDisplay] = useState("none"); //글자 수 카운터의 display style, 버튼 클릭 시 none->block
   const [commentList, setCommentList] = useState({});
@@ -56,7 +40,7 @@ const QnADetails = () => {
               setData(response.data.data);
               setIsLoading(false);
               if (res.data.data.userNickname === response.data.data.writer) {
-                setIsWriter(true);
+                setRole("writer");
               }
             })
             .catch(() => {
@@ -70,24 +54,35 @@ const QnADetails = () => {
               setData(response.data.data);
               setIsLoading(false);
               if (res.data.data.userNickname === response.data.data.writer) {
-                setIsWriter(true);
+                setRole("writer");
               }
             })
             .catch(() => {});
         }
       })
       .catch(() => {});
-  }, []);
-  useEffect(() => {
-    AdminComment.findComment(Number(param.number)).then((response) => {
-      setCommentList(response.data.data);
-      console.log(response.data.data);
-      setCommentLoading(false);
-    });
+
+    AdminComment.findComment(Number(param.number))
+      .then((response) => {
+        setCommentList(response.data.data);
+        console.log(response.data.data);
+        setCommentLoading(false);
+      })
+      .catch(() => {});
+
+    UserService.isAdmin()
+      .then((response) => {
+        console.log(response);
+        if (response.data.data === true) {
+          setRole("admin");
+          console.log("admin");
+        }
+      })
+      .catch(() => {});
   }, []);
   const requestEdit = (e) => {
     //수정하기 버튼 : input의 disabled 해제
-    if (isWriter) {
+    if (role === "writer") {
       setEditDisabled(false);
       setCounterDisplay("block");
       setForm({
@@ -122,7 +117,6 @@ const QnADetails = () => {
     Question.updateQnA(Number(param.number), privatePost, contents, title)
       .then((response) => {
         console.log(response);
-        alert(response);
       })
       .catch(() => {
         alert("입력 내용을 확인해주세요");
@@ -130,27 +124,18 @@ const QnADetails = () => {
   };
   //관리자 답글
   const [comment, setComment] = useState("");
-  const adminHandleChange = (e) => {
+  const adminHandleChange = useCallback((e) => {
     setComment(e.target.value);
     console.log(e.target.value);
-  };
+  }, []);
   const adminHandleClick = (e) => {
     AdminComment.createComment(Number(param.number), comment)
       .then((response) => {
         console.log(response);
       })
-      .catch(() => {});
-  };
-  const commentOnChange = (e) => {
-    console.log(e.target.key);
-    AdminComment.updateComment(Number(param.number), comment)
-      .then((response) => {
-        console.log(response);
-      })
-      .catch(() => {});
-  };
-  const onClickComment = (e) => {
-    console.log(e.target.key);
+      .catch(() => {
+        alert("error");
+      });
   };
   return (
     <div id="QnAPage">
@@ -241,7 +226,7 @@ const QnADetails = () => {
                     </p>
                   </div>
                   <div className={styles.btn}>
-                    {isWriter ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
+                    {role === "writer" ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
                       <>
                         {editDisabled ? ( //수정하기 버튼 클릭
                           <button type="button" onClick={requestEdit}>
@@ -268,26 +253,42 @@ const QnADetails = () => {
                 </form>
               </div>
             </section>
+
+            <section className={styles.commentBox}>
+              <div>
+                {role === "admin" ? (
+                  <>
+                    <p>댓글달기</p>
+                    <form onSubmit={adminHandleClick}>
+                      <textarea
+                        type="text"
+                        id="comment"
+                        onChange={adminHandleChange}
+                        name="comment"
+                        maxLength={255}
+                      />
+                      <button type="submit">제출</button>
+                    </form>
+                  </>
+                ) : (
+                  ""
+                )}
+                {commentLoading ? (
+                  "loading"
+                ) : (
+                  <>
+                    <Comment
+                      list={commentList}
+                      qnaNum={param.number}
+                      isPrivate={param.isPrivate}
+                      isAdmin={role === "admin"}
+                    />
+                  </>
+                )}
+              </div>
+            </section>
           </>
         )}
-        <section className={styles.singleQuestionBox}>
-          <form onSubmit={adminHandleClick}>
-            <input
-              type="text"
-              id="title"
-              // placeholder={data.questionTitle}
-              // disabled={editDisabled}
-              onChange={adminHandleChange}
-              name="title"
-              maxLength={200}
-            />
-            <button type="submit">submit</button>
-          </form>
-          <>
-            <Comment list={commentList} load={commentLoading} />
-          </>
-          {/* <p style={{ display: counterDisplay }}>({title.length}/200)</p> */}
-        </section>
       </main>
 
       <ListShortcut />

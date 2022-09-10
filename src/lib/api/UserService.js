@@ -206,6 +206,14 @@ class UserService {
         console.log(error.response);
       });
   }
+  isAdmin() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(USER_API_BASE_URL + "/isadmin/", JSON.stringify(), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
+  }
 }
 
 export default new UserService();
