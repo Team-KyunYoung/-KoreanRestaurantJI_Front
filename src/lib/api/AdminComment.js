@@ -30,13 +30,13 @@ class AdminComment {
     );
   }
   updateComment(commentNumber, comment) {
-    let data = {
-      comment: comment,
-    };
+    // let data = {
+    //   comment: comment,
+    // };
     Authentication.setupAxiosInterceptors();
     return axios.put(
-      USER_API_BASE_URL + "/update/qna/" + commentNumber,
-      JSON.stringify(data),
+      USER_API_BASE_URL + "/update/" + commentNumber,
+      JSON.stringify(comment),
       {
         headers: {
           "Content-Type": `application/json`,
@@ -46,8 +46,8 @@ class AdminComment {
   }
   deleteComment(commentNumber) {
     Authentication.setupAxiosInterceptors();
-    return axios.get(
-      USER_API_BASE_URL + "/find/" + commentNumber,
+    return axios.delete(
+      USER_API_BASE_URL + "/delete/" + commentNumber,
       JSON.stringify(),
       {
         headers: {
