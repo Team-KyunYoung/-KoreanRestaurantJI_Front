@@ -105,7 +105,7 @@ const Questioning = () => {
               <div className={styles.btn}>
                 {" "}
                 <button type="button" onClick={handleSubmit}>
-                  바꾸기
+                  질문하기
                 </button>
               </div>
             </form>
