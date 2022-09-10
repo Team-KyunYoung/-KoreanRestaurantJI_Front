@@ -79,20 +79,17 @@ const Header = () => {
                   <NavDropdown.Item href="/login">예약 현황</NavDropdown.Item>
                 )}
               </NavDropdown>
-              <NavDropdown
-                title="이벤트"
-                id="collasible-nav-dropdown"
-                className="p-2"
-              >
-                <NavDropdown.Item href="#action/3.1">이벤트</NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.2">
-                  멤버십 혜택
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  제휴 카드
-                </NavDropdown.Item>
-              </NavDropdown>
+
+              <MediaQuery minWidth={993}>
+                <Nav.Link href="/Event" className="p-3">
+                  이벤트
+                </Nav.Link>
+              </MediaQuery>
+              <MediaQuery maxWidth={992}>
+                <Nav.Link href="/Event" className="p-2">
+                  이벤트
+                </Nav.Link>
+              </MediaQuery>
               <MediaQuery minWidth={993}>
                 <Nav.Link href="/Review" className="p-3">
                   후기

@@ -24,6 +24,9 @@ import FAQBoard from "./containers/CustomerServicePage/FAQBoard";
 import QnABoard from "./containers/CustomerServicePage/QnABoard";
 import QnAPost from "./containers/CustomerServicePage/QnAPost";
 import Question from "./containers/CustomerServicePage/Questioning";
+import EventBoard from "./containers/EventPage/EventBoard";
+import EventPost from "./containers/EventPage/EventPost";
+import CreateEvent from "./containers/EventPage/CreateEvent";
 import reportWebVitals from "./reportWebVitals";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
@@ -50,6 +53,9 @@ root.render(
       <Route path="QnABoard" element={<QnABoard />} />
       <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
       <Route path="Question" element={<Question />} />
+      <Route path="Event" element={<EventBoard />} />
+      <Route path="Event/Create" element={<CreateEvent />} />
+      <Route path="Event/:number" element={<EventPost />} />
     </Routes>
   </BrowserRouter>
 );
