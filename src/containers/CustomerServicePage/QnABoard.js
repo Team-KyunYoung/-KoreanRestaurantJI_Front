@@ -9,9 +9,9 @@ import Question from "lib/api/Question";
 function InnerQnA(props) {
   console.log(props.list.length);
   const questionList = [];
-  props.list.map((obj) =>
+  props.list.map((obj, i) =>
     questionList.push(
-      <Link to={"./" + obj.questionNumber + "/" + obj.private}>
+      <Link to={"./" + obj.questionNumber + "/" + obj.private} key={i}>
         <div id="tr">
           <div>{obj.questionNumber}</div>
           <div>{obj.questionTitle}</div>
@@ -25,7 +25,7 @@ function InnerQnA(props) {
                   width="16"
                   height="16"
                   fill="currentColor"
-                  class="bi bi-file-lock-fill"
+                  className="bi bi-file-lock-fill"
                   viewBox="0 0 16 16"
                 >
                   <path d="M7 6a1 1 0 0 1 2 0v1H7V6zM6 8.3c0-.042.02-.107.105-.175A.637.637 0 0 1 6.5 8h3a.64.64 0 0 1 .395.125c.085.068.105.133.105.175v2.4c0 .042-.02.107-.105.175A.637.637 0 0 1 9.5 11h-3a.637.637 0 0 1-.395-.125C6.02 10.807 6 10.742 6 10.7V8.3z" />
