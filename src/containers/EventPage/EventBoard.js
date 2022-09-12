@@ -12,7 +12,7 @@ function InnerEvent(props) {
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
-      <Link to={"/Event/" + obj.eventNumber} key={i}>
+      <Link to={"/Event/Post/" + obj.eventNumber} key={i}>
         <div id="tr">
           <div>{obj.eventNumber}</div>
           <div>{obj.eventTitle}</div>
@@ -83,7 +83,7 @@ const EventBoard = () => {
         {isAdmin ? (
           <section className={styles.eventBox}>
             <div className={styles.btn}>
-              <Link to="/Event/Create">글 쓰기</Link>
+              <Link to="/Event/Create/0">글 쓰기</Link>
             </div>
           </section>
         ) : (

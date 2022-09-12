@@ -56,8 +56,8 @@ root.render(
       <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
       <Route path="Question" element={<Question />} />
       <Route path="Event" element={<EventBoard />} />
-      <Route path="Event/Create" element={<CreateEvent />} />
-      <Route path="Event/:number" element={<EventPost />} />
+      <Route path="Event/:mode/:number" element={<CreateEvent />} />
+      <Route path="Event/Post/:number" element={<EventPost />} />
     </Routes>
   </BrowserRouter>
 );
