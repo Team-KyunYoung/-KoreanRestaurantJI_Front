@@ -117,6 +117,9 @@ const QnADetails = () => {
     Question.updateQnA(Number(param.number), privatePost, contents, title)
       .then((response) => {
         console.log(response);
+        window.location.replace(
+          "/QnABoard/" + Number(param.number) + "/" + param.isPrivate
+        );
       })
       .catch(() => {
         alert("입력 내용을 확인해주세요");
@@ -137,6 +140,13 @@ const QnADetails = () => {
         alert("error");
       });
   };
+  const deleteQnAPost = () => {
+    Question.deleteQnA(Number(param.number))
+      .then((response) => {
+        window.location.replace("/QnABoard");
+      })
+      .catch(() => {});
+  };
   return (
     <div id="QnAPage">
       <Header />
@@ -155,7 +165,7 @@ const QnADetails = () => {
           <>
             <section className={styles.singleQuestionBox}>
               <div>
-                <form onSubmit={WriterHandleSubmit}>
+                <form>
                   <div className={styles.firstLine}>
                     <div
                       className={[styles.formBox, styles.inputBox].join(" ")}
@@ -229,12 +239,20 @@ const QnADetails = () => {
                     {role === "writer" ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
                       <>
                         {editDisabled ? ( //수정하기 버튼 클릭
-                          <button type="button" onClick={requestEdit}>
-                            수정하기
-                          </button>
+                          <>
+                            <button type="button" onClick={requestEdit}>
+                              수정하기
+                            </button>
+
+                            <button type="button" onClick={deleteQnAPost}>
+                              삭제하기
+                            </button>
+                          </>
                         ) : (
                           <>
-                            <button type="submit">저장하기</button>
+                            <button type="button" onClick={WriterHandleSubmit}>
+                              저장하기
+                            </button>
                             <button
                               name="reset"
                               type="reset"
