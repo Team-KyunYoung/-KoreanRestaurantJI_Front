@@ -56,6 +56,16 @@ class Question {
       },
     });
   }
+  deleteQnA(questionNumber) {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      USER_API_BASE_URL + "/delete/" + questionNumber,
+      JSON.stringify(),
+      {
+        headers: { "Content-Type": `application/json` },
+      }
+    );
+  }
 }
 
 export default new Question();
