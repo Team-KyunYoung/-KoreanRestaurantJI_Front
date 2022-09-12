@@ -21,6 +21,7 @@ import Dish from "./containers/DishPage/Dish";
 import DishDetails from "./containers/DishPage/DishDetails";
 import UserInfo from "./containers/UserInfoPage/UserInfo";
 import FAQBoard from "./containers/CustomerServicePage/FAQBoard";
+import FAQPost from "./containers/CustomerServicePage/FAQPost";
 import QnABoard from "./containers/CustomerServicePage/QnABoard";
 import QnAPost from "./containers/CustomerServicePage/QnAPost";
 import Question from "./containers/CustomerServicePage/Questioning";
@@ -50,6 +51,7 @@ root.render(
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
       <Route path="UserInfo/:location" element={<UserInfo />} />
       <Route path="FAQBoard" element={<FAQBoard />} />
+      <Route path="FAQBoard/:mode/:number" element={<FAQPost />} />
       <Route path="QnABoard" element={<QnABoard />} />
       <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
       <Route path="Question" element={<Question />} />
