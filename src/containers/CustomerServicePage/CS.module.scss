@@ -24,6 +24,55 @@
       display: inline-block;
     }
   }
+  //2개의 연속 버튼
+  .sideBySide {
+    background-color: white;
+    border-radius: 25px;
+    width: 54px;
+    height: 30px;
+    border: 1px solid gray;
+    font-size: 12px;
+
+    &:nth-child(1) {
+      border-radius: 25px 0 0 25px;
+    }
+    &:nth-child(2) {
+      border-radius: 0 25px 25px 0;
+    }
+  }
+  .accordionBox {
+    .accordionHeader {
+      justify-content: space-between !important;
+    }
+    .sideBySide {
+      position: absolute;
+      &:first-child {
+        right: 100px;
+      }
+      &:nth-child(2) {
+        right: 50px;
+      }
+    }
+    // .deleteBtn {
+    //   display: block;
+    //   text-align: center;
+    //   margin: 0 auto;
+
+    //   text-decoration: none;
+    //   padding: 5px;
+    //   outline: none;
+    //   background-color: transparent;
+    //   color: black;
+    //   box-shadow: none;
+    //   border: 2px solid black;
+    // }
+    // .faqBox {
+    //   display: flex;
+    //   > div {
+    //     width: 100%;
+    //   }
+    // }
+  }
   .table {
     // display: flex;
     background-color: white;
@@ -93,6 +142,11 @@
         .inputBox {
           text-align: left;
           width: 70%;
+        }
+
+        .faqInput {
+          //공개 비공개가 없는 faq의 제목 input
+          width: 95%;
         }
         .checkBox {
           width: 20%;
