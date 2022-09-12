@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import Chat from "../../components/ChatBot/Chat";
@@ -8,14 +8,17 @@ import UserService from "lib/api/UserService";
 import EventService from "lib/api/EventService";
 
 const image1 = "https://picsum.photos/500/600";
-const EventDetails = () => {
+const EventPost = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
 
   const param = useParams();
+  const navigate = useNavigate();
+  console.log(param.number);
   useEffect(() => {
-    EventService.findEvent(param.number)
+    alert(param.number);
+    EventService.findEvent(Number(param.number))
       .then((response) => {
         console.log(response);
         setList(response.data.data);
@@ -32,6 +35,9 @@ const EventDetails = () => {
       })
       .catch(() => {});
   }, []);
+  const updateEventPost = () => {
+    navigate("/Event/Update/" + param.number);
+  };
   const deleteEventPost = () => {
     EventService.deleteEvent(Number(param.number))
       .then((response) => {
@@ -72,7 +78,9 @@ const EventDetails = () => {
           <div className={styles.btn}>
             {isAdmin ? (
               <>
-                <button type="submit">수정하기</button>
+                <button type="submit" onClick={updateEventPost}>
+                  수정하기
+                </button>
                 <button type="button" onClick={deleteEventPost}>
                   삭제하기
                 </button>
@@ -89,4 +97,4 @@ const EventDetails = () => {
   );
 };
 
-export default EventDetails;
+export default EventPost;

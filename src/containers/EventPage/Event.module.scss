@@ -12,6 +12,7 @@
     width: 60%;
     margin: 0 auto;
   }
+  .singleQuestionBox,
   .eventBox {
     text-align: center;
     padding-bottom: 100px;
@@ -85,6 +86,69 @@
       a,
       button {
         @include whiteButton;
+      }
+    }
+  }
+  .singleQuestionBox {
+    form {
+      .firstLine {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        margin-bottom: 15px;
+        .inputBox {
+          text-align: left;
+          width: 70%;
+        }
+
+        .faqInput {
+          //공개 비공개가 없는 faq의 제목 input
+          width: 95%;
+        }
+        .checkBox {
+          width: 20%;
+        }
+      }
+      .formBox {
+        input[type="text"] {
+          width: 93%;
+          height: 50px;
+          padding-right: 60px; //글자 수 공간
+        }
+        textarea {
+          width: 90%;
+          height: 30vh;
+          overflow: scroll;
+        }
+        .textareaLabel {
+          position: relative;
+          top: calc(-30vh + 21px);
+        }
+        span,
+        label {
+          color: white;
+          // padding: 3px;
+        }
+        input[type="text"],
+        textarea {
+          background-color: white;
+          border-radius: 10px;
+          outline: none;
+          border: 1px solid rgb(132, 132, 133);
+        }
+      }
+      p {
+        //글자수
+        color: gray;
+        font-size: 12px;
+      }
+      .titleCounter {
+        margin-left: -11%;
+        margin-top: 15px;
+      }
+      .contentCounter {
+        margin-left: 85%;
+        margin-top: -30px;
       }
     }
   }
