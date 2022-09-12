@@ -48,6 +48,7 @@ const QnaComment = (props) => {
             {" "}
             <button
               type="submit"
+              className={styles.sideBySide}
               id={obj.commentNumber}
               key={obj.commentNumber}
               onClick={updateComment}
@@ -55,6 +56,7 @@ const QnaComment = (props) => {
               수정
             </button>
             <button
+              className={styles.sideBySide}
               type="submit"
               id={obj.commentNumber}
               onClick={deleteComment}
