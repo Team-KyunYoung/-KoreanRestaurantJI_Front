@@ -42,6 +42,23 @@ class Question {
       }
     );
   }
+  updateFaq(questionNumber, questionContents, questionTitle) {
+    let data = {
+      questionContents: questionContents,
+      questionTitle: questionTitle,
+    };
+    console.log(data);
+    Authentication.setupAxiosInterceptors();
+    return axios.put(
+      USER_API_BASE_URL + "/update/faq/" + questionNumber,
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+  }
   createQnA(isPrivate, questionContents, questionTitle) {
     let data = {
       isPrivate: isPrivate,
@@ -50,6 +67,19 @@ class Question {
     };
     console.log(data);
     return axios.post(USER_API_BASE_URL + "/create/qna", JSON.stringify(data), {
+      headers: {
+        "Content-Type": `application/json`,
+        "X-AUTH-TOKEN": localStorage.getItem("token"),
+      },
+    });
+  }
+  createFaq(questionContents, questionTitle) {
+    let data = {
+      questionContents: questionContents,
+      questionTitle: questionTitle,
+    };
+    console.log(data);
+    return axios.post(USER_API_BASE_URL + "/create/faq", JSON.stringify(data), {
       headers: {
         "Content-Type": `application/json`,
         "X-AUTH-TOKEN": localStorage.getItem("token"),
