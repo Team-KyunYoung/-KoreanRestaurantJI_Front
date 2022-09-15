@@ -1,5 +1,7 @@
 import axios from "axios";
 
+import Authentication from "lib/api/Authentication";
+
 const USER_API_BASE_URL = "/api/reservation";
 class ReservationService {
   createReservation(date, name, phoneNumber, roomNumber, tableCount, time) {
