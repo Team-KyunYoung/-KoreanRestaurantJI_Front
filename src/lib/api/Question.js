@@ -66,9 +66,9 @@ class Question {
       questionTitle: questionTitle,
     };
     console.log(data);
+    Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create/qna", JSON.stringify(data), {
       headers: {
-        "Content-Type": `application/json`,
         "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
@@ -79,10 +79,10 @@ class Question {
       questionTitle: questionTitle,
     };
     console.log(data);
+    Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create/faq", JSON.stringify(data), {
       headers: {
         "Content-Type": `application/json`,
-        "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
   }
