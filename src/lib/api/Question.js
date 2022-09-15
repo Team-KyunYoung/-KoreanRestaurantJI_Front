@@ -69,7 +69,7 @@ class Question {
     Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create/qna", JSON.stringify(data), {
       headers: {
-        "X-AUTH-TOKEN": localStorage.getItem("token"),
+        "Content-Type": `application/json`,
       },
     });
   }

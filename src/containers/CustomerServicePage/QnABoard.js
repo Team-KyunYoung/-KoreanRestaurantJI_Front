@@ -15,6 +15,7 @@ function InnerQnA(props) {
         <div id="tr">
           <div>{obj.questionNumber}</div>
           <div>{obj.questionTitle}</div>
+          <div>{obj.isComment}</div>
           <div>{obj.writeDate}</div>
           <div>
             {obj.writer}{" "}
@@ -90,6 +91,7 @@ const QnABoard = () => {
                   <div id="tr">
                     <div>번호</div>
                     <div>제목</div>
+                    <div>답변여부</div>
                     <div>날짜</div>
                     <div>작성자</div>
                   </div>
