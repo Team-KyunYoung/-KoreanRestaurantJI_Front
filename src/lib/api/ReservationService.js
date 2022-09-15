@@ -4,11 +4,12 @@ import Authentication from "lib/api/Authentication";
 
 const USER_API_BASE_URL = "/api/reservation";
 class ReservationService {
-  createReservation(date, name, phoneNumber, roomNumber, tableCount, time) {
+  createReservation(date, name, phoneNumber, userRequest, roomNumber, tableCount, time) {
     let data = {
       reservationDate: date,
       reservationName: name,
       reservationPhoneNumber: phoneNumber,
+      reservationRequest: userRequest,
       reservationRoomNumber: roomNumber,
       reservationTableCount: tableCount,
       reservationTime: time,
