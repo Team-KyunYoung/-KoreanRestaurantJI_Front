@@ -12,18 +12,18 @@ class ReservationService {
       reservationTime: time,
     };
     console.log(data);
+    Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create", JSON.stringify(data), {
       headers: {
         "Content-Type": `application/json`,
-        "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
   }
   findReservation() {
+    Authentication.setupAxiosInterceptors();
     return axios.get(USER_API_BASE_URL + "/find", JSON.stringify(), {
       headers: {
         "Content-Type": `application/json`,
-        "X-AUTH-TOKEN": localStorage.getItem("token"),
       },
     });
   }
