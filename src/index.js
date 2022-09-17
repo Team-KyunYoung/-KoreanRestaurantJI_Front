@@ -34,8 +34,7 @@ import DishSetting from "./containers/AdminPage/DishSetting"
 import CourseSetting from "./containers/AdminPage/CourseSetting"
 import RoomSetting from "./containers/AdminPage/RoomSetting"
 import ReservationSetting from "./containers/AdminPage/ReservationSetting"
-import FAQSetting from "./containers/AdminPage/FAQSetting"
-import EventSetting from "./containers/AdminPage/EventSetting"
+import OrderSetting from "./containers/AdminPage/OrderSetting"
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -70,8 +69,7 @@ root.render(
       <Route path="Admin/CourseSetting" element={<CourseSetting />} />
       <Route path="Admin/RoomSetting" element={<RoomSetting />} />
       <Route path="Admin/ReservationSetting" element={<ReservationSetting />} />
-      <Route path="Admin/FAQSetting" element={<FAQSetting />} />
-      <Route path="Admin/EventSetting" element={<EventSetting />} />
+      <Route path="Admin/OrderSetting" element={<OrderSetting />} />
     </Routes>
   </BrowserRouter>
 );

@@ -21,8 +21,7 @@ const MenuBar = () => {
                 <Button className={styles.menuButton} onClick={() => toGo("/Admin/CourseSetting")}>코스 요리</Button>
                 <Button className={styles.menuButton} onClick={() => toGo("/Admin/RoomSetting")}>객실</Button>
                 <Button className={styles.menuButton} onClick={() => toGo("/Admin/ReservationSetting")}>예약</Button>
-                <Button className={styles.menuButton} onClick={() => toGo("/Admin/FAQSetting")}>FAQ</Button>
-                <Button className={styles.menuButton} onClick={() => toGo("/Admin/EventSetting")}>Event</Button>
+                <Button className={styles.menuButton} onClick={() => toGo("/Admin/OrderSetting")}>주문</Button>
             </div>
             <div className={styles.goService}><Button className={styles.menuButton} onClick={() => toGo("/")}>서비스 페이지로 →</Button></div>
         </div>
