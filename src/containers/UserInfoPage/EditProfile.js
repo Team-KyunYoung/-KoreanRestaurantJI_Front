@@ -16,8 +16,9 @@ function EditProfile() {
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
   const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
-  const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] =
-    useState(true);
+  const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] = useState(
+    true
+  );
   useEffect(() => {
     UserService.findUser()
       .then((response) => {
@@ -43,7 +44,7 @@ function EditProfile() {
         .then((json) => {
           console.log(json);
           //json에서 받아온 값이
-          if (userNickname.length !== 0) {
+          if (userNickname.length !== 0 && userNickname.length <= 12) {
             setNicknameMessage(json.message);
             console.log(json.data.status);
             if (json.data.status === "OK") {
@@ -87,8 +88,7 @@ function EditProfile() {
     setVisiblePpwwMessage(true);
   };
   useEffect(() => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       console.log(userPassword);
       console.log(passwordRegex.test(userPassword));
@@ -109,10 +109,14 @@ function EditProfile() {
 
   function handleChangeNickname() {
     if (isUsableNickname) {
-      UserService.updateUserNickname(userNickname).then((response) => {
-        console.log(response.data.data);
-        alert("닉네임이 수정되었습니다.");
-      });
+      UserService.updateUserNickname(userNickname)
+        .then((response) => {
+          console.log(response.data.data);
+          alert("닉네임이 수정되었습니다.");
+        })
+        .catch((error) => {
+          alert(error);
+        });
     } else {
       alert("중복 여부를 확인하세요.");
     }
@@ -154,6 +158,7 @@ function EditProfile() {
               placeholder={user.userNickname}
               onChange={onChangeNickname}
               onClick={onClickNickname}
+              maxLength="12"
             />
             <button
               variant="outline-secondary"
@@ -173,6 +178,7 @@ function EditProfile() {
               type="password"
               autoComplete="on"
               onChange={onChangeExistingPassword}
+              maxLength="25"
             />
 
             <button
@@ -196,6 +202,7 @@ function EditProfile() {
               onClick={onClickPassword}
               // onClick={handleChangePassword}
               disabled={isDisabledPasswordConfirm}
+              maxLength="25"
             />
             {visiblePwMessage && (
               <p>영소문자와 숫자를 섞은 8자리 이상의 비밀번호를 입력해주세요</p>
@@ -211,6 +218,7 @@ function EditProfile() {
               onChange={onChangePasswordConfirm}
               // onClick={handleChangePassword}
               disabled={isDisabledPasswordConfirm}
+              maxLength="25"
             />
 
             <button
