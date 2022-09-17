@@ -281,6 +281,7 @@ const Signup = () => {
                     placeholder="닉네임"
                     onChange={onChangeNickname}
                     onClick={onClickNickname}
+                    maxLength="12"
                   />
                   <p>{nicknameMessage}</p>
                 </div>
@@ -293,6 +294,7 @@ const Signup = () => {
                     autoComplete="on"
                     onChange={onChangePassword}
                     onClick={onClickPassword}
+                    maxLength="25"
                   />
                   {visiblePwMessage && (
                     <p>
@@ -309,6 +311,7 @@ const Signup = () => {
                     type="password"
                     autoComplete="on"
                     onChange={onChangePasswordConfirm}
+                    maxLength="25"
                   />
                   {visiblePpwwMessage && <p>일치하지 않는 비밀번호입니다</p>}
                 </div>
