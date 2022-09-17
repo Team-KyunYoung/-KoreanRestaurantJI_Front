@@ -176,27 +176,38 @@
           color: salmon;
         }
       }
-      a {
-        text-decoration: none;
-        color: black;
-        animation: swing 1s infinite alternate;
-        position: absolute;
-        top: 50%;
-        right: 10px;
-        span {
-          // border: 1px solid black;
-          font-size: 12px;
+      .goList {
+        a {
+          text-decoration: none;
+          color: black;
+          animation: swing 1s infinite alternate;
+          position: absolute;
+          top: 50%;
+
+          span {
+            // border: 1px solid black;
+            font-size: 12px;
+          }
         }
-        svg {
-          margin-left: -30px;
+        .goPast {
+          right: 10px;
+          svg {
+            margin-left: -30px;
+          }
         }
-      }
-      @keyframes swing {
-        0% {
-          transform: translateX(20px);
+        .goNow {
+          left: calc(50% + 10px);
+          svg {
+            margin-right: -30px;
+          }
         }
-        100% {
-          transform: translateX(0px);
+        @keyframes swing {
+          0% {
+            transform: translateX(20px);
+          }
+          100% {
+            transform: translateX(0px);
+          }
         }
       }
     }
@@ -350,17 +361,19 @@
         }
       }
       .reservation {
-        a {
-          position: inherit;
-          animation: swing2 1s infinite alternate;
-          padding: 20px;
-        }
-        @keyframes swing2 {
-          0% {
-            margin-left: 20px;
+        .goList {
+          a {
+            position: inherit;
+            animation: swing2 1s infinite alternate;
+            padding: 20px;
           }
-          100% {
-            margin-left: 0px;
+          @keyframes swing2 {
+            0% {
+              margin-left: 20px;
+            }
+            100% {
+              margin-left: 0px;
+            }
           }
         }
       }
