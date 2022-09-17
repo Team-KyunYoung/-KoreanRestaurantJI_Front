@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
+import Privacy from "./Privacy";
 import styles from "./Signup.module.scss";
 import * as UserService from "lib/api/UserService";
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
+import Accordion from "react-bootstrap/Accordion";
 
 const Signup = () => {
   const [userEmail, setUserEmail] = useState("");
@@ -115,8 +117,7 @@ const Signup = () => {
   };
   //입력되는 데로 비밀번호 유효성 검사
   useEffect(() => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       //조건에 맞지 않음
       console.log(userPassword);
@@ -208,7 +209,21 @@ const Signup = () => {
           <header className={styles.title}>
             <h1 id="title">회원가입</h1>
           </header>
-          <section className={styles.main}>
+          <section className={styles.main} defaultActiveKey="0">
+            <Accordion className={styles.privacy}>
+              <Accordion.Item eventKey="1">
+                <Accordion.Header>
+                  개인정보 이용동의 및 처리방침
+                </Accordion.Header>
+                <Accordion.Body className={styles.privacyBody}>
+                  <Privacy />
+                </Accordion.Body>
+              </Accordion.Item>
+              <div className={styles.privacyAgree}>
+                <label for="checkBox">개인정보처리방침에 동의합니다</label>
+                <input type="checkbox" id="checkBox" />
+              </div>
+            </Accordion>
             <form>
               <div className={styles.inputArea}>
                 <div className={styles.inputId}>
