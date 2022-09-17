@@ -238,7 +238,12 @@ const SelectMore = () => {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>성명</Form.Label>
-              <Form.Control type="text" autoFocus onChange={onChangeFormName} />
+              <Form.Control
+                type="text"
+                autoFocus
+                onChange={onChangeFormName}
+                maxLength={12}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>연락처</Form.Label>
@@ -254,6 +259,7 @@ const SelectMore = () => {
               <Form.Control
                 as="textarea"
                 rows={3}
+                maxLength={100}
                 placeholder="(ex. 알러지 정보, 아기 식사)"
               />
             </Form.Group>
