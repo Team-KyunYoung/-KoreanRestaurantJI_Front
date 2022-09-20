@@ -63,3 +63,27 @@ code {
   box-shadow: none;
   border: 2px solid white;
 }
+@mixin buttonBox($color) {
+  display: inline-block;
+  text-decoration: none;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  outline: none;
+  background-color: transparent;
+  color: $color;
+  box-shadow: none;
+  border: 2px solid $color;
+}
+@mixin overflowLine($width, $line) {
+  display: inline-block;
+  width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}

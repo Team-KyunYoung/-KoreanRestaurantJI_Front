@@ -3,9 +3,11 @@ import { useParams, useNavigate } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import Chat from "../../components/ChatBot/Chat";
+import ImgBanner from "../../components/Banner/ImgBanner";
 import styles from "./Event.module.scss";
 import EventService from "lib/api/EventService";
 
+const image1 = "https://picsum.photos/800/600";
 const CreateEvent = () => {
   const [data, setData] = useState({
     title: "",
@@ -33,9 +35,9 @@ const CreateEvent = () => {
           setData(response.data.data);
           setIsLoading(false);
           setForm({
-            title: response.data.data.questionTitle,
+            title: response.data.data.eventTitle,
             imgUrl: response.data.data.eventImage,
-            contents: response.data.data.questionContents,
+            contents: response.data.data.eventContents,
           });
         })
         .catch(() => {});
@@ -74,89 +76,85 @@ const CreateEvent = () => {
     }
   };
   return (
-    <div id="FAQPostPage">
+    <div id="EventPage">
       <Header />
       <main className={styles.container}>
-        <header>
-          <h1>Event</h1>
-          <p>
-            Counting objects: 100% (28/28), done. Delta compression using up to
-            8 threads Compressing objects: 100% (18/18), done. Writing objects:
-            100% (18/18), 2.09 KiB
-          </p>
-        </header>
-        {isLoading ? (
-          "loading"
-        ) : (
-          <>
-            {" "}
-            <section className={styles.singleQuestionBox}>
-              <div>
-                <form>
-                  <div className={styles.firstLine}>
-                    <div
-                      className={[
-                        styles.formBox,
-                        styles.inputBox,
-                        styles.faqInput,
-                      ].join(" ")}
-                    >
-                      <label htmlFor="title">제목</label>{" "}
-                      <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        placeholder={data.eventTitle}
-                        onChange={writerHandleChange}
-                        name="title"
-                        maxLength={100}
-                      />{" "}
-                    </div>
-                    <p className={styles.titleCounter}>({title.length}/100)</p>
-                  </div>
-                  <div className={styles.formBox}>
-                    <label htmlFor="title">imgUrl</label>{" "}
+        <ImgBanner
+          img={image1}
+          pageTitle="Event"
+          pageDetails="Lorem Ipsum is simply dummy text of the printing and typesetting
+      industry."
+        />
+        <section className={styles.eventBox}>
+          {isLoading ? (
+            "loading"
+          ) : (
+            <div>
+              <h3>이벤트 글쓰기</h3>
+              <form>
+                <div className={styles.firstLine}>
+                  <div
+                    className={[
+                      styles.formBox,
+                      styles.inputBox,
+                      styles.faqInput,
+                    ].join(" ")}
+                  >
+                    <label htmlFor="title">제목</label>{" "}
                     <input
                       type="text"
-                      id="imgUrl"
-                      value={imgUrl}
-                      placeholder={data.eventImage}
+                      id="title"
+                      value={title}
+                      placeholder={data.eventTitle}
                       onChange={writerHandleChange}
-                      name="imgUrl"
+                      name="title"
                       maxLength={100}
-                    />
+                    />{" "}
                   </div>
-                  <div className={styles.formBox}>
-                    <span className={styles.textareaLabel}>내용</span>{" "}
-                    <textarea
-                      placeholder={data.eventContents}
-                      value={contents}
-                      onChange={writerHandleChange}
-                      name="contents"
-                      maxLength={500}
-                    ></textarea>{" "}
-                    <p className={styles.contentCounter}>
-                      ({contents.length}/500)
-                    </p>
-                  </div>
-                  <div className={styles.btn}>
-                    <button type="button" onClick={WriterHandleSubmit}>
-                      게시하기
-                    </button>
-                    <button
-                      name="reset"
-                      type="reset"
-                      value="Reset"
-                      onClick={refuseEdit}
-                    >
-                      취소하기
-                    </button>
-                  </div>
-                </form>
-              </div>
-            </section>
-          </>
-        )}
+                  {/*<p className={styles.titleCounter}>({title.length}/100)</p> */}
+                </div>
+                <div className={styles.formBox}>
+                  <label htmlFor="title">imgUrl</label>{" "}
+                  <input
+                    type="text"
+                    id="imgUrl"
+                    value={imgUrl}
+                    placeholder={data.eventImage}
+                    onChange={writerHandleChange}
+                    name="imgUrl"
+                    maxLength={100}
+                  />
+                </div>
+                <div className={styles.formBox}>
+                  <span className={styles.textareaLabel}>내용</span>{" "}
+                  <textarea
+                    placeholder={data.eventContents}
+                    value={contents}
+                    onChange={writerHandleChange}
+                    name="contents"
+                    maxLength={500}
+                  ></textarea>{" "}
+                  <p className={styles.contentCounter}>
+                    {/*  ({contents.length}/500)*/}
+                  </p>
+                </div>
+                <div className={styles.btn}>
+                  <button type="button" onClick={WriterHandleSubmit}>
+                    게시하기
+                  </button>
+                  <button
+                    name="reset"
+                    type="reset"
+                    value="Reset"
+                    onClick={refuseEdit}
+                  >
+                    취소하기
+                  </button>
+                </div>
+              </form>
+            </div>
+          )}
+        </section>
       </main>
       <Chat />
       <Footer />
