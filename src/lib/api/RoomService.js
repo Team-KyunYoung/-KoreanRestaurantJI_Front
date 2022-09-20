@@ -1,13 +1,28 @@
 import axios from "axios";
 
-const USER_API_BASE_URL = "/api/room";
+import Authentication from "lib/api/Authentication";
+
+const ROOM_API_BASE_URL = "/api/room";
 
 class RoomService {
+  createRoom(roomName, roomImg) {
+    let data = {
+      roomName: roomName,
+      roomImg: roomImg
+    };
+    Authentication.setupAxiosInterceptors();
+    return axios.post(ROOM_API_BASE_URL + "/create", JSON.stringify(data), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
+  }
+
   findAllRoom() {
-    return axios.get(USER_API_BASE_URL + "/find/room");
+    return axios.get(ROOM_API_BASE_URL + "/find/room");
   }
   findWithRoomNumber(roomNumber) {
-    return axios.get(USER_API_BASE_URL + "/find/" + roomNumber);
+    return axios.get(ROOM_API_BASE_URL + "/find/" + roomNumber);
   }
   findWithRoomNumberAndDate(roomNumber, date) {
     let data = {
@@ -15,7 +30,7 @@ class RoomService {
     };
     console.log(JSON.stringify(data));
     return axios.post(
-      USER_API_BASE_URL + "/find/" + roomNumber + "/date",
+      ROOM_API_BASE_URL + "/find/" + roomNumber + "/date",
       JSON.stringify(data),
       {
         headers: {
@@ -24,17 +39,40 @@ class RoomService {
       }
     );
   }
-}
-const login = (userEmail, userPassword) => {
-  let data = {
-    userEmail: userEmail,
-    userPassword: userPassword,
-  };
 
-  return axios.post(USER_API_BASE_URL + "/login", JSON.stringify(data), {
-    headers: {
-      "Content-Type": `application/json`,
-    },
-  });
-};
+  searchRoom(roomName) {
+    let data = {
+      input: roomName
+    };
+    Authentication.setupAxiosInterceptors();
+    return axios.post(ROOM_API_BASE_URL + "/search", JSON.stringify(data), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
+  }
+
+  deleteRoom(roomNumber) {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      ROOM_API_BASE_URL + "/delete/" + roomNumber,
+      JSON.stringify(),
+      {
+        headers: { "Content-Type": `application/json` },
+      }
+    );
+  }
+
+  deleteRoomStatusBeforeToday() {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      ROOM_API_BASE_URL + "/delete/beforeToday",
+      JSON.stringify(),
+      {
+        headers: { "Content-Type": `application/json` },
+      }
+    );
+  }
+}
+
 export default new RoomService();
