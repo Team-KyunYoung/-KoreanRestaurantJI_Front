@@ -3,6 +3,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import Chat from "../../components/ChatBot/Chat";
+import ImgBanner from "../../components/Banner/ImgBanner";
 import styles from "./Event.module.scss";
 import UserService from "lib/api/UserService";
 import EventService from "lib/api/EventService";
@@ -49,17 +50,15 @@ const EventPost = () => {
     <div id="EventPage">
       <Header />
       <main className={styles.container}>
-        <header>
-          <h1>Event</h1>
-          <p>
-            Counting objects: 100% (28/28), done. Delta compression using up to
-            8 threads Compressing objects: 100% (18/18), done. Writing objects:
-            100% (18/18), 2.09 KiB
-          </p>
-        </header>
+        <ImgBanner
+          img={image1}
+          pageTitle="Event"
+          pageDetails="Lorem Ipsum is simply dummy text of the printing and typesetting
+    industry."
+        />
         <section className={styles.eventBox}>
           {isLoading ? (
-            "loading"
+            ""
           ) : (
             <div className={styles.eventPost}>
               <h1>{list.eventTitle}</h1>
@@ -73,22 +72,19 @@ const EventPost = () => {
             </div>
           )}
         </section>
-
         <section className={styles.eventBox}>
-          <div className={styles.btn}>
-            {isAdmin ? (
-              <>
-                <button type="submit" onClick={updateEventPost}>
-                  수정하기
-                </button>
-                <button type="button" onClick={deleteEventPost}>
-                  삭제하기
-                </button>
-              </>
-            ) : (
-              <Link to="/Event">돌아가기</Link>
-            )}
-          </div>
+          {isAdmin ? (
+            <div className={styles.btn}>
+              <button type="submit" onClick={updateEventPost}>
+                수정하기
+              </button>
+              <button type="button" onClick={deleteEventPost}>
+                삭제하기
+              </button>
+            </div>
+          ) : (
+            ""
+          )}
         </section>
       </main>
       <Chat />
