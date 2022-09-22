@@ -28,7 +28,6 @@ const CreateEvent = () => {
     console.log(param.mode);
     if (param.mode === "Create") setIsLoading(false);
     else {
-      alert(param.number);
       EventService.findEvent(Number(param.number))
         .then((response) => {
           console.log(response.data.data);
@@ -100,7 +99,9 @@ const CreateEvent = () => {
                       styles.faqInput,
                     ].join(" ")}
                   >
-                    <label htmlFor="title">제목</label>{" "}
+                    <label htmlFor="title" className={styles.titleLabel}>
+                      제목
+                    </label>{" "}
                     <input
                       type="text"
                       id="title"
@@ -111,19 +112,23 @@ const CreateEvent = () => {
                       maxLength={100}
                     />{" "}
                   </div>
-                  {/*<p className={styles.titleCounter}>({title.length}/100)</p> */}
+                  <p className={styles.titleCounter}>({title.length}/100)</p>
                 </div>
-                <div className={styles.formBox}>
-                  <label htmlFor="title">imgUrl</label>{" "}
-                  <input
-                    type="text"
-                    id="imgUrl"
-                    value={imgUrl}
-                    placeholder={data.eventImage}
-                    onChange={writerHandleChange}
-                    name="imgUrl"
-                    maxLength={100}
-                  />
+                <div className={styles.firstLine}>
+                  <div className={[styles.formBox, styles.faqInput].join(" ")}>
+                    <label htmlFor="title" className={styles.imgLabel}>
+                      imgUrl
+                    </label>{" "}
+                    <input
+                      type="text"
+                      id="imgUrl"
+                      value={imgUrl}
+                      placeholder={data.eventImage}
+                      onChange={writerHandleChange}
+                      name="imgUrl"
+                      maxLength={253}
+                    />
+                  </div>
                 </div>
                 <div className={styles.formBox}>
                   <span className={styles.textareaLabel}>내용</span>{" "}
@@ -135,7 +140,7 @@ const CreateEvent = () => {
                     maxLength={500}
                   ></textarea>{" "}
                   <p className={styles.contentCounter}>
-                    {/*  ({contents.length}/500)*/}
+                    ({contents.length}/500)
                   </p>
                 </div>
                 <div className={styles.btn}>
