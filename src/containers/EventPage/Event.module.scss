@@ -86,9 +86,6 @@
       }
     }
   }
-  .eventPost {
-    background-color: white;
-  }
   .btn {
     a,
     button {
@@ -96,6 +93,34 @@
     }
   }
 }
+//이벤트 포스트
+.main {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .banner {
+    width: 50%;
+    img {
+      width: 100%;
+      height: auto;
+      object-fit: cover;
+    }
+  }
+  .contents {
+    width: 50%;
+    text-align: center;
+    h2 {
+      text-shadow: 4px 1px 1px #cbc5c5;
+    }
+    .details {
+      padding: 5px;
+      margin: 5%;
+      width: 90%;
+      border: 1px solid gray;
+    }
+  }
+}
+
 //이벤트 생성
 .eventBox {
   text-align: center;
@@ -109,10 +134,8 @@
       display: flex;
       align-items: center;
       justify-content: space-evenly;
-      margin-bottom: 15px;
       .inputBox {
         text-align: left;
-        width: 70%;
       }
 
       .faqInput {
@@ -124,6 +147,7 @@
       }
     }
     .formBox {
+      margin-bottom: 15px;
       input[type="text"] {
         width: 93%;
         height: 50px;
@@ -137,11 +161,6 @@
       .textareaLabel {
         position: relative;
         top: calc(-30vh + 21px);
-      }
-      span,
-      label {
-        color: white;
-        // padding: 3px;
       }
       input[type="text"],
       textarea {
@@ -157,7 +176,7 @@
       font-size: 12px;
     }
     .titleCounter {
-      margin-left: -11%;
+      margin-left: -17%;
       margin-top: 15px;
     }
     .contentCounter {
@@ -167,12 +186,11 @@
   }
 }
 @include tablet {
-  .container {
-    .eventBox {
-      padding: 70px 5% 40px 5%;
-    }
-  }
   .eventBox {
+    padding: 70px 5% 40px 5%;
+    > div:first-child {
+      width: 100%;
+    }
     form {
       .firstLine {
         flex-wrap: wrap;
@@ -181,19 +199,23 @@
         .inputBox {
           width: 100% !important;
           margin-left: 5%;
-          margin-bottom: 15px;
-          label {
-            display: block;
-          }
         }
         .checkBox {
           width: 100% !important;
+        }
+        .titleLabel {
+          display: block;
         }
       }
       .formBox {
         width: 100%;
         input[type="text"] {
           width: 90% !important;
+        }
+        .imgLabel {
+          display: block;
+          text-align: start;
+          margin-left: 5%;
         }
         textarea {
           margin-left: -1%;
@@ -208,16 +230,35 @@
       }
     }
   }
-}
-@include mobile {
-  .container {
-    .container {
-      .eventBox {
-        padding: 70px 5% 40px 5%;
+  //이벤트 포스트
+  .main {
+    flex-direction: column;
+    h1 {
+      padding: 30px;
+    }
+    .banner {
+      width: 50%;
+      img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+      }
+    }
+    .contents {
+      width: 50%;
+      text-align: center;
+      h2 {
+        text-shadow: 4px 1px 1px #cbc5c5;
       }
     }
   }
+}
+@include mobile {
   .eventBox {
+    padding: 70px 5% 40px 5%;
+    > div:first-child {
+      width: 100%;
+    }
     form {
       width: 100% !important;
       .firstLine {
@@ -227,8 +268,7 @@
         .inputBox {
           width: 100% !important;
           margin-left: 3%;
-          margin-bottom: 15px;
-          label {
+          .titleLabel {
             display: block;
           }
         }
@@ -240,6 +280,11 @@
         width: 100%;
         input[type="text"] {
           width: 90% !important;
+        }
+        .imgLabel {
+          display: block;
+          text-align: start;
+          margin-left: 5%;
         }
         textarea {
           margin-left: -5%;
@@ -256,11 +301,23 @@
   }
 
   .titleCounter {
-    margin-left: -15% !important;
+    margin-left: -23% !important;
     margin-top: 15px;
   }
   .contentCounter {
-    margin-left: 83% !important;
+    margin-left: 72% !important;
     margin-top: -30px;
+  }
+  //이벤트 포스트
+  .main {
+    flex-direction: column;
+    .banner {
+      width: 100%;
+    }
+    .contents {
+      width: 100%;
+      padding: 10px;
+      text-align: center;
+    }
   }
 }
