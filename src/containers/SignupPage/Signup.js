@@ -9,11 +9,11 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Accordion from "react-bootstrap/Accordion";
 
 const Signup = () => {
-  const [userEmail, setUserEmail] = useState("");
+  // const [userEmail, setUserEmail] = useState("");
   const [emailToken, setEmailToken] = useState();
   const [userToken, setUserToken] = useState();
-  const [userNickname, setUserNickname] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  // const [userNickname, setUserNickname] = useState("");
+  // const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
 
   const [isUsableEmail, setIsUsableEmail] = useState(false); //중복확인 통과 여부
@@ -30,15 +30,30 @@ const Signup = () => {
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
   const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
 
-  const onChangeEmail = (e) => {
-    console.log(userEmail); //1g
-    setUserEmail(e.target.value);
-    console.log(e.target.value); //1g1
-    console.log(userEmail); //1g
-    //1. 페이지 렌더링 되면서 userEmail에 저장된 값 뿌림
-    //2. 입력과 동시에 e.target.value값 인식
-    //3. 값이 바뀌었으므로 렌더링이 되지만 setState가 비동기이기 때문에 이전 state를 출력
+  //json으로 보낼 내용
+  const [form, setForm] = useState({
+    userEmail: "",
+    userNickname: "",
+    userPassword: "",
+  });
+  const { userEmail, userNickname, userPassword } = form;
+  const onHandleChange = (e) => {
+    const nextForm = {
+      ...form, // 기존의 값 복사 (spread operator)
+      [e.target.name]: e.target.value, // 덮어쓰기
+    };
+    console.log(nextForm);
+    setForm(nextForm);
   };
+  // const onChangeEmail = (e) => {
+  //   console.log(userEmail); //1g
+  //   setUserEmail(e.target.value);
+  //   console.log(e.target.value); //1g1
+  //   console.log(userEmail); //1g
+  //   //1. 페이지 렌더링 되면서 userEmail에 저장된 값 뿌림
+  //   //2. 입력과 동시에 e.target.value값 인식
+  //   //3. 값이 바뀌었으므로 렌더링이 되지만 setState가 비동기이기 때문에 이전 state를 출력
+  // };
 
   const onClickEmail = () => {
     //이메일 중복 검사 + 인증메일 발송
@@ -74,9 +89,9 @@ const Signup = () => {
     }
   };
 
-  const onChangeNickname = (e) => {
-    setUserNickname(e.target.value);
-  };
+  // const onChangeNickname = (e) => {
+  //   setUserNickname(e.target.value);
+  // };
   const onClickNickname = () => {
     setIsClickedNickname(true);
   };
@@ -106,11 +121,11 @@ const Signup = () => {
   const onClickPassword = () => {
     setIsClickedNickname(false);
   };
-  const onChangePassword = (e) => {
-    setUserPassword(e.target.value);
-    console.log(e.target.value);
-    setVisiblePwMessage(true);
-  };
+  // const onChangePassword = (e) => {
+  //   setUserPassword(e.target.value);
+  //   console.log(e.target.value);
+  //   setVisiblePwMessage(true);
+  // };
   const onChangePasswordConfirm = (e) => {
     setUserPasswordConfirm(e.target.value);
     setVisiblePpwwMessage(true);
@@ -233,7 +248,8 @@ const Signup = () => {
                       name="userEmail"
                       placeholder="이메일을 입력하세요"
                       type="email"
-                      onChange={onChangeEmail}
+                      value={userEmail}
+                      onChange={onHandleChange}
                     />
 
                     <Button
@@ -279,7 +295,8 @@ const Signup = () => {
                     id="userNickname"
                     name="userNickname"
                     placeholder="닉네임"
-                    onChange={onChangeNickname}
+                    value={userNickname}
+                    onChange={onHandleChange}
                     onClick={onClickNickname}
                     maxLength="12"
                   />
@@ -292,7 +309,8 @@ const Signup = () => {
                     placeholder="비밀번호"
                     type="password"
                     autoComplete="on"
-                    onChange={onChangePassword}
+                    value={userPassword}
+                    onChange={onHandleChange}
                     onClick={onClickPassword}
                     maxLength="25"
                   />
