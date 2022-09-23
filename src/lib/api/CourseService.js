@@ -5,15 +5,15 @@ import Authentication from "lib/api/Authentication";
 const COURSE_API_BASE_URL = "/api/course";
 
 class CourseService {
-    createCourse(courseName, coursePrice, appetizer, entree1, entree2, entree3, dessert) {
+    createCourse(createCourseInput) {
       let data = {
-        courseName: courseName,
-        coursePrice: coursePrice,
-        appetizer: appetizer,
-        entree1: entree1,
-        entree2: entree2,
-        entree3: entree3,
-        dessert: dessert,
+        courseName: createCourseInput.courseName,
+        coursePrice: createCourseInput.coursePrice,
+        appetizer: createCourseInput.appetizer,
+        entree1: createCourseInput.entree1,
+        entree2: createCourseInput.entree2,
+        entree3: createCourseInput.entree3,
+        dessert: createCourseInput.dessert,
       };
       Authentication.setupAxiosInterceptors();
       return axios.post(COURSE_API_BASE_URL + "/create", JSON.stringify(data), {
