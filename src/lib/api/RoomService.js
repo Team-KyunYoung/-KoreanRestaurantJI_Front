@@ -5,10 +5,10 @@ import Authentication from "lib/api/Authentication";
 const ROOM_API_BASE_URL = "/api/room";
 
 class RoomService {
-  createRoom(roomName, roomImg) {
+  createRoom(searchRoomInput) {
     let data = {
-      roomName: roomName,
-      roomImg: roomImg
+      roomName: searchRoomInput.roomName,
+      roomImg: searchRoomInput.roomImg
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(ROOM_API_BASE_URL + "/create", JSON.stringify(data), {
