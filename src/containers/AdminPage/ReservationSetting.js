@@ -1,21 +1,23 @@
-import React, { useState } from "react";
+import ReservationService from "lib/api/ReservationService";
+import RoomService from "lib/api/RoomService";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 
 import styles from "./Admin.module.scss";
 import MenuBar from "./MenuBar";
 
 var seatStatus = [
-  { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
-  { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
-  { value: "13:00", label: "13:00", remain: 15, isDisabled: false },
-  { value: "14:00", label: "14:00", remain: 15, isDisabled: false },
-  { value: "15:00", label: "15:00", remain: 15, isDisabled: false },
-  { value: "16:00", label: "16:00", remain: 15, isDisabled: false },
-  { value: "17:00", label: "17:00", remain: 15, isDisabled: false },
-  { value: "18:00", label: "18:00", remain: 15, isDisabled: false },
-  { value: "19:00", label: "19:00", remain: 15, isDisabled: false },
-  { value: "20:00", label: "20:00", remain: 15, isDisabled: false },
-  { value: "21:00", label: "21:00", remain: 15, isDisabled: false },
+  { value: "11:00", label: "11:00" },
+  { value: "12:00", label: "12:00" },
+  { value: "13:00", label: "13:00" },
+  { value: "14:00", label: "14:00" },
+  { value: "15:00", label: "15:00" },
+  { value: "16:00", label: "16:00" },
+  { value: "17:00", label: "17:00" },
+  { value: "18:00", label: "18:00" },
+  { value: "19:00", label: "19:00" },
+  { value: "20:00", label: "20:00" },
+  { value: "21:00", label: "21:00" }
 ];
 const curr = new Date();
 const utc = 
@@ -27,12 +29,90 @@ function setToday(){
 }
 
 const ReservationSetting = () => {
-  const [rooms, setRooms] = useState([]);
-  const [date, setDate] = useState(setToday);
-  const [time, setTime] = useState();
-  const onChangeRooms = (e) => { setRooms(e.target.value); };
+  const [roomList, setRoomList] = useState([]);
+  useEffect(() => {
+    RoomService.findAllRoom()
+      .then((response) => {
+        response.data.data.map( data => {
+          let roomNumber = data.roomNumber
+          let roomName = data.roomName
+          setRoomList(roomList => [
+            ...roomList, {value: roomNumber, label: roomName}
+          ]);
+        })
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const [room, setRoom] = useState("");
+  const [date, setDate] = useState("");
+  const [time, setTime] = useState("");
+  const [remainSeats, setRemainSeats] = useState(15);
+  const [isRemainRoading, setIsRemainRoading] = useState(true);
+  const onChangeRooms = (e) => { setRoom(e.value); };
   const onChangeDate = (e) => { setDate(e.target.value); };  
   const onChangeTime = (e) => { setTime(e.value.toString()); };
+  function handleRemainBtn() {
+    if(room !== "" && date !== "" && time !== ""){
+      RoomService.findWithRoomNumberAndDateAndTime(room, date, time)
+      .then((response) => {
+        setRemainSeats(response.data.data)
+        setIsRemainRoading(false)
+      })
+      .catch((error) => {
+        console.log(error)
+      });
+    } else {
+      alert("모두 입력하였는지 확인해주세요.")
+    }
+  }
+
+  const [todayReservationList, setTodayReservationList] = useState([]);
+  const [isReservRoading, setIsReservRoading] = useState(true);
+  useEffect(() => {
+    ReservationService.findReservationToday()
+    .then((response) => {
+      setTodayReservationList(response.data.data)
+      setIsReservRoading(false)
+    })
+    .catch((error) => {
+      console.log(error)
+    });
+  }, []);
+  function TodayReservation({reservationNumber, roomName, reservationTime, 
+    userName, userPhoneNumber, reservationHeadCount, request}) {
+      return(
+        <div className={styles.reservation}>
+          <span>{reservationNumber}</span>&nbsp;<span>{roomName}</span>&nbsp;<span>{reservationTime}</span>&nbsp;
+          <span>{userName}</span>&nbsp;<span>{userPhoneNumber}</span>&nbsp;<span>{reservationHeadCount}</span>&nbsp;
+          <span>{request}</span>
+        </div>
+      )
+  }
+
+  function handleDeleteStatusBeforeToday(){
+    RoomService.deleteRoomStatusBeforeToday()
+    .then(() => {
+      alert("과거 예약 상태정보가 삭제되었습니다.")
+    })
+    .catch((error) => {
+      console.log(error)
+      alert("삭제 실패. 콘솔창을 확인해주세요.")
+    });
+  }
+
+  function handleDeleteReservBeforeLimitDay() {
+    ReservationService.deleteReservationBeforeLimitDate()
+    .then(() => {
+      alert("6개월이 지난 예약 데이터를 일괄 삭제하였습니다.")
+    })
+    .catch((error) => {
+      console.log(error)
+      alert("삭제 실패. 콘솔창을 확인해주세요.")
+    });
+  }
 
   return (
     <div className="ReservationSettingPage">
@@ -46,7 +126,7 @@ const ReservationSetting = () => {
                   <h3>객실 예약 현황</h3>
                   <form>
                     <Select
-                      options={rooms}
+                      options={roomList}
                       className={styles.select}
                       placeholder="객실"
                       onChange={onChangeRooms}
@@ -59,22 +139,32 @@ const ReservationSetting = () => {
                       placeholder="시간"
                     ></Select>
                   </form>
-                  <button type="submit">
+                  <button type="submit" onClick={handleRemainBtn}>
                     남은 좌석수 확인
                   </button>
+                  {isRemainRoading ? null :
+                    remainSeats == 15 ? <div>해당 시간에 예약 내역이 없습니다.</div> :
+                      <div>남은 좌석수는 {remainSeats}입니다.</div>
+                  }
                 </div>
                 <hr/>
                 <div className={styles.findAll}>
                   <h3>오늘 예약자 목록</h3>
                   <div className={styles.reservationList}>
                     <div>
-                      <div>예약 객실</div>
-                      <div>예약 시간</div>
-                      <div>예약자명</div>
-                      <div>예약자 이메일</div>
-                      <div>예약자 번호</div>
-                      <div>예약 인원</div>
-                      <div>요청 사항</div>
+                      {isReservRoading ? null :
+                        todayReservationList.length == 0 ? <div>오늘 예약 내역이 없습니다.</div> :
+                          todayReservationList.map( resservDate => (
+                           <TodayReservation key={resservDate.reservationNumber}
+                            reservationNumber={resservDate.reservationNumber}
+                            roomName={resservDate.reservationRoomName}
+                            reservationTime={resservDate.reservationTime}
+                            userName={resservDate.reservationName}
+                            userPhoneNumber={resservDate.reservationPhoneNumber}
+                            reservationHeadCount={resservDate.reservationHeadCount}
+                            request={resservDate.reservationRequest}/>
+                          ))
+                      }
                     </div>
                   </div>
                 </div>
@@ -82,13 +172,13 @@ const ReservationSetting = () => {
                 <div className={styles.deleteBefore}>
                     <h3>오늘 이전의 객실 예약 상태 정보 삭제하기</h3>
                     <div className={styles.deleteAll}>
-                      <label>해당하는 예약 상태 정보를 일괄 삭제합니다. <button>일괄 삭제</button></label>
+                      <label>해당하는 예약 상태 정보를 일괄 삭제합니다. <button onClick={handleDeleteStatusBeforeToday}>일괄 삭제</button></label>
                     </div>
                 </div>
                 <div className={styles.deleteBefore}>
                     <h3>6개월 이상 지난 예약 정보 일괄 삭제하기</h3>
                     <div className={styles.deleteAll}>
-                      <label>모든 사용자의 일정 기한이 지난 예약 데이터를 일괄 삭제합니다.<button>일괄 삭제</button></label>
+                      <label>모든 사용자의 일정 기한이 지난 예약 데이터를 일괄 삭제합니다.<button onClick={handleDeleteReservBeforeLimitDay}>일괄 삭제</button></label>
                     </div>
                 </div>
               </div>

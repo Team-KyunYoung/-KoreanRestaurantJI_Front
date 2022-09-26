@@ -39,6 +39,22 @@ class RoomService {
       }
     );
   }
+  findWithRoomNumberAndDateAndTime(roomNumber, date, time) {
+    let data = {
+      reservationDate: date,
+      reservationTime: time,
+    };
+    console.log(JSON.stringify(data));
+    return axios.post(
+      ROOM_API_BASE_URL + "/find/" + roomNumber + "/date/time",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+  }
 
   searchRoom(roomName) {
     let data = {
