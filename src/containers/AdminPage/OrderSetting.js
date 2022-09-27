@@ -1,9 +1,60 @@
-import React, { useState } from "react";
+import OrderService from "lib/api/OrderService";
+import React, { useEffect, useState } from "react";
 
 import styles from "./Admin.module.scss";
 import MenuBar from "./MenuBar";
 
 const OrderSettingPage = () => {
+  const [order, setOrder] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  useEffect(() => {
+    OrderService.findOrderByStatus()
+      .then((response) => {
+        setOrder(response.data.data)
+        setIsLoading(false)
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+  const handleUpdateStatus = (orderNumber, e)=>{
+    setOrder(
+      order.map( orderData =>
+        orderData.orderNumber === orderNumber ? 
+        {...orderData, orderStatus: e.target.value}
+        : orderData
+      )
+    )
+  }
+  function updateOrderStatus(orderNumber, updateStatus) {
+    OrderService.updateOrderStatus(orderNumber, updateStatus)
+    .then(() => {
+      alert("해당 주문의 상태정보가 수정되었습니다.")
+      window.location.reload()
+    })
+    .catch((error) => {
+      console.log(error);
+      alert("수정 실패. 콘솔창을 확인해주세요.")
+    });
+  }
+  function TodayOrder({orderNumber, createdDate, orderDishList, orderPrice, orderStatus}) {
+      return(
+        <div className={styles.order}>
+          <span>{orderNumber}</span>&nbsp;<span>{createdDate}</span>&nbsp;<span>{orderPrice.toLocaleString('ko-KR')}원</span>&nbsp;
+          <label>
+            <select name="order" onChange={(e) => handleUpdateStatus(orderNumber, e)} value={orderStatus}>
+              <option key="주문대기" value="주문대기">주문대기</option>
+              <option key="준비중" value="준비중">준비중</option>
+              <option key="수령대기" value="수령대기">수령대기</option>
+              <option key="수령완료" value="수령완료">수령완료</option>
+              <option key="주문취소" value="주문취소">주문취소</option>
+            </select>
+            <button onClick={() => updateOrderStatus(orderNumber, orderStatus)}>저장</button>
+          </label>
+        </div>
+      )
+  }
+  
 
   return (
     <div className="OrderSettingPage">
@@ -16,19 +67,18 @@ const OrderSettingPage = () => {
                 <div className={styles.update}>
                     <h3>현재 주문 목록</h3>
                     <div className={styles.orderList}>
-                      <div>
-                        <div>주문자명</div>
-                        <div>주문 시간</div>
-                        <div>주문 상태 
-                            <select>
-                                <option>주문대기</option>
-                                <option>준비중</option>
-                                <option>수령대기</option>
-                                <option>수령완료</option>
-                                <option>주문취소</option>
-                            </select>
-                            <button>저장</button>
-                        </div>
+                      <div className={styles.reservationList}>
+                          {isLoading ? null :
+                            order.length == 0 ? <div>주문 내역이 없습니다.</div> :
+                            order.map( orderDate => (
+                              <TodayOrder key={orderDate.orderNumber}
+                                orderNumber={orderDate.orderNumber}
+                                createdDate={orderDate.createdDate}
+                                orderDishList={orderDate.orderDishList}
+                                orderPrice={orderDate.orderPrice}
+                                orderStatus={orderDate.orderStatus}/>
+                            ))
+                          }
                       </div>
                     </div>
                 </div>

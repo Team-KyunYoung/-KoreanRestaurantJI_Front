@@ -151,7 +151,6 @@ const ReservationSetting = () => {
                 <div className={styles.findAll}>
                   <h3>오늘 예약자 목록</h3>
                   <div className={styles.reservationList}>
-                    <div>
                       {isReservRoading ? null :
                         todayReservationList.length == 0 ? <div>오늘 예약 내역이 없습니다.</div> :
                           todayReservationList.map( resservDate => (
@@ -165,7 +164,6 @@ const ReservationSetting = () => {
                             request={resservDate.reservationRequest}/>
                           ))
                       }
-                    </div>
                   </div>
                 </div>
                 <hr/>

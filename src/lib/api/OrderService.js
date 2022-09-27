@@ -33,6 +33,11 @@ class OrderService {
         return axios.get(ORDER_API_BASE_URL + "/find");
     }
 
+    findOrderByStatus() {
+        Authentication.setupAxiosInterceptors();
+        return axios.get(ORDER_API_BASE_URL + "/findbystatus");
+    }
+
     updateOrderStatus(orderNumber, orderStatus) {
         Authentication.setupAxiosInterceptors();
         return axios.put(ORDER_API_BASE_URL + "/update/" + orderNumber, JSON.stringify(orderStatus), {
