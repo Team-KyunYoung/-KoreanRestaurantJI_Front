@@ -136,6 +136,10 @@ export function updatePassword(userEmail, userPassword) {
 //   }
 
 class UserService {
+  findAll() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(USER_API_BASE_URL + "/find/all");
+  }
   findUser() {
     Authentication.setupAxiosInterceptors();
     return axios.get(USER_API_BASE_URL + "/find");
