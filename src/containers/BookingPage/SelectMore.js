@@ -206,7 +206,7 @@ const SelectMore = () => {
               alert(
                 userName + "님 " + date + " " + time + " 예약이 완료되었습니다."
               );
-              navigate("../../../UserInfo/reservation");
+              navigate("../../../UserInfo/reservation/now");
             })
             .catch(() => {
               alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
@@ -262,7 +262,12 @@ const SelectMore = () => {
           <Form>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>성명</Form.Label>
-              <Form.Control type="text" autoFocus onChange={onChangeFormName} />
+              <Form.Control
+                type="text"
+                autoFocus
+                onChange={onChangeFormName}
+                maxLength={12}
+              />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>연락처</Form.Label>
@@ -278,6 +283,7 @@ const SelectMore = () => {
               <Form.Control  onChange={onChangeFormRequest}
                 as="textarea"
                 rows={3}
+                maxLength={100}
                 placeholder="(ex. 알러지 정보, 아기 식사)"
               />
             </Form.Group>

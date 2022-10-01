@@ -1,4 +1,5 @@
 import axios from "axios";
+import Authentication from "./Authentication";
 
 import Authentication from "lib/api/Authentication";
 
@@ -22,9 +23,17 @@ class ReservationService {
       },
     });
   }
-  findReservation() {
+  findBeforeReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(USER_API_BASE_URL + "/find", JSON.stringify(), {
+    return axios.get(USER_API_BASE_URL + "/find/before", JSON.stringify(), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
+  }
+  findAfterReservation() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(USER_API_BASE_URL + "/find/after", JSON.stringify(), {
       headers: {
         "Content-Type": `application/json`,
       },

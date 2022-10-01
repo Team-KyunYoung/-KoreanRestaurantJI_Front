@@ -49,7 +49,7 @@ root.render(
       <Route path="Review" element={<Review />} />
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
-      <Route path="UserInfo/:location" element={<UserInfo />} />
+      <Route path="UserInfo/:location/:mode" element={<UserInfo />} />
       <Route path="FAQBoard" element={<FAQBoard />} />
       <Route path="FAQBoard/:mode/:number" element={<FAQPost />} />
       <Route path="QnABoard" element={<QnABoard />} />
