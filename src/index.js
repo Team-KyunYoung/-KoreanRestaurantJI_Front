@@ -29,6 +29,12 @@ import EventBoard from "./containers/EventPage/EventBoard";
 import EventPost from "./containers/EventPage/EventPost";
 import CreateEvent from "./containers/EventPage/CreateEvent";
 import reportWebVitals from "./reportWebVitals";
+import AdminHome from "./containers/AdminPage/Home"
+import DishSetting from "./containers/AdminPage/DishSetting"
+import CourseSetting from "./containers/AdminPage/CourseSetting"
+import RoomSetting from "./containers/AdminPage/RoomSetting"
+import ReservationSetting from "./containers/AdminPage/ReservationSetting"
+import OrderSetting from "./containers/AdminPage/OrderSetting"
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -58,6 +64,12 @@ root.render(
       <Route path="Event" element={<EventBoard />} />
       <Route path="Event/:mode/:number" element={<CreateEvent />} />
       <Route path="Event/Post/:number" element={<EventPost />} />
+      <Route path="Admin/Home" element={<AdminHome />} />
+      <Route path="Admin/DishSetting" element={<DishSetting />} />
+      <Route path="Admin/CourseSetting" element={<CourseSetting />} />
+      <Route path="Admin/RoomSetting" element={<RoomSetting />} />
+      <Route path="Admin/ReservationSetting" element={<ReservationSetting />} />
+      <Route path="Admin/OrderSetting" element={<OrderSetting />} />
     </Routes>
   </BrowserRouter>
 );

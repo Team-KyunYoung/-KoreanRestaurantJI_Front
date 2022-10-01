@@ -33,9 +33,14 @@ class OrderService {
         return axios.get(ORDER_API_BASE_URL + "/find");
     }
 
+    findOrderByStatus() {
+        Authentication.setupAxiosInterceptors();
+        return axios.get(ORDER_API_BASE_URL + "/findbystatus");
+    }
+
     updateOrderStatus(orderNumber, orderStatus) {
         Authentication.setupAxiosInterceptors();
-        return axios.put(ORDER_API_BASE_URL + "/update" + orderNumber, JSON.stringify(orderStatus), {
+        return axios.put(ORDER_API_BASE_URL + "/update/" + orderNumber, JSON.stringify(orderStatus), {
             headers: {
               "Content-Type": `application/json`,
             },
@@ -44,7 +49,7 @@ class OrderService {
 
     deleteOrder(orderNumber) {
         Authentication.setupAxiosInterceptors();
-        return axios.delete(ORDER_API_BASE_URL + "/delete" + orderNumber);
+        return axios.delete(ORDER_API_BASE_URL + "/delete/" + orderNumber);
     }
 }
 
