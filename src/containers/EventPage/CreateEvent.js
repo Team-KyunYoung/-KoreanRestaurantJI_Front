@@ -75,7 +75,7 @@ const CreateEvent = () => {
     }
   };
   return (
-    <div id="EventPage">
+    <div id="EventCreatePage">
       <Header />
       <main className={styles.container}>
         <ImgBanner
@@ -91,14 +91,8 @@ const CreateEvent = () => {
             <div>
               <h3>이벤트 글쓰기</h3>
               <form>
-                <div className={styles.firstLine}>
-                  <div
-                    className={[
-                      styles.formBox,
-                      styles.inputBox,
-                      styles.faqInput,
-                    ].join(" ")}
-                  >
+                <div className={styles.formBox}>
+                  <div className={[styles.inputBox, styles.faqInput].join(" ")}>
                     <label htmlFor="title" className={styles.titleLabel}>
                       제목
                     </label>{" "}
@@ -112,10 +106,8 @@ const CreateEvent = () => {
                       maxLength={100}
                     />{" "}
                   </div>
-                  <p className={styles.titleCounter}>({title.length}/100)</p>
-                </div>
-                <div className={styles.firstLine}>
-                  <div className={[styles.formBox, styles.faqInput].join(" ")}>
+                  <p className={styles.counter}>({title.length}/100)</p>
+                  <div className={[styles.inputBox, styles.faqInput].join(" ")}>
                     <label htmlFor="title" className={styles.imgLabel}>
                       imgUrl
                     </label>{" "}
@@ -129,19 +121,19 @@ const CreateEvent = () => {
                       maxLength={253}
                     />
                   </div>
-                </div>
-                <div className={styles.formBox}>
-                  <span className={styles.textareaLabel}>내용</span>{" "}
-                  <textarea
-                    placeholder={data.eventContents}
-                    value={contents}
-                    onChange={writerHandleChange}
-                    name="contents"
-                    maxLength={500}
-                  ></textarea>{" "}
-                  <p className={styles.contentCounter}>
-                    ({contents.length}/500)
-                  </p>
+                  <div className={styles.inputBox}>
+                    <label htmlFor="contents" className={styles.textareaLabel}>
+                      내용
+                    </label>
+                    <textarea
+                      placeholder={data.eventContents}
+                      value={contents}
+                      onChange={writerHandleChange}
+                      name="contents"
+                      maxLength={500}
+                    ></textarea>{" "}
+                  </div>
+                  <p className={styles.counter}>({contents.length}/500)</p>
                 </div>
                 <div className={styles.btn}>
                   <button type="button" onClick={WriterHandleSubmit}>
