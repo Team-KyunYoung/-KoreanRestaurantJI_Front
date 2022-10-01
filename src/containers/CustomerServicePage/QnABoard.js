@@ -63,11 +63,15 @@ const QnABoard = () => {
     return currentPosts;
   };
   useEffect(() => {
-    Question.findAllQnA().then((response) => {
-      console.log(response.data.data);
-      setList(response.data.data);
-      setIsLoading(false);
-    });
+    Question.findAllQnA()
+      .then((response) => {
+        console.log(response.data.data);
+        setList(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <div id="QnAPage">
@@ -113,7 +117,7 @@ const QnABoard = () => {
               ></Page>
             </div>
             <div className={styles.btn}>
-              <Link to="/Question">직접 문의하기</Link>
+              <Link to="/CreateQnA">직접 문의하기</Link>
             </div>
           </section>
         )}
