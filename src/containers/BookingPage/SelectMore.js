@@ -182,7 +182,7 @@ const SelectMore = () => {
               alert(
                 userName + "님 " + date + " " + time + " 예약이 완료되었습니다."
               );
-              navigate("../../../UserInfo/reservation");
+              navigate("../../../UserInfo/reservation/now");
             })
             .catch(() => {
               alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
