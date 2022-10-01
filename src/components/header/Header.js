@@ -69,7 +69,7 @@ const Header = () => {
               >
                 <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="/UserInfo/Ordered">
+                  <NavDropdown.Item href="/UserInfo/ordered/blank">
                     주문 현황
                   </NavDropdown.Item>
                 )}
@@ -81,7 +81,7 @@ const Header = () => {
                   테이블 예약
                 </NavDropdown.Item>
                 {isOnLogin && (
-                  <NavDropdown.Item href="/UserInfo/reservation">
+                  <NavDropdown.Item href="/UserInfo/reservation/now">
                     예약 현황
                   </NavDropdown.Item>
                 )}
@@ -137,7 +137,7 @@ const Header = () => {
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <Nav.Link href="/UserInfo/editprofile" className="p-3">
+                  <Nav.Link href="/UserInfo/editprofile/blank" className="p-3">
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       width="16"
@@ -212,7 +212,7 @@ const Header = () => {
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <Nav.Link href="/UserInfo/editprofile" className="p-2">
+                  <Nav.Link href="/UserInfo/editprofile/blank" className="p-2">
                     프로필 관리
                   </Nav.Link>
                 )}

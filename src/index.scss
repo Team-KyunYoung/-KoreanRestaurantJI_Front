@@ -7,7 +7,7 @@ $tablet: 1023px;
 $desktop: 1024px;
 /*반응형, 브라우저 크기가 992px 이하일때*/
 @mixin mobile {
-  @media (min-width: $lessMobile) and(max-width: $mobile) {
+  @media (min-width: $lessMobile) and (max-width: $mobile) {
     @content;
   }
 }
@@ -62,4 +62,28 @@ code {
   color: white;
   box-shadow: none;
   border: 2px solid white;
+}
+@mixin buttonBox($color) {
+  display: inline-block;
+  text-decoration: none;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  outline: none;
+  background-color: transparent;
+  color: $color;
+  box-shadow: none;
+  border: 2px solid $color;
+}
+@mixin overflowLine($width, $line) {
+  display: inline-block;
+  width: $width;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
 }

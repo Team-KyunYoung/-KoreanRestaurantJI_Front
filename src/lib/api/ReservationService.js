@@ -1,10 +1,17 @@
 import axios from "axios";
-
-import Authentication from "lib/api/Authentication";
+import Authentication from "./Authentication";
 
 const RESERVATION_API_BASE_URL = "/api/reservation";
 class ReservationService {
-  createReservation(date, name, phoneNumber, userRequest, roomNumber, tableCount, time) {
+  createReservation(
+    date,
+    name,
+    phoneNumber,
+    userRequest,
+    roomNumber,
+    tableCount,
+    time
+  ) {
     let data = {
       reservationDate: date,
       reservationName: name,
@@ -22,9 +29,17 @@ class ReservationService {
       },
     });
   }
-  findReservation() {
+  findBeforeReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(RESERVATION_API_BASE_URL + "/find", JSON.stringify(), {
+    return axios.get(USER_API_BASE_URL + "/find/before", JSON.stringify(), {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
+  }
+  findAfterReservation() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(RESERVATION_API_BASE_URL + "/find/after", JSON.stringify(), {
       headers: {
         "Content-Type": `application/json`,
       },

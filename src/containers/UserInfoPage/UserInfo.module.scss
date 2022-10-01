@@ -176,6 +176,40 @@
           color: salmon;
         }
       }
+      .goList {
+        a {
+          text-decoration: none;
+          color: black;
+          animation: swing 1s infinite alternate;
+          position: absolute;
+          top: 50%;
+
+          span {
+            // border: 1px solid black;
+            font-size: 12px;
+          }
+        }
+        .goPast {
+          right: 10px;
+          svg {
+            margin-left: -30px;
+          }
+        }
+        .goNow {
+          left: calc(50% + 10px);
+          svg {
+            margin-right: -30px;
+          }
+        }
+        @keyframes swing {
+          0% {
+            transform: translateX(20px);
+          }
+          100% {
+            transform: translateX(0px);
+          }
+        }
+      }
     }
     //ordered 페이지
     .ordered {
@@ -323,6 +357,23 @@
           }
           input {
             width: 90%;
+          }
+        }
+      }
+      .reservation {
+        .goList {
+          a {
+            position: inherit;
+            animation: swing2 1s infinite alternate;
+            padding: 20px;
+          }
+          @keyframes swing2 {
+            0% {
+              margin-left: 20px;
+            }
+            100% {
+              margin-left: 0px;
+            }
           }
         }
       }
