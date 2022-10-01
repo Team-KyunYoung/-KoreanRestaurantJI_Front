@@ -23,38 +23,63 @@ class ReservationService {
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.post(RESERVATION_API_BASE_URL + "/create", JSON.stringify(data), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.post(
+      RESERVATION_API_BASE_URL + "/create",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   findBeforeReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(USER_API_BASE_URL + "/find/before", JSON.stringify(), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/before",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   findAfterReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(RESERVATION_API_BASE_URL + "/find/after", JSON.stringify(), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/after",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   findReservationToday() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(RESERVATION_API_BASE_URL + "/find/today", JSON.stringify(), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/today",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
 
-  updateReservation(reservationNumber, date, name, phoneNumber, userRequest, roomNumber, tableCount, time) {
+  updateReservation(
+    reservationNumber,
+    date,
+    name,
+    phoneNumber,
+    userRequest,
+    roomNumber,
+    tableCount,
+    time
+  ) {
     let data = {
       reservationDate: date,
       reservationName: name,
@@ -66,12 +91,15 @@ class ReservationService {
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.post(RESERVATION_API_BASE_URL + "/update/" + reservationNumber, 
-    JSON.stringify(data), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.post(
+      RESERVATION_API_BASE_URL + "/update/" + reservationNumber,
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
 
   deleteReservation(reservationNumber) {
