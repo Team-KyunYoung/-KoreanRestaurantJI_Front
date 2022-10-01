@@ -7,7 +7,7 @@ $tablet: 1023px;
 $desktop: 1024px;
 /*반응형, 브라우저 크기가 992px 이하일때*/
 @mixin mobile {
-  @media (min-width: $lessMobile) and(max-width: $mobile) {
+  @media (min-width: $lessMobile) and (max-width: $mobile) {
     @content;
   }
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Privacy from "./Privacy";
+import Privacy from "./Privacy.js";
 import styles from "./Signup.module.scss";
 import * as UserService from "lib/api/UserService";
 import Button from "react-bootstrap/Button";
