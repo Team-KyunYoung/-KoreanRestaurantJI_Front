@@ -120,10 +120,10 @@ const CourseSetting = () => {
   }
   function SearchOutput({courseNumber, courseName}){
     return(
-      <div className={styles.searchCourseList}>
+      <div className={styles.searchItem}>
         <span>{courseNumber}</span>
         <span>{courseName}</span>
-        <button onClick={() => deleteCourseBtn(courseNumber)}>삭제</button>
+        <button className={styles.deleteBtn} onClick={() => deleteCourseBtn(courseNumber)}>삭제</button>
       </div>
     )
   }
@@ -137,88 +137,93 @@ const CourseSetting = () => {
               <div className={styles.title}><h3>코스 설정 페이지</h3></div>
               <div className={styles.settingContents}>
                 <div className={styles.create}>
-                    <h3>코스 등록하기</h3>
+                    <h4>코스 등록하기</h4><hr/>
                     <div className={styles.createInput}>
-                      <label>코스 이름 <input name="courseName" onChange={handleCreateCourseInput} value={createCourseInput.CourseName}/></label><br/>
-                      <label>코스 가격 <input name="coursePrice" onChange={handleCreateCourseInput} value={createCourseInput.CoursePrice} placeholder="숫자만 입력"/></label><br/>
-                      <label>전식 선택 
-                        <select name="appetizer" onChange={handleCreateCourseInput} value={createCourseInput.appetizer}>
-                          { isLoading ? null 
-                          : appetizerDishs.length === 0 ? <option>해당 요리 없음</option>
-                            : appetizerDishs.map( dishData => (
-                              <DishSelectOption key={dishData}
-                                dishName={dishData}
-                              />
-                            ))
-                          }
-                        </select>
-                      </label><br/>
-                      <label>중식1 선택 
-                        <select name="entree1" onChange={handleCreateCourseInput} value={createCourseInput.entree1}>
-                          { isLoading ? null 
-                          : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
-                            : entreeDishs.map( dishData => (
-                              <DishSelectOption key={dishData}
-                                dishName={dishData}
-                              />
-                            ))
-                          }
-                        </select>
-                      </label><br/>
-                      <label>중식2 선택 
-                        <select name="entree2" onChange={handleCreateCourseInput} value={createCourseInput.entree2}>
-                          { isLoading ? null 
-                          : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
-                            : entreeDishs.map( dishData => (
-                              <DishSelectOption key={dishData}
-                                dishName={dishData}
-                              />
-                            ))
-                          }
-                        </select>
-                      </label><br/>
-                      <label>중식3 선택 
-                        <select name="entree3" onChange={handleCreateCourseInput} value={createCourseInput.entree3}>
-                          { isLoading ? null 
-                          : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
-                            : entreeDishs.map( dishData => (
-                              <DishSelectOption key={dishData}
-                                dishName={dishData}
-                              />
-                            ))
-                          }
-                        </select>
-                      </label><br/>
-                      <label>후식 선택 
-                        <select name="dessert" onChange={handleCreateCourseInput} value={createCourseInput.dessert}>
-                          { isLoading ? null 
-                          : dessertDishs.length === 0 ? <option>해당 요리 없음</option>
-                            : dessertDishs.map( dishData => (
-                              <DishSelectOption key={dishData}
-                                dishName={dishData}
-                              />
-                            ))
-                          }
-                        </select>
-                      </label><br/>
-                      <button onClick={createCourseBtn}>등록</button>
+                      <div className={styles.courseInput}>
+                        <label className={styles.inputLabel}>코스 이름 <input name="courseName" onChange={handleCreateCourseInput} value={createCourseInput.CourseName}/></label>
+                        <label className={styles.inputLabel}>코스 가격 <input name="coursePrice" onChange={handleCreateCourseInput} value={createCourseInput.CoursePrice} placeholder="숫자만 입력"/></label>
+                        <label className={styles.inputLabel}>전식 선택 
+                          <select name="appetizer" onChange={handleCreateCourseInput} value={createCourseInput.appetizer}>
+                            { isLoading ? null 
+                            : appetizerDishs.length === 0 ? <option>해당 요리 없음</option>
+                              : appetizerDishs.map( dishData => (
+                                <DishSelectOption key={dishData}
+                                  dishName={dishData}
+                                />
+                              ))
+                            }
+                          </select>
+                        </label>
+                        <label className={styles.inputLabel}>중식1 선택 
+                          <select name="entree1" onChange={handleCreateCourseInput} value={createCourseInput.entree1}>
+                            { isLoading ? null 
+                            : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
+                              : entreeDishs.map( dishData => (
+                                <DishSelectOption key={dishData}
+                                  dishName={dishData}
+                                />
+                              ))
+                            }
+                          </select>
+                        </label>
+                        <label className={styles.inputLabel}>중식2 선택 
+                          <select name="entree2" onChange={handleCreateCourseInput} value={createCourseInput.entree2}>
+                            { isLoading ? null 
+                            : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
+                              : entreeDishs.map( dishData => (
+                                <DishSelectOption key={dishData}
+                                  dishName={dishData}
+                                />
+                              ))
+                            }
+                          </select>
+                        </label>
+                        <label className={styles.inputLabel}>중식3 선택 
+                          <select name="entree3" onChange={handleCreateCourseInput} value={createCourseInput.entree3}>
+                            { isLoading ? null 
+                            : entreeDishs.length === 0 ? <option>해당 요리 없음</option>
+                              : entreeDishs.map( dishData => (
+                                <DishSelectOption key={dishData}
+                                  dishName={dishData}
+                                />
+                              ))
+                            }
+                          </select>
+                        </label>
+                        <label className={styles.inputLabel}>후식 선택 
+                          <select name="dessert" onChange={handleCreateCourseInput} value={createCourseInput.dessert}>
+                            { isLoading ? null 
+                            : dessertDishs.length === 0 ? <option>해당 요리 없음</option>
+                              : dessertDishs.map( dishData => (
+                                <DishSelectOption key={dishData}
+                                  dishName={dishData}
+                                />
+                              ))
+                            }
+                          </select>
+                        </label>
+                        <button className={styles.createBtn} onClick={createCourseBtn}>등록</button>
+                      </div>
                     </div>
-                </div>
-                <hr/>
+                </div><br/>
                 <div className={styles.delete}>
-                    <h3>코스 삭제하기</h3>
+                    <h4>코스 삭제하기</h4><hr/>
                     <div className={styles.deleteSearch}>
-                      <label>코스 이름 <input name="searchName" onChange={handleSearchCourseInput} value={searchCourseInput}/></label>
-                      <button onClick={searchCourseBtn}>검색</button><br/>
-                      { isSearchLoading ? null :
-                        searchCourseList.length == 0 ? <div className={styles.searchNone}>검색어가 포함된 코스가 없습니다.</div>
-                        : searchCourseList.map( searchData => (
-                          <SearchOutput key={searchData.courseNumber}
-                            courseNumber={searchData.courseNumber}
-                            courseName={searchData.courseName}
-                          />
-                        ))
-                      }
+                      <div className={styles.searchInput}>
+                        <label className={styles.searchLabel}>코스 이름 <input name="searchName" onChange={handleSearchCourseInput} value={searchCourseInput}/></label>
+                        <button className={styles.searchBtn} onClick={searchCourseBtn}>검색</button>
+                      </div><br/>
+                      <div className={styles.searchList}>
+                        { isSearchLoading ? null :
+                          searchCourseList.length == 0 ? <div className={styles.searchNone}>검색어가 포함된 코스가 없습니다.</div>
+                          : searchCourseList.map( searchData => (
+                            <SearchOutput key={searchData.courseNumber}
+                              courseNumber={searchData.courseNumber}
+                              courseName={searchData.courseName}
+                            />
+                          ))
+                        }
+                      </div>
                     </div>
                 </div>
               </div>

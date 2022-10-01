@@ -19,7 +19,7 @@ const AdminHome = () => {
   }, []);
   //백에서 구현 필요.
   function handleDelete(userNumber){
-    UserService.deleteUser(userNumber)
+    UserService.deleteUserByNumber(userNumber)
     .then((response) => {
       alert("해당 회원을 탈퇴(데이터 삭제) 하였습니다.")
     })
@@ -33,7 +33,7 @@ const AdminHome = () => {
         <div className={styles.user}>
           <span>{userNumber}</span>&nbsp;<span>{role ? "관리자" : "일반"}</span>&nbsp;<span>{userEmail}</span>&nbsp;
           <span>{userNickname}</span>
-          {/* <button>삭제</button> */}
+          {/* <button onClick={()=>handleDelete(userNumber)}>삭제</button> */}
         </div>
       )
   }
@@ -47,7 +47,7 @@ const AdminHome = () => {
               <div className={styles.title}><h3>Korean Restaurant Ji 관리자 페이지</h3></div>
               <div className={styles.settingContents}>
                 <div className={styles.findAll}>
-                  <h3>사용자 목록</h3>
+                  <h4>사용자 목록</h4><hr/>
                   <div className={styles.userList}>
                       {isRoading ? null :
                         userList.length == 0 ? <div>회원 내역이 없습니다.</div> :

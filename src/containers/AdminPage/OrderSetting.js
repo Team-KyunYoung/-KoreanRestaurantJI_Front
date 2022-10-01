@@ -40,7 +40,9 @@ const OrderSettingPage = () => {
   function TodayOrder({orderNumber, createdDate, orderDishList, orderPrice, orderStatus}) {
       return(
         <div className={styles.order}>
-          <span>{orderNumber}</span>&nbsp;<span>{createdDate}</span>&nbsp;<span>{orderPrice.toLocaleString('ko-KR')}원</span>&nbsp;
+          <span>{orderNumber}</span>
+          <span>{createdDate}</span>
+          <span>{orderPrice.toLocaleString('ko-KR')}원</span>
           <label>
             <select name="order" onChange={(e) => handleUpdateStatus(orderNumber, e)} value={orderStatus}>
               <option key="주문대기" value="주문대기">주문대기</option>
@@ -49,7 +51,7 @@ const OrderSettingPage = () => {
               <option key="수령완료" value="수령완료">수령완료</option>
               <option key="주문취소" value="주문취소">주문취소</option>
             </select>
-            <button onClick={() => updateOrderStatus(orderNumber, orderStatus)}>저장</button>
+            <button className={styles.statusUpdateBtn} onClick={() => updateOrderStatus(orderNumber, orderStatus)}>저장</button>
           </label>
         </div>
       )
@@ -64,22 +66,20 @@ const OrderSettingPage = () => {
             <div className={styles.contents}>
               <div className={styles.title}><h3>주문 설정 페이지</h3></div>
               <div className={styles.settingContents}>
-                <div className={styles.update}>
-                    <h3>현재 주문 목록</h3>
+                <div className={styles.findAll}>
+                    <h4>현재 주문 목록</h4><hr/>
                     <div className={styles.orderList}>
-                      <div className={styles.reservationList}>
-                          {isLoading ? null :
-                            order.length == 0 ? <div>주문 내역이 없습니다.</div> :
-                            order.map( orderDate => (
-                              <TodayOrder key={orderDate.orderNumber}
-                                orderNumber={orderDate.orderNumber}
-                                createdDate={orderDate.createdDate}
-                                orderDishList={orderDate.orderDishList}
-                                orderPrice={orderDate.orderPrice}
-                                orderStatus={orderDate.orderStatus}/>
-                            ))
-                          }
-                      </div>
+                      {isLoading ? null :
+                        order.length == 0 ? <div>주문 내역이 없습니다.</div> :
+                          order.map( orderDate => (
+                            <TodayOrder key={orderDate.orderNumber}
+                              orderNumber={orderDate.orderNumber}
+                              createdDate={orderDate.createdDate}
+                              orderDishList={orderDate.orderDishList}
+                              orderPrice={orderDate.orderPrice}
+                              orderStatus={orderDate.orderStatus}/>
+                          ))
+                        }
                     </div>
                 </div>
               </div>

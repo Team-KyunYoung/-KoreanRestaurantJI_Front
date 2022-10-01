@@ -123,15 +123,15 @@ const ReservationSetting = () => {
               <div className={styles.title}><h3>예약 설정 페이지</h3></div>
               <div className={styles.settingContents}>
                 <div className={styles.findAll}>
-                  <h3>객실 예약 현황</h3>
-                  <form>
+                  <h4>객실 예약 현황</h4><hr/>
+                  <form className={styles.selectInput}>
                     <Select
                       options={roomList}
                       className={styles.select}
                       placeholder="객실"
                       onChange={onChangeRooms}
                     ></Select>
-                    <input type="date" min={setToday()} onChange={onChangeDate} />
+                    <input className={styles.select} type="date" min={setToday()} onChange={onChangeDate} />
                     <Select
                       options={seatStatus}
                       onChange={onChangeTime}
@@ -139,17 +139,20 @@ const ReservationSetting = () => {
                       placeholder="시간"
                     ></Select>
                   </form>
-                  <button type="submit" onClick={handleRemainBtn}>
-                    남은 좌석수 확인
-                  </button>
-                  {isRemainRoading ? null :
-                    remainSeats == 15 ? <div>해당 시간에 예약 내역이 없습니다.</div> :
-                      <div>남은 좌석수는 {remainSeats}입니다.</div>
-                  }
-                </div>
-                <hr/>
+                  <div className={styles.outputWithBtn}>
+                    <div className={styles.remainSeatsOutput}>
+                      {isRemainRoading ? null :
+                        remainSeats == 15 ? <div>해당 시간에 예약 내역이 없습니다.</div> :
+                          <div>남은 좌석수는 {remainSeats}입니다.</div>
+                      }
+                    </div>
+                    <div className={styles.submitDiv}>
+                      <button className={styles.submitBtn} type="submit" onClick={handleRemainBtn}>남은 좌석수 확인</button>
+                    </div>
+                  </div>
+                </div><br/><br/>
                 <div className={styles.findAll}>
-                  <h3>오늘 예약자 목록</h3>
+                  <h4>오늘 예약자 목록</h4><hr/>
                   <div className={styles.reservationList}>
                       {isReservRoading ? null :
                         todayReservationList.length == 0 ? <div>오늘 예약 내역이 없습니다.</div> :
@@ -165,16 +168,15 @@ const ReservationSetting = () => {
                           ))
                       }
                   </div>
-                </div>
-                <hr/>
+                </div><br/>
                 <div className={styles.deleteBefore}>
-                    <h3>오늘 이전의 객실 예약 상태 정보 삭제하기</h3>
+                    <h4>오늘 이전의 객실 예약 상태 정보 삭제하기</h4><hr/>
                     <div className={styles.deleteAll}>
                       <label>해당하는 예약 상태 정보를 일괄 삭제합니다. <button onClick={handleDeleteStatusBeforeToday}>일괄 삭제</button></label>
                     </div>
-                </div>
+                </div><br/><br/>
                 <div className={styles.deleteBefore}>
-                    <h3>6개월 이상 지난 예약 정보 일괄 삭제하기</h3>
+                    <h4>6개월 이상 지난 예약 정보 일괄 삭제하기</h4><hr/>
                     <div className={styles.deleteAll}>
                       <label>모든 사용자의 일정 기한이 지난 예약 데이터를 일괄 삭제합니다.<button onClick={handleDeleteReservBeforeLimitDay}>일괄 삭제</button></label>
                     </div>
