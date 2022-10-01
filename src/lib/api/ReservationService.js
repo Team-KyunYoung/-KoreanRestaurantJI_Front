@@ -1,11 +1,17 @@
 import axios from "axios";
 import Authentication from "./Authentication";
 
-import Authentication from "lib/api/Authentication";
-
 const USER_API_BASE_URL = "/api/reservation";
 class ReservationService {
-  createReservation(date, name, phoneNumber, userRequest, roomNumber, tableCount, time) {
+  createReservation(
+    date,
+    name,
+    phoneNumber,
+    userRequest,
+    roomNumber,
+    tableCount,
+    time
+  ) {
     let data = {
       reservationDate: date,
       reservationName: name,
