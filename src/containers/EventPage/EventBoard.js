@@ -44,9 +44,7 @@ function InnerEvent(props) {
             </span>
           </div>
         </div>
-        <Link to={"/Event/Post/" + obj.eventNumber} className={styles.shortcut}>
-          바로가기
-        </Link>
+        <span className={styles.shortcut}>바로가기</span>
         <span className={styles.description}>{obj.eventTitle}</span>
       </Link>
     )
@@ -77,7 +75,7 @@ const EventBoard = () => {
       .catch(() => {});
   }, []);
   return (
-    <div id="EventPage">
+    <div id="EventBoardPage">
       <Header />
       <main className={styles.container}>
         <ImgBanner

@@ -2,20 +2,11 @@
 .container {
   width: 100%;
   min-height: 75.5vh;
-  > header {
-    width: 100%;
-    text-align: center;
-    color: white;
-    text-decoration: 1px 1px 1px gray;
-    object-fit: cover;
-    .react-parallax-content {
-      width: 100%;
-    }
-  }
 
   .eventBox {
     padding: 70px 10% 40px 10%;
     text-align: center;
+    //eventboard 페이지
     .event {
       width: 100%;
       display: flex;
@@ -94,7 +85,7 @@
   }
 }
 //이벤트 포스트
-.main {
+.postBox {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -111,6 +102,11 @@
     text-align: center;
     h2 {
       text-shadow: 4px 1px 1px #cbc5c5;
+    }
+    .editProfile {
+      h1 {
+        padding: 30px;
+      }
     }
     .details {
       padding: 5px;
@@ -129,45 +125,36 @@
     width: 900px;
     display: inline-block;
   }
-  form {
-    .firstLine {
-      display: flex;
-      align-items: center;
-      justify-content: space-evenly;
-      .inputBox {
-        text-align: left;
-      }
-
-      .faqInput {
-        //공개 비공개가 없는 faq의 제목 input
-        width: 95%;
-      }
-      .checkBox {
-        width: 20%;
-      }
-    }
-    .formBox {
-      margin-bottom: 15px;
-      input[type="text"] {
-        width: 93%;
-        height: 50px;
-        padding-right: 60px; //글자 수 공간
-      }
-      textarea {
-        width: 90%;
-        height: 30vh;
-        overflow: scroll;
+  .formBox {
+    display: flex;
+    flex-direction: column;
+    .inputBox {
+      label {
+        display: inline-block;
+        width: 45px;
       }
       .textareaLabel {
         position: relative;
-        top: calc(-30vh + 21px);
+        top: calc(-20vh + 21px);
       }
-      input[type="text"],
+      input,
       textarea {
+        width: 90%;
         background-color: white;
         border-radius: 10px;
         outline: none;
         border: 1px solid rgb(132, 132, 133);
+        padding: 10px;
+        margin-top: 20px;
+      }
+      textarea {
+        width: 90%;
+        height: 20vh;
+        overflow: scroll;
+      }
+      //글자 수 공간
+      input[type="text"] {
+        padding-right: 60px;
       }
     }
     p {
@@ -175,13 +162,9 @@
       color: gray;
       font-size: 12px;
     }
-    .titleCounter {
-      margin-left: -17%;
-      margin-top: 15px;
-    }
-    .contentCounter {
-      margin-left: 85%;
-      margin-top: -30px;
+    .counter {
+      margin-top: -34px;
+      margin-left: 90%;
     }
   }
 }
@@ -191,47 +174,9 @@
     > div:first-child {
       width: 100%;
     }
-    form {
-      .firstLine {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start !important;
-        .inputBox {
-          width: 100% !important;
-          margin-left: 5%;
-        }
-        .checkBox {
-          width: 100% !important;
-        }
-        .titleLabel {
-          display: block;
-        }
-      }
-      .formBox {
-        width: 100%;
-        input[type="text"] {
-          width: 90% !important;
-        }
-        .imgLabel {
-          display: block;
-          text-align: start;
-          margin-left: 5%;
-        }
-        textarea {
-          margin-left: -1%;
-        }
-        .textareaLabel {
-          top: 0 !important;
-          display: block;
-          text-align: start;
-          width: 70%;
-          margin-left: 5%; //(100-90*90)/2 - 글자 크기
-        }
-      }
-    }
   }
-  //이벤트 포스트
-  .main {
+  //이벤트 포스팅 페이지
+  .postBox {
     flex-direction: column;
     h1 {
       padding: 30px;
@@ -259,54 +204,27 @@
     > div:first-child {
       width: 100%;
     }
-    form {
-      width: 100% !important;
-      .firstLine {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start !important;
-        .inputBox {
-          width: 100% !important;
-          margin-left: 3%;
-          .titleLabel {
-            display: block;
-          }
-        }
-        .checkBox {
-          width: 100% !important;
-        }
-      }
-      .formBox {
-        width: 100%;
-        input[type="text"] {
-          width: 90% !important;
-        }
-        .imgLabel {
+    //이벤트 생성/수정 페이지
+    .formBox {
+      .inputBox {
+        label {
           display: block;
-          text-align: start;
-          margin-left: 5%;
-        }
-        textarea {
-          margin-left: -5%;
+          text-align: center;
+          margin: 20px auto 0 5%;
         }
         .textareaLabel {
-          top: 0 !important;
-          display: block;
-          text-align: start;
-          width: 70%;
-          margin-left: 3%; //(100-90*90)/2 - 글자 크기와패딩
+          position: relative;
+          top: 0;
+        }
+        input,
+        textarea {
+          margin-top: 0px;
         }
       }
+      .counter {
+        margin-left: 75%;
+      }
     }
-  }
-
-  .titleCounter {
-    margin-left: -23% !important;
-    margin-top: 15px;
-  }
-  .contentCounter {
-    margin-left: 72% !important;
-    margin-top: -30px;
   }
   //이벤트 포스트
   .main {
