@@ -17,7 +17,9 @@ const QnaComment = (props) => {
           "/QnABoard/" + props.qnaNum + "/" + props.isPrivate
         );
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const deleteComment = (e) => {
     AdminComment.deleteComment(e.target.id)
@@ -27,7 +29,9 @@ const QnaComment = (props) => {
           "/QnABoard/" + props.qnaNum + "/" + props.isPrivate
         );
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
   const commentlist = [];
   console.log(props.list);

@@ -40,6 +40,7 @@
       border-radius: 0 25px 25px 0;
     }
   }
+  //FAQBoard 페이지
   .accordionBox {
     .accordionHeader {
       justify-content: space-between !important;
@@ -53,30 +54,10 @@
         right: 50px;
       }
     }
-    // .deleteBtn {
-    //   display: block;
-    //   text-align: center;
-    //   margin: 0 auto;
-
-    //   text-decoration: none;
-    //   padding: 5px;
-    //   outline: none;
-    //   background-color: transparent;
-    //   color: black;
-    //   box-shadow: none;
-    //   border: 2px solid black;
-    // }
-    // .faqBox {
-    //   display: flex;
-    //   > div {
-    //     width: 100%;
-    //   }
-    // }
   }
+  //QnABoard 페이지
   .table {
-    // display: flex;
     background-color: white;
-    // display: table;
     .thead > div {
       display: flex;
       flex-wrap: nowrap;
@@ -92,8 +73,6 @@
       }
       div:nth-child(2) {
         flex: 3;
-        // width: 40%;
-        // width: 40%;
       }
     }
     .tbody {
@@ -125,7 +104,6 @@
           -webkit-box-orient: vertical;
         }
         div:nth-child(2) {
-          // width: 40%;
           flex: 3;
           //3줄을 넘어가먄 ellipsis
         }
@@ -133,65 +111,54 @@
     }
   }
   .singleQuestionBox {
-    form {
-      .firstLine {
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        margin-bottom: 15px;
-        .inputBox {
-          text-align: left;
-          width: 70%;
-        }
-
-        .faqInput {
-          //공개 비공개가 없는 faq의 제목 input
-          width: 95%;
-        }
-        .checkBox {
-          width: 20%;
-        }
+    //createQnA페이지
+    .formBox {
+      display: flex;
+      flex-direction: column;
+      .checkBox {
+        margin-top: 20px;
       }
-      .formBox {
-        input[type="text"] {
-          width: 93%;
-          height: 50px;
-          padding-right: 60px; //글자 수 공간
-        }
-        textarea {
-          width: 90%;
-          height: 30vh;
-          overflow: scroll;
+      .inputBox {
+        label {
+          display: inline-block;
+          width: 45px;
         }
         .textareaLabel {
           position: relative;
-          top: calc(-30vh + 21px);
+          top: calc(-20vh + 21px);
         }
-        span,
-        label {
-          color: white;
-          // padding: 3px;
-        }
-        input[type="text"],
+        input,
         textarea {
+          width: 90%;
           background-color: white;
           border-radius: 10px;
           outline: none;
           border: 1px solid rgb(132, 132, 133);
+          padding: 10px;
+          margin-top: 20px;
         }
+        textarea {
+          width: 90%;
+          height: 20vh;
+          overflow: scroll;
+        }
+        //글자 수 공간
+        input[type="text"] {
+          padding-right: 60px;
+        }
+      }
+      :is(.inputBox, .checkBox) label {
+        color: white;
+        text-shadow: 1px 1px 1px gray;
       }
       p {
         //글자수
         color: gray;
         font-size: 12px;
       }
-      .titleCounter {
-        margin-left: -11%;
-        margin-top: 15px;
-      }
-      .contentCounter {
-        margin-left: 85%;
-        margin-top: -30px;
+      .counter {
+        margin-top: -34px;
+        margin-left: 90%;
       }
     }
   }
@@ -204,6 +171,7 @@
       @include whiteButton;
     }
   }
+  //QnABoard댓글
   .commentBox {
     p {
       text-align: start;
@@ -216,7 +184,10 @@
       border-radius: 10px;
       outline: none;
       border: 1px solid rgb(132, 132, 133);
-      height: 54px;
+      height: auto;
+      overflow: scroll;
+      padding: 10px;
+      margin-bottom: 20px;
     }
     button {
       background-color: white;
@@ -225,6 +196,7 @@
       height: 30px;
       border: 1px solid gray;
       font-size: 12px;
+      margin-bottom: 20px;
     }
 
     form {
@@ -280,57 +252,21 @@
         width: 90% !important;
       }
     }
-  }
-  .tableBox {
-    padding-bottom: 100px;
-    .table {
-      margin: 0 auto;
-      .thead > div {
-        div:nth-child(2) {
-          // width: 40%;
-          width: 30%;
-        }
-      }
-      .tbody > div {
-        div:nth-child(2) {
-          // width: 40%;
-          width: 40%;
-        }
-      }
-    }
-  }
-  .singleQuestionBox {
-    form {
-      .firstLine {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start !important;
-        .inputBox {
-          width: 100% !important;
-          margin-left: 5%;
-          margin-bottom: 15px;
-          label {
-            display: block;
+    .tableBox {
+      padding-bottom: 100px;
+      .table {
+        margin: 0 auto;
+        .thead > div {
+          div:nth-child(2) {
+            // width: 40%;
+            width: 30%;
           }
         }
-        .checkBox {
-          width: 100% !important;
-        }
-      }
-      .formBox {
-        width: 100%;
-        input[type="text"] {
-          width: 90% !important;
-        }
-        textarea {
-          margin-left: -1%;
-        }
-        .textareaLabel {
-          top: 0 !important;
-          display: block;
-          text-align: start;
-          width: 70%;
-          margin-left: 5%; //(100-90*90)/2 - 글자 크기
+        .tbody > div {
+          div:nth-child(2) {
+            // width: 40%;
+            width: 40%;
+          }
         }
       }
     }
@@ -357,69 +293,50 @@
     .accordionBox {
       text-align: center;
     }
-  }
-  .tableBox {
-    padding-bottom: 100px;
-    .table {
-      margin: 0 auto;
-      .thead > div {
-        div:nth-child(2) {
-          // width: 40%;
-          width: 30%;
-        }
-      }
-      .tbody > div {
-        div:nth-child(2) {
-          // width: 40%;
-          width: 40%;
-        }
-      }
-    }
-  }
-  .singleQuestionBox {
-    form {
-      width: 100% !important;
-      .firstLine {
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: flex-start !important;
-        .inputBox {
-          width: 100% !important;
-          margin-left: 3%;
-          margin-bottom: 15px;
-          label {
-            display: block;
+    .tableBox {
+      padding-bottom: 100px;
+      .table {
+        margin: 0 auto;
+        .thead > div {
+          div:nth-child(2) {
+            width: 30%;
           }
         }
-        .checkBox {
-          width: 100% !important;
-        }
-      }
-      .formBox {
-        width: 100%;
-        input[type="text"] {
-          width: 90% !important;
-        }
-        textarea {
-          margin-left: -5%;
-        }
-        .textareaLabel {
-          top: 0 !important;
-          display: block;
-          text-align: start;
-          width: 70%;
-          margin-left: 3%; //(100-90*90)/2 - 글자 크기와패딩
+        .tbody > div {
+          div:nth-child(2) {
+            width: 40%;
+          }
         }
       }
     }
-  }
+    .singleQuestionBox {
+      .formBox {
+        .inputBox {
+          label {
+            display: block;
+            margin: 20px 0 0 5%;
+          }
+          .textareaLabel {
+            top: 0 !important;
+          }
+          input,
+          textarea {
+            margin-top: 0px;
+          }
+        }
+        .counter {
+          margin-left: 75%;
+        }
+      }
+    }
 
-  .titleCounter {
-    margin-left: -15% !important;
-    margin-top: 15px;
-  }
-  .contentCounter {
-    margin-left: 83% !important;
-    margin-top: -30px;
+    .titleCounter {
+      margin-left: -15% !important;
+      margin-top: 15px;
+    }
+    .contentCounter {
+      margin-left: 83% !important;
+      margin-top: -30px;
+    }
   }
 }

@@ -14,9 +14,9 @@ const btnStyle = {
   borderRadius: "30px",
   boxShadow: "2px 2px 2px gray",
 };
-const ListShortcut = () => {
+const ListShortcut = (props) => {
   return (
-    <Link to="/QnABoard" style={btnStyle}>
+    <Link to={"/" + props.link} style={btnStyle}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width="25"
