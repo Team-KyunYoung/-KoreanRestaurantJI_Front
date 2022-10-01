@@ -2,11 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Chat from "../../components/ChatBot/Chat";
+import ListShortcut from "components/ShortCut/ListShortcut";
 import styles from "./CS.module.scss";
 import Question from "lib/api/Question";
 
-const FAQPost = () => {
+const CreateFAQ = () => {
   const [data, setData] = useState({
     title: "",
     contents: "",
@@ -34,7 +34,9 @@ const FAQPost = () => {
             contents: response.data.data.questionContents,
           });
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.log(error);
+        });
     }
   }, []);
   const refuseEdit = (e) => {
@@ -57,14 +59,17 @@ const FAQPost = () => {
           console.log(response);
           window.location.replace("/FAQBoard");
         })
-        .catch(() => {});
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       Question.updateFaq(Number(param.number), contents, title)
         .then((response) => {
           console.log(response);
           window.location.replace("/FAQBoard/update/" + Number(param.number));
         })
-        .catch(() => {
+        .catch((error) => {
+          console.log(error);
           alert("입력 내용을 확인해주세요");
         });
     }
@@ -89,13 +94,9 @@ const FAQPost = () => {
             <section className={styles.singleQuestionBox}>
               <div>
                 <form>
-                  <div className={styles.firstLine}>
+                  <div className={styles.formBox}>
                     <div
-                      className={[
-                        styles.formBox,
-                        styles.inputBox,
-                        styles.faqInput,
-                      ].join(" ")}
+                      className={[styles.inputBox, styles.faqInput].join(" ")}
                     >
                       <label htmlFor="title">제목</label>{" "}
                       <input
@@ -107,21 +108,24 @@ const FAQPost = () => {
                         name="title"
                         maxLength={100}
                       />{" "}
+                      <p className={styles.counter}>({title.length}/100)</p>
                     </div>
-                    <p className={styles.titleCounter}>({title.length}/100)</p>
-                  </div>
-                  <div className={styles.formBox}>
-                    <span className={styles.textareaLabel}>내용</span>{" "}
-                    <textarea
-                      placeholder={data.questionContents}
-                      value={contents}
-                      onChange={writerHandleChange}
-                      name="contents"
-                      maxLength={500}
-                    ></textarea>{" "}
-                    <p className={styles.contentCounter}>
-                      ({contents.length}/500)
-                    </p>
+                    <div className={styles.inputBox}>
+                      <label
+                        htmlFor="contents"
+                        className={styles.textareaLabel}
+                      >
+                        내용
+                      </label>
+                      <textarea
+                        placeholder={data.questionContents}
+                        value={contents}
+                        onChange={writerHandleChange}
+                        name="contents"
+                        maxLength={500}
+                      ></textarea>{" "}
+                      <p className={styles.counter}>({contents.length}/500)</p>
+                    </div>
                   </div>
                   <div className={styles.btn}>
                     <button type="button" onClick={WriterHandleSubmit}>
@@ -142,10 +146,10 @@ const FAQPost = () => {
           </>
         )}
       </main>
-      <Chat />
+      <ListShortcut link="FAQBoard" />
       <Footer />
     </div>
   );
 };
 
-export default FAQPost;
+export default CreateFAQ;
