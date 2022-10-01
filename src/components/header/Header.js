@@ -1,5 +1,4 @@
-import React, { useEffect, userEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
@@ -12,7 +11,6 @@ import UserService from "lib/api/UserService";
 const Header = () => {
   const [isOnLogin, setIsOnLogin] = useState(Authentication.isUserLoggedIn);
   const [isAdmin, setIsAdmin] = useState(false);
-  const [goToUserInfo, setGoToUserInfo] = useState();
   useEffect(() => {
     UserService.isAdmin()
       .then((response) => {
@@ -262,8 +260,6 @@ const Header = () => {
         </Container>
       </Navbar>
     </div>
-    //     </div>
-    // </div>
   );
 };
 
