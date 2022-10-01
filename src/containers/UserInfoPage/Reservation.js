@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
 import ReservationService from "lib/api/ReservationService";
 import Page from "../../components/Pagination/Pagination";
@@ -52,12 +52,13 @@ function ReservationInnerPage(props) {
     </ul>
   );
 }
-const Reservation = () => {
+const Reservation = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(1);
 
+  const param = useParams();
   //오늘 날짜 구하기
   const year = new Date().getFullYear();
   const originMonth = new Date().getMonth() + 1;
@@ -78,18 +79,30 @@ const Reservation = () => {
   };
   useEffect(() => {
     UserService.findUser(); //유저를 찾는 과정이 있어야 아래 findReservation 통신 가능
-  }, []);
-  useEffect(() => {
-    ReservationService.findReservation()
-      .then((response) => {
-        setList(response.data.data);
-        console.log(response.data.data);
-      })
-      .catch(() => {
-        setLoading(true);
-        console.log("error:예약 목록 불러오기");
-      });
-  }, []);
+
+    console.log(props.mode ? "past" : "now");
+    if (param.mode === "past") {
+      ReservationService.findBeforeReservation()
+        .then((response) => {
+          setList(response.data.data);
+          console.log(response.data.data);
+        })
+        .catch(() => {
+          setLoading(true);
+          console.log("error:예약 목록 불러오기");
+        });
+    } else if (param.mode === "now") {
+      ReservationService.findAfterReservation()
+        .then((response) => {
+          setList(response.data.data);
+          console.log(response.data.data);
+        })
+        .catch(() => {
+          setLoading(true);
+          console.log("error:예약 목록 불러오기");
+        });
+    }
+  }, [param.mode]);
   return (
     <>
       <h2>Room I Booked</h2>
@@ -107,6 +120,43 @@ const Reservation = () => {
             currentPage={currentPage}
             className={styles.pagination}
           ></Page>
+        </div>
+        <div className={styles.goList}>
+          {param.mode === "now" ? (
+            <Link to="/UserInfo/reservation/past" className={styles.goPast}>
+              <span>지난 예약</span>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="64"
+                height="64"
+                fill="currentColor"
+                className="bi bi-chevron-compact-right"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M6.776 1.553a.5.5 0 0 1 .671.223l3 6a.5.5 0 0 1 0 .448l-3 6a.5.5 0 1 1-.894-.448L9.44 8 6.553 2.224a.5.5 0 0 1 .223-.671z"
+                />
+              </svg>
+            </Link>
+          ) : (
+            <Link to="/UserInfo/reservation/now" className={styles.goNow}>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="64"
+                height="64"
+                fill="currentColor"
+                class="bi bi-chevron-compact-left"
+                viewBox="0 0 16 16"
+              >
+                <path
+                  fill-rule="evenodd"
+                  d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"
+                />
+              </svg>
+              <span>현재 예약</span>
+            </Link>
+          )}
         </div>
       </div>
     </>

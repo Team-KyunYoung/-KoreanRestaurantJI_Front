@@ -21,7 +21,23 @@
     border-radius: 30px;
     background-color: rgba(181, 181, 181, 0.8);
     padding: 20px;
-
+    .privacy {
+      padding: 5%;
+      padding-bottom: 0;
+      .privacyBody {
+        height: 30vh;
+        overflow: scroll;
+        background-color: white;
+        text-align: start;
+      }
+    }
+    .privacyAgree {
+      font-size: 14px;
+      margin: 5px;
+      label {
+        margin-right: 5px;
+      }
+    }
     .inputArea {
       align-content: center;
       vertical-align: middle;

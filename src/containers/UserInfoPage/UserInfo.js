@@ -16,13 +16,13 @@ const UserInfo = () => {
   const remoteController = (
     <ul>
       <li>
-        <Link to="./../editprofile">정보 수정</Link>
+        <Link to="/UserInfo/editprofile/blank">정보 수정</Link>
       </li>
       <li>
-        <Link to="./../reservation">예약목록 보기</Link>
+        <Link to="/UserInfo/reservation/now">예약목록 보기</Link>
       </li>
       <li>
-        <Link to="./../ordered">주문내역 보기</Link>
+        <Link to="/UserInfo/ordered/blank">주문내역 보기</Link>
       </li>
     </ul>
   );
@@ -52,7 +52,12 @@ const UserInfo = () => {
                 </div>
               </MediaQuery>
               {param.location === "editprofile" ? <EditProfile /> : ""}
-              {param.location === "reservation" ? <Reservation /> : ""}
+              {/* {param.location === "reservation" ? <Reservation /> : ""} */}
+              {param.location === "reservation" ? (
+                <Reservation mode={param.mode ? "past" : "now"} />
+              ) : (
+                ""
+              )}
               {param.location === "ordered" ? <Ordered /> : ""}
               {/*  */}
             </div>
