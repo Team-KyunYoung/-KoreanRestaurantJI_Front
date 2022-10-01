@@ -21,6 +21,7 @@ const Signup = () => {
   const [pwMessage, setPwMessage] = useState("");
   const [pwConfirmMessage, setPwConfirmMessage] = useState("");
 
+  const [isPrivacyChecked, setIsPrivacyChecked] = useState(false);
   //json으로 보낼 내용
   const [form, setForm] = useState({
     userEmail: "",
@@ -46,7 +47,10 @@ const Signup = () => {
     console.log(nextForm);
     setForm(nextForm);
   };
-
+  const onChangeChecked = (e) => {
+    if (e.target.checked) setIsPrivacyChecked(true);
+    else setIsPrivacyChecked(false);
+  };
   const onSubmitEmail = () => {
     //이메일 중복 검사 + 인증메일 발송
     UserService.emailAuth(userEmail)
@@ -99,7 +103,8 @@ const Signup = () => {
       .catch(() => {});
   }, [userNickname]);
   useEffect(() => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       //조건에 맞지 않음
       console.log(userPassword);
@@ -139,10 +144,13 @@ const Signup = () => {
       isCertifiedEmail !== true ||
       isUsableNickname !== true ||
       pwMessage !== "" ||
-      pwConfirmMessage !== ""
+      pwConfirmMessage !== "" ||
+      userPasswordConfirm.length === 0
     ) {
       alert("입력한 내용을 다시 확인해주세요");
       console.log(isCertifiedEmail + "," + isUsableNickname + ",");
+    } else if (isPrivacyChecked !== true) {
+      alert("개인정보 처리방침에 동의해주세요");
     } else {
       UserService.signup(userEmail, userNickname, userPassword)
         .then((response) => {
@@ -203,7 +211,12 @@ const Signup = () => {
               </Accordion.Item>
               <div className={styles.privacyAgree}>
                 <label htmlFor="checkBox">개인정보처리방침에 동의합니다</label>
-                <input type="checkbox" id="checkBox" />
+                <input
+                  type="checkbox"
+                  id="checkBox"
+                  name="agree"
+                  onChange={onChangeChecked}
+                />
               </div>
             </Accordion>
             <form>
