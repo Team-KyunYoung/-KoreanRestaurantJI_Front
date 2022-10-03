@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, useLocation } from "react-router-dom";
 
 import styles from "./Login.module.scss";
 import Header from "components/header/Header";
@@ -7,8 +7,25 @@ import Footer from "components/footer/Footer";
 import * as UserService from "lib/api/UserService";
 import Authentication from "lib/api/Authentication";
 
+const usePrevLocation = (location) => {
+	const prevLocRef = useRef(location)
+	
+	useEffect(()=>{
+		prevLocRef.current = location
+	},[location])
+	
+	if(prevLocRef.current.state !== null){
+		return prevLocRef.current.state.preLocation.pathname
+	} else {
+		return ""
+	}
+}
+
 const Login = () => {
   let navigate = useNavigate();
+	let location = useLocation();
+	let prevLocation = usePrevLocation(location)
+
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [hasLoginFailed, setHasLoginFailed] = useState(false);
@@ -16,6 +33,14 @@ const Login = () => {
 
   const EmailHandleChange = (e) => setUserEmail(e.target.value);
   const passwordHandleChange = (e) => setUserPassword(e.target.value);
+
+	function toBack() {
+		if(prevLocation === "/signup"){
+			navigate("/")
+		} else {
+			navigate(-1, { replace: true });
+		}
+	}
 
   const loginClicked = () => {
     console.log("loginClicked");
@@ -28,8 +53,8 @@ const Login = () => {
           Authentication.loginTokenSave(json.data.token);
           setShowSuccessMessage(true);
           setHasLoginFailed(false);
-          // navigate("../", { replace: true }); //toBack()
-          navigate(-1, { replace: true }); //toBack()
+          toBack();
+          //navigate(-1, { replace: true });
         } else {
           setShowSuccessMessage(false);
           setHasLoginFailed(true);
