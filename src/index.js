@@ -35,6 +35,7 @@ import CourseSetting from "./containers/AdminPage/CourseSetting";
 import RoomSetting from "./containers/AdminPage/RoomSetting";
 import ReservationSetting from "./containers/AdminPage/ReservationSetting";
 import OrderSetting from "./containers/AdminPage/OrderSetting";
+import NotFound from "containers/NotFoundPage/NotFound";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -70,6 +71,7 @@ root.render(
       <Route path="Admin/RoomSetting" element={<RoomSetting />} />
       <Route path="Admin/ReservationSetting" element={<ReservationSetting />} />
       <Route path="Admin/OrderSetting" element={<OrderSetting />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );
