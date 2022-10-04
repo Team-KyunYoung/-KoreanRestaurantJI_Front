@@ -1,13 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
-import ReservationService from "lib/api/ReservationService";
 import Page from "../../components/Pagination/Pagination";
-
-import * as UserServices from "lib/api/UserService";
+import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
+
 const image1 = "https://picsum.photos/800/600";
 function ReservationInnerPage(props) {
+  const onClickUpdateReservation = (e) => {
+    console.log(e.target.value);
+  };
+  const onClickDeleteReservation = (e) => {
+    console.log(e.target.value);
+    let roomNumber = parseInt(e.target.value);
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      ReservationService.deleteReservation(roomNumber).then((response) => {
+        alert("삭제되었습니다.");
+        document.location.href = "/UserInfo/reservation/now";
+      });
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
   console.log(props.list.length);
   return (
     <ul className={styles.list}>
@@ -46,7 +60,24 @@ function ReservationInnerPage(props) {
                   </p>
                 </div>
               </li>
-              {/* <hr /> */}
+              {props.showBtn ? (
+                <div className={styles.changeReservation}>
+                  <button
+                    onClick={onClickUpdateReservation}
+                    value={obj.reservationNumber}
+                  >
+                    예약 수정
+                  </button>
+                  <button
+                    onClick={onClickDeleteReservation}
+                    value={obj.reservationNumber}
+                  >
+                    예약 삭제
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
             </>
           ))}
     </ul>
@@ -112,6 +143,7 @@ const Reservation = (props) => {
             list={currentPosts(list)}
             loading={loading}
             date={today}
+            showBtn={param.mode === "now"}
           />
           <Page
             postsPerPage={postsPerPage}

@@ -216,6 +216,12 @@
           }
         }
       }
+      .changeReservation {
+        button {
+          @include buttonBox(black);
+          width: 30%;
+        }
+      }
     }
     //ordered 페이지
     .ordered {

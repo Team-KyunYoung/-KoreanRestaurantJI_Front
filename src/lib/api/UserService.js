@@ -129,12 +129,6 @@ export function updatePassword(userEmail, userPassword) {
 //     return fetch(USER_API_BASE_URL + "delete", deleteInfo);
 //   }
 
-//   export function deleteUserByItself(userEmail) {
-//     return fetch(USER_API_BASE_URL + "delete" + userEmail, {
-//       method: "DELTE",
-//     });
-//   }
-
 class UserService {
   findUser() {
     Authentication.setupAxiosInterceptors();
@@ -191,20 +185,11 @@ class UserService {
 
   deleteUser() {
     Authentication.setupAxiosInterceptors();
-    axios
-      .delete(USER_API_BASE_URL + "/delete", {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then(() => {
-        alert("탈퇴 완료");
-        Authentication.logout();
-        document.location.href = "/";
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    return axios.delete(USER_API_BASE_URL + "/delete", {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
   }
   isAdmin() {
     Authentication.setupAxiosInterceptors();
