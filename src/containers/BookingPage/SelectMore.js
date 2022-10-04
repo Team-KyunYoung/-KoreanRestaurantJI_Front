@@ -91,11 +91,12 @@ function RemainingSeatsByTime(time) {
 }
 const SelectMore = () => {
   const roomParams = useParams(); //url에서 파라미터 가져오기
-
-  const [userName, setUserName] = useState();
-  const [userPhoneNumber, setUserPhoneNumber] = useState();
-  const [userRequest, setUserRequest] = useState(); //요청사항은 백과 협의 후 전달
-
+  const [form, setForm] = useState({
+    userName: "",
+    userPhoneNumber: "",
+    userRequest: "",
+  });
+  const { userName, userPhoneNumber, userRequest } = form;
   const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
@@ -105,28 +106,10 @@ const SelectMore = () => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // useEffect(() => {//해당 방의 모든 예약을 불러옴
-  //   RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
-  //     // console.log(response);
-  //     setRoomStatus(response.data);
-  //     setIsLoading(false);
-  //   });
-  // }, []);
-
   useEffect(() => {
     //페이지 첫 로드 시, 모달 창 열림->개인 정보 입력
     handleShow();
   }, []);
-  const onChangeFormName = (e) => {
-    console.log(e.target.value === null);
-    setUserName(e.target.value);
-  };
-  const onChangeFormPhoneNumber = (e) => {
-    setUserPhoneNumber(e.target.value);
-  };
-  const onChangeFormRequest = (e) => {
-    setUserRequest(e.target.value);
-  };
 
   const onChangeDate = (e) => {
     setDate(e.target.value);
@@ -152,6 +135,15 @@ const SelectMore = () => {
   const onChangePersonnel = (e) => {
     setTableCnt(Number(e.value));
   };
+
+  const onHandleChangeUserInfo = (e) => {
+    const nextForm = {
+      ...form, // 기존의 값 복사 (spread operator)
+      [e.target.name]: e.target.value, // 덮어쓰기
+    };
+    console.log(nextForm);
+    setForm(nextForm);
+  };
   function SubmitReservationForm() {
     if (date === undefined) alert("날짜를 선택해주세요");
     if (time === undefined) alert("시간을 선택해주세요");
@@ -172,7 +164,8 @@ const SelectMore = () => {
           ReservationService.createReservation(
             date,
             userName, //성명
-            userPhoneNumber, //예약자 연락처
+            userPhoneNumber, //예약자 연락처,
+            userRequest,
             Number(roomParams.roomNumber),
             tableCnt,
             time
@@ -241,22 +234,27 @@ const SelectMore = () => {
               <Form.Control
                 type="text"
                 autoFocus
-                onChange={onChangeFormName}
+                onChange={onHandleChangeUserInfo}
+                name="userName"
                 maxLength={12}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>연락처</Form.Label>
-              <Form.Control type="text" onChange={onChangeFormPhoneNumber} />
+              <Form.Control
+                type="text"
+                onChange={onHandleChangeUserInfo}
+                name="userPhoneNumber"
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label onChange={onChangeFormRequest}>
-                요청사항을 입력해주세요
-              </Form.Label>
+              <Form.Label>요청사항을 입력해주세요</Form.Label>
               <Form.Control
+                onChange={onHandleChangeUserInfo}
+                name="userRequest"
                 as="textarea"
                 rows={3}
                 maxLength={100}

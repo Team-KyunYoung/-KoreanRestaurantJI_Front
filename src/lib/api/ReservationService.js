@@ -7,19 +7,19 @@ class ReservationService {
     date,
     name,
     phoneNumber,
+    reservationRequest,
     roomNumber,
     tableCount,
     time
-    // reservationRequest
   ) {
     let data = {
       reservationDate: date,
       reservationName: name,
       reservationPhoneNumber: phoneNumber,
+      reservationRequest: reservationRequest,
       reservationRoomNumber: roomNumber,
       reservationTableCount: tableCount,
       reservationTime: time,
-      // reservationRequest: reservationRequest,
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
