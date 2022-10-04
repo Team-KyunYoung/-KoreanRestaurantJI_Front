@@ -3,7 +3,15 @@ import Authentication from "./Authentication";
 
 const USER_API_BASE_URL = "/api/reservation";
 class ReservationService {
-  createReservation(date, name, phoneNumber, roomNumber, tableCount, time) {
+  createReservation(
+    date,
+    name,
+    phoneNumber,
+    roomNumber,
+    tableCount,
+    time
+    // reservationRequest
+  ) {
     let data = {
       reservationDate: date,
       reservationName: name,
@@ -11,6 +19,7 @@ class ReservationService {
       reservationRoomNumber: roomNumber,
       reservationTableCount: tableCount,
       reservationTime: time,
+      // reservationRequest: reservationRequest,
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
@@ -35,6 +44,47 @@ class ReservationService {
         "Content-Type": `application/json`,
       },
     });
+  }
+  updateReservation(
+    date,
+    name,
+    phoneNumber,
+    reservationRequest,
+    roomNumber,
+    tableCount,
+    time
+  ) {
+    let data = {
+      reservationDate: date,
+      reservationName: name,
+      reservationPhoneNumber: phoneNumber,
+      reservationRequest: reservationRequest,
+      reservationRoomNumber: roomNumber,
+      reservationTableCount: tableCount,
+      reservationTime: time,
+    };
+    Authentication.setupAxiosInterceptors();
+    return axios.update(
+      USER_API_BASE_URL + "/update/" + roomNumber,
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+  }
+  deleteReservation(roomNumber) {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      USER_API_BASE_URL + "/delete/" + roomNumber,
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
 }
 export default new ReservationService();
