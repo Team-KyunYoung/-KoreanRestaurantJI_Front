@@ -58,6 +58,9 @@ function ReservationInnerPage(props) {
                     <b>예약자</b> {obj.reservationName}님{" "}
                     {obj.reservationPhoneNumber}
                   </p>
+                  <p>
+                    <b>요청사항 </b> {obj.reservationRequest}
+                  </p>
                 </div>
               </li>
               {props.showBtn ? (
