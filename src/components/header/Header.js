@@ -12,13 +12,15 @@ const Header = () => {
   const [isOnLogin, setIsOnLogin] = useState(Authentication.isUserLoggedIn);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    UserService.isAdmin()
-      .then((response) => {
-        setIsAdmin(response.data.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    if(isOnLogin){
+      UserService.isAdmin()
+        .then((response) => {
+          setIsAdmin(response.data.data);
+        })
+        .catch((error) => {
+          setIsAdmin(false);
+        });
+      }
   }, []);
   function logout() {
     console.log(isOnLogin);
