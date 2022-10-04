@@ -4,6 +4,7 @@ import styles from "./UserInfo.module.scss";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
+import Authentication from "lib/api/Authentication";
 
 function EditProfile() {
   const [user, setUser] = useState([]);
@@ -16,9 +17,8 @@ function EditProfile() {
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
   const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
-  const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] = useState(
-    true
-  );
+  const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] =
+    useState(true);
   useEffect(() => {
     UserService.findUser()
       .then((response) => {
@@ -60,7 +60,6 @@ function EditProfile() {
         .catch(() => {});
     }
   });
-
   const onClickPassword = () => {
     setIsClickedNickname(false);
   };
@@ -87,8 +86,34 @@ function EditProfile() {
     setUserPasswordConfirm(e.target.value);
     setVisiblePpwwMessage(true);
   };
+  const onClickSecession = (e) => {
+    var password = prompt("비밀번호를 입력하세요");
+    console.log(password);
+    UserService.verifyUserPassword(password)
+      .then((response) => {
+        if (window.confirm("정말로 삭제하시겠습니까?")) {
+          alert("d");
+          UserService.deleteUser()
+
+            .then(() => {
+              alert("탈퇴 완료");
+              Authentication.logout();
+              document.location.href = "/";
+            })
+            .catch((error) => {
+              console.log(error.response);
+            });
+        } else {
+          alert("취소되었습니다.");
+        }
+      })
+      .catch((error) => {
+        alert("비밀번호가 틀렸습니다.");
+      });
+  };
   useEffect(() => {
-    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+    const passwordRegex =
+      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       console.log(userPassword);
       console.log(passwordRegex.test(userPassword));
@@ -230,6 +255,9 @@ function EditProfile() {
               변경
             </button>
             {visiblePpwwMessage && <p>일치하지 않는 비밀번호입니다</p>}
+          </div>
+          <div className={styles.secession}>
+            <button onClick={onClickSecession}>탈퇴하기</button>
           </div>
         </div>
       </form>
