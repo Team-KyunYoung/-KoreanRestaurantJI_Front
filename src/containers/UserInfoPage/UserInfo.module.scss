@@ -137,6 +137,12 @@
           background: #d4d4d4;
           border: none;
         }
+        .secession {
+          button {
+            @include buttonBox(black);
+            width: 40%;
+          }
+        }
       }
     }
     //reservation페이지
