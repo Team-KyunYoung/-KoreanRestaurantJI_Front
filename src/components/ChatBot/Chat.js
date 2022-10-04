@@ -123,11 +123,11 @@ const steps = [
         ]
   }, {
       id: 'UserInfo-Order-link',
-      component: <ToLink link="/UserInfo/ordered"/>,
+      component: <ToLink link="/UserInfo/ordered/blank"/>,
       trigger: 'reQuestion'
   }, {
       id: 'UserInfo-Reservation-link',
-      component: <ToLink link="/UserInfo/reservation"/>,
+      component: <ToLink link="/UserInfo/reservation/now"/>,
       trigger: 'reQuestion'
   }, {
       id: 'QNA',
@@ -153,7 +153,7 @@ const steps = [
       trigger: 'QNA-Post-link'
   }, {
       id: 'QNA-Post-link',
-      component: <ToLink link="/Question"/>,
+      component: <ToLink link="/CreateQnA"/>,
       trigger: 'reQuestion'
   }, {
       id: 'etc',
