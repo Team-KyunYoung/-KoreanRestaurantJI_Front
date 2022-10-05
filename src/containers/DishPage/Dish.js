@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Chat from "../../components/ChatBot/Chat";
@@ -47,7 +47,7 @@ function DishContent(data) {
       );
     } else if (data.data[i].dishCategory === "본식") {
       entreeList.push(
-        <Link to={"./" + data.data[i].dishName} key={i}>
+        <Link to={"./" + data.data[i].dishNumber + "/"  + data.data[i].dishName} key={i}>
           <div className={styles.dish}>
             <div className={styles.dishImg}>
               <img
@@ -71,7 +71,7 @@ function DishContent(data) {
       );
     } else {
       dessertList.push(
-        <Link to={"./" + data.data[i].dishName} key={i}>
+        <Link to={"./" + data.data[i].dishNumber + "/"  + data.data[i].dishName} key={i}>
           <div className={styles.dish}>
             <div className={styles.dishImg}>
               <img
