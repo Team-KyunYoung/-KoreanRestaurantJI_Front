@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
@@ -14,15 +15,35 @@ function CourseInnerPage(data) {
       <hr />
       <ul>
         <h5>Appetizer</h5>
-        <li>{data.data.appetizer.dishName}</li>
+        <li>
+          <Link to={"/Dish/" + data.data.appetizer.dishNumber + "/"  + data.data.appetizer.dishName}>
+            {data.data.appetizer.dishName}
+          </Link>
+        </li>
         <br />
         <h5>Entree</h5>
-        <li>{data.data.entree1.dishName}</li>
-        <li>{data.data.entree2.dishName}</li>
-        <li>{data.data.entree3.dishName}</li>
+        <li>
+          <Link to={"/Dish/" + data.data.entree1.dishNumber + "/"  + data.data.entree1.dishName}>
+            {data.data.entree1.dishName}
+          </Link>
+        </li>
+        <li>
+          <Link to={"/Dish/" + data.data.entree2.dishNumber + "/"  + data.data.entree2.dishName}>
+            {data.data.entree2.dishName}
+          </Link>
+        </li>
+        <li>
+          <Link to={"/Dish/" + data.data.entree3.dishNumber + "/"  + data.data.entree3.dishName}>
+            {data.data.entree3.dishName}
+          </Link>
+        </li>
         <br />
         <h5>Dessert</h5>
-        <li>{data.data.dessert.dishName}</li>
+        <li>
+          <Link to={"/Dish/" + data.data.dessert.dishNumber + "/"  + data.data.dessert.dishName}>
+            {data.data.dessert.dishName}
+          </Link>
+        </li>
       </ul>
     </div>
   );
