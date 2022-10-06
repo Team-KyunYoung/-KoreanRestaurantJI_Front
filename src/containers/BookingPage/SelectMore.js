@@ -6,12 +6,12 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import RoomService from "lib/api/RoomService";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
-//import SubmitBtn from "../../components/<컴포넌트명>";
+import ModalWindow from "components/Modal/ModalWindow";
 
 var seatStatus = [
   { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
@@ -101,8 +101,6 @@ const SelectMore = () => {
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
   const navigate = useNavigate();
-
-  //모달 창
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -110,7 +108,6 @@ const SelectMore = () => {
     //페이지 첫 로드 시, 모달 창 열림->개인 정보 입력
     handleShow();
   }, []);
-
   const onChangeDate = (e) => {
     setDate(e.target.value);
   };
@@ -136,14 +133,6 @@ const SelectMore = () => {
     setTableCnt(Number(e.value));
   };
 
-  const onHandleChangeUserInfo = (e) => {
-    const nextForm = {
-      ...form, // 기존의 값 복사 (spread operator)
-      [e.target.name]: e.target.value, // 덮어쓰기
-    };
-    console.log(nextForm);
-    setForm(nextForm);
-  };
   function SubmitReservationForm() {
     if (date === undefined) alert("날짜를 선택해주세요");
     if (time === undefined) alert("시간을 선택해주세요");
@@ -223,7 +212,13 @@ const SelectMore = () => {
           </div>
         </div>
       </main>
-      <Modal show={show} onHide={handleClose}>
+      <ModalWindow
+        form={form}
+        setForm={setForm}
+        show={show}
+        handleClose={handleClose}
+      />
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>예약자 정보 입력</Modal.Title>
         </Modal.Header>
@@ -271,7 +266,7 @@ const SelectMore = () => {
             제출하기
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       <Chat />
       <Footer />
     </div>
