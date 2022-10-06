@@ -61,7 +61,7 @@ const Order = () => {
               <p>{data.data[count].dishDescription}</p>
             </div>
           </OverlayTrigger>
-          <i>{data.data[count].dishPrice}원</i>
+          <i>{data.data[count].dishPrice.toLocaleString('ko-KR')}원</i>
           <span className={styles.btnClub}>
             <button
               type="submit"

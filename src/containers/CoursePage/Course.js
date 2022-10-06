@@ -11,7 +11,7 @@ function CourseInnerPage(data) {
   return (
     <div>
       <h3>Course {data.data.courseName}</h3>
-      <i>{data.data.coursePrice}원</i>
+      <i>{data.data.coursePrice.toLocaleString('ko-KR')}원</i>
       <hr />
       <ul>
         <h5>Appetizer</h5>

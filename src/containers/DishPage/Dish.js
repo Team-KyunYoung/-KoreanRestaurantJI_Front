@@ -40,7 +40,7 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
@@ -64,7 +64,7 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
@@ -88,7 +88,7 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
@@ -138,7 +138,7 @@ function DishContent(data) {
   //           <h4>{data.data[3].dishName}</h4>
   //           <p>{data.data[3].dishDescription}</p>
   //         </div>
-  //         <i>{data.data[3].dishPrice}원</i>
+  //         <i>{data.data[3].dishPrice.toLocaleString('ko-KR')}원</i>
   //       </div>
   //     </div>
   //   </Link>
