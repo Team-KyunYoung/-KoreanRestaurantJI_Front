@@ -13,20 +13,23 @@ class Authentication {
   }
 
   setupAxiosInterceptors() {
-    axios.interceptors.request.use(
-      (config) => {
-        const obj = localStorage.getItem("token");
-        const token = JSON.parse(obj).value;
-        if (token) {
-          config.headers["X-AUTH-TOKEN"] = token;
-          //X-AUTH-TOKEN으로 다른 url 이용할 때 헤더로 넣어줘야한다.
+    const localStorageData = localStorage.getItem("token");
+    if (localStorageData) {
+      axios.interceptors.request.use(
+        (config) => {
+          const obj = localStorage.getItem("token");
+          const token = JSON.parse(obj).value;
+          if (token) {
+            config.headers["X-AUTH-TOKEN"] = token;
+            //X-AUTH-TOKEN으로 다른 url 이용할 때 헤더로 넣어줘야한다.
+          }
+          return config;
+        },
+        (error) => {
+          Promise.reject(error);
         }
-        return config;
-      },
-      (error) => {
-        Promise.reject(error);
-      }
-    );
+      );
+    }
   }
 
   isUserLoggedIn() {

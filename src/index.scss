@@ -76,9 +76,9 @@ code {
   border: 2px solid $color;
 }
 @mixin overflowLine($width, $line) {
-  display: inline-block;
+  display: inline-block !important;
   width: $width;
-  white-space: nowrap;
+  white-space: nowrap !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: normal;

@@ -130,6 +130,10 @@ export function updatePassword(userEmail, userPassword) {
 //   }
 
 class UserService {
+  findAll() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(USER_API_BASE_URL + "/find/all");
+  }
   findUser() {
     Authentication.setupAxiosInterceptors();
     return axios.get(USER_API_BASE_URL + "/find");
@@ -191,6 +195,18 @@ class UserService {
       },
     });
   }
+
+  deleteUserByNumber(userNumber) {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      USER_API_BASE_URL + "/delete/" + userNumber,
+      JSON.stringify(),
+      {
+        headers: { "Content-Type": `application/json` },
+      }
+    );
+  }
+
   isAdmin() {
     Authentication.setupAxiosInterceptors();
     return axios.get(USER_API_BASE_URL + "/isadmin/", JSON.stringify(), {

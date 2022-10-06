@@ -34,7 +34,7 @@ function OrderedInnerPage(props) {
                   {obj.createdDate}
                 </p>
                 <p>
-                  <b>총</b> {obj.orderPrice}
+                  <b>총</b> {obj.orderPrice.toLocaleString('ko-KR')}
                   <b>원</b>
                 </p>
                 <ul>
@@ -59,7 +59,7 @@ function OrderedInnerPage(props) {
                             <b>수량</b> {dishObj.orderQuantity}개{" "}
                           </span>
                           <span>
-                            <b>가격</b> {dishObj.orderDishPrice}원
+                            <b>가격</b> {dishObj.orderDishPrice.toLocaleString('ko-KR')}원
                           </span>
                         </span>
                       </Link>
