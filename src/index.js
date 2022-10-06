@@ -21,14 +21,21 @@ import Dish from "containers/DishPage/Dish";
 import DishDetails from "containers/DishPage/DishDetails";
 import UserInfo from "containers/UserInfoPage/UserInfo";
 import FAQBoard from "containers/CustomerServicePage/FAQBoard";
-import FAQPost from "containers/CustomerServicePage/FAQPost";
+import CreateFAQ from "containers/CustomerServicePage/CreateFAQ";
 import QnABoard from "containers/CustomerServicePage/QnABoard";
 import QnAPost from "containers/CustomerServicePage/QnAPost";
-import Question from "containers/CustomerServicePage/Questioning";
+import CreateQnA from "containers/CustomerServicePage/CreateQnA";
 import EventBoard from "containers/EventPage/EventBoard";
 import EventPost from "containers/EventPage/EventPost";
 import CreateEvent from "containers/EventPage/CreateEvent";
 import reportWebVitals from "reportWebVitals";
+import AdminHome from "containers/AdminPage/Home";
+import DishSetting from "containers/AdminPage/DishSetting";
+import CourseSetting from "containers/AdminPage/CourseSetting";
+import RoomSetting from "containers/AdminPage/RoomSetting";
+import ReservationSetting from "containers/AdminPage/ReservationSetting";
+import OrderSetting from "containers/AdminPage/OrderSetting";
+import NotFound from "containers/NotFoundPage/NotFound";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
@@ -51,13 +58,20 @@ root.render(
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
       <Route path="UserInfo/:location/:mode" element={<UserInfo />} />
       <Route path="FAQBoard" element={<FAQBoard />} />
-      <Route path="FAQBoard/:mode/:number" element={<FAQPost />} />
+      <Route path="FAQBoard/:mode/:number" element={<CreateFAQ />} />
       <Route path="QnABoard" element={<QnABoard />} />
       <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
-      <Route path="Question" element={<Question />} />
+      <Route path="CreateQnA" element={<CreateQnA />} />
       <Route path="Event" element={<EventBoard />} />
       <Route path="Event/:mode/:number" element={<CreateEvent />} />
       <Route path="Event/Post/:number" element={<EventPost />} />
+      <Route path="Admin/Home" element={<AdminHome />} />
+      <Route path="Admin/DishSetting" element={<DishSetting />} />
+      <Route path="Admin/CourseSetting" element={<CourseSetting />} />
+      <Route path="Admin/RoomSetting" element={<RoomSetting />} />
+      <Route path="Admin/ReservationSetting" element={<ReservationSetting />} />
+      <Route path="Admin/OrderSetting" element={<OrderSetting />} />
+      <Route path="/*" element={<NotFound />} />
     </Routes>
   </BrowserRouter>
 );

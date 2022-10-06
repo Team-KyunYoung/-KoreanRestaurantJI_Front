@@ -17,14 +17,15 @@ const InnerFAQ = (props) => {
       .then((response) => {
         window.location.replace("/FAQBoard");
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
   console.log(props.list);
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
       <div className={styles.faqBox}>
-        {/* {props.isAdmin ? <input type="checkbox" /> : ""} */}
         <Accordion.Item eventKey={obj.questionNumber} key={i}>
           <Accordion.Header className={styles.accordionHeader}>
             {obj.questionTitle}
@@ -52,12 +53,7 @@ const InnerFAQ = (props) => {
               ""
             )}
           </Accordion.Header>
-          <Accordion.Body>
-            {obj.questionContents}{" "}
-            {/* <button type="submit" className={styles.deleteBtn}>
-            삭제하기
-          </button> */}
-          </Accordion.Body>
+          <Accordion.Body>{obj.questionContents} </Accordion.Body>
         </Accordion.Item>
       </div>
     )
@@ -69,27 +65,28 @@ const FAQBoard = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    Question.findAllFAQ().then((response) => {
-      console.log(response);
-      setList(response.data.data);
-      setIsLoading(false);
-    });
-    UserService.isAdmin().then((response) => {
-      console.log(response);
-      if (response.data.data === true) {
-        setIsAdmin(true);
-        console.log("admin");
-      }
-    });
+    Question.findAllFAQ()
+      .then((response) => {
+        console.log(response);
+        setList(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    UserService.isAdmin()
+      .then((response) => {
+        console.log(response);
+        if (response.data.data === true) {
+          setIsAdmin(true);
+          console.log("admin");
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
 
-  // const deleteQnAPost = () => {
-  //   Question.deleteQnA(Number(param.number))
-  //     .then((response) => {
-  //       window.location.replace("/Event");
-  //     })
-  //     .catch(() => {});
-  // };
   return (
     <div id="FAQPage">
       <Header />
@@ -116,9 +113,6 @@ const FAQBoard = () => {
             {isAdmin ? (
               <>
                 <Link to="./create/0">게시하기</Link>
-                {/* <button type="submit" className={styles.deleteBtn}>
-                  삭제하기
-                </button>{" "} */}
               </>
             ) : (
               <Link to="/QnABoard">FAQ에 없다면?</Link>

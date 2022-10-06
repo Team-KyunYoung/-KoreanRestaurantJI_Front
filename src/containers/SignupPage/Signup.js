@@ -1,14 +1,20 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
+
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Privacy from "./Privacy";
+import Privacy from "./Privacy.js";
 import styles from "./Signup.module.scss";
 import * as UserService from "lib/api/UserService";
+
 import Button from "react-bootstrap/Button";
 import InputGroup from "react-bootstrap/InputGroup";
 import Accordion from "react-bootstrap/Accordion";
 
 const Signup = () => {
+	let navigate = useNavigate();
+	const location = useLocation();
+  
   const [emailToken, setEmailToken] = useState();
   const [isUsableEmail, setIsUsableEmail] = useState(false); //중복확인 통과 여부
   //true->중복 검사 통과, false->타이머와 input 숨기기(중복검사 불통 또는 인증메일 확인 후 또는 시간 초과)
@@ -156,7 +162,7 @@ const Signup = () => {
         .then((response) => {
           console.log(response);
           alert("회원가입이 완료되었습니다.");
-          document.location.href = "/login";
+          navigate('/login', { state: { preLocation : location } })
         })
         .catch(() => {
           alert("Signup Failed");

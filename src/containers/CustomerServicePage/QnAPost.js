@@ -2,9 +2,10 @@ import React, { useState, useEffect, useCallback } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ListShortcut from "../../components/ShortCut/ListShortcut";
+import ListShortcut from "components/ShortCut/ListShortcut";
 import Comment from "./QnAComment";
 import styles from "./CS.module.scss";
+import uniqueStyles from "./CreateQnA.module.scss";
 import UserService from "lib/api/UserService";
 import Question from "lib/api/Question";
 import AdminComment from "lib/api/AdminComment";
@@ -43,7 +44,8 @@ const QnADetails = () => {
                 setRole("writer");
               }
             })
-            .catch(() => {
+            .catch((error) => {
+              console.log(error);
               alert("작성자만 조회할 수 있습니다.");
               navigate("/QnABoard");
             });
@@ -57,10 +59,14 @@ const QnADetails = () => {
                 setRole("writer");
               }
             })
-            .catch(() => {});
+            .catch((error) => {
+              console.log(error);
+            });
         }
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
 
     AdminComment.findComment(Number(param.number))
       .then((response) => {
@@ -68,7 +74,9 @@ const QnADetails = () => {
         console.log(response.data.data);
         setCommentLoading(false);
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
 
     UserService.isAdmin()
       .then((response) => {
@@ -78,7 +86,9 @@ const QnADetails = () => {
           console.log("admin");
         }
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   const requestEdit = (e) => {
     //수정하기 버튼 : input의 disabled 해제
@@ -121,7 +131,8 @@ const QnADetails = () => {
           "/QnABoard/" + Number(param.number) + "/" + param.isPrivate
         );
       })
-      .catch(() => {
+      .catch((error) => {
+        console.log(error);
         alert("입력 내용을 확인해주세요");
       });
   };
@@ -136,8 +147,8 @@ const QnADetails = () => {
       .then((response) => {
         console.log(response);
       })
-      .catch(() => {
-        alert("error");
+      .catch((error) => {
+        console.log(error);
       });
   };
   const deleteQnAPost = () => {
@@ -145,7 +156,9 @@ const QnADetails = () => {
       .then((response) => {
         window.location.replace("/QnABoard");
       })
-      .catch(() => {});
+      .catch((error) => {
+        console.log(error);
+      });
   };
   return (
     <div id="QnAPage">
@@ -166,107 +179,113 @@ const QnADetails = () => {
             <section className={styles.singleQuestionBox}>
               <div>
                 <form>
-                  <div className={styles.firstLine}>
-                    <div
-                      className={[styles.formBox, styles.inputBox].join(" ")}
-                    >
-                      <label htmlFor="title">제목</label>{" "}
-                      <input
-                        type="text"
-                        id="title"
-                        value={title}
-                        placeholder={data.questionTitle}
+                  <div className={styles.formBox}>
+                    <div className={uniqueStyles.firstLine}>
+                      <div className={styles.inputBox}>
+                        <label htmlFor="title">제목</label>{" "}
+                        <input
+                          type="text"
+                          id="title"
+                          value={title}
+                          placeholder={data.questionTitle}
+                          disabled={editDisabled}
+                          onChange={writerHandleChange}
+                          name="title"
+                          maxLength={100}
+                        />{" "}
+                        <p
+                          className={styles.counter}
+                          style={{ display: counterDisplay }}
+                        >
+                          ({title.length}/100)
+                        </p>
+                      </div>
+                      <div className={styles.checkBox}>
+                        {/* <span>작성자 {data.writer}</span>
+                  <span>날짜 {data.writeDate}</span>*/}
+                        <span>
+                          <label htmlFor="public">공개</label>
+                          {"  "}
+                          <input
+                            type="radio"
+                            id="public"
+                            value={false}
+                            name="privatePost"
+                            defaultChecked={data.private ? false : true}
+                            disabled={editDisabled}
+                            onChange={writerHandleChange}
+                          />{" "}
+                          <label htmlFor="private">비공개</label>{" "}
+                          <input
+                            type="radio"
+                            id="private"
+                            value={true}
+                            name="privatePost"
+                            defaultChecked={data.private ? true : false}
+                            disabled={editDisabled}
+                            onChange={writerHandleChange}
+                          />
+                        </span>
+                      </div>
+                    </div>
+                    <div className={styles.inputBox}>
+                      <label
+                        htmlFor="contents"
+                        className={styles.textareaLabel}
+                      >
+                        내용
+                      </label>
+                      <textarea
+                        placeholder={data.questionContents}
                         disabled={editDisabled}
                         onChange={writerHandleChange}
-                        name="title"
-                        maxLength={100}
-                      />{" "}
+                        value={contents}
+                        name="contents"
+                        maxLength={500}
+                      ></textarea>{" "}
+                      <p
+                        className={styles.counter}
+                        style={{ display: counterDisplay }}
+                      >
+                        ({contents.length}/500)
+                      </p>
                     </div>
-                    <p
-                      className={styles.titleCounter}
-                      style={{ display: counterDisplay }}
-                    >
-                      ({title.length}/100)
-                    </p>
-                    <div
-                      className={[styles.formBox, styles.checkBox].join(" ")}
-                    >
-                      {/* <span>작성자 {data.writer}</span>
-                  <span>날짜 {data.writeDate}</span>*/}
-                      <span>
-                        <label htmlFor="public">공개</label>
-                        {"  "}
-                        <input
-                          type="radio"
-                          id="public"
-                          value={false}
-                          name="privatePost"
-                          defaultChecked={data.private ? false : true}
-                          disabled={editDisabled}
-                          onChange={writerHandleChange}
-                        />{" "}
-                        <label htmlFor="private">비공개</label>{" "}
-                        <input
-                          type="radio"
-                          id="private"
-                          value={true}
-                          name="privatePost"
-                          defaultChecked={data.private ? true : false}
-                          disabled={editDisabled}
-                          onChange={writerHandleChange}
-                        />
-                      </span>
-                    </div>
-                  </div>
-                  <div className={styles.formBox}>
-                    <span className={styles.textareaLabel}>내용</span>{" "}
-                    <textarea
-                      placeholder={data.questionContents}
-                      disabled={editDisabled}
-                      onChange={writerHandleChange}
-                      value={contents}
-                      name="contents"
-                      maxLength={500}
-                    ></textarea>{" "}
-                    <p
-                      className={styles.contentCounter}
-                      style={{ display: counterDisplay }}
-                    >
-                      ({contents.length}/500)
-                    </p>
-                  </div>
-                  <div className={styles.btn}>
-                    {role === "writer" ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
-                      <>
-                        {editDisabled ? ( //수정하기 버튼 클릭
-                          <>
-                            <button type="button" onClick={requestEdit}>
-                              수정하기
-                            </button>
+                    <div className={styles.btn}>
+                      {role === "writer" ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
+                        <>
+                          {editDisabled ? ( //수정하기 버튼 클릭
+                            <>
+                              <button type="button" onClick={requestEdit}>
+                                수정하기
+                              </button>
 
-                            <button type="button" onClick={deleteQnAPost}>
-                              삭제하기
-                            </button>
-                          </>
-                        ) : (
-                          <>
-                            <button type="button" onClick={WriterHandleSubmit}>
-                              저장하기
-                            </button>
-                            <button
-                              name="reset"
-                              type="reset"
-                              value="Reset"
-                              onClick={refuseEdit}
-                            >
-                              취소하기
-                            </button>
-                          </>
-                        )}
-                      </>
-                    ) : (
-                      ""
-                    )}
+                              <button type="button" onClick={deleteQnAPost}>
+                                삭제하기
+                              </button>
+                            </>
+                          ) : (
+                            <>
+                              <button
+                                type="button"
+                                onClick={WriterHandleSubmit}
+                              >
+                                저장하기
+                              </button>
+                              <button
+                                name="reset"
+                                type="reset"
+                                value="Reset"
+                                onClick={refuseEdit}
+                              >
+                                취소하기
+                              </button>
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </div>
                   </div>
                 </form>
               </div>
@@ -308,8 +327,7 @@ const QnADetails = () => {
           </>
         )}
       </main>
-
-      <ListShortcut />
+      <ListShortcut link="QnABoard" />
       <Footer />
     </div>
   );

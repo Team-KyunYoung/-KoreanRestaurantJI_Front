@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Chat from "../../components/ChatBot/Chat";
@@ -40,14 +40,14 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
       );
     } else if (data.data[i].dishCategory === "본식") {
       entreeList.push(
-        <Link to={"./" + data.data[i].dishName} key={i}>
+        <Link to={"./" + data.data[i].dishNumber + "/"  + data.data[i].dishName} key={i}>
           <div className={styles.dish}>
             <div className={styles.dishImg}>
               <img
@@ -64,14 +64,14 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
       );
     } else {
       dessertList.push(
-        <Link to={"./" + data.data[i].dishName} key={i}>
+        <Link to={"./" + data.data[i].dishNumber + "/"  + data.data[i].dishName} key={i}>
           <div className={styles.dish}>
             <div className={styles.dishImg}>
               <img
@@ -88,7 +88,7 @@ function DishContent(data) {
                 <h4>{data.data[i].dishName}</h4>
                 <p>{data.data[i].dishDescription}</p>
               </div>
-              <i>{data.data[i].dishPrice}원</i>
+              <i>{data.data[i].dishPrice.toLocaleString('ko-KR')}원</i>
             </div>
           </div>
         </Link>
@@ -138,7 +138,7 @@ function DishContent(data) {
   //           <h4>{data.data[3].dishName}</h4>
   //           <p>{data.data[3].dishDescription}</p>
   //         </div>
-  //         <i>{data.data[3].dishPrice}원</i>
+  //         <i>{data.data[3].dishPrice.toLocaleString('ko-KR')}원</i>
   //       </div>
   //     </div>
   //   </Link>
