@@ -4,11 +4,15 @@ import styles from "./UserInfo.module.scss";
 import Page from "../../components/Pagination/Pagination";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
+import ModalWindow from "components/Modal/ModalWindow";
 
 const image1 = "https://picsum.photos/800/600";
+
 function ReservationInnerPage(props) {
   const onClickUpdateReservation = (e) => {
+    props.setShow(true);
     console.log(e.target.value);
+    props.setForm(e.target.value);
   };
   const onClickDeleteReservation = (e) => {
     console.log(e.target.value);
@@ -22,15 +26,13 @@ function ReservationInnerPage(props) {
       alert("취소되었습니다.");
     }
   };
-  console.log(props.list.length);
   return (
     <ul className={styles.list}>
       {props.loading
         ? "loading"
         : props.list.map((obj, i) => (
-            <>
+            <div key={i}>
               <li
-                key={i}
                 className={
                   props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
                     ? styles.today
@@ -67,7 +69,7 @@ function ReservationInnerPage(props) {
                 <div className={styles.changeReservation}>
                   <button
                     onClick={onClickUpdateReservation}
-                    value={obj.reservationNumber}
+                    value={JSON.stringify(obj)}
                   >
                     예약 수정
                   </button>
@@ -81,7 +83,7 @@ function ReservationInnerPage(props) {
               ) : (
                 ""
               )}
-            </>
+            </div>
           ))}
     </ul>
   );
@@ -89,6 +91,17 @@ function ReservationInnerPage(props) {
 const Reservation = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    userName: "",
+    userPhoneNumber: "",
+    userRequest: "",
+  });
+  const { userName, userPhoneNumber, userRequest } = form;
+
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(1);
 
@@ -147,6 +160,9 @@ const Reservation = (props) => {
             loading={loading}
             date={today}
             showBtn={param.mode === "now"}
+            setShow={setShow}
+            setForm={setForm}
+            form={form}
           />
           <Page
             postsPerPage={postsPerPage}
@@ -191,7 +207,13 @@ const Reservation = (props) => {
               </svg>
               <span>현재 예약</span>
             </Link>
-          )}
+          )}{" "}
+          <ModalWindow
+            form={form}
+            setForm={setForm}
+            show={show}
+            handleClose={handleClose}
+          />
         </div>
       </div>
     </>
