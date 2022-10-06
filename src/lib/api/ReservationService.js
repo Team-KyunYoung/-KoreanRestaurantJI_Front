@@ -50,22 +50,24 @@ class ReservationService {
     name,
     phoneNumber,
     reservationRequest,
-    roomNumber,
+    reservationRoomName,
     tableCount,
-    time
+    time,
+    reservationNumber
   ) {
     let data = {
       reservationDate: date,
       reservationName: name,
       reservationPhoneNumber: phoneNumber,
       reservationRequest: reservationRequest,
-      reservationRoomNumber: roomNumber,
+      reservationRoomName: reservationRoomName,
       reservationTableCount: tableCount,
       reservationTime: time,
     };
+    console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.update(
-      USER_API_BASE_URL + "/update/" + roomNumber,
+    return axios.put(
+      USER_API_BASE_URL + "/update/" + reservationNumber,
       JSON.stringify(data),
       {
         headers: {

@@ -12,8 +12,10 @@ function ReservationInnerPage(props) {
   const onClickUpdateReservation = (e) => {
     props.setShow(true);
     console.log(e.target.value);
-    props.setForm(e.target.value);
+    props.setData(JSON.parse(e.target.value));
   };
+  console.log(props.data);
+
   const onClickDeleteReservation = (e) => {
     console.log(e.target.value);
     let roomNumber = parseInt(e.target.value);
@@ -99,9 +101,28 @@ const Reservation = (props) => {
   });
   const { userName, userPhoneNumber, userRequest } = form;
 
+  const [data, setData] = useState();
   const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-
+  // const handleClose = () => setShow(false);
+  console.log({ data });
+  const handleClose = (e) => {
+    var count;
+    if (data.reservationTableCount === "5-8인") count = 2;
+    else if (data.reservationTableCount === "1-4인") count = 1;
+    else count = 3;
+    console.log(data.reservationDate);
+    ReservationService.updateReservation(
+      data.reservationDate,
+      form.userName, //성명
+      form.userPhoneNumber, //예약자 연락처,
+      form.userRequest,
+      data.reservationRoomName,
+      count,
+      data.reservationTime,
+      data.reservationNumber
+    );
+    setShow(false);
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(1);
 
@@ -163,6 +184,9 @@ const Reservation = (props) => {
             setShow={setShow}
             setForm={setForm}
             form={form}
+            handleClose={handleClose}
+            data={data}
+            setData={setData}
           />
           <Page
             postsPerPage={postsPerPage}
