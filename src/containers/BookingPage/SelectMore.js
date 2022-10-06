@@ -160,8 +160,12 @@ const SelectMore = () => {
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date)
     .then((response) => {
-        RemainingSeatsByDate(response.data.data.roomStatus, date);
-        //날짜 선택했을 때 남은 좌석을 검사하는 함수
+        if(response.data.data.roomStatus.length === 0){
+          RemainingSeatsByDate([{roomRemaining:15}], date);
+        } else {
+          //날짜 선택했을 때 남은 좌석을 검사하는 함수
+          RemainingSeatsByDate(response.data.data.roomStatus, date);
+        }
       }
     )
     .catch(() => {
