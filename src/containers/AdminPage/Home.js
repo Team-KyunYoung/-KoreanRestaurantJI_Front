@@ -17,23 +17,24 @@ const AdminHome = () => {
         console.log(error);
       });
   }, []);
-  //백에서 구현 필요.
   function handleDelete(userNumber){
-    UserService.deleteUserByNumber(userNumber)
-    .then((response) => {
-      alert("해당 회원을 탈퇴(데이터 삭제) 하였습니다.")
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("삭제 실패. 콘솔창을 확인해주세요.")
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      UserService.deleteUserByNumber(userNumber)
+      .then((response) => {
+        alert("해당 회원을 탈퇴(데이터 삭제) 하였습니다.")
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("삭제 실패. 콘솔창을 확인해주세요.")
+      });
+    }
   }
   function UserList({userNumber, role, userEmail, userNickname}) {
       return(
         <div className={styles.user}>
           <span>{userNumber}</span>&nbsp;<span>{role ? "관리자" : "일반"}</span>&nbsp;<span>{userEmail}</span>&nbsp;
           <span>{userNickname}</span>
-          {/* <button onClick={()=>handleDelete(userNumber)}>삭제</button> */}
+          <button onClick={()=>handleDelete(userNumber)}>삭제</button>
         </div>
       )
   }
