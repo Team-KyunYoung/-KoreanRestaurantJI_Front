@@ -315,7 +315,7 @@ const Order = () => {
         <div className={modalstyles.toGoBtns}>
           {!isCartIn && (
             <button className={modalstyles.submit}>
-              <Link to="/UserInfo/ordered">구매 확인하기</Link>
+              <Link to="/UserInfo/ordered/blank">구매 확인하기</Link>
             </button>
           )}
           {isCartIn && (
