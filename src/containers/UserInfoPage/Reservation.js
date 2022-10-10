@@ -107,21 +107,24 @@ const Reservation = (props) => {
   console.log({ data });
   const handleClose = (e) => {
     var count;
-    if (data.reservationTableCount === "5-8인") count = 2;
-    else if (data.reservationTableCount === "1-4인") count = 1;
-    else count = 3;
+    console.log(data);
+    alert(data);
+    if (data.reservationHeadCount === "2~4인") count = 1;
+    else if (data.reservationHeadCount === "5~8인") count = 2;
+    else if (data.reservationHeadCount === "9~12인") count = 3;
     console.log(data.reservationDate);
     ReservationService.updateReservation(
       data.reservationDate,
-      form.userName, //성명
-      form.userPhoneNumber, //예약자 연락처,
-      form.userRequest,
+      userName, //성명
+      userPhoneNumber, //예약자 연락처,
+      userRequest,
       data.reservationRoomName,
       count,
       data.reservationTime,
       data.reservationNumber
     );
     setShow(false);
+    window.location.reload();
   };
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(1);

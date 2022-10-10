@@ -65,6 +65,7 @@ class ReservationService {
       reservationTime: time,
     };
     console.log(data);
+    alert(reservationRequest);
     Authentication.setupAxiosInterceptors();
     return axios.put(
       USER_API_BASE_URL + "/update/" + reservationNumber,
