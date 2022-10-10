@@ -43,7 +43,7 @@ const ModalWindow = ({ form, setForm, show, handleClose }) => {
             <Form.Control
               onChange={onHandleChangeUserInfo}
               name="userRequest"
-              as="textarea"
+              // as="textarea"
               rows={3}
               maxLength={100}
               placeholder="(ex. 알러지 정보, 아기 식사)"
