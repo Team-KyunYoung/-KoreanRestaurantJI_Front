@@ -40,14 +40,18 @@ const Order = () => {
         <div className={styles.dishImg}>
           <img
             href="#"
-            // src={data.data[count].dishPhoto}
-            src="https://picsum.photos/350/350"
+            src={data.data[count].dishPhoto}
+            //src="https://picsum.photos/350/350"
             alt={data.data[count].dishName}
           />
-          {/* <button type="submit" onClick={() => onClickPutInCarttoModal(data.data[count].dishNumber, 
-                data.data[count].dishName, data.data[count].dishPhoto, data.data[count].dishPrice)}>
-                장바구니
-              </button> */}
+          <button type="submit"
+            onClick={() => {
+              setModalIsOpen(true);
+              setOrderDish(data.data[count]);
+            }}
+            >
+            구매하기
+          </button>
         </div>
         <div className={styles.dishDetails}>
           <OverlayTrigger
@@ -62,7 +66,7 @@ const Order = () => {
             </div>
           </OverlayTrigger>
           <i>{data.data[count].dishPrice.toLocaleString('ko-KR')}원</i>
-          <span className={styles.btnClub}>
+          {/* <span className={styles.btnClub}>
             <button
               type="submit"
               onClick={() => {
@@ -82,7 +86,7 @@ const Order = () => {
             >
               장바구니
             </button>
-          </span>
+          </span> */}
         </div>
       </div>
     );
@@ -257,10 +261,10 @@ const Order = () => {
       >
         <h3>주문 상세</h3>
         <div className={modalstyles.dish}>
-          {/* <div className={modalstyles.img}><img src={orderDish.dishPhoto}></img></div> */}
-          <div className={modalstyles.img}>
+          <div className={modalstyles.img}><img src={orderDish.dishPhoto}></img></div>
+          {/* <div className={modalstyles.img}>
             <img src="https://picsum.photos/160/160"></img>
-          </div>
+          </div> */}
           <div className={modalstyles.dishdetail}>
             <div className={modalstyles.title}>{orderDish.dishName}</div>
             <div className={modalstyles.quantitity}>
