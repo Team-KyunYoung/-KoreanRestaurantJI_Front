@@ -115,7 +115,7 @@ const DishSetting = () => {
                         <label className={styles.inputLabel}>요리 분류 
                         <select className={styles.inputLabel} id={styles.select} name="dishCategory" onChange={handleCreateDishInput} value={createDishInput.dishCategory}>
                           <option key="전식" value="전식">전식</option>
-                          <option key="중식" value="중식">중식</option>
+                          <option key="본식" value="본식">본식</option>
                           <option key="후식" value="후식">후식</option>
                         </select>
                         </label><br/>
