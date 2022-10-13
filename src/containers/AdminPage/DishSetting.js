@@ -9,7 +9,7 @@ const DishSetting = () => {
     dishName: "",
     dishPhoto: "",
     dishPrice: "",
-    dishCategory: "",
+    dishCategory: "전식",
     dishDescription: "",
     dishCalroies: "",
     dishCarbohydrate: "",
