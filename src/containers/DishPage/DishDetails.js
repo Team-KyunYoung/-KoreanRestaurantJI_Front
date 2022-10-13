@@ -58,7 +58,7 @@ const DishDetails = () => {
       <main className={styles.container}>
         <div className={styles.dishCategory}><h2>{dishCategory}</h2></div>
         {mount ? 
-          <div className={styles.dishDetails} style={{backgroundImage: `url(${image1})`}}>
+          <div className={styles.dishDetails} style={{backgroundImage: `url(${dishImage})`, backgroundSize: "100% 100%"}}>
           {/* <div className={styles.dish} data-aos="zoom-in" style={`background-image: ${dishImage};`}> */}
             <div className={`${styles.dishDescriptionBox} ${isVisible ? styles.slideInRight : null}`}>
               <div className={styles.dishDescription}>
