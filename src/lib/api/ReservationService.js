@@ -7,7 +7,7 @@ class ReservationService {
     date,
     name,
     phoneNumber,
-    userRequest,
+    reservationRequest,
     roomNumber,
     tableCount,
     time
@@ -16,7 +16,7 @@ class ReservationService {
       reservationDate: date,
       reservationName: name,
       reservationPhoneNumber: phoneNumber,
-      reservationRequest: userRequest,
+      reservationRequest: reservationRequest,
       reservationRoomNumber: roomNumber,
       reservationTableCount: tableCount,
       reservationTime: time,
@@ -69,29 +69,28 @@ class ReservationService {
       }
     );
   }
-
   updateReservation(
-    reservationNumber,
     date,
     name,
     phoneNumber,
-    userRequest,
-    roomNumber,
+    reservationRequest,
+    reservationRoomName,
     tableCount,
-    time
+    time,
+    reservationNumber
   ) {
     let data = {
       reservationDate: date,
       reservationName: name,
       reservationPhoneNumber: phoneNumber,
-      reservationRequest: userRequest,
-      reservationRoomNumber: roomNumber,
+      reservationRequest: reservationRequest,
+      reservationRoomName: reservationRoomName,
       reservationTableCount: tableCount,
       reservationTime: time,
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.post(
+    return axios.put(
       RESERVATION_API_BASE_URL + "/update/" + reservationNumber,
       JSON.stringify(data),
       {
@@ -101,18 +100,18 @@ class ReservationService {
       }
     );
   }
-
-  deleteReservation(reservationNumber) {
+  deleteReservation(roomNumber) {
     Authentication.setupAxiosInterceptors();
     return axios.delete(
-      RESERVATION_API_BASE_URL + "/delete/" + reservationNumber,
+      RESERVATION_API_BASE_URL + "/delete/" + roomNumber,
       JSON.stringify(),
       {
-        headers: { "Content-Type": `application/json` },
+        headers: {
+          "Content-Type": `application/json`,
+        },
       }
     );
   }
-
   deleteReservationBeforeLimitDate() {
     Authentication.setupAxiosInterceptors();
     return axios.delete(

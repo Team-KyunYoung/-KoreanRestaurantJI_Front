@@ -1,22 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
-import ReservationService from "lib/api/ReservationService";
 import Page from "../../components/Pagination/Pagination";
-
-import * as UserServices from "lib/api/UserService";
+import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
+import ModalWindow from "components/Modal/ModalWindow";
+
 const image1 = "https://picsum.photos/800/600";
+
 function ReservationInnerPage(props) {
-  console.log(props.list.length);
+  const onClickUpdateReservation = (e) => {
+    props.setShow(true);
+    console.log(e.target.value);
+    props.setData(JSON.parse(e.target.value));
+  };
+  console.log(props.data);
+
+  const onClickDeleteReservation = (e) => {
+    console.log(e.target.value);
+    let roomNumber = parseInt(e.target.value);
+    if (window.confirm("정말로 삭제하시겠습니까?")) {
+      ReservationService.deleteReservation(roomNumber).then((response) => {
+        alert("삭제되었습니다.");
+        document.location.href = "/UserInfo/reservation/now";
+      });
+    } else {
+      alert("취소되었습니다.");
+    }
+  };
   return (
     <ul className={styles.list}>
       {props.loading
         ? "loading"
         : props.list.map((obj, i) => (
-            <>
+            <div key={i}>
               <li
-                key={i}
                 className={
                   props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
                     ? styles.today
@@ -44,10 +62,30 @@ function ReservationInnerPage(props) {
                     <b>예약자</b> {obj.reservationName}님{" "}
                     {obj.reservationPhoneNumber}
                   </p>
+                  <p>
+                    <b>요청사항 </b> {obj.reservationRequest}
+                  </p>
                 </div>
               </li>
-              {/* <hr /> */}
-            </>
+              {props.showBtn ? (
+                <div className={styles.changeReservation}>
+                  <button
+                    onClick={onClickUpdateReservation}
+                    value={JSON.stringify(obj)}
+                  >
+                    예약 수정
+                  </button>
+                  <button
+                    onClick={onClickDeleteReservation}
+                    value={obj.reservationNumber}
+                  >
+                    예약 삭제
+                  </button>
+                </div>
+              ) : (
+                ""
+              )}
+            </div>
           ))}
     </ul>
   );
@@ -55,6 +93,39 @@ function ReservationInnerPage(props) {
 const Reservation = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
+
+  const [form, setForm] = useState({
+    userName: "",
+    userPhoneNumber: "",
+    userRequest: "",
+  });
+  const { userName, userPhoneNumber, userRequest } = form;
+
+  const [data, setData] = useState();
+  const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+  console.log({ data });
+  const handleClose = (e) => {
+    var count;
+    console.log(data);
+    alert(data);
+    if (data.reservationHeadCount === "2~4인") count = 1;
+    else if (data.reservationHeadCount === "5~8인") count = 2;
+    else if (data.reservationHeadCount === "9~12인") count = 3;
+    console.log(data.reservationDate);
+    ReservationService.updateReservation(
+      data.reservationDate,
+      userName, //성명
+      userPhoneNumber, //예약자 연락처,
+      userRequest,
+      data.reservationRoomName,
+      count,
+      data.reservationTime,
+      data.reservationNumber
+    );
+    setShow(false);
+    window.location.reload();
+  };
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage, setPostsPerPage] = useState(1);
 
@@ -112,6 +183,13 @@ const Reservation = (props) => {
             list={currentPosts(list)}
             loading={loading}
             date={today}
+            showBtn={param.mode === "now"}
+            setShow={setShow}
+            setForm={setForm}
+            form={form}
+            handleClose={handleClose}
+            data={data}
+            setData={setData}
           />
           <Page
             postsPerPage={postsPerPage}
@@ -156,7 +234,13 @@ const Reservation = (props) => {
               </svg>
               <span>현재 예약</span>
             </Link>
-          )}
+          )}{" "}
+          <ModalWindow
+            form={form}
+            setForm={setForm}
+            show={show}
+            handleClose={handleClose}
+          />
         </div>
       </div>
     </>
