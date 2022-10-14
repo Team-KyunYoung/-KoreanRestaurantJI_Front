@@ -42,14 +42,14 @@ function OrderedInnerPage(props) {
                     <li key={"dish" + i + j}>
                       <Link
                         to={
-                          "./../../Dish/" +
+                          "/Dish/" +
                           dishObj.dishNumber +
                           "/" +
                           dishObj.dishName
                         }
                       >
                         <span className={styles.imgContainer}>
-                          <img src={image1} alt="reservation list" />
+                          <img src={dishObj.dishImg} alt="reservation list" />
                         </span>
                         <span className={styles.dishList}>
                           <span>

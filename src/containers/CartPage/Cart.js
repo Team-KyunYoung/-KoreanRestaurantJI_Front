@@ -178,9 +178,8 @@ const Cart = () => {
             }
           ></input>
         </div>
-        {/* <div className={styles.cartImg}><img src={dishImage}></img></div> */}
         <div className={styles.cartImg}>
-          <img src={dishImageRan} alt="cartimg"></img>
+          <img src={dishImage} alt="cartimg"></img>
         </div>
         <div className={styles.cartDetail}>
           <div className={styles.dishName}>{dishName}</div>

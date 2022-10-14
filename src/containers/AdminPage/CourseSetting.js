@@ -109,14 +109,16 @@ const CourseSetting = () => {
     });
   }
   function deleteCourseBtn(CourseNumber) {
-    CourseService.deleteCourse(CourseNumber)
-    .then((response) => {
-      alert("해당 요리 데이터가 삭제되었습니다.")
-      window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error.response);
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      CourseService.deleteCourse(CourseNumber)
+      .then((response) => {
+        alert("해당 요리 데이터가 삭제되었습니다.")
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    }
   }
   function SearchOutput({courseNumber, courseName}){
     return(

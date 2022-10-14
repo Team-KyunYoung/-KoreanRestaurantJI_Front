@@ -93,25 +93,29 @@ const ReservationSetting = () => {
   }
 
   function handleDeleteStatusBeforeToday(){
-    RoomService.deleteRoomStatusBeforeToday()
-    .then(() => {
-      alert("과거 예약 상태정보가 삭제되었습니다.")
-    })
-    .catch((error) => {
-      console.log(error)
-      alert("삭제 실패. 콘솔창을 확인해주세요.")
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      RoomService.deleteRoomStatusBeforeToday()
+      .then(() => {
+        alert("과거 예약 상태정보가 삭제되었습니다.")
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("삭제 실패. 콘솔창을 확인해주세요.")
+      });
+    }
   }
 
   function handleDeleteReservBeforeLimitDay() {
-    ReservationService.deleteReservationBeforeLimitDate()
-    .then(() => {
-      alert("6개월이 지난 예약 데이터를 일괄 삭제하였습니다.")
-    })
-    .catch((error) => {
-      console.log(error)
-      alert("삭제 실패. 콘솔창을 확인해주세요.")
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      ReservationService.deleteReservationBeforeLimitDate()
+      .then(() => {
+        alert("6개월이 지난 예약 데이터를 일괄 삭제하였습니다.")
+      })
+      .catch((error) => {
+        console.log(error)
+        alert("삭제 실패. 콘솔창을 확인해주세요.")
+      });
+    }
   }
 
   return (
