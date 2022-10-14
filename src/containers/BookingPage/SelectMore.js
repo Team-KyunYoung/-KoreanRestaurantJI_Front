@@ -32,14 +32,28 @@ var personnelStatus = [
   { value: 2, label: "5-8인", isDisabled: false },
   { value: 3, label: "9-12인", isDisabled: false },
 ];
-function RemainingSeatsByDate(data) {
-  //날짜 선택했을 때 남은 좌석을 검사하는 함수
-  const res = data.data.roomStatus;
+// 1. 현재 시간(Locale)
+const curr = new Date();
+// 2. UTC 시간 계산
+const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
 
+// 3. UTC to KST (UTC + 9시간)
+const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
+function setToday() {
+  //오늘 날짜 반환(+ YYYY-MM-DD fomating)
+  return new Date(utc + KR_TIME_DIFF).toISOString().split("T")[0];
+}
+function setMaxDay() {
+  let date = new Date(utc + KR_TIME_DIFF);
+  var maxDate = new Date(date.setMonth(date.getMonth() + 1));
+  return maxDate.toISOString().split("T")[0];
+}
+function RemainingSeatsByDate(data, date) {
+  //날짜 선택했을 때 남은 좌석을 검사하는 함수
   // console.log(data.data.roomStatus.length);
-  console.log(res);
+  console.log(data.length);
   // reservationTime: '16:00', roomRemaining: 11
-  for (let i = 0; i < res.length; i++) {
+  for (let i = 0; i < data.length; i++) {
     seatStatus.map((obj) => {
       // console.log(
       //   obj.label +
@@ -50,16 +64,25 @@ function RemainingSeatsByDate(data) {
       //     "," +
       //     res[i].roomRemaining
       // );
-      if (obj.label === res[i].reservationTime) {
-        //배열에서 같은 시간대를 찾고
-        if (obj.remain > res[i].roomRemaining) {
-          //그 시간대에 남은 좌석수의 최소값을 저장함
-          obj.remain = res[i].roomRemaining;
-        }
-        if (res[i].roomRemaining < 1) {
-          //4보다 작으면 어떠한 테이블도 예약 불가
-          //그 시간대 선택 불가
+      if (date == setToday()) {
+        if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
           obj.isDisabled = true;
+        //continue  //map에는 continue 없음..
+      } else {
+        obj.isDisabled = false;
+      }
+      if (data[i].roomRemaining != 15) {
+        if (obj.label === data[i].reservationTime) {
+          //배열에서 같은 시간대를 찾고
+          if (obj.remain > data[i].roomRemaining) {
+            //그 시간대에 남은 좌석수의 최소값을 저장함
+            obj.remain = data[i].roomRemaining;
+          }
+          if (data[i].roomRemaining < 1) {
+            //4보다 작으면 어떠한 테이블도 예약 불가
+            //그 시간대 선택 불가
+            obj.isDisabled = true;
+          }
         }
       }
       // $("select option[value*='volvo']").prop('disabled',true);
@@ -113,13 +136,18 @@ const SelectMore = () => {
   };
   useEffect(() => {
     //date가 바뀔 때만 검사
-    RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date).then(
-      (response) => {
-        // console.log(response);
-        RemainingSeatsByDate(response.data);
-        //날짜 선택했을 때 남은 좌석을 검사하는 함수
-      }
-    );
+    RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date)
+      .then((response) => {
+        if (response.data.data.roomStatus.length === 0) {
+          RemainingSeatsByDate([{ roomRemaining: 15 }], date);
+        } else {
+          //날짜 선택했을 때 남은 좌석을 검사하는 함수
+          RemainingSeatsByDate(response.data.data.roomStatus, date);
+        }
+      })
+      .catch(() => {
+        RemainingSeatsByDate([{ roomRemaining: 15 }], date);
+      });
   }, [date]);
   const onChangeTime = (e) => {
     // console.log(e);
@@ -190,7 +218,13 @@ const SelectMore = () => {
           </header>
           <div className={styles.reservationFormBox}>
             <form>
-              <input type="date" onChange={onChangeDate} />
+              <input
+                type="date"
+                defaultValue={setToday()}
+                min={setToday()}
+                max={setMaxDay()}
+                onChange={onChangeDate}
+              />
               <Select
                 options={seatStatus}
                 Disabled={(seatStatus) => seatStatus.isDisabled}

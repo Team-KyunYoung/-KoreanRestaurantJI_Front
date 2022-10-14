@@ -1,7 +1,7 @@
 import axios from "axios";
 import Authentication from "./Authentication";
 
-const USER_API_BASE_URL = "/api/reservation";
+const RESERVATION_API_BASE_URL = "/api/reservation";
 class ReservationService {
   createReservation(
     date,
@@ -23,27 +23,51 @@ class ReservationService {
     };
     console.log(data);
     Authentication.setupAxiosInterceptors();
-    return axios.post(USER_API_BASE_URL + "/create", JSON.stringify(data), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.post(
+      RESERVATION_API_BASE_URL + "/create",
+      JSON.stringify(data),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   findBeforeReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(USER_API_BASE_URL + "/find/before", JSON.stringify(), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/before",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   findAfterReservation() {
     Authentication.setupAxiosInterceptors();
-    return axios.get(USER_API_BASE_URL + "/find/after", JSON.stringify(), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/after",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
+  }
+  findReservationToday() {
+    Authentication.setupAxiosInterceptors();
+    return axios.get(
+      RESERVATION_API_BASE_URL + "/find/today",
+      JSON.stringify(),
+      {
+        headers: {
+          "Content-Type": `application/json`,
+        },
+      }
+    );
   }
   updateReservation(
     date,
@@ -65,10 +89,9 @@ class ReservationService {
       reservationTime: time,
     };
     console.log(data);
-    alert(reservationRequest);
     Authentication.setupAxiosInterceptors();
     return axios.put(
-      USER_API_BASE_URL + "/update/" + reservationNumber,
+      RESERVATION_API_BASE_URL + "/update/" + reservationNumber,
       JSON.stringify(data),
       {
         headers: {
@@ -80,12 +103,22 @@ class ReservationService {
   deleteReservation(roomNumber) {
     Authentication.setupAxiosInterceptors();
     return axios.delete(
-      USER_API_BASE_URL + "/delete/" + roomNumber,
+      RESERVATION_API_BASE_URL + "/delete/" + roomNumber,
       JSON.stringify(),
       {
         headers: {
           "Content-Type": `application/json`,
         },
+      }
+    );
+  }
+  deleteReservationBeforeLimitDate() {
+    Authentication.setupAxiosInterceptors();
+    return axios.delete(
+      RESERVATION_API_BASE_URL + "/delete/beforeLimitDate",
+      JSON.stringify(),
+      {
+        headers: { "Content-Type": `application/json` },
       }
     );
   }
