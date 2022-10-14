@@ -92,49 +92,6 @@ export function updatePassword(userEmail, userPassword) {
   return fetch(USER_API_BASE_URL + "/find/update/password", passwordInfo);
 }
 
-//  Header에 토큰을 넣어 보내야 하는 기능들은 axios를 이용.
-//  fetch 방식으론 아직 잘 모르겠어서 axios로 새로 추가했다.
-//   export function findUserById() {
-//     return fetch(USER_API_BASE_URL + "/find", {
-//       method: "GET",
-//     });
-//   }
-
-//   export function updateNickname(userId, userNickname) {
-//     const data = {
-//       userId: userId,
-//       userNickname: userNickname,
-//     };
-//     const nicknameInfo = {
-//       method: "PUT",
-//       body: JSON.stringify(data),
-//       headers: {
-//         "Content-Type": `application/json`,
-//       },
-//     };
-//     return fetch(USER_API_BASE_URL + "/update/nickname", nicknameInfo);
-//   }
-
-//   export function deleteUserByAdmin(userEmail) {
-//     const data = {
-//       userEmail: userEmail,
-//     };
-//     const deleteInfo = {
-//       method: "DELETE",
-//       body: JSON.stringify(data),
-//       headers: {
-//         "Content-Type": `application/json`,
-//       },
-//     };
-//     return fetch(USER_API_BASE_URL + "delete", deleteInfo);
-//   }
-
-//   export function deleteUserByItself(userEmail) {
-//     return fetch(USER_API_BASE_URL + "delete" + userEmail, {
-//       method: "DELTE",
-//     });
-//   }
-
 class UserService {
   findAll() {
     Authentication.setupAxiosInterceptors();
