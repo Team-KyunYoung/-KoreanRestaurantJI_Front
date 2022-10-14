@@ -48,14 +48,16 @@ const RoomSetting = () => {
     });
   }
   function deleteRoomBtn(RoomNumber) {
-    RoomService.deleteRoom(RoomNumber)
-    .then((response) => {
-      alert("해당 객실 데이터가 삭제되었습니다.")
-      window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error.response);
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      RoomService.deleteRoom(RoomNumber)
+      .then((response) => {
+        alert("해당 객실 데이터가 삭제되었습니다.")
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    }
   }
   function SearchOutput({roomNumber, roomName}){
     return(

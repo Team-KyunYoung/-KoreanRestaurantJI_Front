@@ -5,6 +5,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Modal from "react-modal";
 import "./index.scss";
 
+import PublicRoute from "components/LimitRoute/PublicRoute";
+import PrivateRoute from "components/LimitRoute/PrivateRoute";
+import AdminRoute from "components/LimitRoute/AdminRoute";
+
 import Home from "./containers/HomePage/Home";
 import Login from "./containers/LoginPage/Login";
 import FindPassword from "./containers/LoginPage/FindPassword";

@@ -9,7 +9,7 @@ const DishSetting = () => {
     dishName: "",
     dishPhoto: "",
     dishPrice: "",
-    dishCategory: "",
+    dishCategory: "전식",
     dishDescription: "",
     dishCalroies: "",
     dishCarbohydrate: "",
@@ -73,14 +73,16 @@ const DishSetting = () => {
     });
   }
   function deleteDishBtn(dishNumber) {
-    DishService.deleteDish(dishNumber)
-    .then((response) => {
-      alert("해당 요리 데이터가 삭제되었습니다.")
-      window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error.response);
-    });
+    if (window.confirm("정말 삭제하시겠습니까?")) {
+      DishService.deleteDish(dishNumber)
+      .then((response) => {
+        alert("해당 요리 데이터가 삭제되었습니다.")
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+    }
   }
   function SearchOutput({dishNumber, dishName}){
     console.log(dishNumber + ", " + dishName)
@@ -113,7 +115,7 @@ const DishSetting = () => {
                         <label className={styles.inputLabel}>요리 분류 
                         <select className={styles.inputLabel} id={styles.select} name="dishCategory" onChange={handleCreateDishInput} value={createDishInput.dishCategory}>
                           <option key="전식" value="전식">전식</option>
-                          <option key="중식" value="중식">중식</option>
+                          <option key="본식" value="본식">본식</option>
                           <option key="후식" value="후식">후식</option>
                         </select>
                         </label><br/>

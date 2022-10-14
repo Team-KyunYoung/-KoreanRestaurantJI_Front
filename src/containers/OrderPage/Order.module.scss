@@ -32,13 +32,17 @@
       width: 350px;
       height: 350px;
       overflow: hidden;
+      &:hover{
+        background-color: black;
+      }
       img {
         width: 350px;
         height: 350px;
         transition: all 0.5s linear;
-        &:hover {
-          transform: scale(1.2);
-        }
+      }
+      &:hover img{
+        transform: scale(1.2);
+        opacity: 0.4;
       }
     }
     .dishDetails {
@@ -64,44 +68,41 @@
         //참고 : https://webdir.tistory.com/483
       }
     }
-    .btnClub {
-      position: relative;
-      left: 150px;
-      button {
-        background-color: white;
-        width: 70px;
-        height: 30px;
-        border-radius: 25px 0 0 25px;
-        border: 1px solid gray;
-        font-size: 12px;
-      }
-      .cart {
-        border-radius: 0 25px 25px 0;
-        border-left: none;
-      }
-      button:hover {
-        background-color: gray;
-        color: white;
-      }
-    }
-    // button {
-    //   display: none;
-    // }
-    // &:hover button {
-    //   display: inline-block;
+    // .btnClub {
     //   position: relative;
-    //   top: -200px;
-    //   border: 2px solid white;
-    //   // border-radius: 22px 0 0 22px;
-    //   border-radius: 22px;
-    //   background: none;
-    //   color: white;
-    //   padding: 5px 10px;
-    //   font-size: 20px;
+    //   left: 150px;
+    //   button {
+    //     background-color: white;
+    //     width: 70px;
+    //     height: 30px;
+    //     border-radius: 25px 0 0 25px;
+    //     border: 1px solid gray;
+    //     font-size: 12px;
+    //   }
+    //   .cart {
+    //     border-radius: 0 25px 25px 0;
+    //     border-left: none;
+    //   }
+    //   button:hover {
+    //     background-color: gray;
+    //     color: white;
+    //   }
     // }
-    // &:hover img {
-    //   opacity: 0.9;
-    // }
+    button {
+      display: none;
+    }
+    &:hover button {
+      display: inline-block;
+      position: relative;
+      top: -200px;
+      border: 2px solid white;
+      // border-radius: 22px 0 0 22px;
+      border-radius: 22px;
+      background: none;
+      color: white;
+      padding: 5px 10px;
+      font-size: 20px;
+    }
   }
 }
 

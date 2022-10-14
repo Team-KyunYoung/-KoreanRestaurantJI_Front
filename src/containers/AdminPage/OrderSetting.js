@@ -27,15 +27,17 @@ const OrderSettingPage = () => {
     )
   }
   function updateOrderStatus(orderNumber, updateStatus) {
-    OrderService.updateOrderStatus(orderNumber, updateStatus)
-    .then(() => {
-      alert("해당 주문의 상태정보가 수정되었습니다.")
-      window.location.reload()
-    })
-    .catch((error) => {
-      console.log(error);
-      alert("수정 실패. 콘솔창을 확인해주세요.")
-    });
+    if (window.confirm("해당 주문의 상태정보를 '"+ updateStatus +"'로 수정하시겠습니까?")) {
+      OrderService.updateOrderStatus(orderNumber, updateStatus)
+      .then(() => {
+        alert("해당 주문의 상태정보가 수정되었습니다.")
+        window.location.reload()
+      })
+      .catch((error) => {
+        console.log(error);
+        alert("수정 실패. 콘솔창을 확인해주세요.")
+      });
+    }
   }
   function TodayOrder({orderNumber, createdDate, orderDishList, orderPrice, orderStatus}) {
       return(

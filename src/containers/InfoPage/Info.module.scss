@@ -1,5 +1,4 @@
 @import "./src/index.scss";
-
 .title {
   padding-top: 10vh;
   h1 {
@@ -27,27 +26,9 @@
   }
 }
 
-.img {
-  width: 60vw;
-  height: 50vh;
-  position: relative;
-  @media (max-width: 1024px) {
-    width: 80vw;
-    height: 50vh;
-    justify-items: center;
-  }
-  @media (min-width: 1024px) {
-    width: 60vw;
-    height: 50vh;
-    z-index: 1;
-  }
-}
-
-// 이미지 넣으면 삭제!
 .imgbox {
   width: 60vw;
   height: 50vh;
-  background-color: lightgray;
   position: relative;
   @media (max-width: 1024px) {
     width: 80vw;
@@ -60,23 +41,43 @@
     z-index: 1;
   }
 }
-
-#rightImg {
+.rightImg {
   @include desktop {
     float: right;
     right: 5vw;
   }
 }
-
-#leftImg {
+.leftImg {
   @include desktop {
     float: left;
     left: 5vw;
   }
 }
 
+#info1{
+  background-image: url("http://drive.google.com/uc?export=view&id=16f6ZFWpsfVfLp4gsVum0ZVk7bjQa4HxZ");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+
+#info2{
+  background-image: url("http://drive.google.com/uc?export=view&id=1QglTE_2ZbXzQLeP35e4tY3NWB_uAGW4a");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+
+#info3{
+  background-image: url("http://drive.google.com/uc?export=view&id=1FpcAFUvmAC8D8xzTV0M5Ro84jjkgRDud");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+
 .text {
-  position: relative;
+  position: relative; 
+  color: black; 
+  //-webkit-text-stroke: 0.3px white;
+  font-weight: bold;
+  text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white;
 
   @media (max-width: 1024px) {
     text-align: center;

@@ -1,13 +1,17 @@
 import React, { useState, useEffect, useRef } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Header from "components/header/Header";
 import Chat from "../../components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import styles from "./DishDetails.module.scss";
 import DishService from "lib/api/DishService";
+import CartService from "lib/api/CartService";
+import Authentication from "lib/api/Authentication";
 
 const image1 = "https://picsum.photos/2000/1200";
 const DishDetails = () => {
+  let navigate = useNavigate();
+
   const dish = useParams();
   const [dishDescription, setDishDescription] = useState();
   const [dishImage, setDishImage] = useState();
@@ -17,6 +21,7 @@ const DishDetails = () => {
   const [mount, setMount] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
   useEffect(() => {
+    window.scrollTo(0, 0);
     DishService.findDish(dish.dishNumber).then((response) => {
       setDishDescription(response.data.data.dishDescription);
       setDishImage(response.data.data.dishPhoto);
@@ -28,13 +33,32 @@ const DishDetails = () => {
       setTimeout(() => setIsVisible(true), 1000);
     });
   }, []);
+
+  function onClickAddCart(dishNumber) {
+    if(Authentication.isUserLoggedIn()){
+      CartService.addCartDish(dishNumber, 1)
+        .then(() => {
+          if(window.confirm("장바구니에 추가되었습니다. 이동하시겠습니까?")){
+            navigate("/cart");
+          }
+        })
+        .catch((error) => {
+          console.log(error.response);
+          alert("장바구니에 추가되지 못하였습니다. 잠시후 다시 시도해 주세요.");
+        });
+    } else {
+      alert("로그인이 필요합니다.");
+      navigate("/login");
+    }
+  }
+
   return (
     <div id={styles.DishDetailPage}>
       <Header />
       <main className={styles.container}>
         <div className={styles.dishCategory}><h2>{dishCategory}</h2></div>
         {mount ? 
-          <div className={styles.dishDetails} style={{backgroundImage: `url(${image1})`}}>
+          <div className={styles.dishDetails} style={{backgroundImage: `url(${dishImage})`, backgroundSize: "100% 100%"}}>
           {/* <div className={styles.dish} data-aos="zoom-in" style={`background-image: ${dishImage};`}> */}
             <div className={`${styles.dishDescriptionBox} ${isVisible ? styles.slideInRight : null}`}>
               <div className={styles.dishDescription}>
@@ -102,14 +126,14 @@ const DishDetails = () => {
                 </div>
                 <p className={styles.dishPrice}>{dishPrice.toLocaleString('ko-KR')}원</p>
               </div>
+              <div className={styles.toBtn}>
+                <ul>
+                  <Link to="/SelectRoom"><li className={styles.btnReservation}>식당 예약하기</li></Link>
+                  <li className={styles.btnCart}><button className={styles.btn} onClick={() => onClickAddCart(dish.dishNumber)}>장바구니에 담기</button></li>
+                </ul>
+              </div>
             </div>
           </div> : null }
-          <div className={styles.toBtn}>
-            <ul>
-              <Link to="/SelectRoom"><li className={styles.btnReservation}>식당 예약하기</li></Link>
-              <Link to=""> <li className={styles.btnCart}>장바구니에 담기</li></Link>
-            </ul>
-          </div>
       </main>
       <Chat />
       <Footer />
