@@ -6,12 +6,12 @@ import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import RoomService from "lib/api/RoomService";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
-//import SubmitBtn from "../../components/<컴포넌트명>";
+import ModalWindow from "components/Modal/ModalWindow";
 
 var seatStatus = [
   { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
@@ -35,20 +35,18 @@ var personnelStatus = [
 // 1. 현재 시간(Locale)
 const curr = new Date();
 // 2. UTC 시간 계산
-const utc = 
-      curr.getTime() + 
-      (curr.getTimezoneOffset() * 60 * 1000);
+const utc = curr.getTime() + curr.getTimezoneOffset() * 60 * 1000;
 
 // 3. UTC to KST (UTC + 9시간)
 const KR_TIME_DIFF = 9 * 60 * 60 * 1000;
-function setToday(){
+function setToday() {
   //오늘 날짜 반환(+ YYYY-MM-DD fomating)
-  return new Date(utc + (KR_TIME_DIFF)).toISOString().split("T")[0];
+  return new Date(utc + KR_TIME_DIFF).toISOString().split("T")[0];
 }
-function setMaxDay(){
-  let date = new Date(utc + (KR_TIME_DIFF))
-  var maxDate = new Date(date.setMonth(date.getMonth()+1));
-  return maxDate.toISOString().split("T")[0]
+function setMaxDay() {
+  let date = new Date(utc + KR_TIME_DIFF);
+  var maxDate = new Date(date.setMonth(date.getMonth() + 1));
+  return maxDate.toISOString().split("T")[0];
 }
 function RemainingSeatsByDate(data, date) {
   //날짜 선택했을 때 남은 좌석을 검사하는 함수
@@ -66,14 +64,14 @@ function RemainingSeatsByDate(data, date) {
       //     "," +
       //     res[i].roomRemaining
       // );
-      if(date == setToday()){
-        if(obj.value.split(":")[0] <= new Date(utc + (KR_TIME_DIFF)).getHours())
+      if (date == setToday()) {
+        if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
           obj.isDisabled = true;
-          //continue  //map에는 continue 없음..
-      }else{
+        //continue  //map에는 continue 없음..
+      } else {
         obj.isDisabled = false;
       }
-      if(data[i].roomRemaining != 15 ){
+      if (data[i].roomRemaining != 15) {
         if (obj.label === data[i].reservationTime) {
           //배열에서 같은 시간대를 찾고
           if (obj.remain > data[i].roomRemaining) {
@@ -116,61 +114,40 @@ function RemainingSeatsByTime(time) {
 }
 const SelectMore = () => {
   const roomParams = useParams(); //url에서 파라미터 가져오기
-
-  const [userName, setUserName] = useState();
-  const [userPhoneNumber, setUserPhoneNumber] = useState();
-  const [userRequest, setUserRequest] = useState("");
-
-  const [date, setDate] = useState(setToday);
+  const [form, setForm] = useState({
+    userName: "",
+    userPhoneNumber: "",
+    userRequest: "",
+  });
+  const { userName, userPhoneNumber, userRequest } = form;
+  const [date, setDate] = useState();
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
   const navigate = useNavigate();
-
-  //모달 창
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  // useEffect(() => {//해당 방의 모든 예약을 불러옴
-  //   RoomService.findWithRoomNumber(roomParams.roomNumber).then((response) => {
-  //     // console.log(response);
-  //     setRoomStatus(response.data);
-  //     setIsLoading(false);
-  //   });
-  // }, []);
-
   useEffect(() => {
     //페이지 첫 로드 시, 모달 창 열림->개인 정보 입력
     handleShow();
   }, []);
-  const onChangeFormName = (e) => {
-    console.log(e.target.value === null);
-    setUserName(e.target.value);
-  };
-  const onChangeFormPhoneNumber = (e) => {
-    setUserPhoneNumber(e.target.value);
-  };
-  const onChangeFormRequest = (e) => {
-    setUserRequest(e.target.value);
-  };
-
   const onChangeDate = (e) => {
     setDate(e.target.value);
   };
   useEffect(() => {
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date)
-    .then((response) => {
-        if(response.data.data.roomStatus.length === 0){
-          RemainingSeatsByDate([{roomRemaining:15}], date);
+      .then((response) => {
+        if (response.data.data.roomStatus.length === 0) {
+          RemainingSeatsByDate([{ roomRemaining: 15 }], date);
         } else {
           //날짜 선택했을 때 남은 좌석을 검사하는 함수
           RemainingSeatsByDate(response.data.data.roomStatus, date);
         }
-      }
-    )
-    .catch(() => {
-      RemainingSeatsByDate([{roomRemaining:15}], date);
-    });
+      })
+      .catch(() => {
+        RemainingSeatsByDate([{ roomRemaining: 15 }], date);
+      });
   }, [date]);
   const onChangeTime = (e) => {
     // console.log(e);
@@ -183,6 +160,7 @@ const SelectMore = () => {
   const onChangePersonnel = (e) => {
     setTableCnt(Number(e.value));
   };
+
   function SubmitReservationForm() {
     if (date === undefined) alert("날짜를 선택해주세요");
     if (time === undefined) alert("시간을 선택해주세요");
@@ -203,8 +181,8 @@ const SelectMore = () => {
           ReservationService.createReservation(
             date,
             userName, //성명
-            userPhoneNumber, //예약자 연락처
-            userRequest, // 요청사항
+            userPhoneNumber, //예약자 연락처,
+            userRequest,
             Number(roomParams.roomNumber),
             tableCnt,
             time
@@ -240,7 +218,13 @@ const SelectMore = () => {
           </header>
           <div className={styles.reservationFormBox}>
             <form>
-              <input type="date" defaultValue={setToday()} min={setToday()} max={setMaxDay()} onChange={onChangeDate} />
+              <input
+                type="date"
+                defaultValue={setToday()}
+                min={setToday()}
+                max={setMaxDay()}
+                onChange={onChangeDate}
+              />
               <Select
                 options={seatStatus}
                 Disabled={(seatStatus) => seatStatus.isDisabled}
@@ -262,7 +246,13 @@ const SelectMore = () => {
           </div>
         </div>
       </main>
-      <Modal show={show} onHide={handleClose}>
+      <ModalWindow
+        form={form}
+        setForm={setForm}
+        show={show}
+        handleClose={handleClose}
+      />
+      {/* <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>예약자 정보 입력</Modal.Title>
         </Modal.Header>
@@ -273,22 +263,27 @@ const SelectMore = () => {
               <Form.Control
                 type="text"
                 autoFocus
-                onChange={onChangeFormName}
+                onChange={onHandleChangeUserInfo}
+                name="userName"
                 maxLength={12}
               />
             </Form.Group>
             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
               <Form.Label>연락처</Form.Label>
-              <Form.Control type="text" onChange={onChangeFormPhoneNumber} />
+              <Form.Control
+                type="text"
+                onChange={onHandleChangeUserInfo}
+                name="userPhoneNumber"
+              />
             </Form.Group>
             <Form.Group
               className="mb-3"
               controlId="exampleForm.ControlTextarea1"
             >
-              <Form.Label>
-                요청사항을 입력해주세요
-              </Form.Label>
-              <Form.Control  onChange={onChangeFormRequest}
+              <Form.Label>요청사항을 입력해주세요</Form.Label>
+              <Form.Control
+                onChange={onHandleChangeUserInfo}
+                name="userRequest"
                 as="textarea"
                 rows={3}
                 maxLength={100}
@@ -305,7 +300,7 @@ const SelectMore = () => {
             제출하기
           </Button>
         </Modal.Footer>
-      </Modal>
+      </Modal> */}
       <Chat />
       <Footer />
     </div>
