@@ -155,6 +155,7 @@ const Order = () => {
 
   useEffect(() => {
     setOrderQuantity(1);
+    setDisable(true);
   }, [modalIsOpen]);
 
   function handleChangeQuantity(count) {
