@@ -18,7 +18,6 @@ class AdminComment {
     );
   }
   findComment(questionNumber) {
-    Authentication.setupAxiosInterceptors();
     return axios.get(
       USER_API_BASE_URL + "/find/" + questionNumber,
       JSON.stringify(),

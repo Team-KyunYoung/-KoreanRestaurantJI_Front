@@ -9,6 +9,7 @@ import uniqueStyles from "./CreateQnA.module.scss";
 import UserService from "lib/api/UserService";
 import Question from "lib/api/Question";
 import AdminComment from "lib/api/AdminComment";
+import Authentication from "lib/api/Authentication";
 
 const QnADetails = () => {
   const [data, setData] = useState();
@@ -30,6 +31,7 @@ const QnADetails = () => {
   const navigate = useNavigate();
   console.log(param.number);
   useEffect(() => {
+    if(Authentication.isUserLoggedIn()){
     UserService.findUser()
       .then((res) => {
         if (param.isPrivate === "true") {
@@ -89,6 +91,30 @@ const QnADetails = () => {
       .catch((error) => {
         console.log(error);
       });
+    } else {
+      if (param.isPrivate === "true") {
+          alert("작성자만 조회할 수 있습니다.");
+          navigate("/QnABoard");
+      } else {
+        Question.findPublicQnAAnswer(Number(param.number))
+          .then((response) => {
+            setData(response.data.data);
+            setIsLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+
+        AdminComment.findComment(Number(param.number))
+          .then((response) => {
+            setCommentList(response.data.data);
+            setCommentLoading(false);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    }
   }, []);
   const requestEdit = (e) => {
     //수정하기 버튼 : input의 disabled 해제
