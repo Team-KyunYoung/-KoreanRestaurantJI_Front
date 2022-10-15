@@ -21,7 +21,7 @@ function RoomContent(data) {
             data.data[i].roomName
           }
         >
-          <img src="https://picsum.photos/300/600" alt="room1" />
+          <img src={data.data[i].roomImg} alt="room1" />
           <h3>{data.data[i].roomName}</h3>
           {/* <p>마우스를 올려보세요</p>
     <button type="submit">예약하기</button> */}
@@ -48,7 +48,7 @@ const SelectRoom = () => {
       <main>
         <div className={styles.container}>
           <header>
-            <h1>reservation</h1>
+            <h1>Reservation</h1>
             <p>
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry.
