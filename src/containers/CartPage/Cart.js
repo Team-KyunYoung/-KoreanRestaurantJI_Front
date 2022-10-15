@@ -102,13 +102,17 @@ const Cart = () => {
   }
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false); // 주문 성공시 모달창
   function handleOrderClick() {
-    OrderService.addCarttoOrder(dishOrderList)
-      .then((response) => {
-        setSuccessModalIsOpen(true);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    if(dishOrderList.length !== 0){
+      OrderService.addCarttoOrder(dishOrderList)
+        .then((response) => {
+          setSuccessModalIsOpen(true);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    } else {
+      alert("장바구니가 비어있습니다.");
+    }
   }
 
   function cartQuantityPriceCheck(cartNumber) {
