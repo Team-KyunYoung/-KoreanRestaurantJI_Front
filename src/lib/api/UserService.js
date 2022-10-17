@@ -144,7 +144,7 @@ class UserService {
       {
         headers: {
           "Content-Type": `application/json`,
-          "X-AUTH-TOKEN": localStorage.getItem("token"),
+          // "X-AUTH-TOKEN": localStorage.getItem("token"),
         },
       }
     );
