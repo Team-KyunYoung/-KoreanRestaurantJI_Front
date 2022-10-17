@@ -69,7 +69,7 @@ function RemainingSeatsByDate(data, date) {
           obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
-        obj.isDisabled = false;
+        //obj.isDisabled = false;
       }
       if (data[i].roomRemaining != 15) {
         if (obj.label === data[i].reservationTime) {
@@ -135,6 +135,22 @@ const SelectMore = () => {
     setDate(e.target.value);
   };
   useEffect(() => {
+    seatStatus = [
+      { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
+      { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
+      { value: "13:00", label: "13:00", remain: 15, isDisabled: false },
+      { value: "14:00", label: "14:00", remain: 15, isDisabled: false },
+      { value: "15:00", label: "15:00", remain: 15, isDisabled: false },
+      { value: "16:00", label: "16:00", remain: 15, isDisabled: false },
+      { value: "17:00", label: "17:00", remain: 15, isDisabled: false },
+      { value: "18:00", label: "18:00", remain: 15, isDisabled: false },
+      { value: "19:00", label: "19:00", remain: 15, isDisabled: false },
+      { value: "20:00", label: "20:00", remain: 15, isDisabled: false },
+      { value: "21:00", label: "21:00", remain: 15, isDisabled: false },
+    ];
+    personnelStatus.map((personnelObj) => {
+      personnelObj.isDisabled = false;
+    });
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date)
       .then((response) => {
@@ -148,14 +164,20 @@ const SelectMore = () => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], date);
       });
+    console.log({ seatStatus });
+    console.log({ personnelStatus });
   }, [date]);
   const onChangeTime = (e) => {
+    personnelStatus.map((personnelObj) => {
+      personnelObj.isDisabled = false;
+    });
     // console.log(e);
     setTime(e.value.toString());
     console.log(time);
   };
   useEffect(() => {
     RemainingSeatsByTime(time);
+    console.log({ personnelStatus });
   }, [time]);
   const onChangePersonnel = (e) => {
     setTableCnt(Number(e.value));
@@ -252,55 +274,6 @@ const SelectMore = () => {
         show={show}
         handleClose={handleClose}
       />
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>예약자 정보 입력</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>성명</Form.Label>
-              <Form.Control
-                type="text"
-                autoFocus
-                onChange={onHandleChangeUserInfo}
-                name="userName"
-                maxLength={12}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>연락처</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={onHandleChangeUserInfo}
-                name="userPhoneNumber"
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>요청사항을 입력해주세요</Form.Label>
-              <Form.Control
-                onChange={onHandleChangeUserInfo}
-                name="userRequest"
-                as="textarea"
-                rows={3}
-                maxLength={100}
-                placeholder="(ex. 알러지 정보, 아기 식사)"
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            닫기
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            제출하기
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
       <Chat />
       <Footer />
     </div>
