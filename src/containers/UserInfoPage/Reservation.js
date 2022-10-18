@@ -98,20 +98,18 @@ const Reservation = (props) => {
   // const handleClose = () => setShow(false);
   console.log({ data });
   const handleClose = (e) => {
-    var count;
     console.log(data);
-    alert(data);
-    if (data.reservationHeadCount === "2~4인") count = 1;
-    else if (data.reservationHeadCount === "5~8인") count = 2;
-    else if (data.reservationHeadCount === "9~12인") count = 3;
-    console.log(data.reservationDate);
+    // if (data.reservationHeadCount === "2~4인") count = 1;
+    // else if (data.reservationHeadCount === "5~8인") count = 2;
+    // else if (data.reservationHeadCount === "9~12인") count = 3;
+    // console.log(data.reservationDate);
     ReservationService.updateReservation(
       data.reservationDate,
       data.reservationName, //성명
       data.reservationPhoneNumber, //예약자 연락처,
       data.reservationRequest,
       data.reservationRoomName,
-      count,
+      data.reservationHeadCount,
       data.reservationTime,
       data.reservationNumber
     );

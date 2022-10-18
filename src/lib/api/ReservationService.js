@@ -88,6 +88,7 @@ class ReservationService {
       reservationTableCount: tableCount,
       reservationTime: time,
     };
+    alert(name);
     console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.put(
