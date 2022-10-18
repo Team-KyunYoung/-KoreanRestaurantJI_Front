@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
+import Select from "react-select";
 import RoomService from "lib/api/RoomService";
 import "./Modal.module.scss";
 var seatStatus = [
@@ -51,7 +52,7 @@ function RemainingSeatsByDate(data, date) {
           obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
-        // obj.isDisabled = false;
+        obj.isDisabled = false;
       }
       if (data[i].roomRemaining !== 15) {
         if (obj.label === data[i].reservationTime) {
@@ -102,6 +103,20 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
     console.log(nextForm);
     setData(nextForm);
   }
+  const onChangePersonnel = (e) => {
+    setData({
+      ...data,
+      reservationHeadCount: Number(e.value),
+    });
+  };
+  console.log(data.reservationHeadCount);
+
+  const onChangeTime = (e) => {
+    setData({
+      ...data,
+      reservationTime: e.value.toString(),
+    });
+  };
   const [roomRes, setRoomRes] = useState([]);
   const [roomNum, setRoomNum] = useState();
 
@@ -119,22 +134,6 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
     });
   }, [data.reservationRoomName]);
   useEffect(() => {
-    seatStatus = [
-      { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
-      { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
-      { value: "13:00", label: "13:00", remain: 15, isDisabled: false },
-      { value: "14:00", label: "14:00", remain: 15, isDisabled: false },
-      { value: "15:00", label: "15:00", remain: 15, isDisabled: false },
-      { value: "16:00", label: "16:00", remain: 15, isDisabled: false },
-      { value: "17:00", label: "17:00", remain: 15, isDisabled: false },
-      { value: "18:00", label: "18:00", remain: 15, isDisabled: false },
-      { value: "19:00", label: "19:00", remain: 15, isDisabled: false },
-      { value: "20:00", label: "20:00", remain: 15, isDisabled: false },
-      { value: "21:00", label: "21:00", remain: 15, isDisabled: false },
-    ];
-    personnelStatus.map((personnelObj) => {
-      personnelObj.isDisabled = false;
-    });
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomNum, data.reservationDate)
       .then((response) => {
@@ -152,7 +151,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
       });
     console.log({ seatStatus });
-  }, [roomNum, data.reservationDate]);
+  }, [data.reservationDate]);
   useEffect(() => {
     personnelStatus.map((personnelObj) => {
       personnelObj.isDisabled = false;
@@ -176,10 +175,11 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
                 onChange={onHandleChangeUserInfo}
                 name="reservationRoomName"
               >
-                {roomRes.map((obj) => (
+                {roomRes.map((obj, i) => (
                   <option
+                    key={i}
                     value={obj.roomName}
-                    selected={data.reservationRoomName === obj.roomName}
+                    defaultValue={data.reservationRoomName === obj.roomName}
                   >
                     {obj.roomName}
                   </option>
@@ -198,7 +198,15 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>시간</Form.Label>
-            <select name="reservationTime" onChange={onHandleChangeUserInfo}>
+
+            <Select
+              options={seatStatus}
+              Disabled={(seatStatus) => seatStatus.isDisabled}
+              onChange={onChangeTime}
+              placeholder="시간"
+              name="reservationTime"
+            ></Select>
+            {/* <select name="reservationTime" onChange={onHandleChangeUserInfo}>
               {seatStatus.map((obj) => (
                 <option
                   value={obj.value}
@@ -207,14 +215,21 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
                   name="reservationTime"
                 >
                   {obj.label}
-                  {/* {data.reservationHeadCount === obj.label ? "참" : "거"} */}
                 </option>
               ))}
-            </select>
+            </select> */}
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>인원</Form.Label>
-            <select
+
+            <Select
+              options={personnelStatus}
+              Disabled={(personnelStatus) => personnelStatus.isDisabled}
+              placeholder="인원"
+              onChange={onChangePersonnel}
+              name="reservationHeadCount"
+            ></Select>
+            {/* <select
               name="reservationHeadCount"
               onChange={onHandleChangeUserInfo}
             >
@@ -228,7 +243,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
                   {obj.label}
                 </option>
               ))}
-            </select>
+            </select> */}
           </Form.Group>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
             <Form.Label>예약자명</Form.Label>

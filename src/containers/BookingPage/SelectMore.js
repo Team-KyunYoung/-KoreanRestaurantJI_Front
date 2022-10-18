@@ -55,23 +55,14 @@ function RemainingSeatsByDate(data, date) {
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < data.length; i++) {
     seatStatus.map((obj) => {
-      // console.log(
-      //   obj.label +
-      //     "," +
-      //     res[i].reservationTime +
-      //     "," +
-      //     obj.remain +
-      //     "," +
-      //     res[i].roomRemaining
-      // );
-      if (date == setToday()) {
+      if (date === setToday()) {
         if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
           obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
-        //obj.isDisabled = false;
+        obj.isDisabled = false;
       }
-      if (data[i].roomRemaining != 15) {
+      if (data[i].roomRemaining !== 15) {
         if (obj.label === data[i].reservationTime) {
           //배열에서 같은 시간대를 찾고
           if (obj.remain > data[i].roomRemaining) {
@@ -84,10 +75,9 @@ function RemainingSeatsByDate(data, date) {
             obj.isDisabled = true;
           }
         }
+      } else {
+        obj.isDisabled = false;
       }
-      // $("select option[value*='volvo']").prop('disabled',true);
-      // {option[value="11o"].prop('disabled',true);}
-      // console.log(seat);
     });
   }
 }
@@ -135,22 +125,6 @@ const SelectMore = () => {
     setDate(e.target.value);
   };
   useEffect(() => {
-    seatStatus = [
-      { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
-      { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
-      { value: "13:00", label: "13:00", remain: 15, isDisabled: false },
-      { value: "14:00", label: "14:00", remain: 15, isDisabled: false },
-      { value: "15:00", label: "15:00", remain: 15, isDisabled: false },
-      { value: "16:00", label: "16:00", remain: 15, isDisabled: false },
-      { value: "17:00", label: "17:00", remain: 15, isDisabled: false },
-      { value: "18:00", label: "18:00", remain: 15, isDisabled: false },
-      { value: "19:00", label: "19:00", remain: 15, isDisabled: false },
-      { value: "20:00", label: "20:00", remain: 15, isDisabled: false },
-      { value: "21:00", label: "21:00", remain: 15, isDisabled: false },
-    ];
-    personnelStatus.map((personnelObj) => {
-      personnelObj.isDisabled = false;
-    });
     //date가 바뀔 때만 검사
     RoomService.findWithRoomNumberAndDate(roomParams.roomNumber, date)
       .then((response) => {
