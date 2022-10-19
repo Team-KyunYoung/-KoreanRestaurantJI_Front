@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import styles from "./UserInfo.module.scss";
+import ModalWindow from "components/Modal/ModalForRecession";
 
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
@@ -13,6 +14,7 @@ function EditProfile() {
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const [nicknameMessage, setNicknameMessage] = useState("");
   const [userExistingPassword, setUserExistingPassword] = useState("");
+  const [password, setPassword] = useState("");
   const [userPassword, setUserPassword] = useState("");
   const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
@@ -86,8 +88,11 @@ function EditProfile() {
     setUserPasswordConfirm(e.target.value);
     setVisiblePpwwMessage(true);
   };
-  const onClickSecession = (e) => {
-    var password = window.prompt("비밀번호를 입력하세요");
+  const [show, setShow] = useState(false);
+  // const handleClose = () => setShow(false);
+
+  const handleClose = (e) => {
+    console.log(password);
     UserService.verifyUserPassword(password)
       .then((response) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
@@ -106,8 +111,13 @@ function EditProfile() {
         }
       })
       .catch((error) => {
-        alert("비밀번호가 틀렸습니다.");
+        console.log(error);
       });
+    setShow(false);
+  };
+  const onClickSecession = (e) => {
+    setShow(true);
+    console.log("open");
   };
   useEffect(() => {
     const passwordRegex =
@@ -255,9 +265,20 @@ function EditProfile() {
             {visiblePpwwMessage && <p>일치하지 않는 비밀번호입니다</p>}
           </div>
           <div className={styles.secession}>
-            <button onClick={onClickSecession}>탈퇴하기</button>
+            <button type="button" onClick={onClickSecession}>
+              탈퇴하기
+            </button>
           </div>
         </div>
+        {show ? (
+          <ModalWindow
+            setPassword={setPassword}
+            show={show}
+            handleClose={handleClose}
+          />
+        ) : (
+          ""
+        )}
       </form>
     </>
   );
