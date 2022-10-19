@@ -9,18 +9,25 @@ import Authentication from "lib/api/Authentication";
 
 function EditProfile() {
   const [user, setUser] = useState([]);
-  const [userNickname, setUserNickname] = useState("");
-  const [isClickedNickname, setIsClickedNickname] = useState(false);
   const [isUsableNickname, setIsUsableNickname] = useState(false);
   const [nicknameMessage, setNicknameMessage] = useState("");
-  const [userExistingPassword, setUserExistingPassword] = useState("");
   const [password, setPassword] = useState("");
-  const [userPassword, setUserPassword] = useState("");
-  const [userPasswordConfirm, setUserPasswordConfirm] = useState("");
   const [visiblePwMessage, setVisiblePwMessage] = useState(false);
   const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
   const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] =
     useState(true);
+  const [info, setInfo] = useState({
+    userNickname: "",
+    userExistingPassword: "",
+    userPassword: "",
+    userPasswordConfirm: "",
+  });
+  const {
+    userNickname,
+    userExistingPassword,
+    userPassword,
+    userPasswordConfirm,
+  } = info;
   useEffect(() => {
     UserService.findUser()
       .then((response) => {
@@ -31,40 +38,28 @@ function EditProfile() {
         console.log(error.response);
       });
   }, []);
-
-  const onChangeNickname = (e) => {
-    setUserNickname(e.target.value);
-  };
-  const onClickNickname = () => {
-    setIsClickedNickname(true);
-  };
   useEffect(() => {
-    if (isClickedNickname === true) {
-      //닉네임 input에 focus되었을 때만 아래를 수행함
-      UserServices.checknickname(userNickname)
-        .then((res) => res.json())
-        .then((json) => {
-          console.log(json);
-          //json에서 받아온 값이
-          if (userNickname.length !== 0 && userNickname.length <= 12) {
-            setNicknameMessage(json.message);
-            console.log(json.data.status);
-            if (json.data.status === "OK") {
-              setIsUsableNickname(true);
-              setNicknameMessage("사용 가능한 닉네임입니다.");
-            } else {
-              setNicknameMessage("이미 존재하는 닉네임입니다.");
-            }
+    //닉네임 input에 focus되었을 때만 아래를 수행함
+    UserServices.checknickname(userNickname)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log(json);
+        //json에서 받아온 값이
+        if (userNickname.length !== 0 && userNickname.length <= 12) {
+          setNicknameMessage(json.message);
+          console.log(json.data.status);
+          if (json.data.status === "OK") {
+            setIsUsableNickname(true);
+            setNicknameMessage("사용 가능한 닉네임입니다.");
           } else {
-            setNicknameMessage("");
+            setNicknameMessage("이미 존재하는 닉네임입니다.");
           }
-        })
-        .catch(() => {});
-    }
-  });
-  const onClickPassword = () => {
-    setIsClickedNickname(false);
-  };
+        } else {
+          setNicknameMessage("");
+        }
+      })
+      .catch(() => {});
+  }, [userNickname]);
   const onClickCheckExistingPassword = () => {
     console.log(userExistingPassword);
     UserService.verifyUserPassword(userExistingPassword)
@@ -77,16 +72,20 @@ function EditProfile() {
         alert("비밀번호가 틀렸습니다.");
       });
   };
-  const onChangeExistingPassword = (e) => {
-    setUserExistingPassword(e.target.value);
-  };
-  const onChangePassword = (e) => {
-    setUserPassword(e.target.value);
-    setVisiblePwMessage(true);
-  };
-  const onChangePasswordConfirm = (e) => {
-    setUserPasswordConfirm(e.target.value);
-    setVisiblePpwwMessage(true);
+  const onChangeInfo = (e) => {
+    setInfo({
+      ...info,
+      [e.target.name]: e.target.value,
+    });
+    // eslint-disable-next-line default-case
+    switch (e.target.name) {
+      case "userPassword":
+        setVisiblePwMessage(true);
+        break;
+      case "userPasswordConfirm":
+        setVisiblePpwwMessage(true);
+        break;
+    }
   };
   const [show, setShow] = useState(false);
   // const handleClose = () => setShow(false);
@@ -97,7 +96,7 @@ function EditProfile() {
       .then((response) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
           UserService.deleteUser()
-            .then(() => {
+            .then((res) => {
               alert("탈퇴 완료");
               Authentication.logout();
               document.location.href = "/";
@@ -189,8 +188,7 @@ function EditProfile() {
               id="userNickname"
               name="userNickname"
               placeholder={user.userNickname}
-              onChange={onChangeNickname}
-              onClick={onClickNickname}
+              onChange={onChangeInfo}
               maxLength="12"
             />
             <button
@@ -205,12 +203,12 @@ function EditProfile() {
           </div>
           <div className={styles.inputPassword}>
             <input
-              id="userPassword"
-              name="userPassword"
+              id="userExistingPassword"
+              name="userExistingPassword"
               placeholder="기존 비밀번호를 입력해주세요"
               type="password"
               autoComplete="on"
-              onChange={onChangeExistingPassword}
+              onChange={onChangeInfo}
               maxLength="25"
             />
 
@@ -231,9 +229,7 @@ function EditProfile() {
               placeholder="새 비밀번호를 입력해주세요"
               type="password"
               autoComplete="on"
-              onChange={onChangePassword}
-              onClick={onClickPassword}
-              // onClick={handleChangePassword}
+              onChange={onChangeInfo}
               disabled={isDisabledPasswordConfirm}
               maxLength="25"
             />
@@ -248,8 +244,7 @@ function EditProfile() {
               placeholder="비밀번호 확인"
               type="password"
               autoComplete="on"
-              onChange={onChangePasswordConfirm}
-              // onClick={handleChangePassword}
+              onChange={onChangeInfo}
               disabled={isDisabledPasswordConfirm}
               maxLength="25"
             />

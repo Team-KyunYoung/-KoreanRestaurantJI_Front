@@ -152,7 +152,7 @@ class UserService {
 
   deleteUser() {
     Authentication.setupAxiosInterceptors();
-    axios.delete(USER_API_BASE_URL + "/delete", {
+    return axios.delete(USER_API_BASE_URL + "/delete", {
       headers: {
         "Content-Type": `application/json`,
       },
