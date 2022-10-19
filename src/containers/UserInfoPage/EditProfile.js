@@ -87,20 +87,18 @@ function EditProfile() {
     setVisiblePpwwMessage(true);
   };
   const onClickSecession = (e) => {
-    var password = prompt("비밀번호를 입력하세요");
-    console.log(password);
+    var password = window.prompt("비밀번호를 입력하세요");
     UserService.verifyUserPassword(password)
       .then((response) => {
         if (window.confirm("정말로 삭제하시겠습니까?")) {
-          alert("d");
           UserService.deleteUser()
-
             .then(() => {
               alert("탈퇴 완료");
               Authentication.logout();
               document.location.href = "/";
             })
             .catch((error) => {
+              alert(error.response);
               console.log(error.response);
             });
         } else {

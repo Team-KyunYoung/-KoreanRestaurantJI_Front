@@ -55,23 +55,14 @@ function RemainingSeatsByDate(data, date) {
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < data.length; i++) {
     seatStatus.map((obj) => {
-      // console.log(
-      //   obj.label +
-      //     "," +
-      //     res[i].reservationTime +
-      //     "," +
-      //     obj.remain +
-      //     "," +
-      //     res[i].roomRemaining
-      // );
-      if (date == setToday()) {
+      if (date === setToday()) {
         if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
           obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
         obj.isDisabled = false;
       }
-      if (data[i].roomRemaining != 15) {
+      if (data[i].roomRemaining !== 15) {
         if (obj.label === data[i].reservationTime) {
           //배열에서 같은 시간대를 찾고
           if (obj.remain > data[i].roomRemaining) {
@@ -84,10 +75,9 @@ function RemainingSeatsByDate(data, date) {
             obj.isDisabled = true;
           }
         }
+      } else {
+        obj.isDisabled = false;
       }
-      // $("select option[value*='volvo']").prop('disabled',true);
-      // {option[value="11o"].prop('disabled',true);}
-      // console.log(seat);
     });
   }
 }
@@ -148,14 +138,20 @@ const SelectMore = () => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], date);
       });
+    console.log({ seatStatus });
+    console.log({ personnelStatus });
   }, [date]);
   const onChangeTime = (e) => {
+    personnelStatus.map((personnelObj) => {
+      personnelObj.isDisabled = false;
+    });
     // console.log(e);
     setTime(e.value.toString());
     console.log(time);
   };
   useEffect(() => {
     RemainingSeatsByTime(time);
+    console.log({ personnelStatus });
   }, [time]);
   const onChangePersonnel = (e) => {
     setTableCnt(Number(e.value));
@@ -252,55 +248,6 @@ const SelectMore = () => {
         show={show}
         handleClose={handleClose}
       />
-      {/* <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>예약자 정보 입력</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>성명</Form.Label>
-              <Form.Control
-                type="text"
-                autoFocus
-                onChange={onHandleChangeUserInfo}
-                name="userName"
-                maxLength={12}
-              />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-              <Form.Label>연락처</Form.Label>
-              <Form.Control
-                type="text"
-                onChange={onHandleChangeUserInfo}
-                name="userPhoneNumber"
-              />
-            </Form.Group>
-            <Form.Group
-              className="mb-3"
-              controlId="exampleForm.ControlTextarea1"
-            >
-              <Form.Label>요청사항을 입력해주세요</Form.Label>
-              <Form.Control
-                onChange={onHandleChangeUserInfo}
-                name="userRequest"
-                as="textarea"
-                rows={3}
-                maxLength={100}
-                placeholder="(ex. 알러지 정보, 아기 식사)"
-              />
-            </Form.Group>
-          </Form>
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            닫기
-          </Button>
-          <Button variant="primary" onClick={handleClose}>
-            제출하기
-          </Button>
-        </Modal.Footer>
-      </Modal> */}
       <Chat />
       <Footer />
     </div>

@@ -4,7 +4,7 @@ import styles from "./UserInfo.module.scss";
 import Page from "../../components/Pagination/Pagination";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
-import ModalWindow from "components/Modal/ModalWindow";
+import ModalWindow from "components/Modal/ModalForModify";
 
 const image1 = "https://picsum.photos/800/600";
 
@@ -14,7 +14,6 @@ function ReservationInnerPage(props) {
     console.log(e.target.value);
     props.setData(JSON.parse(e.target.value));
   };
-  console.log(props.data);
 
   const onClickDeleteReservation = (e) => {
     console.log(e.target.value);
@@ -94,32 +93,23 @@ const Reservation = (props) => {
   const [list, setList] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [form, setForm] = useState({
-    userName: "",
-    userPhoneNumber: "",
-    userRequest: "",
-  });
-  const { userName, userPhoneNumber, userRequest } = form;
-
   const [data, setData] = useState();
   const [show, setShow] = useState(false);
   // const handleClose = () => setShow(false);
   console.log({ data });
   const handleClose = (e) => {
-    var count;
     console.log(data);
-    alert(data);
-    if (data.reservationHeadCount === "2~4인") count = 1;
-    else if (data.reservationHeadCount === "5~8인") count = 2;
-    else if (data.reservationHeadCount === "9~12인") count = 3;
-    console.log(data.reservationDate);
+    // if (data.reservationHeadCount === "2~4인") count = 1;
+    // else if (data.reservationHeadCount === "5~8인") count = 2;
+    // else if (data.reservationHeadCount === "9~12인") count = 3;
+    // console.log(data.reservationDate);
     ReservationService.updateReservation(
       data.reservationDate,
-      userName, //성명
-      userPhoneNumber, //예약자 연락처,
-      userRequest,
+      data.reservationName, //성명
+      data.reservationPhoneNumber, //예약자 연락처,
+      data.reservationRequest,
       data.reservationRoomName,
-      count,
+      data.reservationHeadCount,
       data.reservationTime,
       data.reservationNumber
     );
@@ -185,8 +175,6 @@ const Reservation = (props) => {
             date={today}
             showBtn={param.mode === "now"}
             setShow={setShow}
-            setForm={setForm}
-            form={form}
             handleClose={handleClose}
             data={data}
             setData={setData}
@@ -235,12 +223,16 @@ const Reservation = (props) => {
               <span>현재 예약</span>
             </Link>
           )}{" "}
-          <ModalWindow
-            form={form}
-            setForm={setForm}
-            show={show}
-            handleClose={handleClose}
-          />
+          {show ? (
+            <ModalWindow
+              show={show}
+              handleClose={handleClose}
+              data={data}
+              setData={setData}
+            />
+          ) : (
+            ""
+          )}
         </div>
       </div>
     </>
