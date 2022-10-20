@@ -9,13 +9,19 @@ import Authentication from "lib/api/Authentication";
 
 function EditProfile() {
   const [user, setUser] = useState([]);
-  const [isUsableNickname, setIsUsableNickname] = useState(false);
-  const [nicknameMessage, setNicknameMessage] = useState("");
   const [password, setPassword] = useState("");
-  const [visiblePwMessage, setVisiblePwMessage] = useState(false);
-  const [visiblePpwwMessage, setVisiblePpwwMessage] = useState(false);
-  const [isDisabledPasswordConfirm, setIsDisabledPasswordConfirm] =
-    useState(true);
+  const [message, setMessage] = useState({
+    nicknameMessage: "",
+    visiblePwMessage: false,
+    visiblePpwwMessage: false,
+    isDisabledPasswordConfirm: true,
+  });
+  const {
+    nicknameMessage,
+    visiblePwMessage,
+    visiblePpwwMessage,
+    isDisabledPasswordConfirm,
+  } = message;
   const [info, setInfo] = useState({
     userNickname: "",
     userExistingPassword: "",
@@ -38,40 +44,7 @@ function EditProfile() {
         console.log(error.response);
       });
   }, []);
-  useEffect(() => {
-    //닉네임 input에 focus되었을 때만 아래를 수행함
-    UserServices.checknickname(userNickname)
-      .then((res) => res.json())
-      .then((json) => {
-        console.log(json);
-        //json에서 받아온 값이
-        if (userNickname.length !== 0 && userNickname.length <= 12) {
-          setNicknameMessage(json.message);
-          console.log(json.data.status);
-          if (json.data.status === "OK") {
-            setIsUsableNickname(true);
-            setNicknameMessage("사용 가능한 닉네임입니다.");
-          } else {
-            setNicknameMessage("이미 존재하는 닉네임입니다.");
-          }
-        } else {
-          setNicknameMessage("");
-        }
-      })
-      .catch(() => {});
-  }, [userNickname]);
-  const onClickCheckExistingPassword = () => {
-    console.log(userExistingPassword);
-    UserService.verifyUserPassword(userExistingPassword)
-      .then((response) => {
-        alert("올바른 비밀번호입니다.");
-        setIsDisabledPasswordConfirm(false);
-      })
-      .catch((error) => {
-        console.log(error.response);
-        alert("비밀번호가 틀렸습니다.");
-      });
-  };
+
   const onChangeInfo = (e) => {
     setInfo({
       ...info,
@@ -80,67 +53,61 @@ function EditProfile() {
     // eslint-disable-next-line default-case
     switch (e.target.name) {
       case "userPassword":
-        setVisiblePwMessage(true);
+        const passwordRegex =
+          /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
+        if (!passwordRegex.test(e.target.value)) {
+          setMessage({
+            ...message,
+            visiblePwMessage: true,
+          });
+        } else {
+          setMessage({
+            ...message,
+            visiblePwMessage: false,
+          });
+        }
         break;
       case "userPasswordConfirm":
-        setVisiblePpwwMessage(true);
+        setMessage({
+          ...message,
+          visiblePpwwMessage: true,
+        });
+        break;
+      case "userNickname":
+        UserServices.checknickname(e.target.value)
+          .then((res) => res.json())
+          .then((json) => {
+            console.log(json);
+            if (e.target.value.length !== 0 && e.target.value.length <= 12) {
+              setMessage({
+                ...message,
+                nicknameMessage: json.message,
+              });
+              console.log(json.data.status);
+              if (json.data.status === "OK") {
+                setMessage({
+                  ...message,
+                  nicknameMessage: "사용 가능한 닉네임입니다.",
+                });
+              } else {
+                setMessage({
+                  ...message,
+                  nicknameMessage: "이미 존재하는 닉네임입니다.",
+                });
+              }
+            } else {
+              setMessage({
+                ...message,
+                nicknameMessage: "",
+              });
+            }
+          })
+          .catch(() => {});
         break;
     }
   };
-  const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-
-  const handleClose = (e) => {
-    console.log(password);
-    UserService.verifyUserPassword(password)
-      .then((response) => {
-        if (window.confirm("정말로 삭제하시겠습니까?")) {
-          UserService.deleteUser()
-            .then((res) => {
-              alert("탈퇴 완료");
-              Authentication.logout();
-              document.location.href = "/";
-            })
-            .catch((error) => {
-              alert(error.response);
-              console.log(error.response);
-            });
-        } else {
-          alert("취소되었습니다.");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    setShow(false);
-  };
-  const onClickSecession = (e) => {
-    setShow(true);
-    console.log("open");
-  };
-  useEffect(() => {
-    const passwordRegex =
-      /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
-    if (!passwordRegex.test(userPassword)) {
-      console.log(userPassword);
-      console.log(passwordRegex.test(userPassword));
-    } else {
-      setVisiblePwMessage(false);
-    }
-  }, [userPassword]);
-  useEffect(() => {
-    console.log(userPassword);
-    console.log(userPasswordConfirm);
-    if (userPassword === userPasswordConfirm) {
-      console.log("password comfrim!");
-      setVisiblePpwwMessage(false);
-    } else {
-      console.log("password fail...");
-    }
-  }, [userPassword, userPasswordConfirm]);
-
   function handleChangeNickname() {
-    if (isUsableNickname) {
+    if (nicknameMessage === "사용 가능한 닉네임입니다.") {
       UserService.updateUserNickname(userNickname)
         .then((response) => {
           console.log(response.data.data);
@@ -153,6 +120,40 @@ function EditProfile() {
       alert("중복 여부를 확인하세요.");
     }
   }
+
+  const onClickCheckExistingPassword = () => {
+    console.log(userExistingPassword);
+    UserService.verifyUserPassword(userExistingPassword)
+      .then((response) => {
+        alert("올바른 비밀번호입니다.");
+        setMessage({
+          ...message,
+          isDisabledPasswordConfirm: false,
+        });
+      })
+      .catch((error) => {
+        console.log(error.response);
+        alert("비밀번호가 틀렸습니다.");
+      });
+  };
+  //비밀번호
+  useEffect(() => {
+    console.log(userPassword);
+    console.log(userPasswordConfirm);
+    if (userPassword === userPasswordConfirm) {
+      console.log("password comfrim!");
+      setMessage({
+        ...message,
+        visiblePpwwMessage: false,
+      });
+    } else {
+      console.log("password fail...");
+      setMessage({
+        ...message,
+        visiblePpwwMessage: true,
+      });
+    }
+  }, [userPassword, userPasswordConfirm]);
 
   function handleChangePassword() {
     if (visiblePwMessage !== false || visiblePpwwMessage !== false) {
@@ -169,6 +170,38 @@ function EditProfile() {
         });
     }
   }
+  //탈퇴창
+  const [show, setShow] = useState(false);
+  const handleClose = (e) => {
+    console.log(password);
+    if (e.target.type === "submit") {
+      UserService.verifyUserPassword(password)
+        .then((response) => {
+          if (window.confirm("정말로 삭제하시겠습니까?")) {
+            UserService.deleteUser()
+              .then((res) => {
+                alert("탈퇴 완료");
+                Authentication.logout();
+                document.location.href = "/";
+              })
+              .catch((error) => {
+                alert(error.response);
+                console.log(error.response);
+              });
+          } else {
+            alert("취소되었습니다.");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+    setShow(false);
+  };
+  const onClickSecession = (e) => {
+    setShow(true);
+    console.log("open");
+  };
   return (
     <>
       <h2>edit profile</h2>
@@ -205,7 +238,7 @@ function EditProfile() {
             <input
               id="userExistingPassword"
               name="userExistingPassword"
-              placeholder="기존 비밀번호를 입력해주세요"
+              placeholder="비밀번호를 변경하려면 기존 비밀번호를 입력해주세요"
               type="password"
               autoComplete="on"
               onChange={onChangeInfo}
