@@ -152,10 +152,7 @@ const Reservation = (props) => {
   const handleClose = (e) => {
     console.log(data);
     var count;
-    if (data.reservationHeadCount === "2~4인") count = 1;
-    else if (data.reservationHeadCount === "5~8인") count = 2;
-    else if (data.reservationHeadCount === "9~12인") count = 3;
-    console.log(data.reservationDate);
+    console.log(data.reservationHeadCount + "," + count);
     if (e.target.type === "submit") {
       ReservationService.updateReservation(
         data.reservationDate,
@@ -163,7 +160,7 @@ const Reservation = (props) => {
         data.reservationPhoneNumber, //예약자 연락처,
         data.reservationRequest,
         data.reservationRoomName,
-        count,
+        data.reservationHeadCount,
         data.reservationTime,
         data.reservationNumber
       );
