@@ -11,7 +11,7 @@ const ModalWindow = ({ setPassword, show, handleClose }) => {
   };
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title>회원 탈퇴</Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -29,10 +29,10 @@ const ModalWindow = ({ setPassword, show, handleClose }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" type="button" onClick={handleClose}>
           닫기
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="primary" type="submit" onClick={handleClose}>
           제출하기
         </Button>
       </Modal.Footer>
