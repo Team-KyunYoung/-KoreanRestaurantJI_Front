@@ -106,10 +106,9 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
   const onChangePersonnel = (e) => {
     setData({
       ...data,
-      reservationHeadCount: Number(e.value),
+      reservationHeadCount: e.value,
     });
   };
-  console.log(data.reservationHeadCount);
 
   const onChangeTime = (e) => {
     setData({
