@@ -47,9 +47,13 @@ function RemainingSeatsByDate(data, date) {
   for (let i = 0; i < data.length; i++) {
     // eslint-disable-next-line no-loop-func
     seatStatus.map((obj) => {
-      if (date === setToday()) {
-        if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
-          obj.isDisabled = true;
+      if (
+        (date === setToday() &&
+          obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours()) ||
+        (obj.label === data[i].reservationTime && data[i].roomRemaining === 0)
+      ) {
+        console.log("선불" + obj.label);
+        obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
         obj.isDisabled = false;
@@ -61,12 +65,10 @@ function RemainingSeatsByDate(data, date) {
             //그 시간대에 남은 좌석수의 최소값을 저장함
             obj.remain = data[i].roomRemaining;
           }
-          if (data[i].roomRemaining === 0) {
-            obj.isDisabled = true;
-          }
         }
       }
     });
+    console.log(seatStatus);
   }
 }
 
@@ -160,7 +162,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
   }, [data.reservationTime]);
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} className="modal">
       <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title>예약자 정보 입력</Modal.Title>
       </Modal.Header>
