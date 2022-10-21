@@ -152,20 +152,11 @@ class UserService {
 
   deleteUser() {
     Authentication.setupAxiosInterceptors();
-    axios
-      .delete(USER_API_BASE_URL + "/delete", {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      })
-      .then(() => {
-        alert("탈퇴 완료");
-        Authentication.logout();
-        document.location.href = "/";
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+    return axios.delete(USER_API_BASE_URL + "/delete", {
+      headers: {
+        "Content-Type": `application/json`,
+      },
+    });
   }
 
   deleteUserByNumber(userNumber) {

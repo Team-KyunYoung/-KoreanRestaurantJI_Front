@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
-import Page from "../../components/Pagination/Pagination";
+import Page from "components/Pagination/Pagination";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
 import ModalWindow from "components/Modal/ModalForModify";
@@ -29,63 +29,69 @@ function ReservationInnerPage(props) {
   };
   return (
     <ul className={styles.list}>
-      {props.loading
-        ? "loading"
-        : props.list.map((obj, i) => (
-            <div key={i}>
-              <li
-                className={
-                  props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
-                    ? styles.today
-                    : styles.notToday
-                }
-              >
-                <img src={image1} alt="reservation list" />
-                <div className={styles.listSpan}>
-                  <p>
-                    {props.date.toString() ===
-                    obj.reservationDate.toString() ? (
-                      <span>
-                        <strong>Today!</strong>
-                      </span>
-                    ) : (
-                      <b>예약 일시</b>
-                    )}{" "}
-                    {obj.reservationDate} {obj.reservationTime}{" "}
-                  </p>
-                  <p>
-                    <b>예약 정보</b> {obj.reservationRoomName}홀{" "}
-                    {obj.reservationHeadCount}
-                  </p>
-                  <p>
-                    <b>예약자</b> {obj.reservationName}님{" "}
-                    {obj.reservationPhoneNumber}
-                  </p>
-                  <p>
-                    <b>요청사항 </b> {obj.reservationRequest}
-                  </p>
-                </div>
-              </li>
-              {props.showBtn ? (
-                <div className={styles.changeReservation}>
-                  <button
-                    onClick={onClickUpdateReservation}
-                    value={JSON.stringify(obj)}
-                  >
-                    예약 수정
-                  </button>
-                  <button
-                    onClick={onClickDeleteReservation}
-                    value={obj.reservationNumber}
-                  >
-                    예약 삭제
-                  </button>
-                </div>
-              ) : (
-                ""
-              )}
-            </div>
-          ))}
+      {props.loading ? (
+        "loading"
+      ) : props.list.length === 0 ? (
+        <div className={styles.noList}>
+          <p>예약 내역 없음</p>
+          <Link to={"/SelectRoom"}>홀 예약하러 가기</Link>
+        </div>
+      ) : (
+        props.list.map((obj, i) => (
+          <div key={i}>
+            <li
+              className={
+                props.date.toString() === obj.reservationDate.toString() //오늘 날짜에 스타일 부여(일단은 배경색)
+                  ? styles.today
+                  : styles.notToday
+              }
+            >
+              <img src={image1} alt="reservation list" />
+              <div className={styles.listSpan}>
+                <p>
+                  {props.date.toString() === obj.reservationDate.toString() ? (
+                    <span>
+                      <strong>Today!</strong>
+                    </span>
+                  ) : (
+                    <b>예약 일시</b>
+                  )}{" "}
+                  {obj.reservationDate} {obj.reservationTime}{" "}
+                </p>
+                <p>
+                  <b>예약 정보</b> {obj.reservationRoomName}홀{" "}
+                  {obj.reservationHeadCount}
+                </p>
+                <p>
+                  <b>예약자</b> {obj.reservationName}님{" "}
+                  {obj.reservationPhoneNumber}
+                </p>
+                <p>
+                  <b>요청사항 </b> {obj.reservationRequest}
+                </p>
+              </div>
+            </li>
+            {props.showBtn ? (
+              <div className={styles.changeReservation}>
+                <button
+                  onClick={onClickUpdateReservation}
+                  value={JSON.stringify(obj)}
+                >
+                  예약 수정
+                </button>
+                <button
+                  onClick={onClickDeleteReservation}
+                  value={obj.reservationNumber}
+                >
+                  예약 삭제
+                </button>
+              </div>
+            ) : (
+              ""
+            )}
+          </div>
+        ))
+      )}
     </ul>
   );
 }
@@ -94,30 +100,6 @@ const Reservation = (props) => {
   const [loading, setLoading] = useState(false);
 
   const [data, setData] = useState();
-  const [show, setShow] = useState(false);
-  // const handleClose = () => setShow(false);
-  console.log({ data });
-  const handleClose = (e) => {
-    console.log(data);
-    // if (data.reservationHeadCount === "2~4인") count = 1;
-    // else if (data.reservationHeadCount === "5~8인") count = 2;
-    // else if (data.reservationHeadCount === "9~12인") count = 3;
-    // console.log(data.reservationDate);
-    ReservationService.updateReservation(
-      data.reservationDate,
-      data.reservationName, //성명
-      data.reservationPhoneNumber, //예약자 연락처,
-      data.reservationRequest,
-      data.reservationRoomName,
-      data.reservationHeadCount,
-      data.reservationTime,
-      data.reservationNumber
-    );
-    setShow(false);
-    window.location.reload();
-  };
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage, setPostsPerPage] = useState(1);
 
   const param = useParams();
   //오늘 날짜 구하기
@@ -127,11 +109,11 @@ const Reservation = (props) => {
   const originDate = new Date().getDate();
   const date = ("00" + originDate.toString()).slice(-2);
   const today = [year, month, date].join("-");
-  console.log(today);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage, setPostsPerPage] = useState(1);
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  console.log(indexOfFirst, indexOfLast);
   const currentPosts = (posts) => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
@@ -164,6 +146,28 @@ const Reservation = (props) => {
         });
     }
   }, [param.mode]);
+
+  const [show, setShow] = useState(false);
+  console.log({ data });
+  const handleClose = (e) => {
+    console.log(data);
+    var count;
+    console.log(data.reservationHeadCount + "," + count);
+    if (e.target.type === "submit") {
+      ReservationService.updateReservation(
+        data.reservationDate,
+        data.reservationName, //성명
+        data.reservationPhoneNumber, //예약자 연락처,
+        data.reservationRequest,
+        data.reservationRoomName,
+        data.reservationHeadCount,
+        data.reservationTime,
+        data.reservationNumber
+      );
+      setShow(false);
+      window.location.reload();
+    } else setShow(false);
+  };
   return (
     <>
       <h2>Room I Booked</h2>
@@ -195,7 +199,7 @@ const Reservation = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="64"
                 height="64"
-                fill="currentColor"
+                fillRule="currentColor"
                 className="bi bi-chevron-compact-right"
                 viewBox="0 0 16 16"
               >
@@ -211,12 +215,12 @@ const Reservation = (props) => {
                 xmlns="http://www.w3.org/2000/svg"
                 width="64"
                 height="64"
-                fill="currentColor"
-                class="bi bi-chevron-compact-left"
+                fillRule="currentColor"
+                className="bi bi-chevron-compact-left"
                 viewBox="0 0 16 16"
               >
                 <path
-                  fill-rule="evenodd"
+                  fillRule="evenodd"
                   d="M9.224 1.553a.5.5 0 0 1 .223.67L6.56 8l2.888 5.776a.5.5 0 1 1-.894.448l-3-6a.5.5 0 0 1 0-.448l3-6a.5.5 0 0 1 .67-.223z"
                 />
               </svg>
