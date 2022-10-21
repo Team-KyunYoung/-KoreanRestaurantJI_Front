@@ -75,8 +75,6 @@ function RemainingSeatsByDate(data, date) {
             obj.isDisabled = true;
           }
         }
-      } else {
-        obj.isDisabled = false;
       }
     });
   }
@@ -110,7 +108,7 @@ const SelectMore = () => {
     userRequest: "",
   });
   const { userName, userPhoneNumber, userRequest } = form;
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(setToday);
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
   const navigate = useNavigate();
