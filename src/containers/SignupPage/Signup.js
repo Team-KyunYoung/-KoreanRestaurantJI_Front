@@ -12,9 +12,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import Accordion from "react-bootstrap/Accordion";
 
 const Signup = () => {
-	let navigate = useNavigate();
-	const location = useLocation();
-  
+  let navigate = useNavigate();
+  const location = useLocation();
+
   const [emailToken, setEmailToken] = useState();
   const [isUsableEmail, setIsUsableEmail] = useState(false); //중복확인 통과 여부
   //true->중복 검사 통과, false->타이머와 input 숨기기(중복검사 불통 또는 인증메일 확인 후 또는 시간 초과)
@@ -162,7 +162,7 @@ const Signup = () => {
         .then((response) => {
           console.log(response);
           alert("회원가입이 완료되었습니다.");
-          navigate('/login', { state: { preLocation : location } })
+          navigate("/login", { state: { preLocation: location } });
         })
         .catch(() => {
           alert("Signup Failed");
