@@ -20,7 +20,7 @@ const AdminHome = () => {
   function handleDelete(userNumber){
     if (window.confirm("정말 삭제하시겠습니까?")) {
       UserService.deleteUserByNumber(userNumber)
-      .then((response) => {
+      .then(() => {
         alert("해당 회원을 탈퇴(데이터 삭제) 하였습니다.")
       })
       .catch((error) => {

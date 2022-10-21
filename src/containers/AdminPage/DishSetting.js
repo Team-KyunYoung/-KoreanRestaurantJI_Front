@@ -63,7 +63,6 @@ const DishSetting = () => {
     DishService.searchDish(searchDishInput)
     .then((response) => {
       setSearchDishInput("")
-      console.log(response.data.data)
       setSearchDishList(response.data.data)
       setIsLoading(false)
     })
@@ -75,7 +74,7 @@ const DishSetting = () => {
   function deleteDishBtn(dishNumber) {
     if (window.confirm("정말 삭제하시겠습니까?")) {
       DishService.deleteDish(dishNumber)
-      .then((response) => {
+      .then(() => {
         alert("해당 요리 데이터가 삭제되었습니다.")
         window.location.reload()
       })
@@ -85,7 +84,6 @@ const DishSetting = () => {
     }
   }
   function SearchOutput({dishNumber, dishName}){
-    console.log(dishNumber + ", " + dishName)
     return(
       <div className={styles.searchItem}>
         <span>{dishNumber}</span>
