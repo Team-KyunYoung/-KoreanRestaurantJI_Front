@@ -4,7 +4,7 @@ import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
 import Select from "react-select";
 import RoomService from "lib/api/RoomService";
-import "./Modal.module.scss";
+import styles from "./Modal.module.scss";
 var seatStatus = [
   { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
   { value: "12:00", label: "12:00", remain: 15, isDisabled: false },
@@ -47,9 +47,13 @@ function RemainingSeatsByDate(data, date) {
   for (let i = 0; i < data.length; i++) {
     // eslint-disable-next-line no-loop-func
     seatStatus.map((obj) => {
-      if (date === setToday()) {
-        if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
-          obj.isDisabled = true;
+      if (
+        (date === setToday() &&
+          obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours()) ||
+        (obj.label === data[i].reservationTime && data[i].roomRemaining === 0)
+      ) {
+        console.log("선불" + obj.label);
+        obj.isDisabled = true;
         //continue  //map에는 continue 없음..
       } else {
         obj.isDisabled = false;
@@ -61,12 +65,10 @@ function RemainingSeatsByDate(data, date) {
             //그 시간대에 남은 좌석수의 최소값을 저장함
             obj.remain = data[i].roomRemaining;
           }
-          if (data[i].roomRemaining === 0) {
-            obj.isDisabled = true;
-          }
         }
       }
     });
+    console.log(seatStatus);
   }
 }
 
@@ -124,6 +126,29 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
     RoomService.findAllRoom().then((response) => {
       // console.log(response);
       setRoomRes(response.data.data);
+      console.log(response);
+    });
+    RoomService.searchRoom(data.reservationRoomName).then((response) => {
+      setRoomNum(parseInt(response.data.data[0].roomNumber));
+      RoomService.findWithRoomNumberAndDate(
+        parseInt(response.data.data[0].roomNumber),
+        data.reservationDate
+      )
+        .then((response) => {
+          if (response.data.data.roomStatus.length === 0) {
+            RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
+          } else {
+            //날짜 선택했을 때 남은 좌석을 검사하는 함수
+            RemainingSeatsByDate(
+              response.data.data.roomStatus,
+              data.reservationDate
+            );
+          }
+        })
+        .catch(() => {
+          RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
+        });
+      console.log({ seatStatus });
     });
   }, []);
   useEffect(() => {
@@ -149,7 +174,6 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
       });
-    console.log({ seatStatus });
   }, [data.reservationDate]);
   useEffect(() => {
     personnelStatus.map((personnelObj) => {
@@ -160,7 +184,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
   }, [data.reservationTime]);
 
   return (
-    <Modal show={show} onHide={handleClose}>
+    <Modal show={show} onHide={handleClose} className={styles.modal}>
       <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title>예약자 정보 입력</Modal.Title>
       </Modal.Header>
