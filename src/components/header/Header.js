@@ -249,14 +249,6 @@ const Header = () => {
                   </Nav.Link>
                 )}
               </MediaQuery>
-              <NavDropdown
-                title="language"
-                id="collasible-nav-dropdown"
-                className="p-2 fs-10"
-              >
-                <NavDropdown.Item href="#action/3.1">Korean</NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">English</NavDropdown.Item>
-              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
