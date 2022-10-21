@@ -112,7 +112,6 @@ function EditProfile() {
         .then((response) => {
           console.log(response.data.data);
           alert("닉네임이 수정되었습니다.");
-          document.location.href = "/UserInfo/editprofile/blank";
         })
         .catch((error) => {
           alert(error);
@@ -206,7 +205,7 @@ function EditProfile() {
   return (
     <>
       <h2>edit profile</h2>
-      <form className={styles.editProfile}>
+      <div className={styles.editProfile}>
         <div className={styles.inputArea}>
           <div className={styles.inputId}>
             <input
@@ -308,7 +307,7 @@ function EditProfile() {
         ) : (
           ""
         )}
-      </form>
+      </div>
     </>
   );
 }
