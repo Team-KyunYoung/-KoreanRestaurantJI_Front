@@ -16,7 +16,6 @@
 }
 
 .dropdown-toggle::after {
-  //display: none !important; 
   opacity: 0.3;
 }
 
@@ -24,90 +23,3 @@
   margin-left: 30px;
   font-size: 1.1em;
 }
-// .header {
-
-//   &-container {
-//     width: 100%;
-//     min-height: 81px;
-//     vertical-align: middle;
-//     color: white;
-//     background-color: #16193c;
-//   }
-
-//   &-content {
-
-//     &-title {
-//       font-family: 'Parisienne', cursive;
-//       display: inline-block;
-//       width: 50%;
-//       text-align: left;
-//       vertical-align: middle;
-
-//       &-logo {
-//         display: inline-block;
-//         width: 20%;
-//         min-width: 90px;
-//         text-align: center;
-//         vertical-align: middle;
-//         padding-left: 20px;
-
-//         &-h1 {
-//           font-size: 36px;
-//         }
-
-//         &-h1:hover {
-//           cursor: pointer;
-//         }
-
-//         &-h1 a {
-//           text-decoration: none;
-//           color: white;
-//         }
-
-//       }
-
-//     }
-
-//   }
-
-// }
-
-/*
-  .header-container {
-    width: 100%;
-    min-height: 81px;
-    vertical-align: middle;
-    color: white;
-    background-color: #16193c;
-  }
-  
-  .header-content-title{
-    font-family: 'Parisienne', cursive;
-    display: inline-block;
-    width: 50%;
-    text-align: left;
-    vertical-align: middle;
-  }
-  
-  .header-content-title-logo{
-    display: inline-block;
-    width: 20%;
-    min-width: 90px;
-    text-align: center;
-    vertical-align: middle;
-    padding-left: 20px;
-  }
-
-  .header-content-title-logo-h1{
-    font-size: 36px;
-  }
-  
-    .header-content-title-logo-h1:hover{
-      cursor: pointer;
-    }
-
-    .header-content-title-logo-h1 a{
-        text-decoration: none;
-        color: white;
-    }
-      */

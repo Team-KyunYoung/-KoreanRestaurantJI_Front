@@ -1,5 +1,4 @@
 import React from "react";
-
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -7,7 +6,6 @@ import Modal from "react-bootstrap/Modal";
 const ModalWindow = ({ setPassword, show, handleClose }) => {
   const onHandleChangePassword = (e) => {
     setPassword(e.target.value);
-    console.log(e.target.value);
   };
   return (
     <Modal show={show} onHide={handleClose}>

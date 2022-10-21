@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import MediaQuery from "react-responsive";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import styles from "./Event.module.scss";
 import UserService from "lib/api/UserService";
 import EventService from "lib/api/EventService";
@@ -16,21 +16,17 @@ const EventPost = () => {
 
   const param = useParams();
   const navigate = useNavigate();
-  console.log(param.number);
   useEffect(() => {
     EventService.findEvent(Number(param.number))
       .then((response) => {
-        console.log(response);
         setList(response.data.data);
         setIsLoading(false);
       })
       .catch(() => {});
     UserService.isAdmin()
       .then((response) => {
-        console.log(response);
         if (response.data.data === true) {
           setIsAdmin(true);
-          console.log("admin");
         }
       })
       .catch((error) => {
@@ -58,7 +54,6 @@ const EventPost = () => {
             <section className={styles.postBox}>
               <div className={styles.banner}>
                 <img src={image1} alt={list.eventTitle} />
-                {/*<img src={list.eventImage} alt={list.eventTitle} />*/}
               </div>
               <div className={styles.contents}>
                 <MediaQuery minWidth={993}>

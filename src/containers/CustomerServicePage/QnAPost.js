@@ -29,72 +29,65 @@ const QnADetails = () => {
 
   const param = useParams();
   const navigate = useNavigate();
-  console.log(param.number);
   useEffect(() => {
-    if(Authentication.isUserLoggedIn()){
-    UserService.findUser()
-      .then((res) => {
-        if (param.isPrivate === "true") {
-          console.log("private");
-          //false가 boolean이 아니라 string으로 인식됨
-          Question.findPrivateQnAAnswer(Number(param.number))
-            .then((response) => {
-              console.log(response.data.data);
-              setData(response.data.data);
-              setIsLoading(false);
-              if (res.data.data.userNickname === response.data.data.writer) {
-                setRole("writer");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-              alert("작성자만 조회할 수 있습니다.");
-              navigate("/QnABoard");
-            });
-        } else {
-          Question.findPublicQnAAnswer(Number(param.number))
-            .then((response) => {
-              console.log(response.data.data);
-              setData(response.data.data);
-              setIsLoading(false);
-              if (res.data.data.userNickname === response.data.data.writer) {
-                setRole("writer");
-              }
-            })
-            .catch((error) => {
-              console.log(error);
-            });
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    if (Authentication.isUserLoggedIn()) {
+      UserService.findUser()
+        .then((res) => {
+          if (param.isPrivate === "true") {
+            //false가 boolean이 아니라 string으로 인식됨
+            Question.findPrivateQnAAnswer(Number(param.number))
+              .then((response) => {
+                setData(response.data.data);
+                setIsLoading(false);
+                if (res.data.data.userNickname === response.data.data.writer) {
+                  setRole("writer");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+                alert("작성자만 조회할 수 있습니다.");
+                navigate("/QnABoard");
+              });
+          } else {
+            Question.findPublicQnAAnswer(Number(param.number))
+              .then((response) => {
+                setData(response.data.data);
+                setIsLoading(false);
+                if (res.data.data.userNickname === response.data.data.writer) {
+                  setRole("writer");
+                }
+              })
+              .catch((error) => {
+                console.log(error);
+              });
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-    AdminComment.findComment(Number(param.number))
-      .then((response) => {
-        setCommentList(response.data.data);
-        console.log(response.data.data);
-        setCommentLoading(false);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      AdminComment.findComment(Number(param.number))
+        .then((response) => {
+          setCommentList(response.data.data);
+          setCommentLoading(false);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
 
-    UserService.isAdmin()
-      .then((response) => {
-        console.log(response);
-        if (response.data.data === true) {
-          setRole("admin");
-          console.log("admin");
-        }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+      UserService.isAdmin()
+        .then((response) => {
+          if (response.data.data === true) {
+            setRole("admin");
+          }
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     } else {
       if (param.isPrivate === "true") {
-          alert("작성자만 조회할 수 있습니다.");
-          navigate("/QnABoard");
+        alert("작성자만 조회할 수 있습니다.");
+        navigate("/QnABoard");
       } else {
         Question.findPublicQnAAnswer(Number(param.number))
           .then((response) => {
@@ -145,20 +138,17 @@ const QnADetails = () => {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   const WriterHandleSubmit = (e) => {
     //저장하기 버튼 : input 제출
     Question.updateQnA(Number(param.number), privatePost, contents, title)
       .then((response) => {
-        console.log(response);
         window.location.replace(
           "/QnABoard/" + Number(param.number) + "/" + param.isPrivate
         );
       })
       .catch((error) => {
-        console.log(error);
         alert("입력 내용을 확인해주세요");
       });
   };
@@ -166,13 +156,10 @@ const QnADetails = () => {
   const [comment, setComment] = useState("");
   const adminHandleChange = useCallback((e) => {
     setComment(e.target.value);
-    console.log(e.target.value);
   }, []);
   const adminHandleClick = (e) => {
     AdminComment.createComment(Number(param.number), comment)
-      .then((response) => {
-        console.log(response);
-      })
+      .then((response) => {})
       .catch((error) => {
         console.log(error);
       });
@@ -227,8 +214,6 @@ const QnADetails = () => {
                         </p>
                       </div>
                       <div className={styles.checkBox}>
-                        {/* <span>작성자 {data.writer}</span>
-                  <span>날짜 {data.writeDate}</span>*/}
                         <span>
                           <label htmlFor="public">공개</label>
                           {"  "}
@@ -277,9 +262,9 @@ const QnADetails = () => {
                       </p>
                     </div>
                     <div className={styles.btn}>
-                      {role === "writer" ? ( //글쓴이가 아니라면 수정하기 버튼 자체를 숨김
+                      {role === "writer" ? (
                         <>
-                          {editDisabled ? ( //수정하기 버튼 클릭
+                          {editDisabled ? (
                             <>
                               <button type="button" onClick={requestEdit}>
                                 수정하기

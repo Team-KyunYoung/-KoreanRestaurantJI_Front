@@ -21,16 +21,12 @@ const CreateQnA = () => {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   const handleSubmit = (e) => {
     //바꾸기 버튼 : input 제출
-    console.log(privatePost !== null);
-    console.log(contents !== null);
     Question.createQnA(privatePost, contents, title)
       .then((response) => {
-        console.log(response);
         navigate("/QnABoard");
       })
       .catch((error) => {

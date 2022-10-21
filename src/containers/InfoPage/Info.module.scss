@@ -54,28 +54,26 @@
   }
 }
 
-#info1{
+#info1 {
   background-image: url("http://drive.google.com/uc?export=view&id=16f6ZFWpsfVfLp4gsVum0ZVk7bjQa4HxZ");
   background-size: 60vw 50vh;
   opacity: 0.9;
 }
 
-#info2{
+#info2 {
   background-image: url("http://drive.google.com/uc?export=view&id=1QglTE_2ZbXzQLeP35e4tY3NWB_uAGW4a");
   background-size: 60vw 50vh;
   opacity: 0.9;
 }
 
-#info3{
+#info3 {
   background-image: url("http://drive.google.com/uc?export=view&id=1FpcAFUvmAC8D8xzTV0M5Ro84jjkgRDud");
   background-size: 60vw 50vh;
   opacity: 0.9;
 }
-
 .text {
-  position: relative; 
-  color: black; 
-  //-webkit-text-stroke: 0.3px white;
+  position: relative;
+  color: black;
   font-weight: bold;
   text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white;
 
@@ -87,7 +85,6 @@
     z-index: 2;
   }
 }
-
 #leftText {
   @media (min-width: 1024px) and (max-width: 1279px) {
     left: 5vw;
@@ -100,7 +97,6 @@
     float: left;
   }
 }
-
 #rightText {
   @media (min-width: 1024px) and (max-width: 1279px) {
     right: 5vw;
