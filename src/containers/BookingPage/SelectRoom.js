@@ -35,9 +35,7 @@ const SelectRoom = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [roomRes, setRoomRes] = useState([]);
   useEffect(() => {
-    console.log("Booking PAGE LOADING");
     RoomService.findAllRoom().then((response) => {
-      console.log(response);
       setRoomRes(response.data.data);
       setIsLoading(false);
     });

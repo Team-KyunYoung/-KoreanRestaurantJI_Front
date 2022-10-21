@@ -12,7 +12,7 @@ const Header = () => {
   const [isOnLogin, setIsOnLogin] = useState(Authentication.isUserLoggedIn);
   const [isAdmin, setIsAdmin] = useState(false);
   useEffect(() => {
-    if(isOnLogin){
+    if (isOnLogin) {
       UserService.isAdmin()
         .then((response) => {
           setIsAdmin(response.data.data);
@@ -20,11 +20,9 @@ const Header = () => {
         .catch((error) => {
           setIsAdmin(false);
         });
-      }
+    }
   }, []);
   function logout() {
-    console.log(isOnLogin);
-    console.log(localStorage.getItem("token"));
     Authentication.logout();
     setIsOnLogin(false);
   }
@@ -41,7 +39,6 @@ const Header = () => {
           <Navbar.Brand href="/" className="fs-3">
             智
           </Navbar.Brand>
-          {/* <Link to="/">智</Link> */}
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
@@ -120,7 +117,6 @@ const Header = () => {
               </NavDropdown>
             </Nav>
             <Nav>
-              {/* 모니터ver */}
               <MediaQuery minWidth={993}>
                 {isAdmin && (
                   <Nav.Link href="/Admin/Home" className="p-3">
@@ -207,7 +203,6 @@ const Header = () => {
                   </Nav.Link>
                 )}
               </MediaQuery>
-              {/* 태블리 + 모바일ver */}
               <MediaQuery maxWidth={992}>
                 {isAdmin && (
                   <Nav.Link href="/Admin/Home" className="p-2">

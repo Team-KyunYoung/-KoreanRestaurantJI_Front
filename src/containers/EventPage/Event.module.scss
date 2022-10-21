@@ -2,24 +2,20 @@
 .container {
   width: 100%;
   min-height: 75.5vh;
-
   .eventBox {
     padding: 70px 10% 40px 10%;
     text-align: center;
-    //eventboard 페이지
     .event {
       width: 100%;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
-      // background-color: white;
       .singleEvent {
         display: inline-block;
         width: 300px;
         height: 400px;
         margin: 10px;
         overflow: hidden;
-        // border-radius: 15px;
         background-color: white;
         text-decoration: none;
         color: gray;
@@ -44,7 +40,6 @@
           }
         }
         div:nth-child(2) {
-          // border-radius: 0 0 15px 15px;
           border: 1px solid rgb(189, 189, 189);
           border-top: none;
           height: 100px;
@@ -84,7 +79,6 @@
     }
   }
 }
-//이벤트 포스트
 .postBox {
   display: flex;
   justify-content: center;
@@ -116,8 +110,6 @@
     }
   }
 }
-
-//이벤트 생성
 .eventBox {
   text-align: center;
   padding-bottom: 100px;
@@ -152,13 +144,11 @@
         height: 20vh;
         overflow: scroll;
       }
-      //글자 수 공간
       input[type="text"] {
         padding-right: 60px;
       }
     }
     p {
-      //글자수
       color: gray;
       font-size: 12px;
     }
@@ -175,7 +165,6 @@
       width: 100%;
     }
   }
-  //이벤트 포스팅 페이지
   .postBox {
     flex-direction: column;
     h1 {
@@ -204,7 +193,6 @@
     > div:first-child {
       width: 100%;
     }
-    //이벤트 생성/수정 페이지
     .formBox {
       .inputBox {
         label {
@@ -225,7 +213,6 @@
       }
     }
   }
-  //이벤트 포스트
   .main {
     flex-direction: column;
     .banner {

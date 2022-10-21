@@ -30,7 +30,6 @@ class Question {
       questionContents: questionContents,
       questionTitle: questionTitle,
     };
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.put(
       USER_API_BASE_URL + "/update/qna/" + questionNumber,
@@ -47,7 +46,6 @@ class Question {
       questionContents: questionContents,
       questionTitle: questionTitle,
     };
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.put(
       USER_API_BASE_URL + "/update/faq/" + questionNumber,
@@ -65,7 +63,6 @@ class Question {
       questionContents: questionContents,
       questionTitle: questionTitle,
     };
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create/qna", JSON.stringify(data), {
       headers: {
@@ -78,7 +75,6 @@ class Question {
       questionContents: questionContents,
       questionTitle: questionTitle,
     };
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.post(USER_API_BASE_URL + "/create/faq", JSON.stringify(data), {
       headers: {

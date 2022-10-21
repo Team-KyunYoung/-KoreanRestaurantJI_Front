@@ -21,12 +21,10 @@ const CreateFAQ = () => {
   });
   const { title, contents } = form;
   useEffect(() => {
-    console.log(param.mode);
     if (param.mode === "create") setIsLoading(false);
     else {
       Question.findPublicQnAAnswer(Number(param.number))
         .then((response) => {
-          console.log(response.data.data);
           setData(response.data.data);
           setIsLoading(false);
           setForm({
@@ -47,16 +45,13 @@ const CreateFAQ = () => {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   const WriterHandleSubmit = (e) => {
     //저장하기 버튼 : input 제출
     if (param.mode === "create") {
-      console.log("생성");
       Question.createFaq(contents, title)
         .then((response) => {
-          console.log(response);
           window.location.replace("/FAQBoard");
         })
         .catch((error) => {
@@ -65,7 +60,6 @@ const CreateFAQ = () => {
     } else {
       Question.updateFaq(Number(param.number), contents, title)
         .then((response) => {
-          console.log(response);
           window.location.replace("/FAQBoard/update/" + Number(param.number));
         })
         .catch((error) => {

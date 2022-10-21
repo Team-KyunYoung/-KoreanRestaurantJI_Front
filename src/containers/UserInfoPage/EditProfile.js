@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-
 import styles from "./UserInfo.module.scss";
 import ModalWindow from "components/Modal/ModalForRecession";
-
 import * as UserServices from "lib/api/UserService";
 import UserService from "lib/api/UserService";
 import Authentication from "lib/api/Authentication";
@@ -37,7 +35,6 @@ function EditProfile() {
   useEffect(() => {
     UserService.findUser()
       .then((response) => {
-        console.log(response.data.data);
         setUser(response.data.data);
       })
       .catch((error) => {
@@ -77,13 +74,11 @@ function EditProfile() {
         UserServices.checknickname(e.target.value)
           .then((res) => res.json())
           .then((json) => {
-            console.log(json);
             if (e.target.value.length !== 0 && e.target.value.length <= 12) {
               setMessage({
                 ...message,
                 nicknameMessage: json.message,
               });
-              console.log(json.data.status);
               if (json.data.status === "OK") {
                 setMessage({
                   ...message,
@@ -110,7 +105,6 @@ function EditProfile() {
     if (nicknameMessage === "사용 가능한 닉네임입니다.") {
       UserService.updateUserNickname(userNickname)
         .then((response) => {
-          console.log(response.data.data);
           alert("닉네임이 수정되었습니다.");
           document.location.href = "/UserInfo/editprofile/blank";
         })
@@ -123,7 +117,6 @@ function EditProfile() {
   }
 
   const onClickCheckExistingPassword = () => {
-    console.log(userExistingPassword);
     UserService.verifyUserPassword(userExistingPassword)
       .then((response) => {
         alert("올바른 비밀번호입니다.");
@@ -133,14 +126,11 @@ function EditProfile() {
         });
       })
       .catch((error) => {
-        console.log(error.response);
         alert("비밀번호가 틀렸습니다.");
       });
   };
   //비밀번호
   useEffect(() => {
-    console.log(userPassword);
-    console.log(userPasswordConfirm);
     if (userPassword === userPasswordConfirm) {
       console.log("password comfrim!");
       setMessage({
@@ -148,7 +138,6 @@ function EditProfile() {
         visiblePpwwMessage: false,
       });
     } else {
-      console.log("password fail...");
       setMessage({
         ...message,
         visiblePpwwMessage: true,
@@ -162,11 +151,9 @@ function EditProfile() {
     } else {
       UserService.updateUserPassword(userPassword)
         .then((response) => {
-          console.log(response.data.data);
           alert("비밀번호가 수정되었습니다.");
         })
         .catch((error) => {
-          console.log("updateUserPassword error");
           console.log(error.response);
         });
     }
@@ -174,7 +161,6 @@ function EditProfile() {
   //탈퇴창
   const [show, setShow] = useState(false);
   const handleClose = (e) => {
-    console.log(password);
     if (e.target.type === "submit") {
       UserService.verifyUserPassword(password)
         .then((response) => {
@@ -201,7 +187,6 @@ function EditProfile() {
   };
   const onClickSecession = (e) => {
     setShow(true);
-    console.log("open");
   };
   return (
     <>
