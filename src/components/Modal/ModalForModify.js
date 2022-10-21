@@ -106,10 +106,9 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
   const onChangePersonnel = (e) => {
     setData({
       ...data,
-      reservationHeadCount: Number(e.value),
+      reservationHeadCount: e.value,
     });
   };
-  console.log(data.reservationHeadCount);
 
   const onChangeTime = (e) => {
     setData({
@@ -162,9 +161,10 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
 
   return (
     <Modal show={show} onHide={handleClose}>
-      <Modal.Header closeButton>
+      <Modal.Header closeButton onClick={handleClose}>
         <Modal.Title>예약자 정보 입력</Modal.Title>
       </Modal.Header>
+      <Modal.Body>선택하지 않은 항목은 이전 정보가 유지됩니다.</Modal.Body>
       <Modal.Body>
         <Form>
           <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
@@ -268,7 +268,6 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
             <Form.Control
               onChange={onHandleChangeUserInfo}
               name="reservationRequest"
-              // as="textarea"
               rows={3}
               maxLength={100}
               placeholder={data.reservationRequest}
@@ -277,10 +276,10 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
+        <Button variant="secondary" type="button" onClick={handleClose}>
           닫기
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="primary" type="submit" onClick={handleClose}>
           제출하기
         </Button>
       </Modal.Footer>
