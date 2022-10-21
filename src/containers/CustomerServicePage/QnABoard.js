@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import styles from "./CS.module.scss";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Chat from "../../components/ChatBot/Chat";
-import Page from "../../components/Pagination/Pagination";
-import styles from "./CS.module.scss";
+import Chat from "components/ChatBot/Chat";
+import Page from "components/Pagination/Pagination";
 import Question from "lib/api/Question";
 function InnerQnA(props) {
-  console.log(props.list.length);
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
@@ -55,17 +54,14 @@ const QnABoard = () => {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  console.log(indexOfFirst, indexOfLast);
   const currentPosts = (posts) => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
-    console.log("현재 포스트는 : " + currentPosts);
     return currentPosts;
   };
   useEffect(() => {
     Question.findAllQnA()
       .then((response) => {
-        console.log(response.data.data);
         setList(response.data.data);
         setIsLoading(false);
       })

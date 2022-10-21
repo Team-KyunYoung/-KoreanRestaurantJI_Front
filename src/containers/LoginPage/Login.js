@@ -8,23 +8,20 @@ import * as UserService from "lib/api/UserService";
 import Authentication from "lib/api/Authentication";
 
 const usePrevLocation = (location) => {
-	const prevLocRef = useRef(location)
-	
-	useEffect(()=>{
-		prevLocRef.current = location
-	},[location])
-	
-	if(prevLocRef.current.state !== null){
-		return prevLocRef.current.state.preLocation.pathname
-	} else {
-		return ""
-	}
-}
-
+  const prevLocRef = useRef(location);
+  useEffect(() => {
+    prevLocRef.current = location;
+  }, [location]);
+  if (prevLocRef.current.state !== null) {
+    return prevLocRef.current.state.preLocation.pathname;
+  } else {
+    return "";
+  }
+};
 const Login = () => {
   let navigate = useNavigate();
-	let location = useLocation();
-	let prevLocation = usePrevLocation(location)
+  let location = useLocation();
+  let prevLocation = usePrevLocation(location);
 
   const [userEmail, setUserEmail] = useState("");
   const [userPassword, setUserPassword] = useState("");
@@ -34,27 +31,23 @@ const Login = () => {
   const EmailHandleChange = (e) => setUserEmail(e.target.value);
   const passwordHandleChange = (e) => setUserPassword(e.target.value);
 
-	function toBack() {
-		if(prevLocation === "/signup"){
-			navigate("/")
-		} else {
-			navigate(-1, { replace: true });
-		}
-	}
+  function toBack() {
+    if (prevLocation === "/signup") {
+      navigate("/");
+    } else {
+      navigate(-1, { replace: true });
+    }
+  }
 
   const loginClicked = () => {
-    console.log("loginClicked");
-    console.log(userEmail);
     UserService.login(userEmail, userPassword)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (json.httpStatus === "OK") {
           Authentication.loginTokenSave(json.data.token);
           setShowSuccessMessage(true);
           setHasLoginFailed(false);
           toBack();
-          //navigate(-1, { replace: true });
         } else {
           setShowSuccessMessage(false);
           setHasLoginFailed(true);
@@ -62,24 +55,13 @@ const Login = () => {
         }
       })
       .catch(() => {
-        // console.log(error.response)
         setShowSuccessMessage(false);
         setHasLoginFailed(true);
         alert("Login Failed");
       });
   };
-  const socialLoginGoogle = () => {
-    console.log("google login clicked");
-    //Authentication.loginSocialGoogle();
-  };
-
-  const socialLoginKakao = () => {
-    console.log("kakao login clicked");
-    //Authentication.loginSocialKakao();
-  };
-
   return (
-    <div className="loginPage">
+    <div className={styles.loginPage}>
       <Header />
       <main>
         <div className={styles.content}>
@@ -122,28 +104,6 @@ const Login = () => {
                 </button>
               </div>
             </div>
-
-            <div className={styles.social}>
-              <div>소셜로그인</div>
-              <hr></hr>
-              <div className={styles.btnCarrier}>
-                <div className={styles.socialBtn}>
-                  <img
-                    src={require("assets/btn/btn_google_signin.png")}
-                    onClick={socialLoginGoogle}
-                    alt="google signin"
-                  />
-                </div>
-                <div className={styles.socialBtn}>
-                  <img
-                    src={require("assets/btn/btn_kakao_signin.png")}
-                    onClick={socialLoginKakao}
-                    alt="kakao signin"
-                  />
-                </div>
-              </div>
-            </div>
-
             <div className={styles.userAccess}>
               <div className={styles.signupBtn}>
                 <Link to="/signup">회원가입</Link>

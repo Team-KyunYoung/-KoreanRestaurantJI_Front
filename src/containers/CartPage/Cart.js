@@ -1,18 +1,16 @@
-import CartService from "lib/api/CartService";
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Modal from "react-modal";
-
 import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
-import ImgBanner from "../../components/Banner/ImgBanner";
+import ImgBanner from "components/Banner/ImgBanner";
 import modalstyles from "./Modal.module.scss";
 import styles from "./Cart.module.scss";
 import OrderService from "lib/api/OrderService";
+import CartService from "lib/api/CartService";
 
 const image1 = "https://picsum.photos/1200/600";
-const dishImageRan = "https://picsum.photos/170/170";
 
 //주문 할 음식만 체크하여 주문 가능하게 하기.
 //체크 될 때마다 setDishOrderList에 추가. 형식은 { "dishNumber": 0, "orderQuantity": 0 }.
@@ -80,7 +78,6 @@ const Cart = () => {
     return status;
   }
   function onChangeCheck(cartNumber, dishNumber, cartQuantity, event) {
-    console.log(event);
     setCheckedItems(
       checkedItems.map((checkedItem) =>
         checkedItem.cartNumber === cartNumber
@@ -102,7 +99,7 @@ const Cart = () => {
   }
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false); // 주문 성공시 모달창
   function handleOrderClick() {
-    if(dishOrderList.length !== 0){
+    if (dishOrderList.length !== 0) {
       OrderService.addCarttoOrder(dishOrderList)
         .then((response) => {
           setSuccessModalIsOpen(true);

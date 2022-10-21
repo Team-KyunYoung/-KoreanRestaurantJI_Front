@@ -117,18 +117,14 @@ const Reservation = (props) => {
   const currentPosts = (posts) => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
-    console.log("현재 포스트는 : " + currentPosts);
     return currentPosts;
   };
   useEffect(() => {
     UserService.findUser(); //유저를 찾는 과정이 있어야 아래 findReservation 통신 가능
-
-    console.log(props.mode ? "past" : "now");
     if (param.mode === "past") {
       ReservationService.findBeforeReservation()
         .then((response) => {
           setList(response.data.data);
-          console.log(response.data.data);
         })
         .catch(() => {
           setLoading(true);
@@ -138,7 +134,6 @@ const Reservation = (props) => {
       ReservationService.findAfterReservation()
         .then((response) => {
           setList(response.data.data);
-          console.log(response.data.data);
         })
         .catch(() => {
           setLoading(true);
@@ -148,11 +143,7 @@ const Reservation = (props) => {
   }, [param.mode]);
 
   const [show, setShow] = useState(false);
-  console.log({ data });
   const handleClose = (e) => {
-    console.log(data);
-    var count;
-    console.log(data.reservationHeadCount + "," + count);
     if (e.target.type === "submit") {
       ReservationService.updateReservation(
         data.reservationDate,

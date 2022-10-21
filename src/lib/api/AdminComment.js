@@ -3,9 +3,6 @@ import Authentication from "./Authentication";
 const USER_API_BASE_URL = "/api/qna/comment";
 class AdminComment {
   createComment(questionNumber, comment) {
-    // let data = {
-    //   comment: comment,
-    //  };
     Authentication.setupAxiosInterceptors();
     return axios.post(
       USER_API_BASE_URL + "/create/" + questionNumber,
@@ -29,9 +26,6 @@ class AdminComment {
     );
   }
   updateComment(commentNumber, comment) {
-    // let data = {
-    //   comment: comment,
-    // };
     Authentication.setupAxiosInterceptors();
     return axios.put(
       USER_API_BASE_URL + "/update/" + commentNumber,

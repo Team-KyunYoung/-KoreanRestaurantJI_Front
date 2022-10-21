@@ -1,17 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styles from "./UserInfo.module.scss";
-
-import Page from "../../components/Pagination/Pagination";
-
+import Page from "components/Pagination/Pagination";
 import OrderService from "lib/api/OrderService";
 import UserService from "lib/api/UserService";
 
-const image1 = "https://picsum.photos/800/600";
-
 function OrderedInnerPage(props) {
-  console.log(props.list);
-  console.log(props);
   return (
     <ul className={styles.list}>
       {props.loading ? (
@@ -25,8 +19,6 @@ function OrderedInnerPage(props) {
         props.list.map((obj, i) => (
           <>
             <li key={i}>
-              {/* <img src={image1} alt="reservation list" /> */}
-              {/* <h3>{obj.orderStatus}</h3> */}
               <div className={styles.listSpan}>
                 <h3>"{obj.orderStatus}"</h3>
                 <p>
@@ -34,7 +26,7 @@ function OrderedInnerPage(props) {
                   {obj.createdDate}
                 </p>
                 <p>
-                  <b>총</b> {obj.orderPrice.toLocaleString('ko-KR')}
+                  <b>총</b> {obj.orderPrice.toLocaleString("ko-KR")}
                   <b>원</b>
                 </p>
                 <ul>
@@ -42,10 +34,7 @@ function OrderedInnerPage(props) {
                     <li key={"dish" + i + j}>
                       <Link
                         to={
-                          "/Dish/" +
-                          dishObj.dishNumber +
-                          "/" +
-                          dishObj.dishName
+                          "/Dish/" + dishObj.dishNumber + "/" + dishObj.dishName
                         }
                       >
                         <span className={styles.imgContainer}>
@@ -59,7 +48,8 @@ function OrderedInnerPage(props) {
                             <b>수량</b> {dishObj.orderQuantity}개{" "}
                           </span>
                           <span>
-                            <b>가격</b> {dishObj.orderDishPrice.toLocaleString('ko-KR')}원
+                            <b>가격</b>{" "}
+                            {dishObj.orderDishPrice.toLocaleString("ko-KR")}원
                           </span>
                         </span>
                       </Link>
@@ -85,11 +75,9 @@ const Ordered = () => {
 
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;
-  console.log(indexOfFirst, indexOfLast);
   const currentPosts = (posts) => {
     let currentPosts = 0;
     currentPosts = posts.slice(indexOfFirst, indexOfLast);
-    console.log("현재 포스트는 : " + currentPosts);
     return currentPosts;
   };
   useEffect(() => {
@@ -98,13 +86,11 @@ const Ordered = () => {
   useEffect(() => {
     OrderService.findOrderByUser()
       .then((response) => {
-        console.log(response);
         setList(response.data.data);
-        console.log(response.data);
       })
-      .catch(() => {
+      .catch((error) => {
         setLoading(true);
-        console.log("error:예약 목록 불러오기");
+        console.log(error);
       });
   }, []);
 

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
+import { useParams, useNavigate } from "react-router-dom";
 import Select from "react-select";
 import styles from "./Booking.module.scss";
 import Header from "components/header/Header";
+import ModalWindow from "components/Modal/ModalWindow";
 import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import RoomService from "lib/api/RoomService";
 import ReservationService from "lib/api/ReservationService";
 import UserService from "lib/api/UserService";
-import ModalWindow from "components/Modal/ModalWindow";
 
 var seatStatus = [
   { value: "11:00", label: "11:00", remain: 15, isDisabled: false },
@@ -50,8 +47,6 @@ function setMaxDay() {
 }
 function RemainingSeatsByDate(data, date) {
   //날짜 선택했을 때 남은 좌석을 검사하는 함수
-  // console.log(data.data.roomStatus.length);
-  console.log(data.length);
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < data.length; i++) {
     seatStatus.map((obj) => {
@@ -87,8 +82,6 @@ function RemainingSeatsByTime(time) {
     if (time === seatObj.value) {
       //seatStatus에서 선택한 시간을 찾음
       personnelStatus.map((personnelObj) => {
-        // console.log(personnelObj.value + "," + seatObj.remain);
-        // console.log(personnel);
         if (personnelObj.value === 2 && seatObj.remain < 2) {
           //남은 좌석이 5개 미만이라면
           personnelObj.isDisabled = true; //5-8인 option disabled
@@ -97,7 +90,6 @@ function RemainingSeatsByTime(time) {
           //남은 좌석이 9개 미만이라면
           personnelObj.isDisabled = true; //9-12인 option disabled
         }
-        // console.log(personnelStatus);
       });
     }
   });
@@ -138,20 +130,15 @@ const SelectMore = () => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], date);
       });
-    console.log({ seatStatus });
-    console.log({ personnelStatus });
   }, [date]);
   const onChangeTime = (e) => {
     personnelStatus.map((personnelObj) => {
       personnelObj.isDisabled = false;
     });
-    // console.log(e);
     setTime(e.value.toString());
-    console.log(time);
   };
   useEffect(() => {
     RemainingSeatsByTime(time);
-    console.log({ personnelStatus });
   }, [time]);
   const onChangePersonnel = (e) => {
     setTableCnt(Number(e.value));
@@ -173,7 +160,6 @@ const SelectMore = () => {
       // 마운트 될 때 /helloWorld에 해당하는 페이지로 이동
       UserService.findUser()
         .then((response) => {
-          console.log(response);
           ReservationService.createReservation(
             date,
             userName, //성명
@@ -184,13 +170,13 @@ const SelectMore = () => {
             time
           )
             .then((response) => {
-              console.log(response);
               alert(
                 userName + "님 " + date + " " + time + " 예약이 완료되었습니다."
               );
               navigate("../../../UserInfo/reservation/now");
             })
-            .catch(() => {
+            .catch((error) => {
+              console.log(error);
               alert("예약에 실패하였습니다. 새로고침 후 다시 시도해주세요.");
             });
         })

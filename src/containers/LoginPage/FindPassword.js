@@ -1,5 +1,4 @@
-import React, { useEffect, useState, useRef, useCallback } from "react";
-
+import React, { useEffect, useState, useRef } from "react";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import styles from "../SignupPage/Signup.module.scss";
@@ -24,20 +23,16 @@ const FindPassword = () => {
 
   const onChangeEmail = (e) => {
     setUserEmail(e.target.value);
-    console.log(e.target.value); //1g1
-    console.log(userEmail); //1g
   };
 
   function onClickEmail() {
     UserService.emailAuthForPassword(userEmail)
       .then((res) => res.json())
       .then((json) => {
-        console.log(json);
         if (json.httpStatus === "OK") {
           setEmailMessage("이메일이 발송되었습니다.");
           setIsUsableEmail(true);
           setEmailToken(json.data);
-          console.log(json.data);
         } else if (json.status === 500) {
           setEmailMessage("올바르지 않은 메일 형식입니다.");
         } else {
@@ -50,8 +45,6 @@ const FindPassword = () => {
   }
   const onChangeEmailToken = (e) => {
     setUserToken(e.target.value);
-    console.log(e.target.value); //1g1
-    console.log(userToken); //1g
   };
   const onClickEmailToken = () => {
     if (userToken === emailToken) {
@@ -64,7 +57,6 @@ const FindPassword = () => {
   };
   const onChangePassword = (e) => {
     setUserPassword(e.target.value);
-    console.log(e.target.value);
     setVisiblePwMessage(true);
   };
   const onChangePasswordConfirm = (e) => {
@@ -76,8 +68,6 @@ const FindPassword = () => {
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       //조건에 맞지 않음
-      console.log(userPassword);
-      console.log(passwordRegex.test(userPassword));
     } else {
       //조건에 부합
       setVisiblePwMessage(false);
@@ -85,27 +75,19 @@ const FindPassword = () => {
   }, [userPassword]);
   //비밀번호 일치 검사
   useEffect(() => {
-    console.log(userPassword);
-    console.log(userPasswordConfirm);
     if (userPassword === userPasswordConfirm) {
       //비밀번호 일치
-      console.log("password comfrim!");
       setVisiblePpwwMessage(false);
-    } else {
-      //비밀번호가 같지 않으면 fail 표시
-      console.log("password fail...");
     }
   }, [userPassword, userPasswordConfirm]);
   //회원가입 신청 시 내용 저장
   const changePasswordClicked = () => {
     if (isCertifiedEmail !== true || visiblePwMessage !== false) {
       alert("비밀번호 변경이 불가능합니다. 입력 내용을 확인해주세요");
-      console.log(isCertifiedEmail + "" + visiblePwMessage);
     } else {
       UserService.updatePassword(userEmail, userPassword)
         .then((res) => res.json())
         .then((data) => {
-          console.log("성공:", data);
           document.location.href = "/login";
         })
         .catch((error) => {
@@ -127,7 +109,6 @@ const FindPassword = () => {
         setSec(time.current % 60);
 
         setTime(time - 1);
-        console.log({ time });
       }, 1000);
       return () => clearInterval(timerId.current);
     } else {

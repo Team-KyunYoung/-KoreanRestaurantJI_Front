@@ -2,8 +2,6 @@ import axios from "axios";
 
 class Authentication {
   loginTokenSave(token) {
-    console.log("===login Token Save===");
-    //로컬 스토리지에 유효시간(6시간) 추가하여 저장.
     const item = {
       value: token,
       expire: Date.now() + 21600000,
@@ -21,7 +19,6 @@ class Authentication {
           const token = JSON.parse(obj).value;
           if (token) {
             config.headers["X-AUTH-TOKEN"] = token;
-            //X-AUTH-TOKEN으로 다른 url 이용할 때 헤더로 넣어줘야한다.
           }
           return config;
         },
@@ -34,7 +31,6 @@ class Authentication {
 
   isUserLoggedIn() {
     const localStorageData = localStorage.getItem("token");
-    console.log("===UserloggedInCheck===");
 
     if (localStorageData) {
       // 현재 시간과 localStorage의 expire 시간 비교
@@ -44,7 +40,6 @@ class Authentication {
         localStorage.removeItem("token");
         return false;
       }
-      console.log(JSON.parse(localStorageData).value);
       return true;
     }
     return false;
