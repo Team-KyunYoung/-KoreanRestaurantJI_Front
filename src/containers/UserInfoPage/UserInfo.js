@@ -2,9 +2,8 @@ import React from "react";
 import { useParams, Link } from "react-router-dom";
 import MediaQuery from "react-responsive";
 import styles from "./UserInfo.module.scss";
-
 import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import EditProfile from "./EditProfile";
 import Reservation from "./Reservation";
@@ -38,28 +37,23 @@ const UserInfo = () => {
               <h1>My page</h1>
             </div>
             <div className={styles.contents}>
-              {/* 모니터ver */}
               <MediaQuery minWidth={993}>
                 <div className={[styles.fixedBox, styles.rightside].join(" ")}>
                   {remoteController}
                 </div>
               </MediaQuery>
-
-              {/* 태블리 + 모바일ver */}
               <MediaQuery maxWidth={992}>
                 <div className={[styles.fixedBox, styles.upside].join(" ")}>
                   {remoteController}
                 </div>
               </MediaQuery>
               {param.location === "editprofile" ? <EditProfile /> : ""}
-              {/* {param.location === "reservation" ? <Reservation /> : ""} */}
               {param.location === "reservation" ? (
                 <Reservation mode={param.mode ? "past" : "now"} />
               ) : (
                 ""
               )}
               {param.location === "ordered" ? <Ordered /> : ""}
-              {/*  */}
             </div>
           </section>
         </div>

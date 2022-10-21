@@ -2,15 +2,14 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import ImgBanner from "../../components/Banner/ImgBanner";
-import Chat from "../../components/ChatBot/Chat";
+import ImgBanner from "components/Banner/ImgBanner";
+import Chat from "components/ChatBot/Chat";
 import styles from "./Event.module.scss";
 import UserService from "lib/api/UserService";
 import EventService from "lib/api/EventService";
 
 const image1 = "https://picsum.photos/800/600";
 function InnerEvent(props) {
-  console.log(props.list.length);
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
@@ -59,17 +58,14 @@ const EventBoard = () => {
   useEffect(() => {
     EventService.findAllEvent()
       .then((response) => {
-        console.log(response);
         setList(response.data.data);
         setIsLoading(false);
       })
       .catch(() => {});
     UserService.isAdmin()
       .then((response) => {
-        console.log(response);
         if (response.data.data === true) {
           setIsAdmin(true);
-          console.log("admin");
         }
       })
       .catch(() => {});

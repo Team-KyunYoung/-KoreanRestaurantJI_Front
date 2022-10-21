@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-
+import React from "react";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Modal from "react-bootstrap/Modal";
@@ -7,10 +6,9 @@ import Modal from "react-bootstrap/Modal";
 const ModalWindow = ({ form, setForm, show, handleClose }) => {
   const onHandleChangeUserInfo = (e) => {
     const nextForm = {
-      ...form, // 기존의 값 복사 (spread operator)
-      [e.target.name]: e.target.value, // 덮어쓰기
+      ...form,
+      [e.target.name]: e.target.value,
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   return (
@@ -43,7 +41,6 @@ const ModalWindow = ({ form, setForm, show, handleClose }) => {
             <Form.Control
               onChange={onHandleChangeUserInfo}
               name="userRequest"
-              // as="textarea"
               rows={3}
               maxLength={100}
               placeholder="(ex. 알러지 정보, 아기 식사)"

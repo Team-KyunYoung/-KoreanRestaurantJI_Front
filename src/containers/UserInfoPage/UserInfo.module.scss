@@ -28,7 +28,6 @@
     h2 {
       text-shadow: 4px 1px 1px #cbc5c5;
     }
-    //리모콘
     .fixedBox {
       position: fixed;
       top: 150px;
@@ -91,7 +90,6 @@
         }
       }
     }
-    //editProfile 페이지
     .editProfile {
       .inputArea {
         align-content: center;
@@ -145,7 +143,6 @@
         }
       }
     }
-    //reservation페이지
     .reservation {
       .list {
         list-style: none;
@@ -173,8 +170,6 @@
         }
       }
       .today {
-        // background-color: #b4b4b6;
-        // color: white;
         img {
           border: 5px solid salmon;
         }
@@ -223,7 +218,6 @@
         }
       }
     }
-    //ordered 페이지
     .ordered {
       height: auto;
       margin-top: -15px;
@@ -242,7 +236,6 @@
             }
             ul {
               overflow: scroll;
-              // border: solid 1px rgb(201, 201, 201);
               border-radius: 30px;
               max-height: 50vh;
               width: 95%;
@@ -258,7 +251,6 @@
                   color: black;
                   text-decoration: none;
                   display: flex;
-                  // justify-content: space-between;
                   justify-content: flex-start;
                   align-items: center;
                   .dishList {
@@ -279,7 +271,6 @@
                     width: 100px;
                     height: 100px;
                     transition: all 0.2s linear;
-                    // border-radius: 150px;
                   }
                 }
               }
@@ -293,7 +284,6 @@
     justify-content: center !important;
     margin-top: 10px;
   }
-  //주문내역 없음
   .noList {
     a {
       @include commonA(#676b91);
@@ -325,7 +315,6 @@
     }
     .contents {
       width: 100%;
-      // height: 700px;
       padding: 10%;
       .editProfile {
         .inputArea {
@@ -359,7 +348,6 @@
     }
     .contents {
       width: 100%;
-      // height: 600px;
       padding: 3%;
       padding-top: 45px;
       .editProfile {

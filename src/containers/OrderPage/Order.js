@@ -15,19 +15,20 @@ import OrderService from "lib/api/OrderService";
 
 const image1 = "https://picsum.photos/1200/600";
 
-const remoteController = ( //상단 바로가기 리모콘, dish에서 사용할 시 컴포넌트 폴더로 옮길 것
-  <ul>
-    <li>
-      <a href="#appetizer">Appetizer</a>
-    </li>
-    <li>
-      <a href="#entree">Entree</a>
-    </li>
-    <li>
-      <a href="#dessert">Dessert</a>
-    </li>
-  </ul>
-);
+const remoteController = //상단 바로가기 리모콘, dish에서 사용할 시 컴포넌트 폴더로 옮길 것
+  (
+    <ul>
+      <li>
+        <a href="#appetizer">Appetizer</a>
+      </li>
+      <li>
+        <a href="#entree">Entree</a>
+      </li>
+      <li>
+        <a href="#dessert">Dessert</a>
+      </li>
+    </ul>
+  );
 const Order = () => {
   function DishContent(count, data) {
     var popover = (
@@ -41,15 +42,15 @@ const Order = () => {
           <img
             href="#"
             src={data.data[count].dishPhoto}
-            //src="https://picsum.photos/350/350"
             alt={data.data[count].dishName}
           />
-          <button type="submit"
+          <button
+            type="submit"
             onClick={() => {
               setModalIsOpen(true);
               setOrderDish(data.data[count]);
             }}
-            >
+          >
             구매하기
           </button>
         </div>
@@ -59,40 +60,17 @@ const Order = () => {
             placement="bottom"
             overlay={popover}
           >
-            {/*hover시 팝오버가 나타남,콘솔 경고 확인할 것*/}
             <div>
               <h4>{data.data[count].dishName}</h4>
               <p>{data.data[count].dishDescription}</p>
             </div>
           </OverlayTrigger>
-          <i>{data.data[count].dishPrice.toLocaleString('ko-KR')}원</i>
-          {/* <span className={styles.btnClub}>
-            <button
-              type="submit"
-              onClick={() => {
-                setModalIsOpen(true);
-                setOrderDish(data.data[count]);
-              }}
-            >
-              바로주문
-            </button>
-            <button
-              type="submit"
-              className={styles.cart}
-              onClick={() => {
-                setModalIsOpen(true);
-                setOrderDish(data.data[count]);
-              }}
-            >
-              장바구니
-            </button>
-          </span> */}
+          <i>{data.data[count].dishPrice.toLocaleString("ko-KR")}원</i>
         </div>
       </div>
     );
   }
   function OrderContent(data) {
-    //console.log(data.data.length);
     const entreeList = [];
     const appetizerList = [];
     const dessertList = [];
@@ -134,7 +112,6 @@ const Order = () => {
   const [scrollY, setScrollY] = useState(0); // window 의 pageYOffset값을 저장
   const [scrollOver, setScrollOver] = useState(false); //스크롤이 550을 넘겼는지에 대한 정보
   function handleScroll() {
-    //console.log(scrollY + "," + scrollOver);
     if (scrollY > 550) {
       //바로가기 리모콘 우단으로 옮김
       //헤더+carousel 대충 높이, jsx 내 px,vh calc계산 모르겠음
@@ -164,13 +141,11 @@ const Order = () => {
     } else {
       setDisable(false);
     }
-    console.log(count);
     setOrderQuantity((current) => current + count);
   }
   function onClickAddCart(dishNumber, orderQuantity) {
     CartService.addCartDish(dishNumber, orderQuantity)
       .then((response) => {
-        console.log(response.data.data);
         setModalIsOpen(false);
         setIsCartIn(true);
         setSuccessModalIsOpen(true);
@@ -185,7 +160,6 @@ const Order = () => {
     ];
     OrderService.addOrder(dishOrderList)
       .then((response) => {
-        console.log(response.data.data);
         setModalIsOpen(false);
         setIsCartIn(false);
         setSuccessModalIsOpen(true);
@@ -208,11 +182,14 @@ const Order = () => {
   const [dish, setDish] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    DishService.findAllDish().then((response) => {
-      console.log(response);
-      setDish(response.data.data);
-      setIsLoading(false);
-    });
+    DishService.findAllDish()
+      .then((response) => {
+        setDish(response.data.data);
+        setIsLoading(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }, []);
   return (
     <div id="OrderPage">
@@ -262,10 +239,9 @@ const Order = () => {
       >
         <h3>주문 상세</h3>
         <div className={modalstyles.dish}>
-          <div className={modalstyles.img}><img src={orderDish.dishPhoto}></img></div>
-          {/* <div className={modalstyles.img}>
-            <img src="https://picsum.photos/160/160"></img>
-          </div> */}
+          <div className={modalstyles.img}>
+            <img src={orderDish.dishPhoto} alt="dish img"></img>
+          </div>
           <div className={modalstyles.dishdetail}>
             <div className={modalstyles.title}>{orderDish.dishName}</div>
             <div className={modalstyles.quantitity}>

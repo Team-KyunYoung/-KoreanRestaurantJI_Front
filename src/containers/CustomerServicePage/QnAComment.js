@@ -6,13 +6,10 @@ const QnaComment = (props) => {
   const [comment, setComment] = useState("");
   const adminHandleChange = useCallback((e) => {
     setComment(e.target.value);
-    console.log(e.target.value);
   }, []);
   const updateComment = (e) => {
-    console.log(e.target.id, comment);
     AdminComment.updateComment(e.target.id, comment)
       .then((response) => {
-        console.log(response);
         window.location.replace(
           "/QnABoard/" + props.qnaNum + "/" + props.isPrivate
         );
@@ -24,7 +21,6 @@ const QnaComment = (props) => {
   const deleteComment = (e) => {
     AdminComment.deleteComment(e.target.id)
       .then((response) => {
-        console.log(response);
         window.location.replace(
           "/QnABoard/" + props.qnaNum + "/" + props.isPrivate
         );
@@ -34,7 +30,6 @@ const QnaComment = (props) => {
       });
   };
   const commentlist = [];
-  console.log(props.list);
   props.list.map((obj, i) => {
     commentlist.push(
       <li key={i}>

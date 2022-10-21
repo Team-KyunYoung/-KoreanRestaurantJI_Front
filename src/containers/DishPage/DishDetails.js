@@ -8,7 +8,6 @@ import DishService from "lib/api/DishService";
 import CartService from "lib/api/CartService";
 import Authentication from "lib/api/Authentication";
 
-const image1 = "https://picsum.photos/2000/1200";
 const DishDetails = () => {
   let navigate = useNavigate();
 
@@ -27,18 +26,17 @@ const DishDetails = () => {
       setDishImage(response.data.data.dishPhoto);
       setDishPrice(response.data.data.dishPrice);
       setDishCategory(response.data.data.dishCategory);
-      setdishNutritionFacts(response.data.data.dishNutritionFacts)
-      console.log(response);
-      setMount(true)
+      setdishNutritionFacts(response.data.data.dishNutritionFacts);
+      setMount(true);
       setTimeout(() => setIsVisible(true), 1000);
     });
   }, []);
 
   function onClickAddCart(dishNumber) {
-    if(Authentication.isUserLoggedIn()){
+    if (Authentication.isUserLoggedIn()) {
       CartService.addCartDish(dishNumber, 1)
         .then(() => {
-          if(window.confirm("장바구니에 추가되었습니다. 이동하시겠습니까?")){
+          if (window.confirm("장바구니에 추가되었습니다. 이동하시겠습니까?")) {
             navigate("/cart");
           }
         })
@@ -56,21 +54,34 @@ const DishDetails = () => {
     <div id={styles.DishDetailPage}>
       <Header />
       <main className={styles.container}>
-        <div className={styles.dishCategory}><h2>{dishCategory}</h2></div>
-        {mount ? 
-          <div className={styles.dishDetails} style={{backgroundImage: `url(${dishImage})`, backgroundSize: "100% 100%"}}>
-          {/* <div className={styles.dish} data-aos="zoom-in" style={`background-image: ${dishImage};`}> */}
-            <div className={`${styles.dishDescriptionBox} ${isVisible ? styles.slideInRight : null}`}>
+        <div className={styles.dishCategory}>
+          <h2>{dishCategory}</h2>
+        </div>
+        {mount ? (
+          <div
+            className={styles.dishDetails}
+            style={{
+              backgroundImage: `url(${dishImage})`,
+              backgroundSize: "100% 100%",
+            }}
+          >
+            <div
+              className={`${styles.dishDescriptionBox} ${
+                isVisible ? styles.slideInRight : null
+              }`}
+            >
               <div className={styles.dishDescription}>
                 <p className={styles.dishName}>{dish.dishName}</p>
                 <p className={styles.description}>{dishDescription}</p>
                 <div className={styles.dishNutritionFacts}>
                   <div className={styles.header}>
                     <p className={styles.title}>영양 성분표</p>
-                    <p className={styles.servingSize}>총 용량: {dishNutritionFacts.dishServingSize}g</p>
+                    <p className={styles.servingSize}>
+                      총 용량: {dishNutritionFacts.dishServingSize}g
+                    </p>
                   </div>
                   <div className={styles.contents}>
-									  <ul className={styles.leftUl}>
+                    <ul className={styles.leftUl}>
                       <li className={styles.kcal}>
                         <dl>
                           <dt>열량 (kcal)</dt>
@@ -89,18 +100,24 @@ const DishDetails = () => {
                           <dd>{dishNutritionFacts.dishProtein}</dd>
                         </dl>
                       </li>
-                      <li className={styles.choles_FAT} style={{display: "none"}}>
+                      <li
+                        className={styles.choles_FAT}
+                        style={{ display: "none" }}
+                      >
                         <dl>
                           <dt>콜레스테롤 (g)</dt>
                           <dd>{dishNutritionFacts.dishCholesterol}</dd>
                         </dl>
                       </li>
-                      <li className={styles.trans_FAT} style={{display: "none"}}>
+                      <li
+                        className={styles.trans_FAT}
+                        style={{ display: "none" }}
+                      >
                         <dl>
                           <dt>트랜스지방 (g)</dt>
                           <dd>{dishNutritionFacts.dishTransFat}</dd>
                         </dl>
-                      </li>                      
+                      </li>
                     </ul>
                     <ul className={styles.rightUl}>
                       <li className={styles.chabo}>
@@ -124,16 +141,28 @@ const DishDetails = () => {
                     </ul>
                   </div>
                 </div>
-                <p className={styles.dishPrice}>{dishPrice.toLocaleString('ko-KR')}원</p>
+                <p className={styles.dishPrice}>
+                  {dishPrice.toLocaleString("ko-KR")}원
+                </p>
               </div>
               <div className={styles.toBtn}>
                 <ul>
-                  <Link to="/SelectRoom"><li className={styles.btnReservation}>식당 예약하기</li></Link>
-                  <li className={styles.btnCart}><button className={styles.btn} onClick={() => onClickAddCart(dish.dishNumber)}>장바구니에 담기</button></li>
+                  <Link to="/SelectRoom">
+                    <li className={styles.btnReservation}>식당 예약하기</li>
+                  </Link>
+                  <li className={styles.btnCart}>
+                    <button
+                      className={styles.btn}
+                      onClick={() => onClickAddCart(dish.dishNumber)}
+                    >
+                      장바구니에 담기
+                    </button>
+                  </li>
                 </ul>
               </div>
             </div>
-          </div> : null }
+          </div>
+        ) : null}
       </main>
       <Chat />
       <Footer />

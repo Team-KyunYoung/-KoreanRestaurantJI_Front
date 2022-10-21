@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
+import Chat from "components/ChatBot/Chat";
 import Footer from "components/footer/Footer";
 import MainCarousel from "./MainCarousel.js";
 import ParallaxContent from "./ParallaxContent.js";

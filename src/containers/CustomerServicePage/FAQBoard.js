@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import styles from "./CS.module.scss";
 import Accordion from "react-bootstrap/Accordion";
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
-import Chat from "../../components/ChatBot/Chat";
-import styles from "./CS.module.scss";
+import Chat from "components/ChatBot/Chat";
 import Question from "lib/api/Question";
 import UserService from "lib/api/UserService";
 const InnerFAQ = (props) => {
@@ -21,7 +21,6 @@ const InnerFAQ = (props) => {
         console.log(error);
       });
   };
-  console.log(props.list);
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
@@ -67,7 +66,6 @@ const FAQBoard = () => {
   useEffect(() => {
     Question.findAllFAQ()
       .then((response) => {
-        console.log(response);
         setList(response.data.data);
         setIsLoading(false);
       })
@@ -76,10 +74,8 @@ const FAQBoard = () => {
       });
     UserService.isAdmin()
       .then((response) => {
-        console.log(response);
         if (response.data.data === true) {
           setIsAdmin(true);
-          console.log("admin");
         }
       })
       .catch((error) => {

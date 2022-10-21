@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-
 import Header from "components/header/Header";
 import Footer from "components/footer/Footer";
 import Privacy from "./Privacy.js";
@@ -50,7 +49,6 @@ const Signup = () => {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   const onChangeChecked = (e) => {
@@ -113,8 +111,6 @@ const Signup = () => {
       /^(?=.*[a-zA-Z])(?=.*[!@#$%^*+=-])(?=.*[0-9]).{8,25}$/;
     if (!passwordRegex.test(userPassword)) {
       //조건에 맞지 않음
-      console.log(userPassword);
-      console.log(passwordRegex.test(userPassword));
       if (userPassword.length !== 0)
         setPwMessage(
           "영문,숫자,기호를 포함한 8자 이상의 비밀번호를 입력하세요"
@@ -126,8 +122,6 @@ const Signup = () => {
   }, [userPassword]);
   //비밀번호 일치 검사
   useEffect(() => {
-    console.log(userPassword);
-    console.log(userPasswordConfirm);
     if (userPassword === userPasswordConfirm) {
       //비밀번호 일치
       console.log("password comfrim!");
@@ -144,8 +138,6 @@ const Signup = () => {
   // 두 단계의 비밀번호 인증 통과 후 userPassword를 바꾸면
   //userPasswordConfirm를 통과했다 착각
   const completeSignup = () => {
-    console.log("signupClicked");
-    console.log({ userEmail });
     if (
       isCertifiedEmail !== true ||
       isUsableNickname !== true ||
@@ -154,13 +146,11 @@ const Signup = () => {
       userPasswordConfirm.length === 0
     ) {
       alert("입력한 내용을 다시 확인해주세요");
-      console.log(isCertifiedEmail + "," + isUsableNickname + ",");
     } else if (isPrivacyChecked !== true) {
       alert("개인정보 처리방침에 동의해주세요");
     } else {
       UserService.signup(userEmail, userNickname, userPassword)
         .then((response) => {
-          console.log(response);
           alert("회원가입이 완료되었습니다.");
           navigate("/login", { state: { preLocation: location } });
         })
@@ -248,7 +238,6 @@ const Signup = () => {
                     </Button>
                   </InputGroup>
                   <p>{emailMessage}</p>
-                  {/*이메일 중복되면 메세지*/}
                   {isUsableEmail && (
                     <p name="enterEmailMessage">
                       {min}분 {sec}초

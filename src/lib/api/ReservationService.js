@@ -21,7 +21,6 @@ class ReservationService {
       reservationTableCount: tableCount,
       reservationTime: time,
     };
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.post(
       RESERVATION_API_BASE_URL + "/create",
@@ -89,7 +88,6 @@ class ReservationService {
       reservationTime: time,
     };
     alert(name);
-    console.log(data);
     Authentication.setupAxiosInterceptors();
     return axios.put(
       RESERVATION_API_BASE_URL + "/update/" + reservationNumber,
