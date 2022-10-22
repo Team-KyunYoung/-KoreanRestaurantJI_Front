@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
-import Header from "components/header/Header";
-import Chat from "../../components/ChatBot/Chat";
-import Footer from "components/footer/Footer";
 import styles from "./DishDetails.module.scss";
+import Header from "components/header/Header";
+import Chat from "components/ChatBot/Chat";
+import Footer from "components/footer/Footer";
 import DishService from "lib/api/DishService";
 import CartService from "lib/api/CartService";
 import Authentication from "lib/api/Authentication";
