@@ -162,6 +162,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.reservationDate]);
   useEffect(() => {
+    // eslint-disable-next-line array-callback-return
     personnelStatus.map((personnelObj) => {
       personnelObj.isDisabled = false;
     });
