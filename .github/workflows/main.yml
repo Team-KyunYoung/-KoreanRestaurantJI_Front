@@ -2,7 +2,7 @@ name: React build
 on:
   push: # master Branch에서 push 이벤트가 일어났을 때만 실행
     branches:
-      - master
+      - develop
 
 jobs:
   build:
@@ -16,3 +16,10 @@ jobs:
 
       - name: Build # React Build
         run: npm run build
+        
+      - name: Deploy 
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        run: |
+          aws s3 sync ./build s3://S3-ji-front
