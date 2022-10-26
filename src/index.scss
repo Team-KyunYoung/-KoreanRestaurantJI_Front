@@ -1,0 +1,97 @@
+// 임시 미디어쿼리
+/*반응형 화면 크기*/
+$lessMobile: 320px;
+$mobile: 768px;
+$overMobile: 769px;
+$tablet: 1023px;
+$desktop: 1024px;
+/*반응형, 브라우저 크기가 992px 이하일때*/
+@mixin mobile {
+  @media (min-width: $lessMobile) and (max-width: $mobile) {
+    @content;
+  }
+}
+/*반응형, 브라우저 크기가 768이상, 1023px 이하일때*/
+@mixin tablet {
+  @media (min-width: $overMobile) and (max-width: $tablet) {
+    @content;
+  }
+}
+
+/*반응형, 브라우저 크기가 1024px 이상일때*/
+@mixin desktop {
+  @media (min-width: $desktop) {
+    @content;
+  }
+}
+
+@font-face {
+  font-family: 'NotoSerifKR';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+//출처 ; https://eunhee-programming.tistory.com/178
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  font-family: "NotoSerifKR", sans-serif !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+@mixin commonA($color) {
+  text-decoration: none;
+  color: $color;
+  font-weight: bold;
+  padding: 5px;
+}
+@mixin commonAHover($bg, $font) {
+  cursor: pointer;
+  color: $font;
+  border-radius: 15px;
+  background-color: $bg;
+}
+@mixin whiteButton() {
+  display: inline-block;
+  text-decoration: none;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  outline: none;
+  background-color: transparent;
+  color: white;
+  box-shadow: none;
+  border: 2px solid white;
+}
+@mixin buttonBox($color) {
+  display: inline-block;
+  text-decoration: none;
+  width: 300px;
+  padding: 20px;
+  margin: 10px;
+  outline: none;
+  background-color: transparent;
+  color: $color;
+  box-shadow: none;
+  border: 2px solid $color;
+}
+@mixin overflowLine($width, $line) {
+  display: inline-block !important;
+  width: $width;
+  white-space: nowrap !important;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+}

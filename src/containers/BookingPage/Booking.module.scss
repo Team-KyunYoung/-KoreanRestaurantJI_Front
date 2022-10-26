@@ -1,0 +1,192 @@
+@import "./src/index.scss";
+
+.container {
+  min-height: 76vh;
+  background-image: url("https://picsum.photos/1200/600");
+  background-size: cover;
+  background-repeat: no-repeat;
+  text-align: center;
+  padding: 100px 10px;
+  > header {
+    text-align: center;
+    color: white;
+    text-decoration: 1px 1px 1px gray;
+    margin-bottom: 50px;
+  }
+  .roomContainer {
+    display: flex;
+    justify-content: center;
+    div {
+      width: 300px;
+      height: 600px;
+      margin: 1px;
+      overflow: hidden;
+      img {
+        display: inline-block;
+        width: 100%;
+        height: 600px;
+        object-fit: cover;
+        filter: brightness(50%);
+      }
+      img:hover {
+        cursor: pointer;
+        animation: showRoomImage 1s forwards;
+      }
+      &:hover h3 {
+        color: white;
+        animation: showRoomName 1.3s forwards;
+      }
+      h3 {
+        display: inline-block;
+        position: relative;
+        top: -50%;
+        color: white;
+        text-shadow: -1px 0px darkgray, 0px 1px darkgray, 1px 0px darkgray,
+          0px -1px darkgray;
+        pointer-events: none;
+      }
+    }
+  }
+  @keyframes showRoomImage {
+    0% {
+      filter: brightness(50%);
+    }
+    100% {
+      filter: brightness(100%);
+    }
+  }
+  @keyframes showRoomName {
+    50% {
+      top: -17%;
+    }
+    100% {
+      top: -20%;
+    }
+  }
+}
+@include tablet {
+  .roomContainer {
+    flex-wrap: wrap;
+    margin: 3%;
+    div {
+      flex: auto;
+      button {
+        pointer-events: none;
+        display: inline-block;
+        position: relative;
+        top: -10%;
+        transform: translate(-50%, -50%);
+        border: 2px solid black;
+        border-radius: 22px;
+        background: none;
+        color: black;
+        padding: 5px 10px;
+        font-size: 20px;
+      }
+      &:hover button {
+        border: 2px solid white;
+        box-shadow: 1px 1px 1px rgb(66, 66, 66);
+        color: white;
+        text-shadow: 1px 1px 1px rgb(66, 66, 66);
+      }
+    }
+  }
+}
+@include mobile {
+  .container {
+    padding: 50px 0px;
+  }
+  .roomContainer {
+    flex-wrap: wrap;
+    margin: 5%;
+    div {
+      flex: auto;
+      height: 300px !important;
+      img {
+        height: 300px !important;
+      }
+    }
+  }
+}
+.selectMore {
+  header {
+    text-shadow: 1px 1px 2px gray;
+  }
+  .reservationFormBox {
+    display: inline-block;
+    padding: 50px;
+    margin: 0 auto;
+    text-align: center;
+    form {
+      display: flex;
+    }
+    input {
+      width: 300px;
+      margin: 30px;
+      padding: 31px;
+      border: 1px solid rgb(177, 177, 177);
+      outline: none;
+      height: 48px;
+      border-radius: 5px;
+      color: gray;
+    }
+    .select {
+      width: 300px;
+      margin: 30px;
+      border: none;
+      outline: none;
+    }
+    button {
+      width: 300px;
+      padding: 20px;
+      outline: none;
+      background-color: transparent;
+      color: white;
+      box-shadow: none;
+      border: 2px solid white;
+      margin-top: 150px;
+    }
+  }
+}
+@include tablet {
+  .selectMore {
+    .reservationFormBox {
+      form {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+      }
+      input {
+        margin: 20px;
+      }
+      .select {
+        margin: 20px;
+      }
+      button {
+        width: 40%;
+        margin-top: 80px;
+      }
+    }
+  }
+}
+@include mobile {
+  .selectMore {
+    form {
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+    }
+    input {
+      width: 90%;
+      margin: 10px;
+    }
+    .select {
+      width: 90%;
+      margin: 10px;
+    }
+    button {
+      width: 90%;
+      margin-top: 50px;
+    }
+  }
+}

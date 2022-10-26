@@ -1,0 +1,163 @@
+@import "./src/index.scss";
+.container {
+  width: 100%;
+  min-height: 75.5vh;
+  > header {
+    text-align: center;
+    color: white;
+    text-decoration: 1px 1px 1px gray;
+    .react-parallax-content {
+      width: 100%;
+    }
+  }
+}
+.appetizer,
+.entree,
+.dessert {
+  padding: 70px 10% 40px 10%;
+  text-align: center;
+  .seperator {
+    text-align: center;
+    border: 1px solid #171e5c;
+    width: 30px;
+    height: 0px;
+    margin: 30px auto;
+  }
+
+  a {
+    display: contents;
+    color: black;
+    text-decoration: none;
+  }
+  .dish {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin: 15px;
+    overflow-y: scroll !important;
+    border: 1px solid black;
+    border-radius: 30px;
+    .dishImg {
+      width: 300px;
+      height: auto;
+      min-height: 200px;
+      overflow: hidden;
+      img {
+        width: 300px;
+        height: 100%;
+        transition: all 0.5s linear;
+        object-fit: cover; //비율유지확대
+      }
+    }
+    .dishDescription {
+      text-align: start;
+      width: calc(100% - 300px);
+      padding: 2%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-content: flex-end;
+      justify-content: space-around;
+      i {
+        font-size: 14px;
+        color: gray;
+      }
+    }
+    button {
+      display: none;
+    }
+  }
+}
+//dishDetails
+.dishDetails {
+  padding: 70px 10% 40px 10%;
+  text-align: center;
+  .dish {
+    display: flex;
+    width: 100%;
+    height: auto;
+    margin: 15px;
+    overflow-y: scroll !important;
+    border: 1px solid black;
+    border-radius: 30px;
+    .dishImg {
+      width: 50%;
+      height: 65vh;
+      overflow: hidden;
+      img {
+        width: 100%;
+        height: 100%;
+        transition: all 0.5s linear;
+        object-fit: cover; //비율유지확대
+      }
+    }
+    .dishDescription {
+      text-align: start;
+      width: 50%;
+      padding: 2%;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      align-content: flex-end;
+      justify-content: space-around;
+      h4 {
+        padding: 10px 0;
+      }
+      i {
+        font-size: 14px;
+        color: gray;
+      }
+      p {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@include tablet {
+  .appetizer,
+  .entree,
+  .dessert,
+  .dishDetails {
+    padding: 70px 5% 40px 5%;
+  }
+  .dishDetails {
+    .dish {
+      flex-direction: column;
+      align-items: stretch;
+      .dishImg {
+        width: 100%;
+        height: 50vh;
+      }
+      .dishDescription {
+        text-align: start;
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}
+@include mobile {
+  .appetizer,
+  .entree,
+  .dessert,
+  .dishDetails {
+    padding: 30px 5% 40px 5%;
+  }
+  .dishDetails {
+    .dish {
+      flex-direction: column;
+      align-items: stretch;
+      width: 95%;
+      .dishImg {
+        width: 100%;
+        height: 50vh;
+      }
+      .dishDescription {
+        text-align: start;
+        width: 100%;
+        height: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,342 @@
+@import "./src/index.scss";
+.container {
+  background-image: url("https://picsum.photos/1200/600");
+  background-size: cover;
+  background-repeat: no-repeat;
+
+  header {
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px 1px gray;
+    padding: 80px;
+    width: 60%;
+    margin: 0 auto;
+  }
+
+  .accordionBox,
+  .tableBox,
+  .singleQuestionBox,
+  .commentBox {
+    text-align: center;
+    padding-bottom: 100px;
+    > div:first-child {
+      width: 900px;
+      display: inline-block;
+    }
+  }
+  //2개의 연속 버튼
+  .sideBySide {
+    background-color: white;
+    border-radius: 25px;
+    width: 54px;
+    height: 30px;
+    border: 1px solid gray;
+    font-size: 12px;
+
+    &:nth-child(1) {
+      border-radius: 25px 0 0 25px;
+    }
+    &:nth-child(2) {
+      border-radius: 0 25px 25px 0;
+    }
+  }
+  //FAQBoard 페이지
+  .accordionBox {
+    .accordionHeader {
+      justify-content: space-between !important;
+    }
+    .sideBySide {
+      position: absolute;
+      &:first-child {
+        right: 100px;
+      }
+      &:nth-child(2) {
+        right: 50px;
+      }
+    }
+  }
+  //QnABoard 페이지
+  .table {
+    background-color: white;
+    .thead > div {
+      display: flex;
+      flex-wrap: nowrap;
+      flex: 1;
+      justify-content: space-between;
+      background-color: rgb(78, 78, 78);
+      color: white;
+      padding: 15px;
+      div {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+      }
+      div:nth-child(2) {
+        flex: 3;
+      }
+    }
+    .tbody {
+      a {
+        text-decoration: none;
+        color: black;
+      }
+      > a > div {
+        display: flex;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        border-bottom: 1px solid gray;
+        padding: 15px;
+        &:hover {
+          color: rgb(171, 179, 228);
+        }
+        div {
+          display: flex;
+          flex: 1;
+          justify-content: center;
+          overflow: hidden;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: normal;
+          word-wrap: break-word;
+          display: -webkit-box;
+          -webkit-line-clamp: 1;
+          -webkit-box-orient: vertical;
+        }
+        div:nth-child(2) {
+          flex: 3;
+          //3줄을 넘어가먄 ellipsis
+        }
+      }
+    }
+  }
+  .singleQuestionBox {
+    //createQnA페이지
+    .formBox {
+      display: flex;
+      flex-direction: column;
+      .checkBox {
+        margin-top: 20px;
+      }
+      .inputBox {
+        label {
+          display: inline-block;
+          width: 45px;
+        }
+        .textareaLabel {
+          position: relative;
+          top: calc(-20vh + 21px);
+        }
+        input,
+        textarea {
+          width: 90%;
+          background-color: white;
+          border-radius: 10px;
+          outline: none;
+          border: 1px solid rgb(132, 132, 133);
+          padding: 10px;
+          margin-top: 20px;
+        }
+        textarea {
+          width: 90%;
+          height: 20vh;
+          overflow: scroll;
+        }
+        //글자 수 공간
+        input[type="text"] {
+          padding-right: 60px;
+        }
+      }
+      :is(.inputBox, .checkBox) label {
+        color: white;
+        text-shadow: 1px 1px 1px gray;
+      }
+      p {
+        //글자수
+        color: gray;
+        font-size: 12px;
+      }
+      .counter {
+        margin-top: -34px;
+        margin-left: 90%;
+      }
+    }
+  }
+
+  .btn {
+    text-align: center;
+    margin-top: 100px;
+    a,
+    button {
+      @include whiteButton;
+    }
+  }
+  //QnABoard댓글
+  .commentBox {
+    p {
+      text-align: start;
+      color: white;
+      margin: 10px 0 5px 2%;
+    }
+    textarea {
+      width: 100%;
+      background-color: white;
+      border-radius: 10px;
+      outline: none;
+      border: 1px solid rgb(132, 132, 133);
+      height: auto;
+      overflow: scroll;
+      padding: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: white;
+      border-radius: 25px;
+      width: 54px;
+      height: 30px;
+      border: 1px solid gray;
+      font-size: 12px;
+      margin-bottom: 20px;
+    }
+
+    form {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      button {
+        margin-left: -66px;
+      }
+      textarea {
+        padding-right: 70px;
+      }
+    }
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      li {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        button {
+          &:nth-child(2) {
+            margin-left: -120px;
+            border-radius: 25px 0 0 25px;
+          }
+          &:nth-child(3) {
+            border-radius: 0 25px 25px 0;
+          }
+        }
+        textarea {
+          padding-right: 130px;
+        }
+      }
+    }
+  }
+}
+@include tablet {
+  .container {
+    header {
+      text-align: center;
+      color: white;
+      text-decoration: 1px 1px 1px gray;
+      padding: 60px;
+      width: 80%;
+      margin: 0 auto;
+    }
+
+    .accordionBox,
+    .tableBox,
+    .singleQuestionBox,
+    .commentBox {
+      > div:first-child {
+        width: 90% !important;
+      }
+    }
+    .tableBox {
+      padding-bottom: 100px;
+      .table {
+        margin: 0 auto;
+        .thead > div {
+          div:nth-child(2) {
+            // width: 40%;
+            width: 30%;
+          }
+        }
+        .tbody > div {
+          div:nth-child(2) {
+            // width: 40%;
+            width: 40%;
+          }
+        }
+      }
+    }
+  }
+}
+@include mobile {
+  .container {
+    header {
+      text-align: center;
+      color: white;
+      text-decoration: 1px 1px 1px gray;
+      padding: 40px;
+      width: 95%;
+      margin: 0 auto;
+    }
+    .accordionBox,
+    .tableBox,
+    .singleQuestionBox,
+    .commentBox {
+      > div:first-child {
+        width: 95% !important;
+      }
+    }
+    .accordionBox {
+      text-align: center;
+    }
+    .tableBox {
+      padding-bottom: 100px;
+      .table {
+        margin: 0 auto;
+        .thead > div {
+          div:nth-child(2) {
+            width: 30%;
+          }
+        }
+        .tbody > div {
+          div:nth-child(2) {
+            width: 40%;
+          }
+        }
+      }
+    }
+    .singleQuestionBox {
+      .formBox {
+        .inputBox {
+          label {
+            display: block;
+            margin: 20px 0 0 5%;
+          }
+          .textareaLabel {
+            top: 0 !important;
+          }
+          input,
+          textarea {
+            margin-top: 0px;
+          }
+        }
+        .counter {
+          margin-left: 75%;
+        }
+      }
+    }
+
+    .titleCounter {
+      margin-left: -15% !important;
+      margin-top: 15px;
+    }
+    .contentCounter {
+      margin-left: 83% !important;
+      margin-top: -30px;
+    }
+  }
+}

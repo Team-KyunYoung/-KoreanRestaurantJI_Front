@@ -1,0 +1,111 @@
+@import "./src/index.scss";
+.title {
+  padding-top: 10vh;
+  h1 {
+    text-align: center;
+    font-weight: bold;
+  }
+}
+.main {
+  padding: 0 !important;
+  display: grid;
+  justify-items: center;
+}
+
+.contents {
+  padding: 5%;
+  padding-top: 2%;
+  @media (max-width: 1024px) {
+    display: grid;
+    justify-items: center;
+    justify-content: center;
+  }
+  @media (min-width: 1024px) {
+    display: inline-block;
+    justify-content: center;
+  }
+}
+
+.imgbox {
+  width: 60vw;
+  height: 50vh;
+  position: relative;
+  @media (max-width: 1024px) {
+    width: 80vw;
+    height: 50vh;
+    justify-items: center;
+  }
+  @media (min-width: 1024px) {
+    width: 60vw;
+    height: 50vh;
+    z-index: 1;
+  }
+}
+.rightImg {
+  @include desktop {
+    float: right;
+    right: 5vw;
+  }
+}
+.leftImg {
+  @include desktop {
+    float: left;
+    left: 5vw;
+  }
+}
+
+#info1 {
+  background-image: url("http://drive.google.com/uc?export=view&id=16f6ZFWpsfVfLp4gsVum0ZVk7bjQa4HxZ");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+
+#info2 {
+  background-image: url("http://drive.google.com/uc?export=view&id=1QglTE_2ZbXzQLeP35e4tY3NWB_uAGW4a");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+
+#info3 {
+  background-image: url("http://drive.google.com/uc?export=view&id=1FpcAFUvmAC8D8xzTV0M5Ro84jjkgRDud");
+  background-size: 60vw 50vh;
+  opacity: 0.9;
+}
+.text {
+  position: relative;
+  color: black;
+  font-weight: bold;
+  text-shadow: -1px 0px white, 0px 1px white, 1px 0px white, 0px -1px white;
+
+  @media (max-width: 1024px) {
+    text-align: center;
+    padding-top: 3vh;
+  }
+  @media (min-width: 1024px) {
+    z-index: 2;
+  }
+}
+#leftText {
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    left: 5vw;
+    top: -15vh;
+    float: left;
+  }
+  @media (min-width: 1279px) {
+    left: 5vw;
+    top: 35vh;
+    float: left;
+  }
+}
+#rightText {
+  @media (min-width: 1024px) and (max-width: 1279px) {
+    right: 5vw;
+    top: -15vh;
+    float: right;
+  }
+  @media (min-width: 1279px) {
+    right: 5vw;
+    top: 35vh;
+    float: right;
+  }
+}
