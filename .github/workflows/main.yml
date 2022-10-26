@@ -26,9 +26,9 @@ jobs:
       - name: Build # React Build
         run: npm run build
         
-      - name: Deploy 
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: |
-          aws s3 sync ./build s3://S3-ji-front
+      #- name: Deploy 
+      #  env:
+      #    AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+       #   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       # run: |
+       #   aws s3 sync ./build s3://S3-ji-front
