@@ -7,7 +7,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://picsum.photos/1800/500"
+          src="http://drive.google.com/uc?export=view&id=1oibm3aYCJ4IVDs8g4vW796qP4nDFLArB"
           alt="First slide"
         />
         <Carousel.Caption className={styles.carouselCaption}>
@@ -17,8 +17,8 @@ function MainCarousel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
+          src="http://drive.google.com/uc?export=view&id=1LT4GIXYVpFdXw0foxc5n2M8xozOFwuK4"
           className="d-block w-100"
-          src="https://picsum.photos/2800/500"
           alt="Second slide"
         />
 
@@ -30,7 +30,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://picsum.photos/1200/300"
+          src="http://drive.google.com/uc?export=view&id=1zLhLVMt1coTaskjJbTJ7Et13sBALACDd"
           alt="Third slide"
         />
 
