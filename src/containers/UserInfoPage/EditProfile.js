@@ -106,6 +106,7 @@ function EditProfile() {
       UserService.updateUserNickname(userNickname)
         .then((response) => {
           alert("닉네임이 수정되었습니다.");
+          window.location.reload();
         })
         .catch((error) => {
           alert(error);
@@ -151,6 +152,7 @@ function EditProfile() {
       UserService.updateUserPassword(userPassword)
         .then((response) => {
           alert("비밀번호가 수정되었습니다.");
+          window.location.reload();
         })
         .catch((error) => {
           console.log(error.response);
