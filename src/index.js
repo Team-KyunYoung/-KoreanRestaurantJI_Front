@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Modal from "react-modal";
@@ -42,42 +42,73 @@ import OrderSetting from "containers/AdminPage/OrderSetting";
 import NotFound from "containers/NotFoundPage/NotFound";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(
+// const root = ReactDOM.createRoot(document.getElementById("root"));
+ReactDOM.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="Login" element={<PublicRoute element={<Login />}/>} />
-      <Route path="FindPassword" element={<PublicRoute element={<FindPassword />}/>} />
-      <Route path="Signup" element={<PublicRoute element={<Signup />}/>} />
+      <Route path="Login" element={<PublicRoute element={<Login />} />} />
+      <Route
+        path="FindPassword"
+        element={<PublicRoute element={<FindPassword />} />}
+      />
+      <Route path="Signup" element={<PublicRoute element={<Signup />} />} />
       <Route path="Info" element={<Info />} />
       <Route path="Map" element={<Map />} />
-      <Route path="Cart" element={<PrivateRoute element={<Cart />}/>} />
+      <Route path="Cart" element={<PrivateRoute element={<Cart />} />} />
       <Route path="Course" element={<Course />} />
       <Route path="Order" element={<Order />} />
       <Route path="SelectRoom" element={<SelectRoom />} />
-      <Route path="SelectMore/:roomNumber/:roomName" element={<PrivateRoute element={<SelectMore />}/>} />
+      <Route
+        path="SelectMore/:roomNumber/:roomName"
+        element={<PrivateRoute element={<SelectMore />} />}
+      />
       <Route path="Review" element={<Review />} />
       <Route path="Dish" element={<Dish />} />
       <Route path="Dish/:dishNumber/:dishName" element={<DishDetails />} />
-      <Route path="UserInfo/:location/:mode" element={<PrivateRoute element={<UserInfo />}/>} />
+      <Route
+        path="UserInfo/:location/:mode"
+        element={<PrivateRoute element={<UserInfo />} />}
+      />
       <Route path="FAQBoard" element={<FAQBoard />} />
       <Route path="FAQBoard/:mode/:number" element={<CreateFAQ />} />
       <Route path="QnABoard" element={<QnABoard />} />
       <Route path="QnABoard/:number/:isPrivate" element={<QnAPost />} />
-      <Route path="CreateQnA" element={<PrivateRoute element={<CreateQnA />}/>} />
+      <Route
+        path="CreateQnA"
+        element={<PrivateRoute element={<CreateQnA />} />}
+      />
       <Route path="Event" element={<EventBoard />} />
       <Route path="Event/:mode/:number" element={<CreateEvent />} />
       <Route path="Event/Post/:number" element={<EventPost />} />
-      <Route path="Admin/Home" element={<AdminRoute element={<AdminHome />}/>} />
-      <Route path="Admin/DishSetting" element={<AdminRoute element={<DishSetting />}/>} />
-      <Route path="Admin/CourseSetting" element={<AdminRoute element={<CourseSetting />}/>} />
-      <Route path="Admin/RoomSetting" element={<AdminRoute element={<RoomSetting />}/>} />
-      <Route path="Admin/ReservationSetting" element={<AdminRoute element={<ReservationSetting />}/>} />
-      <Route path="Admin/OrderSetting" element={<AdminRoute element={<OrderSetting />}/>} />
+      <Route
+        path="Admin/Home"
+        element={<AdminRoute element={<AdminHome />} />}
+      />
+      <Route
+        path="Admin/DishSetting"
+        element={<AdminRoute element={<DishSetting />} />}
+      />
+      <Route
+        path="Admin/CourseSetting"
+        element={<AdminRoute element={<CourseSetting />} />}
+      />
+      <Route
+        path="Admin/RoomSetting"
+        element={<AdminRoute element={<RoomSetting />} />}
+      />
+      <Route
+        path="Admin/ReservationSetting"
+        element={<AdminRoute element={<ReservationSetting />} />}
+      />
+      <Route
+        path="Admin/OrderSetting"
+        element={<AdminRoute element={<OrderSetting />} />}
+      />
       <Route path="/*" element={<NotFound />} />
     </Routes>
-  </BrowserRouter>
+  </BrowserRouter>,
+  document.getElementById("root")
 );
 
 // If you want to start measuring performance in your app, pass a function
