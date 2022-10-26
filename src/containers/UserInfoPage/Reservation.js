@@ -111,6 +111,7 @@ const Reservation = (props) => {
   const today = [year, month, date].join("-");
 
   const [currentPage, setCurrentPage] = useState(1);
+  // eslint-disable-next-line no-unused-vars
   const [postsPerPage, setPostsPerPage] = useState(1);
   const indexOfLast = currentPage * postsPerPage;
   const indexOfFirst = indexOfLast - postsPerPage;

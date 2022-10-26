@@ -143,6 +143,7 @@ function EditProfile() {
         visiblePpwwMessage: true,
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userPassword, userPasswordConfirm]);
 
   function handleChangePassword() {

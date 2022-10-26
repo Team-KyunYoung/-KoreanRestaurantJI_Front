@@ -49,6 +49,7 @@ function RemainingSeatsByDate(data, date) {
   //날짜 선택했을 때 남은 좌석을 검사하는 함수
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < data.length; i++) {
+    // eslint-disable-next-line array-callback-return
     seatStatus.map((obj) => {
       if (date === setToday()) {
         if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
@@ -78,9 +79,11 @@ function RemainingSeatsByDate(data, date) {
 }
 function RemainingSeatsByTime(time) {
   //시간을 선택했을 때 남은 좌석을 검사하는 함수
+  // eslint-disable-next-line array-callback-return
   seatStatus.map((seatObj) => {
     if (time === seatObj.value) {
       //seatStatus에서 선택한 시간을 찾음
+      // eslint-disable-next-line array-callback-return
       personnelStatus.map((personnelObj) => {
         if (personnelObj.value === 2 && seatObj.remain < 2) {
           //남은 좌석이 5개 미만이라면
@@ -130,8 +133,10 @@ const SelectMore = () => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], date);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date]);
   const onChangeTime = (e) => {
+    // eslint-disable-next-line array-callback-return
     personnelStatus.map((personnelObj) => {
       personnelObj.isDisabled = false;
     });

@@ -114,12 +114,14 @@ const FindPassword = () => {
     } else {
       clearInterval(timerId.current);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUsableEmail]);
   useEffect(() => {
     if (time.current <= 0) {
       clearInterval(timerId.current);
       //시간 초과 시 멘트 발생
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [sec]);
 
   return (

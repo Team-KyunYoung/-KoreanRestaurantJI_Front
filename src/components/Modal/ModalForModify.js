@@ -42,7 +42,7 @@ function setMaxDay() {
 function RemainingSeatsByDate(data, date) {
   //날짜 선택했을 때 남은 좌석을 검사하는 함수
   for (let i = 0; i < data.length; i++) {
-    // eslint-disable-next-line no-loop-func
+    // eslint-disable-next-line no-loop-func, array-callback-return
     seatStatus.map((obj) => {
       if (
         (date === setToday() &&
@@ -68,9 +68,11 @@ function RemainingSeatsByDate(data, date) {
 
 function RemainingSeatsByTime(time) {
   //시간을 선택했을 때 남은 좌석을 검사하는 함수
+  // eslint-disable-next-line array-callback-return
   seatStatus.map((seatObj) => {
     if (time === seatObj.value) {
       //seatStatus에서 선택한 시간을 찾음
+      // eslint-disable-next-line array-callback-return
       personnelStatus.map((personnelObj) => {
         if (personnelObj.value === 2 && seatObj.remain < 2) {
           //남은 좌석이 5개 미만이라면
@@ -133,6 +135,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
           RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
         });
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
     RoomService.searchRoom(data.reservationRoomName).then((response) => {
@@ -156,6 +159,7 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
       .catch(() => {
         RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data.reservationDate]);
   useEffect(() => {
     personnelStatus.map((personnelObj) => {

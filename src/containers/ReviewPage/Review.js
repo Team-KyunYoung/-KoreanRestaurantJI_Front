@@ -24,7 +24,7 @@ const Review = () => {
     return (
       <div className={`${styles.review} ${ClassNameSelect(++cnt)}`}>
         <div className={styles.imgBox}>
-          <img src={imageSelect((cnt % 4) + 1)} alt="review image"></img>
+          <img src={imageSelect((cnt % 4) + 1)} alt="review"></img>
         </div>
         <div className={styles.contents}>
           <p>{content}</p>

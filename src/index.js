@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Modal from "react-modal";
@@ -42,8 +42,8 @@ import OrderSetting from "containers/AdminPage/OrderSetting";
 import NotFound from "containers/NotFoundPage/NotFound";
 import "bootstrap/dist/css/bootstrap.css"; //부트스트랩 : 삭제 금지
 
-// const root = ReactDOM.createRoot(document.getElementById("root"));
-ReactDOM.render(
+const root = ReactDOM.createRoot(document.getElementById("root"));
+root.render(
   <BrowserRouter>
     <Routes>
       <Route path="/" element={<Home />} />
@@ -107,8 +107,7 @@ ReactDOM.render(
       />
       <Route path="/*" element={<NotFound />} />
     </Routes>
-  </BrowserRouter>,
-  document.getElementById("root")
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

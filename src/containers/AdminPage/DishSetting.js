@@ -285,7 +285,7 @@ const DishSetting = () => {
                   </div>
                   <br />
                   <div className={styles.searchList}>
-                    {isLoading ? null : searchDishList.length == 0 ? (
+                    {isLoading ? null : searchDishList.length === 0 ? (
                       <div className={styles.searchNone}>
                         검색어가 포함된 요리가 없습니다.
                       </div>

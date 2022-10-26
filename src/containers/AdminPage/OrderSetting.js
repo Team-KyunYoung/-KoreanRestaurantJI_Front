@@ -101,7 +101,7 @@ const OrderSettingPage = () => {
                 <h4>현재 주문 목록</h4>
                 <hr />
                 <div className={styles.orderList}>
-                  {isLoading ? null : order.length == 0 ? (
+                  {isLoading ? null : order.length === 0 ? (
                     <div>주문 내역이 없습니다.</div>
                   ) : (
                     order.map((orderDate) => (
