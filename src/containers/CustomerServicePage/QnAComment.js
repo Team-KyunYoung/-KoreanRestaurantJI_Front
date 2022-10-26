@@ -30,6 +30,7 @@ const QnaComment = (props) => {
       });
   };
   const commentlist = [];
+  // eslint-disable-next-line array-callback-return
   props.list.map((obj, i) => {
     commentlist.push(
       <li key={i}>

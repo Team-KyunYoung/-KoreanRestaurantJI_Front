@@ -38,6 +38,7 @@ const Cart = () => {
                 cartNumber: cart.cartNumber,
                 quantity: cart.cartQuantity,
                 cartPrice: cart.cartQuantity * cart.dishPrice,
+                // eslint-disable-next-line no-sequences
               }),
               checkboxStatus.push({
                 cartNumber: cart.cartNumber,
@@ -237,7 +238,7 @@ const Cart = () => {
           <div className={styles.cartContents}>
             {isLoading ? (
               "Loading..."
-            ) : cartList.length == 0 ? (
+            ) : cartList.length === 0 ? (
               <div className={styles.cartNone}>장바구니가 비어있습니다.</div>
             ) : (
               cartList.map((cartdish) => (
@@ -293,6 +294,7 @@ const Cart = () => {
           <button
             className={modalstyles.submit}
             onClick={() => (
+              // eslint-disable-next-line no-sequences
               setSuccessModalIsOpen(false), window.location.reload()
             )}
           >

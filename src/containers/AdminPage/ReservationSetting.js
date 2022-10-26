@@ -29,6 +29,7 @@ const ReservationSetting = () => {
   useEffect(() => {
     RoomService.findAllRoom()
       .then((response) => {
+        // eslint-disable-next-line array-callback-return
         response.data.data.map((data) => {
           let roomNumber = data.roomNumber;
           let roomName = data.roomName;
@@ -165,7 +166,7 @@ const ReservationSetting = () => {
                 </form>
                 <div className={styles.outputWithBtn}>
                   <div className={styles.remainSeatsOutput}>
-                    {isRemainRoading ? null : remainSeats == 15 ? (
+                    {isRemainRoading ? null : remainSeats === 15 ? (
                       <div>해당 시간에 예약 내역이 없습니다.</div>
                     ) : (
                       <div>남은 좌석수는 {remainSeats}입니다.</div>
@@ -188,7 +189,8 @@ const ReservationSetting = () => {
                 <h4>오늘 예약자 목록</h4>
                 <hr />
                 <div className={styles.reservationList}>
-                  {isReservRoading ? null : todayReservationList.length == 0 ? (
+                  {isReservRoading ? null : todayReservationList.length ===
+                    0 ? (
                     <div>오늘 예약 내역이 없습니다.</div>
                   ) : (
                     todayReservationList.map((resservDate) => (

@@ -50,6 +50,7 @@ const QnABoard = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  // eslint-disable-next-line no-unused-vars
   const [postsPerPage, setPostsPerPage] = useState(10);
 
   const indexOfLast = currentPage * postsPerPage;

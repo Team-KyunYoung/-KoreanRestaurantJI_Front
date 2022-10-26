@@ -21,6 +21,7 @@ const Header = () => {
           setIsAdmin(false);
         });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   function logout() {
     Authentication.logout();
