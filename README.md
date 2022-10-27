@@ -1,15 +1,19 @@
 #	:stew: [FrontEnd]Korean Restaurant 智
 기본 url : http://ji-front.s3-website.ap-northeast-2.amazonaws.com/<br/>
-체험 아이디 : test1
-비밀번호 : test1<br/>
-팀원 : 
-개발기간 : 2022.06.29 ~
-<br>
+아이디 : test1
+비밀번호 : test1(공유 계정을 통해 체험 가능합니다)<br/>
+
+ 
 
 ## :point_right: Info
-한식 전문점 '智' 웹사이트의 FrontEnd 프로젝트입니다.
+한식 전문점 '智' 웹사이트의 FrontEnd 프로젝트입니다.<br/>
 
-'智'는 제작자들의 이름에서 따온 임의의 레스토랑으로 본 웹사이트는 실제로 레스토랑에서 제공하면 좋을 서비스들을 가정해보고 구현해보았습니다.
+'智'는 제작자들의 이름에서 따온 임의의 레스토랑으로 본 웹사이트는 실제로 레스토랑에서 제공하면 좋을 서비스들을 가정해보고 구현해보았습니다.<br/>
+
+- 팀원 : 신명지, 강원지<br/>
+- 개발기간 : 2022.06.29 ~ <br/>
+- 기획의도 : 리액트 앱을 통해 눈을 즐겁게하는 k-food 음식점 웹사이트를 제작
+- 개발목표 : 정확하고 가독성 높은 코드 작성과 실제 서비스를 제공하는 웹사이트의 배포
 <br>
 
 ## :pushpin: Feature
@@ -50,25 +54,13 @@
 ## :desktop_computer: UI/UX
 ### Header
 ![image](https://user-images.githubusercontent.com/87280835/197722796-4f223cfb-bf6a-40b3-ae84-fb4defe53360.png)
-
 ### Footer
 ![image](https://user-images.githubusercontent.com/87280835/197723011-13412fdc-928f-4b14-94b0-a3085b14a168.png)  
-### MainPage
+### Main Page-desktop
 ![home](https://user-images.githubusercontent.com/87280835/197722005-a7881193-215d-4cf1-b2cf-1ed1e711a0f5.png)
-### Introduction Page
-![localhost_3001_Info (1)](https://user-images.githubusercontent.com/87280835/197721536-79f125ea-1043-43b5-9d28-e0c0ca15bb33.png)
-### Map Page
-![localhost_3001_Map](https://user-images.githubusercontent.com/87280835/197723460-9455f228-4dea-423d-ac91-12b110726548.png)
-### Togo Service
-#### 
+### Main Page-tablet & mobile 
+![제목 없음](https://user-images.githubusercontent.com/87280835/198238798-f3994d85-4e55-4c76-9dc1-efdece405a52.png)
 
-### Hall Reservation Service
-#### Book Page
-![localhost_3001_SelectRoom](https://user-images.githubusercontent.com/87280835/197724179-c5df4455-cb4f-4d5f-8473-9dfe3e73cca8.png)
-
-### Merber Service
-#### LoginPage
-![image](https://user-images.githubusercontent.com/87280835/197719418-fdd9bb82-9cf6-4417-8028-d2e8a616bc53.png)
-#### Member Page
-### Chating Service
+### Admin Page
+### Chat Bot
 ![image](https://user-images.githubusercontent.com/87280835/197725346-f46416a1-1633-431b-9ebc-6e930767b9ce.png)
