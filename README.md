@@ -1,32 +1,34 @@
 #	:stew: [FrontEnd]Korean Restaurant 智
-기본 url : http://localhost:3030/
-
+기본 url : http://ji-front.s3-website.ap-northeast-2.amazonaws.com/<br/>
+체험 아이디 : test1
+비밀번호 : test1<br/>
+팀원 : 
+개발기간 : 2022.06.29 ~
 <br>
 
 ## :point_right: Info
 한식 전문점 '智' 웹사이트의 FrontEnd 프로젝트입니다.
 
 '智'는 제작자들의 이름에서 따온 임의의 레스토랑으로 본 웹사이트는 실제로 레스토랑에서 제공하면 좋을 서비스들을 가정해보고 구현해보았습니다.
-
 <br>
 
 ## :pushpin: Feature
-\#UserInteractive \#UseFamiliar
+- User Interactive & User Familiar
 - Responsive Web Design
+- Provide Realistic Service 
+    - Merbership Service: Sign Up, Cancellation, Edit Profile
+    - Admin : Manage all services
+    - Chat Bot : 
+    - Reservation Service : Make, Cancel or Change a reservation
+    - To-go Service : Place or Cancel an order
+    - Review : 
+    - Qna & Faq : Can view left by others or ask questions (Anonymity is possible) 
+    - etc
 - Try to apply various third party library 
   - react-bootstrap
   - react-naver-maps
   - react-simple-chatbot
   - etc
-- Provide Various Service 
-    - Merbership Service: Sign Up, Cancellation, Edit Profile
-    - chat : 
-    - Reservation : Make, Cancel or Change a reservation
-    - to-go : Place or Cancel an order
-    - review 
-    - qna & faq : Can view left by others or ask questions (Anonymity is possible) 
-    - etc
-
 <br>
 
 ## :hammer_and_wrench: Tech Stack
@@ -35,8 +37,7 @@
 <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white" />
 <img src="https://img.shields.io/badge/SCSS-CC6699?style=flat-square&logo=SASS&logoColor=white" />
 <img src="https://img.shields.io/badge/BootStrap-7952B3?style=flat-square&logo=BootStrap&logoColor=white" />
-<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white" />
-<img src="https://img.shields.io/badge/jQuery-0769AD?style=flat-square&logo=jQuery&logoColor=white" />
+<img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=JavaScript&logoColor=white" /> 
 </div>
 
 <br>
