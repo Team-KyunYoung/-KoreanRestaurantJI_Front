@@ -215,7 +215,7 @@ const Signup = () => {
                 />
               </div>
             </Accordion>
-            <form>
+            <div>
               <div className={styles.inputArea}>
                 <div className={styles.inputId}>
                   <InputGroup>
@@ -304,7 +304,7 @@ const Signup = () => {
                   <p>{pwConfirmMessage}</p>
                 </div>
               </div>
-            </form>
+            </div>
 
             <div className={styles.signUpBtn}>
               <div>
