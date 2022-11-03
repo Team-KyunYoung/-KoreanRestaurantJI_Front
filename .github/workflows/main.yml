@@ -7,6 +7,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-18.04
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: 'ap-northeast-2'
     steps:
       - name: Checkout source code # 레포지토리 체크아웃
         uses: actions/checkout@master
@@ -27,15 +31,13 @@ jobs:
         run: npm run build
 
       - name: Deploy
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         run: |
          aws s3 cp \
             --recursive \
             --region ap-northeast-2 \
             build s3://ji-front
       - name : Invalidate cashe CloudFront
+        uses: chetan/invalidate-cloudfront-action@master
         env :
           DISTRIBUTION : ${{secrets.AWS_CLOUNDFRONT_ID}}
           PATHS :
