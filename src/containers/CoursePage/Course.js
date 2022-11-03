@@ -91,7 +91,7 @@ const Course = () => {
   useEffect(() => {
     CourseService.findAllCourse()
       .then((response) => {
-      console.log(response);
+          console.log(response);
           setCourse1(response.data.data[0]);
           setCourse2(response.data.data[1]);
           setCourse3(response.data.data[2]);
@@ -108,7 +108,7 @@ const Course = () => {
       <main className={styles.container}>
         <section id="page1" className={[styles.page, styles.page1].join(" ")}>
           {isLoading ? (
-            "로딩..."
+            "Loading..."
           ) : (
             <CourseInnerPage key={course1.courseName} data={course1} />
           )}
