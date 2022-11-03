@@ -91,6 +91,7 @@ const Course = () => {
   useEffect(() => {
     CourseService.findAllCourse()
       .then((response) => {
+      console.log(response);
           setCourse1(response.data.data[0]);
           setCourse2(response.data.data[1]);
           setCourse3(response.data.data[2]);
