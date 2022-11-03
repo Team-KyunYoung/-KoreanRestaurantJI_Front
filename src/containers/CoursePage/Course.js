@@ -107,7 +107,7 @@ const Course = () => {
       <main className={styles.container}>
         <section id="page1" className={[styles.page, styles.page1].join(" ")}>
           {isLoading ? (
-            "Loading..."
+            "로딩..."
           ) : (
             <CourseInnerPage key={course1.courseName} data={course1} />
           )}
