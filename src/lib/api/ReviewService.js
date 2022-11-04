@@ -1,6 +1,7 @@
 import axios from "axios";
 import Authentication from "./Authentication";
-const REVIEW_API_BASE_URL = "/api/review";
+
+const REVIEW_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/review";
 
 class ReviewService {
     createReview(Contents, Image) {

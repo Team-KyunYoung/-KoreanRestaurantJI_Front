@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const USER_API_BASE_URL = "/api/user";
+const USER_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/user";
 
 export function signup(userEmail, userNickname, userPassword) {
   let data = {
