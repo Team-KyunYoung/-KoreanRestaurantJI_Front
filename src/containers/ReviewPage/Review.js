@@ -7,24 +7,13 @@ import Footer from "components/footer/Footer";
 import ReviewService from "lib/api/ReviewService";
 import ClassNameSelect from "./ClassNameSelect";
 
-const image1 = "https://picsum.photos/600/600";
-const image2 = "https://picsum.photos/300/600";
-const image3 = "https://picsum.photos/600/300";
-const image4 = "https://picsum.photos/300/300";
-function imageSelect(num) {
-  if (num === 1) return image1;
-  else if (num === 2) return image2;
-  else if (num === 3) return image3;
-  else return image4;
-}
-
 const Review = () => {
   let cnt = 0;
   function ReviewContent({ content, image }) {
     return (
       <div className={`${styles.review} ${ClassNameSelect(++cnt)}`}>
         <div className={styles.imgBox}>
-          <img src={imageSelect((cnt % 4) + 1)} alt="review"></img>
+          <img src={image} alt="review"></img>
         </div>
         <div className={styles.contents}>
           <p>{content}</p>
