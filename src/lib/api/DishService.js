@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const DISH_API_BASE_URL = "/api/dish";
+const DISH_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/dish";
 
 class DishService {
   createDish(createDishInput) {

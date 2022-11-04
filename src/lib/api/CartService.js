@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const CART_API_BASE_URL = "/api/cart";
+const CART_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/cart";
 
 class CartService {
     addCartDish(dishNumber, cartQuantity){

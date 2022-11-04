@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const ROOM_API_BASE_URL = "/api/room";
+const ROOM_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/room";
 
 class RoomService {
   createRoom(searchRoomInput) {

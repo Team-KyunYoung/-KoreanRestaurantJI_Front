@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const ORDER_API_BASE_URL = "/api/order";
+const ORDER_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/order";
 
 class OrderService {
     addOrder(dishOrderList){

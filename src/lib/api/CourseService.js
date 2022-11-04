@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const COURSE_API_BASE_URL = "/api/course";
+const COURSE_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/course";
 
 class CourseService {
   createCourse(createCourseInput) {

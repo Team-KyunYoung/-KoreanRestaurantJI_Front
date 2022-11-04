@@ -1,6 +1,7 @@
 import axios from "axios";
 import Authentication from "./Authentication";
-const USER_API_BASE_URL = "/api/question";
+
+const USER_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/question";
 
 class Question {
   findAllFAQ() {
