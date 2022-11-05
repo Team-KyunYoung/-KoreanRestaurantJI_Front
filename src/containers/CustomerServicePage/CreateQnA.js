@@ -11,7 +11,7 @@ const CreateQnA = () => {
   //json으로 보낼 내용
   const [form, setForm] = useState({
     title: "",
-    privatePost: "",
+    privatePost: false,
     contents: "",
   });
   const { title, privatePost, contents } = form;
@@ -69,6 +69,7 @@ const CreateQnA = () => {
                         value={false}
                         name="privatePost"
                         onChange={handleChange}
+                        checked={!form.privatePost}
                       />{" "}
                       <label htmlFor="private">비공개</label>{" "}
                       <input
@@ -77,6 +78,7 @@ const CreateQnA = () => {
                         value={true}
                         name="privatePost"
                         onChange={handleChange}
+                        checked={form.privatePost}
                       />
                     </span>
                   </div>
