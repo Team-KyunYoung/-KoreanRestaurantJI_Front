@@ -20,7 +20,7 @@ function InnerEvent(props) {
       >
         <div className={styles.eventContent}>
           <div>
-            <img src={image1} alt={obj.eventTitle} />
+            <img src={obj.eventImage} alt={obj.eventTitle} />
           </div>
           <div>
             <span className={styles.title}>{obj.eventTitle}</span>
@@ -77,8 +77,7 @@ const EventBoard = () => {
         <ImgBanner
           img={image1}
           pageTitle="Event"
-          pageDetails="Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry."
+          pageDetails="智가 현재 진행하고 있는 이벤트입니다."
         />
         <section className={styles.eventBox}>
           {isLoading ? (
