@@ -1,22 +1,17 @@
 name: development deployment
 
 on:
-  pull_request:
+  push:
     branches:
       - develop
-    types: [closed]
 
 jobs:
-  deploy:
-    if: github.event.pull_request.merged == true
+  build:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        node-versions: [14.x]
 
     steps:
       - name: Checkout source code.
-        uses: actions/checkout@v2
+        uses: actions/checkout@master
 
       - name: Install Dependencies
         run: npm install --legacy-peer-deps
