@@ -49,8 +49,7 @@ function RemainingSeatsByDate(data, date) {
   //날짜 선택했을 때 남은 좌석을 검사하는 함수
   // reservationTime: '16:00', roomRemaining: 11
   for (let i = 0; i < data.length; i++) {
-    // eslint-disable-next-line array-callback-return
-    seatStatus.map((obj) => {
+    seatStatus.forEach((obj) => {
       if (date === setToday()) {
         if (obj.value.split(":")[0] <= new Date(utc + KR_TIME_DIFF).getHours())
           obj.isDisabled = true;
@@ -71,8 +70,6 @@ function RemainingSeatsByDate(data, date) {
             obj.isDisabled = true;
           }
         }
-      } else {
-        obj.isDisabled = false;
       }
     });
   }
@@ -105,7 +102,7 @@ const SelectMore = () => {
     userRequest: "",
   });
   const { userName, userPhoneNumber, userRequest } = form;
-  const [date, setDate] = useState();
+  const [date, setDate] = useState(setToday);
   const [time, setTime] = useState();
   const [tableCnt, setTableCnt] = useState();
   const navigate = useNavigate();
