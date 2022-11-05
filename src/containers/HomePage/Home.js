@@ -14,7 +14,7 @@ function Home() {
           <MainCarousel />
         </header>
         <ParallaxContent
-          title="Lorem Ipsum"
+          title="Lorem ipsum"
           contents="Lorem ipsum dolor sit amet, consectetur adipiscing elit.Lorem ipsum dolor sit amet, consectetur adipiscing elit."
           image="http://drive.google.com/uc?export=view&id=16f6ZFWpsfVfLp4gsVum0ZVk7bjQa4HxZ"
           float="right"
