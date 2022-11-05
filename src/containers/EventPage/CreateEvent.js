@@ -73,19 +73,11 @@ const CreateEvent = () => {
     <div id="EventCreatePage">
       <Header />
       <main className={styles.container}>
-        {isLoading ? (
-            <ImgBanner
-              img={image1}
-              pageTitle="Event"
-              pageDetails="智가 현재 진행하고 있는 이벤트입니다."
-            />
-          ) : (
-            <ImgBanner
-              img={imgUrl}
-              pageTitle="Event"
-              pageDetails="智가 현재 진행하고 있는 이벤트입니다."
-            />
-          )}
+        <ImgBanner
+          img={image1}
+          pageTitle="Event"
+          pageDetails="智가 현재 진행하고 있는 이벤트입니다."
+        />
         <section className={styles.eventBox}>
           {isLoading ? (
             "loading"

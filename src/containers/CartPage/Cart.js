@@ -231,8 +231,7 @@ const Cart = () => {
         <ImgBanner
           img={image1}
           pageTitle="Cart"
-          pageDetails="Lorem Ipsum is simply dummy text of the printing and type setting
-              industry."
+          pageDetails="비대면(포장) 주문을 위한 장바구니"
         />
         <div className={styles.mainContents}>
           <div className={styles.cartContents}>

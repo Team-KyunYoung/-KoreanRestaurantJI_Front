@@ -16,7 +16,7 @@ const ImgBanner = (props) => {
   return (
     <header>
       <Parallax bgImage={props.img} strength={500} style={parallaxHeader}>
-        <div style={{ height: 500 }}>
+        <div style={{ height: 400 }}>
           <div style={insideStyles}>
             <h1>{props.pageTitle}</h1>
             <p>{props.pageDetails}</p>

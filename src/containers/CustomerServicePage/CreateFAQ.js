@@ -75,11 +75,6 @@ const CreateFAQ = () => {
       <main className={styles.container}>
         <header>
           <h1>Event</h1>
-          <p>
-            Counting objects: 100% (28/28), done. Delta compression using up to
-            8 threads Compressing objects: 100% (18/18), done. Writing objects:
-            100% (18/18), 2.09 KiB
-          </p>
         </header>
         {isLoading ? (
           "loading"

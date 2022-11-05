@@ -8,7 +8,6 @@ import styles from "./Event.module.scss";
 import UserService from "lib/api/UserService";
 import EventService from "lib/api/EventService";
 
-const image1 = "https://picsum.photos/500/600";
 const EventPost = () => {
   const [list, setList] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -54,7 +53,7 @@ const EventPost = () => {
           ) : (
             <section className={styles.postBox}>
               <div className={styles.banner}>
-                <img src={image1} alt={list.eventTitle} />
+                <img src={list.eventImage} alt={list.eventTitle} />
               </div>
               <div className={styles.contents}>
                 <MediaQuery minWidth={993}>
