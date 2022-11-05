@@ -11,8 +11,8 @@ function MainCarousel() {
           alt="First slide"
         />
         <Carousel.Caption className={styles.carouselCaption}>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+          <h3>智의 이름을 걸고</h3>
+          <p>한식당 智는 여러분에게 최고의 경험을 선물하기 위하여 최선을 다해 서비스할 것입니다.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -23,8 +23,8 @@ function MainCarousel() {
         />
 
         <Carousel.Caption className={styles.carouselCaption}>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+          <h3>고급스러운 한식의 매력을</h3>
+          <p>최상의 재료, 수준 높은 요리로 한식의 새로운 경험을 선사해드리겠습니다.</p>
         </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
@@ -35,10 +35,8 @@ function MainCarousel() {
         />
 
         <Carousel.Caption className={styles.carouselCaption}>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
+          <h3>전통을 중시하는</h3>
+          <p>재료의 준비부터 플레이팅까지 한국 전통을 고수하여 수준 높은 한국 전통의 미를 느끼실 수 있습니다.</p>
         </Carousel.Caption>
       </Carousel.Item>
     </Carousel>
