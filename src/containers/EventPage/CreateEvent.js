@@ -25,12 +25,10 @@ const CreateEvent = () => {
   });
   const { title, imgUrl, contents } = form;
   useEffect(() => {
-    console.log(param.mode);
     if (param.mode === "Create") setIsLoading(false);
     else {
       EventService.findEvent(Number(param.number))
         .then((response) => {
-          console.log(response.data.data);
           setData(response.data.data);
           setIsLoading(false);
           setForm({
@@ -51,24 +49,20 @@ const CreateEvent = () => {
       ...form, // 기존의 값 복사 (spread operator)
       [e.target.name]: e.target.value, // 덮어쓰기
     };
-    console.log(nextForm);
     setForm(nextForm);
   };
   const WriterHandleSubmit = (e) => {
     //저장하기 버튼 : input 제출
     if (param.mode === "Create") {
-      console.log("생성");
       EventService.createEvent(contents, imgUrl, title)
-        .then((response) => {
-          console.log(response);
+        .then(() => {
           window.location.replace("/Event");
         })
         .catch(() => {});
     } else {
       EventService.updateEvent(Number(param.number), contents, imgUrl, title)
-        .then((response) => {
-          console.log(response);
-          window.location.replace("/Event/update/" + Number(param.number));
+        .then(() => {
+          window.location.replace("/Event/Post/" + Number(param.number));
         })
         .catch(() => {
           alert("입력 내용을 확인해주세요");
@@ -79,12 +73,19 @@ const CreateEvent = () => {
     <div id="EventCreatePage">
       <Header />
       <main className={styles.container}>
-        <ImgBanner
-          img={image1}
-          pageTitle="Event"
-          pageDetails="Lorem Ipsum is simply dummy text of the printing and typesetting
-      industry."
-        />
+        {isLoading ? (
+            <ImgBanner
+              img={image1}
+              pageTitle="Event"
+              pageDetails="智가 현재 진행하고 있는 이벤트입니다."
+            />
+          ) : (
+            <ImgBanner
+              img={imgUrl}
+              pageTitle="Event"
+              pageDetails="智가 현재 진행하고 있는 이벤트입니다."
+            />
+          )}
         <section className={styles.eventBox}>
           {isLoading ? (
             "loading"
