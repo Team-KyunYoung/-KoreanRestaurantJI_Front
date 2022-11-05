@@ -26,7 +26,7 @@ const ParallaxContent = (props) => {
         <div style={{ height: 500 }}></div>
       </Parallax>
       <div style={textStyle}>
-        <h1>{title}</h1>
+        <h2>{title}</h2>
         {contents}
       </div>
     </article>
