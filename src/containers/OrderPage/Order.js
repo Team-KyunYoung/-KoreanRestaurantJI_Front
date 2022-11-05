@@ -198,8 +198,7 @@ const Order = () => {
         <ImgBanner
           img={image1}
           pageTitle="Order"
-          pageDetails="Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry."
+          pageDetails="아래 음식들을 비대면(포장) 주문하실 수 있습니다."
         />
         <div>
           {/* 모니터ver */}

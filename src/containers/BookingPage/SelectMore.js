@@ -199,8 +199,7 @@ const SelectMore = () => {
           <header>
             <h1>{roomParams.roomName}</h1>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+              예약 정보를 입력하여 제출한 후, 예약하실 날짜와 시간 그리고 인원을 선택하여 예약해주세요.
             </p>
           </header>
           <div className={styles.reservationFormBox}>

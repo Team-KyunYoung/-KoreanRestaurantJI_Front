@@ -48,8 +48,7 @@ const SelectRoom = () => {
           <header>
             <h1>Reservation</h1>
             <p>
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry.
+              예약하실 객실의 종류를 선택해주세요.
             </p>
           </header>
           <div className={styles.roomContainer}>
