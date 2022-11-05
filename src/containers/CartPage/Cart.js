@@ -78,7 +78,7 @@ const Cart = () => {
     );
     return status;
   }
-  function onChangeCheck(cartNumber, dishNumber, cartQuantity, event) {
+  function onChangeCheck(cartNumber, dishNumber, dishPrice, cartQuantity, event) {
     setCheckedItems(
       checkedItems.map((checkedItem) =>
         checkedItem.cartNumber === cartNumber
@@ -91,11 +91,13 @@ const Cart = () => {
         ...dishOrderList,
         { dishNumber: dishNumber, orderQuantity: cartQuantity },
       ]);
+      setOrderPrice((current) => current + (dishPrice*cartQuantity));
     } else {
       const newOrderList = dishOrderList.filter(
         (data) => data.dishNumber !== dishNumber
       );
       setDishOrderList(newOrderList);
+      setOrderPrice((current) => current - (dishPrice*cartQuantity));
     }
   }
   const [successModalIsOpen, setSuccessModalIsOpen] = useState(false); // 주문 성공시 모달창
@@ -176,7 +178,7 @@ const Cart = () => {
             type="checkbox"
             checked={isChecked}
             onChange={(event) =>
-              onChangeCheck(cartNumber, dishNumber, cartQuantity, event)
+              onChangeCheck(cartNumber, dishNumber, dishPrice, cartQuantity, event)
             }
           ></input>
         </div>
