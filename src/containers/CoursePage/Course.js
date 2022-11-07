@@ -92,6 +92,7 @@ const Course = () => {
     CourseService.findAllCourse()
       .then((response) => {
         if (response.data.data.length >= 3) {
+          console.log(response);
           setCourse1(response.data.data[0]);
           setCourse2(response.data.data[1]);
           setCourse3(response.data.data[2]);
