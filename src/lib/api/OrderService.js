@@ -5,60 +5,52 @@ import Authentication from "lib/api/Authentication";
 const ORDER_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/order";
 
 class OrderService {
-  addOrder(dishOrderList) {
-    let data = {
-      dishOrderList: dishOrderList,
-    };
-    Authentication.setupAxiosInterceptors();
-    return axios.post(ORDER_API_BASE_URL + "/create", JSON.stringify(data), {
-      headers: {
-        "Content-Type": `application/json`,
-      },
-    });
-  }
-  addCarttoOrder(dishOrderList) {
-    let data = {
-      dishOrderList: dishOrderList,
-    };
-    Authentication.setupAxiosInterceptors();
-    return axios.post(
-      ORDER_API_BASE_URL + "/create/cart",
-      JSON.stringify(data),
-      {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      }
-    );
-  }
+    addOrder(dishOrderList){
+        let data = {
+            dishOrderList: dishOrderList
+        }
+        Authentication.setupAxiosInterceptors();
+        return axios.post(ORDER_API_BASE_URL + "/create", JSON.stringify(data), {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+        });
+    }
+    addCarttoOrder(dishOrderList){
+        let data = {
+            dishOrderList: dishOrderList
+        }
+        Authentication.setupAxiosInterceptors();
+        return axios.post(ORDER_API_BASE_URL + "/create/cart", JSON.stringify(data), {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+        });
+    }
 
-  findOrderByUser() {
-    Authentication.setupAxiosInterceptors();
-    return axios.get(ORDER_API_BASE_URL + "/find");
-  }
+    findOrderByUser() {
+        Authentication.setupAxiosInterceptors();
+        return axios.get(ORDER_API_BASE_URL + "/find");
+    }
 
-  findOrderByStatus() {
-    Authentication.setupAxiosInterceptors();
-    return axios.get(ORDER_API_BASE_URL + "/findbystatus");
-  }
+    findOrderByStatus() {
+        Authentication.setupAxiosInterceptors();
+        return axios.get(ORDER_API_BASE_URL + "/findbystatus");
+    }
 
-  updateOrderStatus(orderNumber, orderStatus) {
-    Authentication.setupAxiosInterceptors();
-    return axios.put(
-      ORDER_API_BASE_URL + "/update/" + orderNumber,
-      JSON.stringify(orderStatus),
-      {
-        headers: {
-          "Content-Type": `application/json`,
-        },
-      }
-    );
-  }
+    updateOrderStatus(orderNumber, orderStatus) {
+        Authentication.setupAxiosInterceptors();
+        return axios.put(ORDER_API_BASE_URL + "/update/" + orderNumber, JSON.stringify(orderStatus), {
+            headers: {
+              "Content-Type": `application/json`,
+            },
+        });
+    }
 
-  deleteOrder(orderNumber) {
-    Authentication.setupAxiosInterceptors();
-    return axios.delete(ORDER_API_BASE_URL + "/delete/" + orderNumber);
-  }
+    deleteOrder(orderNumber) {
+        Authentication.setupAxiosInterceptors();
+        return axios.delete(ORDER_API_BASE_URL + "/delete/" + orderNumber);
+    }
 }
 
 export default new OrderService();
