@@ -2,7 +2,7 @@ import axios from "axios";
 
 import Authentication from "lib/api/Authentication";
 
-const DISH_API_BASE_URL = "api/dish";
+const DISH_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/dish";
 
 class DishService {
   createDish(createDishInput) {
@@ -21,8 +21,8 @@ class DishService {
         dishServingSize: createDishInput.dishServingSize,
         dishSodium: createDishInput.dishSodium,
         dishSugars: createDishInput.dishSugars,
-        dishTransFat: createDishInput.dishTransFat,
-      },
+        dishTransFat: createDishInput.dishTransFat
+      }
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(DISH_API_BASE_URL + "/create", JSON.stringify(data), {
@@ -42,7 +42,7 @@ class DishService {
 
   searchDish(dishName) {
     let data = {
-      input: dishName,
+      input: dishName
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(DISH_API_BASE_URL + "/search", JSON.stringify(data), {
