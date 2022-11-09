@@ -1,7 +1,9 @@
 #	:stew: [FrontEnd]Korean Restaurant 智
-기본 url : http://ji-front.s3-website.ap-northeast-2.amazonaws.com/<br/>
-아이디 : test1
-비밀번호 : test1(공유 계정을 통해 체험 가능합니다)<br/>
+기본 url : https://www.koreanrestaurantji.ml<br/>
+
+공유 계정을 통해 체험 가능합니다.   
+ 아이디 : testuser@test.com  
+ 비밀번호 : testuser1!<br/>
 
  
 
