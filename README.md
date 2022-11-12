@@ -59,7 +59,7 @@
 
 ### Merbership 
 #### 회원가입과 로그인
-![회원가입,로그인](https://user-images.githubusercontent.com/87280835/201484584-1c51a52e-fc23-4ed3-999a-872871def0ce.gif)
+![회원가입,로그안](https://user-images.githubusercontent.com/87280835/201484910-a1404eb3-f79f-42fc-b406-3c307e07eaea.gif)
 #### 닉네임 수정
 ![닉네임수정](https://user-images.githubusercontent.com/87280835/201481976-02af919b-bfd9-4f88-bbf3-fec9fb6d6434.gif)
 #### 비밀번호 변경
