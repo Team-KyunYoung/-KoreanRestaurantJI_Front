@@ -21,8 +21,8 @@ class DishService {
         dishServingSize: createDishInput.dishServingSize,
         dishSodium: createDishInput.dishSodium,
         dishSugars: createDishInput.dishSugars,
-        dishTransFat: createDishInput.dishTransFat,
-      },
+        dishTransFat: createDishInput.dishTransFat
+      }
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(DISH_API_BASE_URL + "/create", JSON.stringify(data), {
@@ -42,7 +42,7 @@ class DishService {
 
   searchDish(dishName) {
     let data = {
-      input: dishName,
+      input: dishName
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(DISH_API_BASE_URL + "/search", JSON.stringify(data), {
