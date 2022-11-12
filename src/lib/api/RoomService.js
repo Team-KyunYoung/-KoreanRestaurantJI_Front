@@ -8,7 +8,7 @@ class RoomService {
   createRoom(searchRoomInput) {
     let data = {
       roomName: searchRoomInput.roomName,
-      roomImg: searchRoomInput.roomImg
+      roomImg: searchRoomInput.roomImg,
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(ROOM_API_BASE_URL + "/create", JSON.stringify(data), {
@@ -58,7 +58,7 @@ class RoomService {
 
   searchRoom(roomName) {
     let data = {
-      input: roomName
+      input: roomName,
     };
     Authentication.setupAxiosInterceptors();
     return axios.post(ROOM_API_BASE_URL + "/search", JSON.stringify(data), {

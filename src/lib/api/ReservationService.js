@@ -1,7 +1,8 @@
 import axios from "axios";
 import Authentication from "./Authentication";
 
-const RESERVATION_API_BASE_URL = "https://www.koreanrestaurantji.ga/api/reservation";
+const RESERVATION_API_BASE_URL =
+  "https://www.koreanrestaurantji.ga/api/reservation";
 
 class ReservationService {
   createReservation(
