@@ -43,75 +43,116 @@ const Header = () => {
           <Navbar.Toggle aria-controls="responsive-navbar-nav" />
           <Navbar.Collapse id="responsive-navbar-nav">
             <Nav className="me-auto">
-              <NavDropdown
-                title="소개"
-                id="collasible-nav-dropdown"
-                className="p-2"
-              >
-                <NavDropdown.Item href="/Info">가게 소개</NavDropdown.Item>
-                <NavDropdown.Item href="/Map">오시는 길</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown
-                title="메뉴"
-                id="collasible-nav-dropdown"
-                className="p-2"
-              >
-                <NavDropdown.Item href="/Course">코스</NavDropdown.Item>
-                <NavDropdown.Item href="/Dish">메뉴</NavDropdown.Item>
-              </NavDropdown>
-
-              <NavDropdown
-                title="예약"
-                id="collasible-nav-dropdown"
-                className="p-2"
-              >
-                <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
-                {isOnLogin && (
-                  <NavDropdown.Item href="/UserInfo/ordered/blank">
-                    주문 현황
-                  </NavDropdown.Item>
-                )}
-                {!isOnLogin && (
-                  <NavDropdown.Item href="/login">주문 현황</NavDropdown.Item>
-                )}
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="/SelectRoom">
-                  테이블 예약
-                </NavDropdown.Item>
-                {isOnLogin && (
-                  <NavDropdown.Item href="/UserInfo/reservation/now">
-                    예약 현황
-                  </NavDropdown.Item>
-                )}
-                {!isOnLogin && (
-                  <NavDropdown.Item href="/login">예약 현황</NavDropdown.Item>
-                )}
-              </NavDropdown>
-
               <MediaQuery minWidth={993}>
+                <NavDropdown
+                  title="소개"
+                  id="collasible-nav-dropdown"
+                  className="p-2"
+                >
+                  <NavDropdown.Item href="/Info">가게 소개</NavDropdown.Item>
+                  <NavDropdown.Item href="/Map">오시는 길</NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown
+                  title="메뉴"
+                  id="collasible-nav-dropdown"
+                  className="p-2"
+                >
+                  <NavDropdown.Item href="/Course">코스</NavDropdown.Item>
+                  <NavDropdown.Item href="/Dish">메뉴</NavDropdown.Item>
+                </NavDropdown>
+
+                <NavDropdown
+                  title="예약"
+                  id="collasible-nav-dropdown"
+                  className="p-2"
+                >
+                  <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
+                  {isOnLogin && (
+                    <NavDropdown.Item href="/UserInfo/ordered/blank">
+                      주문 현황
+                    </NavDropdown.Item>
+                  )}
+                  {!isOnLogin && (
+                    <NavDropdown.Item href="/login">주문 현황</NavDropdown.Item>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="/SelectRoom">
+                    테이블 예약
+                  </NavDropdown.Item>
+                  {isOnLogin && (
+                    <NavDropdown.Item href="/UserInfo/reservation/now">
+                      예약 현황
+                    </NavDropdown.Item>
+                  )}
+                  {!isOnLogin && (
+                    <NavDropdown.Item href="/login">예약 현황</NavDropdown.Item>
+                  )}
+                </NavDropdown>
+
                 <Nav.Link href="/Event" className="p-3">
                   이벤트
                 </Nav.Link>
-              </MediaQuery>
-              <MediaQuery maxWidth={992}>
-                <Nav.Link href="/Event" className="p-2">
-                  이벤트
-                </Nav.Link>
-              </MediaQuery>
-              <MediaQuery minWidth={993}>
                 <Nav.Link href="/Review" className="p-3">
                   후기
                 </Nav.Link>
               </MediaQuery>
-              <MediaQuery maxWidth={992}>
-                <Nav.Link href="/Review" className="p-2">
+              <MediaQuery maxWidth={993}>
+                <NavDropdown
+                  title="소개"
+                  id="collasible-nav-dropdown"
+                  className="py-2"
+                >
+                  <NavDropdown.Item href="/Info">가게 소개</NavDropdown.Item>
+                  <NavDropdown.Item href="/Map">오시는 길</NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown
+                  title="메뉴"
+                  id="collasible-nav-dropdown"
+                  className="py-2"
+                >
+                  <NavDropdown.Item href="/Course">코스</NavDropdown.Item>
+                  <NavDropdown.Item href="/Dish">메뉴</NavDropdown.Item>
+                </NavDropdown>
+
+                <NavDropdown
+                  title="예약"
+                  id="collasible-nav-dropdown"
+                  className="py-2"
+                >
+                  <NavDropdown.Item href="/Order">테이크 아웃</NavDropdown.Item>
+                  {isOnLogin && (
+                    <NavDropdown.Item href="/UserInfo/ordered/blank">
+                      주문 현황
+                    </NavDropdown.Item>
+                  )}
+                  {!isOnLogin && (
+                    <NavDropdown.Item href="/login">주문 현황</NavDropdown.Item>
+                  )}
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="/SelectRoom">
+                    테이블 예약
+                  </NavDropdown.Item>
+                  {isOnLogin && (
+                    <NavDropdown.Item href="/UserInfo/reservation/now">
+                      예약 현황
+                    </NavDropdown.Item>
+                  )}
+                  {!isOnLogin && (
+                    <NavDropdown.Item href="/login">예약 현황</NavDropdown.Item>
+                  )}
+                </NavDropdown>
+
+                <Nav.Link href="/Event" className="py-2">
+                  이벤트
+                </Nav.Link>
+                <Nav.Link href="/Review" className="pb-2 pt-3">
                   후기
                 </Nav.Link>
               </MediaQuery>
               <NavDropdown
                 title="문의"
                 id="collasible-nav-dropdown"
-                className="p-2"
+                className="py-2"
               >
                 <NavDropdown.Item href="/QnABoard">Q&A</NavDropdown.Item>
                 <NavDropdown.Item href="/FAQBoard">FAQ</NavDropdown.Item>
@@ -211,36 +252,39 @@ const Header = () => {
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <Nav.Link href="/UserInfo/editprofile/blank" className="p-2">
+                  <Nav.Link
+                    href="/UserInfo/editprofile/blank"
+                    className="px-4 py-3"
+                  >
                     프로필 관리
                   </Nav.Link>
                 )}
                 {!isOnLogin && (
-                  <Nav.Link href="/login" className="p-2">
+                  <Nav.Link href="/login" className="px-4 py-2">
                     프로필 관리
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <Nav.Link eventKey={2} href="/Cart" className="p-2 pt-3 pb-3">
+                  <Nav.Link eventKey={2} href="/Cart" className="px-4 py-2">
                     장바구니
                   </Nav.Link>
                 )}
                 {!isOnLogin && (
-                  <Nav.Link
-                    eventKey={2}
-                    href="/Login"
-                    className="p-2 pt-3 pb-3"
-                  >
+                  <Nav.Link eventKey={2} href="/Login" className="px-4 py-3">
                     장바구니
                   </Nav.Link>
                 )}
                 {!isOnLogin && (
-                  <Nav.Link href="/login" className="p-2">
+                  <Nav.Link href="/login" className="px-4 py-2">
                     로그인
                   </Nav.Link>
                 )}
                 {isOnLogin && (
-                  <Nav.Link href="/login" onClick={logout} className="p-2">
+                  <Nav.Link
+                    href="/login"
+                    onClick={logout}
+                    className="px-4 py-2"
+                  >
                     로그아웃
                   </Nav.Link>
                 )}
