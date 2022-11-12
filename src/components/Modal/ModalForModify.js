@@ -135,6 +135,21 @@ const ModalWindow = ({ show, handleClose, data, setData }) => {
           RemainingSeatsByDate([{ roomRemaining: 15 }], data.reservationDate);
         });
     });
+    if (data.reservationHeadCount === "2~4인")
+      setData({
+        ...data,
+        reservationHeadCount: 1,
+      });
+    else if (data.reservationHeadCount === "5~8인")
+      setData({
+        ...data,
+        reservationHeadCount: 2,
+      });
+    else
+      setData({
+        ...data,
+        reservationHeadCount: 3,
+      });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   useEffect(() => {
