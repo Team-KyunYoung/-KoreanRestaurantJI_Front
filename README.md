@@ -22,13 +22,13 @@
 - User Interactive & User Familiar
 - Responsive Web Design
 - Provide Realistic Service 
-    - Merbership Service: Sign Up, Cancellation, Edit Profile
-    - Admin : Manage all services
-    - Chat Bot : 
-    - Reservation Service : Make, Cancel or Change a reservation
-    - To-go Service : Place or Cancel an order
-    - Review : 
-    - Qna & Faq : Can view left by others or ask questions (Anonymity is possible) 
+    - [Merbership Service](#merbership): Sign Up, Cancellation, Edit Profile
+    - [Admin](#admin-page) : Manage all services
+    - [Chat Bot](#chat-bot) : 
+    - [Reservation Service](#홀-예약) : Make, Cancel or Change a reservation
+    - [To-go Service](#비대면-주문) : Place or Cancel an order
+    - [Review](#review-page) : 
+    - [Qna & Faq](#qna) : Can view left by others or ask questions (Anonymity is possible) 
     - etc
 - Try to apply various third party library 
   - react-bootstrap
@@ -54,15 +54,43 @@
 <br>
 
 ## :desktop_computer: UI/UX
-### Header
-![image](https://user-images.githubusercontent.com/87280835/197722796-4f223cfb-bf6a-40b3-ae84-fb4defe53360.png)
-### Footer
-![image](https://user-images.githubusercontent.com/87280835/197723011-13412fdc-928f-4b14-94b0-a3085b14a168.png)  
-### Main Page-desktop
-![home](https://user-images.githubusercontent.com/87280835/197722005-a7881193-215d-4cf1-b2cf-1ed1e711a0f5.png)
-### Main Page-tablet & mobile 
-![제목 없음](https://user-images.githubusercontent.com/87280835/198238798-f3994d85-4e55-4c76-9dc1-efdece405a52.png)
+### Main Page
+![메인](https://user-images.githubusercontent.com/87280835/201481178-ac4cab3b-da9e-4285-a866-58c1651650c2.gif)
+
+### Merbership 
+#### 회원가입과 로그인
+..
+#### 닉네임 수정
+![닉네임수정](https://user-images.githubusercontent.com/87280835/201481976-02af919b-bfd9-4f88-bbf3-fec9fb6d6434.gif)
+#### 비밀번호 변경
+..
 
 ### Admin Page
+![관리자](https://user-images.githubusercontent.com/87280835/201481067-e38ccfb4-66e4-4448-8780-99999bcd4022.gif)
 ### Chat Bot
 ![image](https://user-images.githubusercontent.com/87280835/197725346-f46416a1-1633-431b-9ebc-6e930767b9ce.png)
+
+
+
+### 홀 예약
+#### 예약하기
+![예약](https://user-images.githubusercontent.com/87280835/201480522-7d17820b-4648-43fd-9f30-17de4017f242.gif)
+#### 예약 변경
+![예약 변경](https://user-images.githubusercontent.com/87280835/201481973-9eae47f1-b8b6-412f-9a3d-81d7ad528b39.gif)
+
+### 비대면 주문
+![포장주문 (2)](https://user-images.githubusercontent.com/87280835/201480636-75881f2c-0e70-4698-9bd0-dedc653f2be9.gif)
+
+
+### Qna & Faq
+#### QnA
+..
+#### Faq
+..
+
+### Review Page
+![image](https://user-images.githubusercontent.com/87280835/201481495-482ec305-8fe2-44fc-aca3-d07cc90f2ec5.png)
+
+### Responsive : tablet & mobile 
+![제목 없음](https://user-images.githubusercontent.com/87280835/198238798-f3994d85-4e55-4c76-9dc1-efdece405a52.png)
+
