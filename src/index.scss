@@ -26,8 +26,9 @@ $desktop: 1024px;
 }
 
 @font-face {
-  font-family: 'NotoSerifKR';
-  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff') format('woff');
+  font-family: "NotoSerifKR";
+  src: url("https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NotoSerifKR.woff")
+    format("woff");
   font-weight: normal;
   font-style: normal;
 }
@@ -41,6 +42,9 @@ body {
   font-family: "NotoSerifKR", sans-serif !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  main {
+    min-height: 80vh;
+  }
 }
 
 code {
