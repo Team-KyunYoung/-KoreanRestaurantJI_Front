@@ -59,16 +59,16 @@
 
 ### Merbership 
 #### 회원가입과 로그인
-..
+![회원가입,로그인](https://user-images.githubusercontent.com/87280835/201484584-1c51a52e-fc23-4ed3-999a-872871def0ce.gif)
 #### 닉네임 수정
 ![닉네임수정](https://user-images.githubusercontent.com/87280835/201481976-02af919b-bfd9-4f88-bbf3-fec9fb6d6434.gif)
 #### 비밀번호 변경
-..
+![비밀번호 번경](https://user-images.githubusercontent.com/87280835/201484586-3cc453af-79d3-4164-8953-d2d05922f205.gif)
 
 ### Admin Page
 ![관리자](https://user-images.githubusercontent.com/87280835/201481067-e38ccfb4-66e4-4448-8780-99999bcd4022.gif)
 ### Chat Bot
-![image](https://user-images.githubusercontent.com/87280835/197725346-f46416a1-1633-431b-9ebc-6e930767b9ce.png)
+![챗](https://user-images.githubusercontent.com/87280835/201483857-ebe3ac0d-51c7-405b-a901-e0e3f05d59a4.gif)
 
 
 
@@ -84,9 +84,9 @@
 
 ### Qna & Faq
 #### QnA
-..
+![image](https://user-images.githubusercontent.com/87280835/201484710-ec12a0ad-a54b-4255-bc6a-96c2bbd26b6a.png)
 #### Faq
-..
+![image](https://user-images.githubusercontent.com/87280835/201484725-773b7c74-1883-4206-9521-e30d7e1d34ee.png)
 
 ### Review Page
 ![image](https://user-images.githubusercontent.com/87280835/201481495-482ec305-8fe2-44fc-aca3-d07cc90f2ec5.png)
