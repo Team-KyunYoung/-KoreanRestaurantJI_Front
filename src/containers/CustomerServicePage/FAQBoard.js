@@ -24,8 +24,8 @@ const InnerFAQ = (props) => {
   const questionList = [];
   props.list.map((obj, i) =>
     questionList.push(
-      <div className={styles.faqBox}>
-        <Accordion.Item eventKey={obj.questionNumber} key={i}>
+      <div className={styles.faqBox} key={i}>
+        <Accordion.Item eventKey={obj.questionNumber}>
           <Accordion.Header className={styles.accordionHeader}>
             {obj.questionTitle}
             {props.isAdmin ? (
@@ -52,7 +52,9 @@ const InnerFAQ = (props) => {
               ""
             )}
           </Accordion.Header>
-          <Accordion.Body className={styles.accordionBody}>{obj.questionContents} </Accordion.Body>
+          <Accordion.Body className={styles.accordionBody}>
+            {obj.questionContents}{" "}
+          </Accordion.Body>
         </Accordion.Item>
       </div>
     )

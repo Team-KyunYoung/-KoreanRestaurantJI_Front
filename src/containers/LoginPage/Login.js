@@ -64,6 +64,7 @@ const Login = () => {
     <div className={styles.loginPage}>
       <Header />
       <main>
+        <div className={styles.loginContentWrapper}></div>
         <div className={styles.content}>
           <header className={styles.title}>
             <h1 id="title">로그인</h1>

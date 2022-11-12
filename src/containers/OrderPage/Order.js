@@ -37,7 +37,7 @@ const Order = () => {
       </Popover>
     );
     return (
-      <div className={styles.dish}>
+      <div className={styles.dish} key={count}>
         <div className={styles.dishImg}>
           <img
             href="#"
