@@ -89,7 +89,6 @@ class ReservationService {
       reservationTableCount: tableCount,
       reservationTime: time,
     };
-    alert(name);
     Authentication.setupAxiosInterceptors();
     return axios.put(
       RESERVATION_API_BASE_URL + "/update/" + reservationNumber,
