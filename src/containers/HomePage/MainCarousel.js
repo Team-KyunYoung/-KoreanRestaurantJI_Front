@@ -7,7 +7,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://lh3.google.com/u/0/d/1oibm3aYCJ4IVDs8g4vW796qP4nDFLArB=w1032-h906-iv1"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORgTtwNvvLiR_CcYzu-tzjGjcySX_RctcBapWUxzSulv2hTvcEr0-sX0mPZZeiC1NBD4HI-3RU_ztUaj-f7buQDyPOr3g=w705-h867"
           alt="First slide"
         />
         <Carousel.Caption className={styles.carouselCaption}>
@@ -17,7 +17,7 @@ function MainCarousel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          src="https://lh3.google.com/u/0/d/1LT4GIXYVpFdXw0foxc5n2M8xozOFwuK4=w1032-h906-iv1"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORJiquGNC1LVNtWGl7SbqB99QC57o13AuX5oWdEAfGGH0Vf5_6hW_bT7iWn07rT2S_Xy0XUuICseMsWbVyTYtxYQDiDzg=w705-h867"
           className="d-block w-100"
           alt="Second slide"
         />
@@ -30,7 +30,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://lh3.google.com/u/0/d/1zLhLVMt1coTaskjJbTJ7Et13sBALACDd=w1032-h889-iv2"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORw9ORe2f_vokmCWII9awans_OlQzJLQMAzYX5SZhzn9WMrI9hQ-4Us56jYu3I4vA7NMLZyQ-eNCr7JQ3Y9SCALfLVPZQ=w705-h8672"
           alt="Third slide"
         />
 
