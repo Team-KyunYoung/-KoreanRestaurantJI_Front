@@ -7,7 +7,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORgTtwNvvLiR_CcYzu-tzjGjcySX_RctcBapWUxzSulv2hTvcEr0-sX0mPZZeiC1NBD4HI-3RU_ztUaj-f7buQDyPOr3g=w705-h867"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81q9P-qiPFfpxuit9UJN7651KVEqK_SZNw29_BOj_1fBf4DXAjuzB-vYNZzc0uf55yNErLHsir3S_Dn4C_pF0M-RL-MCJg=w848-h919"
           alt="First slide"
         />
         <Carousel.Caption className={styles.carouselCaption}>
@@ -17,7 +17,7 @@ function MainCarousel() {
       </Carousel.Item>
       <Carousel.Item>
         <img
-          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORJiquGNC1LVNtWGl7SbqB99QC57o13AuX5oWdEAfGGH0Vf5_6hW_bT7iWn07rT2S_Xy0XUuICseMsWbVyTYtxYQDiDzg=w705-h867"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81p9omK5a4fANCYeZ3mC3G-T69X0it7-i9Qy2jcJ6wJziBZFyJW_rKT5aTRxC0SvBMIHfskhNsK-MKpIuigQtighx6A7JQ=w848-h919"
           className="d-block w-100"
           alt="Second slide"
         />
@@ -30,7 +30,7 @@ function MainCarousel() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AAOQEORw9ORe2f_vokmCWII9awans_OlQzJLQMAzYX5SZhzn9WMrI9hQ-4Us56jYu3I4vA7NMLZyQ-eNCr7JQ3Y9SCALfLVPZQ=w705-h8672"
+          src="https://lh3.googleusercontent.com/u/0/drive-viewer/AFGJ81okVjd7W2bNJWA2QrDTkOFGTbS1AbJPoufvql-ysv4EPWyXYwLjDxtH2BQ_nw3Sd6DlibROgsK8F6MdDylqycU86qtoFA=w848-h919"
           alt="Third slide"
         />
 
